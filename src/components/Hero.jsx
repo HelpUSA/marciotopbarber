@@ -1,9 +1,11 @@
 // FILE: src/components/Hero.jsx
-import React from 'react';
+// Nome do arquivo: src/components/Hero.jsx
+import React from "react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function Hero() {
   return (
-    <section id="home" className="relative h-[70vh] text-white pt-24 overflow-hidden">
+    <section id="home" className="relative h-[55vh] text-white pt-24 overflow-hidden">
       {/* Vídeo de fundo */}
       <video
         autoPlay
@@ -12,43 +14,32 @@ export default function Hero() {
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
       >
-        <source src="/videos/barber-bg.mp4" type="video/mp4" />
+        <source src="/videos/background.mp4" type="video/mp4" />
         Seu navegador não suporta vídeo em HTML5.
       </video>
 
-      {/* Sobreposição escura */}
-      <div className="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
-
-      {/* Conteúdo com imagem e texto */}
-      <div className="relative z-20 flex flex-col md:flex-row items-center justify-center h-full px-6">
-        {/* Imagem do Márcio em ação */}
+      {/* Sobreposição escura + conteúdo */}
+      <div className="absolute inset-0 bg-black bg-opacity-60 z-10 flex flex-col items-center justify-center px-6">
+        {/* Imagem à frente do vídeo */}
         <img
           src="/images/hero-marcio-barber.png"
-          alt="Márcio realizando corte de cabelo"
-          className="max-h-[400px] md:max-h-[500px] w-auto object-contain drop-shadow-2xl rounded-full border-4 border-accent bg-black/30 p-2"
+          alt="Márcio Barber"
+          className="max-h-[200px] mb-6"
         />
 
-        {/* Texto ao lado */}
-        <div className="md:ml-10 text-center md:text-left mt-6 md:mt-0">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">Marcio TopBarber</h1>
-          <p className="text-lg md:text-xl max-w-lg text-neutral-200">
-            Corte, barba, pigmentação e design com excelência. Agende seu horário e viva a experiência premium.
-          </p>
-          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <a
-              href="https://wa.me/5583XXXXXXXXX?text=Quero%20agendar%20um%20hor%C3%A1rio"
-              className="px-6 py-3 rounded-2xl bg-accent text-black font-semibold hover:opacity-90 transition"
-            >
-              Agendar no WhatsApp
-            </a>
-            <a
-              href="#servicos"
-              className="px-6 py-3 rounded-2xl border border-white/20 hover:border-accent transition"
-            >
-              Ver serviços
-            </a>
-          </div>
-        </div>
+        {/* Frase e WhatsApp */}
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          Seu estilo começa aqui!
+        </h1>
+        <a
+          href="https://wa.me/558387392265"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-full font-semibold text-black"
+        >
+          <FaWhatsapp className="text-2xl" />
+          +55 83 8739-2265
+        </a>
       </div>
     </section>
   );
