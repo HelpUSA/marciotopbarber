@@ -1,45 +1,88 @@
-// FILE: src/components/Hero.jsx
-// Nome do arquivo: src/components/Hero.jsx
-import React from "react";
-import { FaWhatsapp } from "react-icons/fa";
+// src/components/Hero.jsx
+import { useEffect, useRef } from "react";
 
 export default function Hero() {
+  const vidRef = useRef(null);
+
+  useEffect(() => {
+    const v = vidRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.playsInline = true;
+    const tryPlay = async () => { try { await v.play(); } catch {} };
+    tryPlay();
+    const onUserInteract = () => tryPlay();
+    window.addEventListener("click", onUserInteract, { once: true });
+    window.addEventListener("scroll", onUserInteract, { once: true });
+    return () => {
+      window.removeEventListener("click", onUserInteract);
+      window.removeEventListener("scroll", onUserInteract);
+    };
+  }, []);
+
+  // scroll suave até a #galeria compensando o header fixo
+  const handleScrollToGallery = (e) => {
+    e.preventDefault();
+    const target = document.querySelector("#galeria");
+    if (!target) return;
+    const header = document.querySelector("header");
+    const offset = (header?.offsetHeight || 0) + 8; // 8px de respiro
+    const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: y, behavior: "smooth" });
+    // atualiza a âncora na URL
+    window.history.replaceState(null, "", "#galeria");
+  };
+
   return (
-    <section id="home" className="relative h-[55vh] text-white pt-24 overflow-hidden">
-      {/* Vídeo de fundo */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-      >
-        <source src="/videos/background.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeo em HTML5.
-      </video>
-
-      {/* Sobreposição escura + conteúdo */}
-      <div className="absolute inset-0 bg-black bg-opacity-60 z-10 flex flex-col items-center justify-center px-6">
-        {/* Imagem à frente do vídeo */}
-        <img
-          src="/images/hero-marcio-barber.png"
-          alt="Márcio Barber"
-          className="max-h-[200px] mb-6"
-        />
-
-        {/* Frase e WhatsApp */}
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
-          Seu estilo começa aqui!
-        </h1>
-        <a
-          href="https://wa.me/558387392265"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-full font-semibold text-black"
+    <section id="home" className="relative w-full overflow-hidden bg-black">
+      <div className="relative w-full h-[clamp(560px,78vh,880px)]">
+        <video
+          ref={vidRef}
+          className="absolute inset-0 w-full h-full object-cover object-[center_20%] z-0"
+          autoPlay muted loop playsInline preload="auto"
+          poster="/images/hero-marcio-barber.png"
         >
-          <FaWhatsapp className="text-2xl" />
-          +55 83 8739-2265
-        </a>
+          <source src="/videos/background.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+        </video>
+
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/55 to-black/20" />
+
+        <div className="absolute right-3 sm:right-6 bottom-28 lg:bottom-24 z-20 pointer-events-none">
+          <img
+            src="/images/hero-marcio-barber.png"
+            alt="Marcio TopBarber atendendo cliente"
+            className="object-contain drop-shadow-2xl w-[34vw] max-w-[400px] min-w-[200px] lg:w-[28vw]"
+          />
+        </div>
+
+        <div className="relative z-30 h-full max-w-6xl mx-auto px-6 flex flex-col justify-center">
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-white leading-tight max-w-3xl">
+            Seu estilo no nível <span className="text-yellow-400">Top</span>
+          </h1>
+          <p className="mt-4 text-white/90 text-lg max-w-2xl">
+            Cortes masculinos, barba e pigmentação com técnicas modernas e atendimento premium.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="https://wa.me/5583987392265"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold transition"
+            >
+              Agendar agora
+            </a>
+
+            {/* Ver galeria com rolagem suave */}
+            <a
+              href="#galeria"
+              onClick={handleScrollToGallery}
+              className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur transition"
+            >
+              Ver galeria
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

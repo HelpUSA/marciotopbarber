@@ -1,17 +1,11 @@
 // FILE: src/App.jsx
-// Nome do arquivo: src/App.jsx
 import React from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Sobre from "./components/Sobre";
-import Diferenciais from "./components/Diferenciais";
 import Cortes from "./components/Cortes";
-import Pricing from "./components/Pricing";
 import Gallery from "./components/Gallery";
 import Contato from "./components/Contato";
 import Footer from "./components/Footer";
@@ -22,9 +16,7 @@ function HomePage() {
     <>
       <Hero />
       <Sobre />
-      <Diferenciais />
       <Cortes />
-      <Pricing />
       <Gallery />
       <Contato />
     </>
@@ -71,7 +63,7 @@ export default function App() {
         <RouterProvider router={router} />
       </main>
       <Footer />
-      <WhatsappIcon />
+      <WhatsappIcon phone="5583987392265" text="Quero agendar um horário" />
     </div>
   );
 }

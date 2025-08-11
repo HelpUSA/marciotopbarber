@@ -32,10 +32,7 @@ export default function Contato() {
     <section id="contato" className="pt-24 pb-12 px-4 bg-neutral-950 text-white">
       <h2 className="text-3xl font-semibold text-center mb-8">Fale com a gente</h2>
 
-      <form
-        className="max-w-xl mx-auto grid gap-4"
-        onSubmit={handleSubmit}
-      >
+      <form className="max-w-xl mx-auto grid gap-4" onSubmit={handleSubmit}>
         <input
           type="text"
           name="nome"
@@ -71,22 +68,22 @@ export default function Contato() {
 
       <div className="text-center mt-6 space-y-1">
         <p>
-          Ou chame no WhatsApp: {" "}
+          Ou chame no WhatsApp:{" "}
           <a
-            href="https://wa.me/5583XXXXXXXXX"
+            href="https://wa.me/5583987392265"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-accent font-semibold"
           >
-            +55 (83) XXXX-XXXX
+            +55 (83) 98739-2265
           </a>
         </p>
         <p>
-          Instagram: {" "}
+          Instagram:{" "}
           <a
             href="https://www.instagram.com/marciotopbarber/"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-accent font-semibold"
           >
             @marciotopbarber

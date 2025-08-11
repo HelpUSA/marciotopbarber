@@ -8,9 +8,27 @@ export default function Footer() {
         {/* Coluna 1 - Horário e endereço */}
         <div>
           <h3 className="font-semibold mb-3 text-lg">Contato</h3>
-          <p className="text-sm">Endereço: <span className="text-neutral-300">(inserir endereço)</span></p>
-          <p className="text-sm mt-1">Atendimento: <span className="text-neutral-300">Seg a Sáb – 07h às 16h</span></p>
-          <p className="text-sm mt-2">📞 WhatsApp: <a href="https://wa.me/5583XXXXXXXXX" className="text-accent hover:underline">+55 (83) XXXX-XXXX</a></p>
+          <p className="text-sm">
+            Endereço:{" "}
+            <span className="text-neutral-300">
+              Avenida Presidente Washington Luís, 713 – Bessa, João Pessoa - PB
+            </span>
+          </p>
+          <p className="text-sm mt-1">
+            Atendimento:{" "}
+            <span className="text-neutral-300">Seg a Sáb – 07h às 16h</span>
+          </p>
+          <p className="text-sm mt-2">
+            📞 WhatsApp:{" "}
+            <a
+              href="https://wa.me/5583987392265"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              +55 (83) 98739-2265
+            </a>
+          </p>
           <p className="text-sm">📧 contato@helpusa.com.br</p>
         </div>
 
@@ -18,11 +36,31 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-3 text-lg">Links rápidos</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#home" className="hover:text-accent">Início</a></li>
-            <li><a href="#servicos" className="hover:text-accent">Serviços</a></li>
-            <li><a href="#precos" className="hover:text-accent">Preços</a></li>
-            <li><a href="#galeria" className="hover:text-accent">Galeria</a></li>
-            <li><a href="#contato" className="hover:text-accent">Contato</a></li>
+            <li>
+              <a href="#home" className="hover:text-accent">
+                Início
+              </a>
+            </li>
+            <li>
+              <a href="#servicos" className="hover:text-accent">
+                Serviços
+              </a>
+            </li>
+            <li>
+              <a href="#precos" className="hover:text-accent">
+                Preços
+              </a>
+            </li>
+            <li>
+              <a href="#galeria" className="hover:text-accent">
+                Galeria
+              </a>
+            </li>
+            <li>
+              <a href="#contato" className="hover:text-accent">
+                Contato
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -30,16 +68,38 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-3 text-lg">Siga-nos</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="https://www.instagram.com/marciotopbarber/" target="_blank" rel="noreferrer" className="hover:text-accent">Instagram</a></li>
+            <li>
+              <a
+                href="https://www.instagram.com/marciotopbarber/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent"
+              >
+                Instagram
+              </a>
+            </li>
           </ul>
         </div>
       </div>
 
       {/* Linha inferior */}
       <div className="text-center text-xs text-white/70 py-4 flex flex-col items-center">
-        <img src="/images/logo.png" alt="Marcio TopBarber logo" className="h-10 mb-1 rounded-full" />
+        <img
+          src="/images/logo.png"
+          alt="Marcio TopBarber logo"
+          className="h-10 mb-1 rounded-full"
+        />
         <span>
-          Desenvolvido por <a href="https://helpusa.com.br" className="underline hover:text-white">HelpUS</a> • Todos os direitos reservados
+          Desenvolvido por{" "}
+          <a
+            href="https://helpusa.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-white"
+          >
+            HelpUS
+          </a>{" "}
+          • Todos os direitos reservados
         </span>
       </div>
     </footer>

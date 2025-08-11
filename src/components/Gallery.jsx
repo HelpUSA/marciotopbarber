@@ -14,19 +14,23 @@ const imagens = [
 
 export default function Galeria() {
   return (
-    <section className="py-12 bg-black text-white">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-center">Galeria</h2>
+    <section id="galeria" className="py-16 bg-black text-white scroll-mt-24">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-center">
+          Galeria
+        </h2>
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {imagens.map((src, index) => (
             <div
               key={index}
-              className="overflow-hidden rounded-lg shadow-lg border border-gray-700"
+              className="group overflow-hidden rounded-lg shadow-lg border border-gray-700"
             >
               <img
                 src={src}
                 alt={`Foto ${index + 1}`}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-out"
+                loading="lazy"
               />
             </div>
           ))}
