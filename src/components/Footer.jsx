@@ -11,12 +11,12 @@ export default function Footer() {
           <p className="text-sm">
             Endereço:{" "}
             <span className="text-neutral-300">
-              Avenida Presidente Washington Luís, 713 – Bessa, João Pessoa - PB
+              Rua Universitário Walber Belo Rabelo, 112 – Manaíra, João Pessoa - PB
             </span>
           </p>
           <p className="text-sm mt-1">
             Atendimento:{" "}
-            <span className="text-neutral-300">Seg a Sáb – 07h às 16h</span>
+            <span className="text-neutral-300">Terça a Sáb – 09h às 18h</span>
           </p>
           <p className="text-sm mt-2">
             📞 WhatsApp:{" "}
@@ -36,31 +36,11 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-3 text-lg">Links rápidos</h3>
           <ul className="space-y-2 text-sm">
-            <li>
-              <a href="#home" className="hover:text-accent">
-                Início
-              </a>
-            </li>
-            <li>
-              <a href="#servicos" className="hover:text-accent">
-                Serviços
-              </a>
-            </li>
-            <li>
-              <a href="#precos" className="hover:text-accent">
-                Preços
-              </a>
-            </li>
-            <li>
-              <a href="#galeria" className="hover:text-accent">
-                Galeria
-              </a>
-            </li>
-            <li>
-              <a href="#contato" className="hover:text-accent">
-                Contato
-              </a>
-            </li>
+            <li><a href="#home" className="hover:text-accent">Início</a></li>
+            <li><a href="#servicos" className="hover:text-accent">Serviços</a></li>
+            <li><a href="#precos" className="hover:text-accent">Preços</a></li>
+            <li><a href="#galeria" className="hover:text-accent">Galeria</a></li>
+            <li><a href="#contato" className="hover:text-accent">Contato</a></li>
           </ul>
         </div>
 
