@@ -35,3 +35,10 @@ PostgreSQL será a fonte transacional para agenda, clientes, histórico e audito
 **Status:** aceito.
 
 Aproveitar requisitos, regras e dados saneados. Não aproveitar MD5, SQL concatenado, autenticação antiga ou rotas inseguras.
+
+
+## ADR-0005 — Estrutura Modular FastAPI
+
+**Status:** aceito.
+
+Documento completo: [[ADR-0005-Estrutura-Modular-FastAPI]]

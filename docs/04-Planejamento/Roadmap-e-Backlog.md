@@ -30,11 +30,13 @@ aliases: []
 
 ## Fase 2 — Backend
 
-- [ ] estruturar FastAPI;
-- [ ] criar `/health`;
-- [ ] declarar dependências;
-- [ ] adicionar logs, rate limit e testes;
-- [ ] configurar Railway;
+- [x] estruturar FastAPI;
+- [x] criar `/health`;
+- [x] declarar dependências;
+- [x] adicionar logs;
+- [ ] adicionar rate limit;
+- [x] adicionar testes;
+- [x] configurar Railway;
 - [ ] provisionar PostgreSQL;
 - [ ] criar migrações.
 
