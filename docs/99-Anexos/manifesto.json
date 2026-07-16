@@ -1,0 +1,82 @@
+[
+    {
+        "path":  ".gitignore",
+        "bytes":  118,
+        "sha256":  "70A6E91F8431FAA73391E94F2A5141B7BCD69D431B99DF5B3BC8904E1E979F85"
+    },
+    {
+        "path":  "README.md",
+        "bytes":  682,
+        "sha256":  "010E4549CC4DF2CD1BF3AD7F6D6199DF25EC5C211C5F926BA55B45E5CED5213A"
+    },
+    {
+        "path":  ".obsidian/app.json",
+        "bytes":  207,
+        "sha256":  "36D08CAC1627A1C6A1A10895340F7D6FF94868DE0275B9A8B84AAA32607E4227"
+    },
+    {
+        "path":  ".obsidian/templates.json",
+        "bytes":  34,
+        "sha256":  "7B3BFAA38DAA2DAA9C1AB185BEED7903F36A7C9478EDA2AA9016DDD00CCC2894"
+    },
+    {
+        "path":  "00-Inicio/00-Inicio.md",
+        "bytes":  812,
+        "sha256":  "B93156CCFC5B33D342C6269F1941D3989F05E452CDF978335A2E0A0DF6705D79"
+    },
+    {
+        "path":  "01-Produto/Visao-e-Escopo.md",
+        "bytes":  993,
+        "sha256":  "987DE668FF9C434885A07C94BDD112448E0A43162D8BD501C2E0CD132CB20C86"
+    },
+    {
+        "path":  "02-Arquitetura/Arquitetura-e-Dados.md",
+        "bytes":  1565,
+        "sha256":  "4EA3E1279C12E323CC64EA4B19BAFD2AD1CACAE7EBF1B4CC46D4141FCBAF0AF7"
+    },
+    {
+        "path":  "03-Diagnostico/Diagnostico-Riscos-e-Divida.md",
+        "bytes":  1607,
+        "sha256":  "20CA39241E6FC252A762CAE194B237A3D7B619AE38BC410A69D226DF700881AF"
+    },
+    {
+        "path":  "04-Planejamento/Roadmap-e-Backlog.md",
+        "bytes":  1337,
+        "sha256":  "D7A0C441D8E44F344547C90A4FC6C644C1E813415E5BC825E25CE8CAC4F55299"
+    },
+    {
+        "path":  "05-Decisoes/ADRs.md",
+        "bytes":  799,
+        "sha256":  "3FA5DF1B5A56BF246A911D2382D7C49DA7CD1C1F27D42792AA858C75C53B9F08"
+    },
+    {
+        "path":  "06-Operacao/Operacao-e-Deploy.md",
+        "bytes":  983,
+        "sha256":  "DEF0CF6CCB02D563AE0A0B0B836DBD8675C6E6A618BD63D81BAEF4D21FCD694E"
+    },
+    {
+        "path":  "07-Seguranca/Modelo-de-Seguranca.md",
+        "bytes":  865,
+        "sha256":  "AC5A8C9EF4B114693745E86DD62E087A47B625E9C389F6DCF495E06F90A40A45"
+    },
+    {
+        "path":  "08-Integracoes/Integracoes-e-Legado.md",
+        "bytes":  1182,
+        "sha256":  "320845C2276697B7228D24C1B0E3A73D25BFEE4D50D53D3C34360CCD40AD5499"
+    },
+    {
+        "path":  "09-Templates/Template-ADR.md",
+        "bytes":  355,
+        "sha256":  "B894DC89EF536B3BB30EA5A836D1B3474739CB37EB0E0FED6A043BCAB25D479D"
+    },
+    {
+        "path":  "99-Anexos/Inventario-Automatico.md",
+        "bytes":  883,
+        "sha256":  "E43E00A9243A4CC1428F2250E3D30EDE83BA641ECE80E92537C31D6D34BAA3B1"
+    },
+    {
+        "path":  "99-Anexos/attachments/.gitkeep",
+        "bytes":  2,
+        "sha256":  "7EB70257593DA06F682A3DDDA54A9D260D4FC514F645237F5CA74B08F8DA61A6"
+    }
+]

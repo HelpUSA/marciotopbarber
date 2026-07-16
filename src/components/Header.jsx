@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 
 const links = [
   { href: "#home", label: "Início" },
-  { href: "#servicos", label: "Serviços" },
+  { href: "#sobre", label: "Sobre" },
   { href: "#cortes", label: "Cortes" },
   // { href: "#precos", label: "Preços" }, // removido (seção não existe mais)
   { href: "#galeria", label: "Galeria" },

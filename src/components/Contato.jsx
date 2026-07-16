@@ -1,5 +1,6 @@
 // FILE: src/components/Contato.jsx
 import React, { useState } from "react";
+import { apiUrl } from "../services/api";
 
 export default function Contato() {
   const [mensagemStatus, setMensagemStatus] = useState("");
@@ -10,7 +11,7 @@ export default function Contato() {
     const formData = new FormData(e.target);
 
     try {
-      const response = await fetch("http://localhost:8000/send-email", {
+      const response = await fetch(apiUrl("/send-email"), {
         method: "POST",
         body: formData,
       });

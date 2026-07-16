@@ -16,11 +16,17 @@ venv/
 node_modules/
 dist/
 .vite/
-package-lock.json
 npm-debug.log*
-yarn.lock
 .pnpm-debug.log
 .DS_Store
 
 # Output do build extra (caso use)
 build/
+.env.*
+!.env.example
+backend/venv/
+backend/.venv/
+backend/__pycache__/
+backend/.env
+backend/.env.*
+!backend/.env.example
