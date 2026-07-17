@@ -20,6 +20,9 @@ class Settings(BaseSettings):
         "http://127.0.0.1:5173"
     )
 
+    database_url: str = "sqlite:///./marciotopbarber.db"
+    sql_echo: bool = False
+
     email_host: str | None = None
     email_port: int = 587
     email_username: str | None = None
@@ -36,6 +39,24 @@ class Settings(BaseSettings):
             for value in self.allowed_origins.split(",")
             if value.strip()
         ]
+
+    @property
+    def sqlalchemy_database_url(self) -> str:
+        value = self.database_url.strip()
+
+        if value.startswith("postgres://"):
+            value = (
+                "postgresql://"
+                + value.removeprefix("postgres://")
+            )
+
+        if value.startswith("postgresql://"):
+            value = (
+                "postgresql+psycopg://"
+                + value.removeprefix("postgresql://")
+            )
+
+        return value
 
     @property
     def email_from_address(self) -> str | None:

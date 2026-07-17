@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-16T17:52:11-03:00",
+    "generated_at":  "2026-07-16T21:32:45-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,8 +19,8 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  875,
-                      "sha256":  "3E05C9DB9A698683DE0EEEC42FC9C496C1DF7AF342D802A54DA676D4822DC3A1"
+                      "bytes":  932,
+                      "sha256":  "158D989D75A27423E231532C7F44E5E7EF02A96CDEECFCE33CD4403159BFD558"
                   },
                   {
                       "path":  "01-Produto/Visao-e-Escopo.md",
@@ -38,14 +38,19 @@
                       "sha256":  "F7F4DAF12169E2CC6189EE4F8D65357F1073935563E5E83B98139DF3FFD4D9D0"
                   },
                   {
+                      "path":  "02-Arquitetura/Camada-de-Dados.md",
+                      "bytes":  707,
+                      "sha256":  "CB6695AEB1064625029075AB7670DC74B0933BCC838AD7D00895F0460FD32B21"
+                  },
+                  {
                       "path":  "03-Diagnostico/Diagnostico-Riscos-e-Divida.md",
                       "bytes":  1607,
                       "sha256":  "20CA39241E6FC252A762CAE194B237A3D7B619AE38BC410A69D226DF700881AF"
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  1368,
-                      "sha256":  "5ED735243152D457E171796CA5B7A63FF8562E6689A6A97649328B782AEE1F08"
+                      "bytes":  1658,
+                      "sha256":  "C65C34E5DBC5CCC5B3846E8EECF77146EBE3F38DF3B5F7FA16602ABBA0AF1A2E"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
@@ -53,9 +58,14 @@
                       "sha256":  "204D63634C3060C51D4D1D285020A45872F12F2E4E8C93CF0FDF4AB9C7A97E88"
                   },
                   {
+                      "path":  "05-Decisoes/ADR-0006-SQLAlchemy-e-Alembic.md",
+                      "bytes":  586,
+                      "sha256":  "5ACFFA9F1E58EFFFFD9FF619E411EE2F80DD4A4BF8431BE81BF63EA7579ADAFD"
+                  },
+                  {
                       "path":  "05-Decisoes/ADRs.md",
-                      "bytes":  924,
-                      "sha256":  "AF3C3DDECCBB2F7888DB05B1FF7ABA93293341A5BBF72B864EEDDF460B9C4346"
+                      "bytes":  1038,
+                      "sha256":  "395D248B6799D42CE93F45943B92F5A1711633F042156A5A557FFCD014B2FA83"
                   },
                   {
                       "path":  "06-Operacao/Operacao-e-Deploy.md",

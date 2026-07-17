@@ -42,3 +42,9 @@ Aproveitar requisitos, regras e dados saneados. Não aproveitar MD5, SQL concate
 **Status:** aceito.
 
 Documento completo: [[ADR-0005-Estrutura-Modular-FastAPI]]
+
+## ADR-0006 — SQLAlchemy e Alembic
+
+**Status:** aceito.
+
+Documento completo: [[ADR-0006-SQLAlchemy-e-Alembic]]

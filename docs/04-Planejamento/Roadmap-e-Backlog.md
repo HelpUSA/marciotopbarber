@@ -61,3 +61,14 @@ aliases: []
 - [ ] pesquisa de satisfação;
 - [ ] atendimento com IA;
 - [ ] relatório diário.
+
+## Fase 3 — Camada de dados
+
+- [x] configurar SQLAlchemy;
+- [x] configurar Psycopg;
+- [x] criar modelos iniciais;
+- [x] configurar Alembic;
+- [x] criar migração inicial;
+- [x] testar upgrade e downgrade;
+- [ ] provisionar PostgreSQL na Railway;
+- [ ] executar migração em produção.

@@ -17,3 +17,19 @@ Backend FastAPI modular da plataforma Marcio TopBarber.
 - POST /api/v1/contact
 - POST /send-email
 - GET /docs
+
+## Migrações
+
+Aplicar todas as migrações:
+
+    .\venv\Scripts\python.exe -m alembic upgrade head
+
+Verificar divergências entre modelos e migrações:
+
+    .\venv\Scripts\python.exe -m alembic check
+
+Reverter todas as migrações:
+
+    .\venv\Scripts\python.exe -m alembic downgrade base
+
+A variável DATABASE_URL define o banco utilizado.
