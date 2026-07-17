@@ -84,3 +84,9 @@ Documento completo: [[ADR-0011-Sessoes-Opacas-e-RBAC]]
 **Status:** aceito.
 
 Documento completo: [[ADR-0012-Substituicao-da-Chave-Administrativa-por-RBAC]]
+
+## ADR-0013 — Sessão do Painel em Session Storage
+
+**Status:** aceito.
+
+Documento completo: [[ADR-0013-Sessao-do-Painel-em-Session-Storage]]

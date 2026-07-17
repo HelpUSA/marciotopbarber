@@ -68,3 +68,7 @@ aliases: []
 - [[Gestao-de-Identidade-e-Autorizacao-Administrativa]]
 
 - [[ADR-0012-Substituicao-da-Chave-Administrativa-por-RBAC]]
+
+- [[Painel-Administrativo-React]]
+
+- [[ADR-0013-Sessao-do-Painel-em-Session-Storage]]

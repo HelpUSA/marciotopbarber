@@ -152,7 +152,7 @@ aliases: []
 
 ## Fase 12 — Painel administrativo
 
-- [ ] layout protegido;
+- [x] layout protegido;
 - [ ] dashboards;
 - [ ] cadastros;
 - [ ] agenda;
@@ -200,6 +200,18 @@ aliases: []
 - [x] vínculo funcionário, usuário e barbeiro;
 - [x] proteção da agenda administrativa por permissões;
 - [x] remoção da X-Admin-Key;
-- [ ] tela administrativa de login;
-- [ ] layout protegido;
+- [x] tela administrativa de login;
+- [x] layout protegido;
 - [ ] gestão visual de usuários e funcionários.
+
+### Fase 7C — Fundação do painel concluída
+
+- [x] tela administrativa de login;
+- [x] restauração e revogação de sessão;
+- [x] rota protegida por `admin.access`;
+- [x] layout responsivo;
+- [x] dashboard de papéis e permissões;
+- [x] rewrites administrativos na Vercel;
+- [ ] gestão visual de usuários;
+- [ ] gestão visual de funcionários;
+- [ ] bootstrap do administrador de produção.

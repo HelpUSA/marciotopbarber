@@ -1,6 +1,8 @@
 import React from "react";
+
 import {
   createBrowserRouter,
+  Outlet,
   RouterProvider,
 } from "react-router-dom";
 
@@ -13,6 +15,35 @@ import Gallery from "./components/Gallery";
 import Contato from "./components/Contato";
 import Footer from "./components/Footer";
 import WhatsappIcon from "./components/WhatsappIcon";
+
+import {
+  AdminAuthProvider,
+} from "./admin/auth/AdminAuthContext";
+
+import ProtectedAdminRoute from "./admin/components/ProtectedAdminRoute";
+import AdminLayout from "./admin/components/AdminLayout";
+import AdminLogin from "./admin/pages/AdminLogin";
+import AdminDashboard from "./admin/pages/AdminDashboard";
+import AdminNotFound from "./admin/pages/AdminNotFound";
+
+function PublicLayout() {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Header />
+
+      <main className="flex-1">
+        <Outlet />
+      </main>
+
+      <Footer />
+
+      <WhatsappIcon
+        phone="5583987392265"
+        text="Quero agendar um horário"
+      />
+    </div>
+  );
+}
 
 function HomePage() {
   return (
@@ -29,19 +60,20 @@ function HomePage() {
 
 function NotFound() {
   return (
-    <div className="min-h-[50vh] flex items-center justify-center text-center p-10">
+    <div className="flex min-h-screen items-center justify-center bg-neutral-950 p-10 text-center text-white">
       <div>
         <h1 className="text-3xl font-bold">
           Página não encontrada
         </h1>
 
-        <p className="text-neutral-400 mt-2">
-          Verifique o endereço ou volte para a página inicial.
+        <p className="mt-2 text-neutral-400">
+          Verifique o endereço ou volte para
+          a página inicial.
         </p>
 
         <a
           href="/"
-          className="inline-block mt-6 px-5 py-3 rounded-2xl bg-accent text-black font-semibold"
+          className="mt-6 inline-block rounded-2xl bg-accent px-5 py-3 font-semibold text-black"
         >
           Voltar ao início
         </a>
@@ -53,8 +85,36 @@ function NotFound() {
 const router = createBrowserRouter(
   [
     {
-      path: "/",
-      element: <HomePage />,
+      element: <PublicLayout />,
+      children: [
+        {
+          path: "/",
+          element: <HomePage />,
+        },
+      ],
+    },
+    {
+      path: "/admin/login",
+      element: <AdminLogin />,
+    },
+    {
+      path: "/admin",
+      element: <ProtectedAdminRoute />,
+      children: [
+        {
+          element: <AdminLayout />,
+          children: [
+            {
+              index: true,
+              element: <AdminDashboard />,
+            },
+            {
+              path: "*",
+              element: <AdminNotFound />,
+            },
+          ],
+        },
+      ],
     },
     {
       path: "*",
@@ -71,19 +131,8 @@ const router = createBrowserRouter(
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-
-      <main className="flex-1">
-        <RouterProvider router={router} />
-      </main>
-
-      <Footer />
-
-      <WhatsappIcon
-        phone="5583987392265"
-        text="Quero agendar um horário"
-      />
-    </div>
+    <AdminAuthProvider>
+      <RouterProvider router={router} />
+    </AdminAuthProvider>
   );
 }

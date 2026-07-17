@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-17T10:45:43-03:00",
+    "generated_at":  "2026-07-17T17:22:58-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,8 +19,8 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  1477,
-                      "sha256":  "A9117FEF5E31FBDDE878DE679D0D96EEE1EDFA02D0D52050A0FCD63A5640F75C"
+                      "bytes":  1525,
+                      "sha256":  "B7F8D8BE9BCAABA03EF2DE9104B8DD8AE025F540F99D84EF7C3E80200C861F02"
                   },
                   {
                       "path":  "01-Produto/Escopo-Integral-do-Sistema.md",
@@ -78,14 +78,19 @@
                       "sha256":  "0A636454485234580DDC1AC6E567A766A4A052EF006FE12C4F9AEEA71B3EF874"
                   },
                   {
+                      "path":  "02-Arquitetura/Painel-Administrativo-React.md",
+                      "bytes":  1203,
+                      "sha256":  "E38F538FF8087A3EC9341BE3DAF62B747D798CF1A16E314BEFC999BB15A94E59"
+                  },
+                  {
                       "path":  "03-Diagnostico/Diagnostico-Riscos-e-Divida.md",
                       "bytes":  1607,
                       "sha256":  "20CA39241E6FC252A762CAE194B237A3D7B619AE38BC410A69D226DF700881AF"
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  4920,
-                      "sha256":  "4767D8C9C448D4F73D5AADAD9C36ACD92CBD6C04AFB62F1ABCA7F31A6259A1BB"
+                      "bytes":  5264,
+                      "sha256":  "03640F6C8260F31F84D6EA325A41871F9DC128A756A7A1173D8A242A2454B5D3"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
@@ -128,9 +133,14 @@
                       "sha256":  "522C8BF8B2B4CB92837764106F6CA4D9F97037C19C636C8FE5841DED8481890C"
                   },
                   {
+                      "path":  "05-Decisoes/ADR-0013-Sessao-do-Painel-em-Session-Storage.md",
+                      "bytes":  805,
+                      "sha256":  "6D69F7D44FD3EBC9204758405D01FF2C75F9291F1C4A17847D21DD095B99FCC5"
+                  },
+                  {
                       "path":  "05-Decisoes/ADRs.md",
-                      "bytes":  1875,
-                      "sha256":  "495DCDD55D5388F641575B939C4EDC99300AEE34DC3DE08E92C341965692AFCC"
+                      "bytes":  1983,
+                      "sha256":  "EB1F1BA0746FB5404451CE658A43DD840CE4EA6F36CDB3ACE510FBEEA963D797"
                   },
                   {
                       "path":  "06-Operacao/Operacao-e-Deploy.md",
