@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-17T10:28:47-03:00",
+    "generated_at":  "2026-07-17T10:45:43-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,8 +19,8 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  1358,
-                      "sha256":  "6967E204424AACC5F0405741466C6D0F695E71A8CCD44B201B540BBCCFE7B829"
+                      "bytes":  1477,
+                      "sha256":  "A9117FEF5E31FBDDE878DE679D0D96EEE1EDFA02D0D52050A0FCD63A5640F75C"
                   },
                   {
                       "path":  "01-Produto/Escopo-Integral-do-Sistema.md",
@@ -63,6 +63,11 @@
                       "sha256":  "7D0A8AFA0892DB0202F22D78025F6743E9FFFF499AC48541CE60FF05E04DD35F"
                   },
                   {
+                      "path":  "02-Arquitetura/Gestao-de-Identidade-e-Autorizacao-Administrativa.md",
+                      "bytes":  1447,
+                      "sha256":  "06AA47508B7F18DE2BED92250205B15AFB8FF3A55539F148DD49A99B49D08F0E"
+                  },
+                  {
                       "path":  "02-Arquitetura/Identidade-RBAC-e-Auditoria.md",
                       "bytes":  1418,
                       "sha256":  "5DFFBFBE47C02891EA12D19EE48AFBFF1F98D27ECF49D313ABFB15169499DEF3"
@@ -79,8 +84,8 @@
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  4436,
-                      "sha256":  "E24B9B892DC6526F3A800D89F3B29AF6CEAECB9D37858F0705B71E93FA61B488"
+                      "bytes":  4920,
+                      "sha256":  "4767D8C9C448D4F73D5AADAD9C36ACD92CBD6C04AFB62F1ABCA7F31A6259A1BB"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
@@ -118,9 +123,14 @@
                       "sha256":  "272DF79B3139A9BA980856A49B66EBE6BB88F7A3634BE1BDA2C363A17F64EA75"
                   },
                   {
+                      "path":  "05-Decisoes/ADR-0012-Substituicao-da-Chave-Administrativa-por-RBAC.md",
+                      "bytes":  1120,
+                      "sha256":  "522C8BF8B2B4CB92837764106F6CA4D9F97037C19C636C8FE5841DED8481890C"
+                  },
+                  {
                       "path":  "05-Decisoes/ADRs.md",
-                      "bytes":  1709,
-                      "sha256":  "AF06FB00990709AFCA00F8A345765470F7873700D751212F29B5E572F5318ED1"
+                      "bytes":  1875,
+                      "sha256":  "495DCDD55D5388F641575B939C4EDC99300AEE34DC3DE08E92C341965692AFCC"
                   },
                   {
                       "path":  "06-Operacao/Operacao-e-Deploy.md",

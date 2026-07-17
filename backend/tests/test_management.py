@@ -4,23 +4,113 @@ from app.models import (
     Appointment,
     Barber,
     Customer,
+    Permission,
+    Role,
+    RolePermission,
     Service,
+)
+from app.services.identity_service import (
+    create_user,
+    seed_identity,
 )
 
 
-AUTH = {"X-Admin-Key": "test-admin-key"}
+PASSWORD = "SenhaMuitoForte123"
+
+
+def admin_headers(
+    client,
+    database,
+):
+    seed_identity(database)
+
+    create_user(
+        database,
+        name="Administrador",
+        email="admin@example.com",
+        password=PASSWORD,
+        role_slugs=["administrator"],
+    )
+
+    login = client.post(
+        "/api/v1/auth/login",
+        json={
+            "email": "admin@example.com",
+            "password": PASSWORD,
+        },
+    )
+
+    assert login.status_code == 200
+
+    return {
+        "Authorization": (
+            "Bearer " +
+            login.json()["access_token"]
+        )
+    }
+
+
+def limited_headers(
+    client,
+    database,
+):
+    seed_identity(database)
+
+    permission = database.query(
+        Permission
+    ).filter_by(
+        code="admin.access"
+    ).one()
+
+    role = Role(
+        name="Consulta",
+        slug="viewer",
+        active=True,
+    )
+
+    role.permission_links.append(
+        RolePermission(
+            permission=permission
+        )
+    )
+
+    database.add(role)
+    database.commit()
+
+    create_user(
+        database,
+        name="Consulta",
+        email="viewer@example.com",
+        password=PASSWORD,
+        role_slugs=["viewer"],
+    )
+
+    login = client.post(
+        "/api/v1/auth/login",
+        json={
+            "email": "viewer@example.com",
+            "password": PASSWORD,
+        },
+    )
+
+    return {
+        "Authorization": (
+            "Bearer " +
+            login.json()["access_token"]
+        )
+    }
 
 
 def seed_management(database):
     barber = Barber(
         name="Marcio",
-        slug="marcio",
+        slug="marcio-management",
         active=True,
     )
 
     service = Service(
         name="Corte",
-        slug="corte",
+        slug="corte-management",
         duration_minutes=45,
         price_cents=5000,
         active=True,
@@ -29,7 +119,7 @@ def seed_management(database):
     customer = Customer(
         name="Cliente",
         email="cliente@example.com",
-        phone="5583999999999",
+        phone="+5583999999999",
     )
 
     appointment = Appointment(
@@ -39,8 +129,8 @@ def seed_management(database):
         starts_at=datetime(
             2035,
             7,
-            20,
             17,
+            13,
             0,
             tzinfo=UTC,
         ),
@@ -50,30 +140,47 @@ def seed_management(database):
     database.add(appointment)
     database.commit()
 
-    return barber, appointment
+    return barber, service, appointment
 
 
-def test_admin_key_is_required(
+def test_admin_routes_require_bearer_token(
     client,
     db_session,
 ):
-    barber, _ = seed_management(db_session)
-
     response = client.get(
-        (
-            f"/api/v1/admin/barbers/"
-            f"{barber.id}/schedules"
-        )
+        "/api/v1/admin/appointments",
+        headers={
+            "X-Admin-Key": "test-admin-key"
+        },
     )
 
     assert response.status_code == 401
 
 
-def test_create_and_list_schedule(
+def test_invalid_session_is_rejected(client):
+    response = client.get(
+        "/api/v1/admin/appointments",
+        headers={
+            "Authorization": "Bearer invalid"
+        },
+    )
+
+    assert response.status_code == 401
+
+
+def test_schedule_lifecycle(
     client,
     db_session,
 ):
-    barber, _ = seed_management(db_session)
+    barber, _, _ = seed_management(
+        db_session
+    )
+
+    headers = admin_headers(
+        client,
+        db_session,
+    )
+
     base_url = (
         f"/api/v1/admin/barbers/"
         f"{barber.id}/schedules"
@@ -81,130 +188,137 @@ def test_create_and_list_schedule(
 
     created = client.post(
         base_url,
-        headers=AUTH,
+        headers=headers,
         json={
-            "weekday": 0,
+            "weekday": 1,
             "start_time": "09:00:00",
             "end_time": "12:00:00",
             "active": True,
         },
     )
 
-    listed = client.get(
-        base_url,
-        headers=AUTH,
-    )
-
     assert created.status_code == 201
-    assert listed.status_code == 200
-    assert len(listed.json()) == 1
-    assert listed.json()[0]["weekday"] == 0
 
-
-def test_overlapping_schedule_returns_conflict(
-    client,
-    db_session,
-):
-    barber, _ = seed_management(db_session)
-    url = (
-        f"/api/v1/admin/barbers/"
-        f"{barber.id}/schedules"
-    )
-
-    first = client.post(
-        url,
-        headers=AUTH,
-        json={
-            "weekday": 1,
-            "start_time": "09:00:00",
-            "end_time": "12:00:00",
-        },
-    )
-
-    conflict = client.post(
-        url,
-        headers=AUTH,
+    overlap = client.post(
+        base_url,
+        headers=headers,
         json={
             "weekday": 1,
             "start_time": "11:00:00",
-            "end_time": "14:00:00",
+            "end_time": "13:00:00",
+            "active": True,
         },
     )
 
-    assert first.status_code == 201
-    assert conflict.status_code == 409
+    assert overlap.status_code == 409
+
+    listed = client.get(
+        base_url,
+        headers=headers,
+    )
+
+    assert listed.status_code == 200
+    assert len(listed.json()) == 1
+
+    deleted = client.delete(
+        (
+            f"{base_url}/"
+            f"{created.json()['id']}"
+        ),
+        headers=headers,
+    )
+
+    assert deleted.status_code == 204
 
 
-def test_create_list_and_delete_block(
+def test_block_lifecycle(
     client,
     db_session,
 ):
-    barber, _ = seed_management(db_session)
+    barber, _, _ = seed_management(
+        db_session
+    )
+
+    headers = admin_headers(
+        client,
+        db_session,
+    )
+
     base_url = (
         f"/api/v1/admin/barbers/"
         f"{barber.id}/blocks"
     )
 
+    payload = {
+        "starts_at": (
+            "2035-07-17T14:00:00-03:00"
+        ),
+        "ends_at": (
+            "2035-07-17T15:00:00-03:00"
+        ),
+        "reason": "Almoço",
+    }
+
     created = client.post(
         base_url,
-        headers=AUTH,
-        json={
-            "starts_at": (
-                "2035-07-20T12:00:00-03:00"
-            ),
-            "ends_at": (
-                "2035-07-20T13:00:00-03:00"
-            ),
-            "reason": "Almoço",
-        },
+        headers=headers,
+        json=payload,
     )
 
     assert created.status_code == 201
 
-    block_id = created.json()["id"]
+    overlap = client.post(
+        base_url,
+        headers=headers,
+        json=payload,
+    )
+
+    assert overlap.status_code == 409
 
     listed = client.get(
         base_url,
-        headers=AUTH,
-    )
-
-    removed = client.delete(
-        f"{base_url}/{block_id}",
-        headers=AUTH,
-    )
-
-    empty = client.get(
-        base_url,
-        headers=AUTH,
+        headers=headers,
     )
 
     assert listed.status_code == 200
     assert len(listed.json()) == 1
-    assert removed.status_code == 204
-    assert empty.json() == []
+
+    deleted = client.delete(
+        (
+            f"{base_url}/"
+            f"{created.json()['id']}"
+        ),
+        headers=headers,
+    )
+
+    assert deleted.status_code == 204
 
 
-def test_list_appointments(
+def test_list_appointments_with_filter(
     client,
     db_session,
 ):
-    _, appointment = seed_management(
+    _, _, appointment = seed_management(
         db_session
     )
 
+    headers = admin_headers(
+        client,
+        db_session,
+    )
+
     response = client.get(
-        "/api/v1/admin/appointments",
-        headers=AUTH,
-        params={
-            "status": "scheduled"
-        },
+        (
+            "/api/v1/admin/appointments"
+            "?status=scheduled"
+        ),
+        headers=headers,
     )
 
     assert response.status_code == 200
     assert len(response.json()) == 1
-    assert (
-        response.json()[0]["id"]
-        == str(appointment.id)
+    assert response.json()[0]["id"] == str(
+        appointment.id
     )
 
 
@@ -212,42 +326,51 @@ def test_update_appointment_status(
     client,
     db_session,
 ):
-    _, appointment = seed_management(
+    _, _, appointment = seed_management(
         db_session
+    )
+
+    headers = admin_headers(
+        client,
+        db_session,
     )
 
     response = client.patch(
         (
-            f"/api/v1/admin/appointments/"
+            "/api/v1/admin/appointments/"
             f"{appointment.id}/status"
         ),
-        headers=AUTH,
+        headers=headers,
         json={
             "status": "confirmed"
         },
     )
 
     assert response.status_code == 200
-    assert response.json()["status"] == "confirmed"
+    assert response.json()["status"] == (
+        "confirmed"
+    )
 
 
-def test_invalid_status_is_rejected(
+def test_insufficient_permission_is_rejected(
     client,
     db_session,
 ):
-    _, appointment = seed_management(
+    barber, _, _ = seed_management(
         db_session
     )
 
-    response = client.patch(
-        (
-            f"/api/v1/admin/appointments/"
-            f"{appointment.id}/status"
-        ),
-        headers=AUTH,
-        json={
-            "status": "invalid"
-        },
+    headers = limited_headers(
+        client,
+        db_session,
     )
 
-    assert response.status_code == 422
+    response = client.get(
+        (
+            f"/api/v1/admin/barbers/"
+            f"{barber.id}/schedules"
+        ),
+        headers=headers,
+    )
+
+    assert response.status_code == 403

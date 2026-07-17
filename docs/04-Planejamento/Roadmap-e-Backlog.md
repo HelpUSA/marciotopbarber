@@ -184,8 +184,22 @@ aliases: []
 - [x] login, identificação e logout;
 - [x] auditoria básica;
 - [x] bootstrap do primeiro administrador;
-- [ ] APIs de gestão de usuários;
-- [ ] APIs de gestão de funcionários;
-- [ ] vinculação de funcionários a barbeiros;
-- [ ] proteção das rotas administrativas por RBAC;
-- [ ] remoção da X-Admin-Key.
+- [x] APIs de gestão de usuários;
+- [x] APIs de gestão de funcionários;
+- [x] vinculação de funcionários a barbeiros;
+- [x] proteção das rotas administrativas por RBAC;
+- [x] remoção da X-Admin-Key.
+
+
+### Fase 7B — Gestão de identidade concluída
+
+- [x] gestão de papéis disponíveis;
+- [x] criação e atualização de usuários;
+- [x] redefinição administrativa de senha;
+- [x] criação e atualização de funcionários;
+- [x] vínculo funcionário, usuário e barbeiro;
+- [x] proteção da agenda administrativa por permissões;
+- [x] remoção da X-Admin-Key;
+- [ ] tela administrativa de login;
+- [ ] layout protegido;
+- [ ] gestão visual de usuários e funcionários.

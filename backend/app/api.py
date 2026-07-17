@@ -2,6 +2,9 @@ from fastapi import APIRouter, Depends, Form, HTTPException
 from pydantic import EmailStr
 
 from app.core.config import Settings, get_settings
+from app.routes.identity_management import (
+    router as identity_management_router,
+)
 from app.routes.identity import (
     router as identity_router,
 )
@@ -84,4 +87,5 @@ async def submit_contact(
 
 router.include_router(scheduling_router)
 router.include_router(identity_router)
+router.include_router(identity_management_router)
 router.include_router(management_router)

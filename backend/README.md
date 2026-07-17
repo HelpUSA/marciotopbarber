@@ -75,9 +75,9 @@ O cálculo considera:
 
 As rotas administrativas utilizam o cabeçalho:
 
-    X-Admin-Key: valor-configurado
+Authorization: Bearer <token-de-sessao>
 
-A chave é definida pela variável ADMIN_API_KEY.
+O token é obtido pela rota POST /api/v1/auth/login.
 
 Rotas disponíveis:
 
@@ -116,4 +116,37 @@ O primeiro administrador deve ser criado pelo comando:
 
 As variáveis `BOOTSTRAP_ADMIN_NAME`, `BOOTSTRAP_ADMIN_EMAIL` e `BOOTSTRAP_ADMIN_PASSWORD` devem existir somente durante a execução do bootstrap.
 
-A autenticação administrativa por `X-Admin-Key` continua temporariamente durante a transição e será removida após a proteção das rotas por RBAC.
+As rotas administrativas exigem sessão Bearer e permissões RBAC.
+
+## Gestão administrativa de identidade
+
+As rotas administrativas utilizam autenticação Bearer e permissões RBAC.
+
+### Papéis
+
+| Método | Rota | Permissão |
+|---|---|---|
+| GET | /api/v1/admin/identity/roles | users.manage |
+
+### Usuários
+
+| Método | Rota | Permissão |
+|---|---|---|
+| GET | /api/v1/admin/identity/users | users.manage |
+| POST | /api/v1/admin/identity/users | users.manage |
+| PATCH | /api/v1/admin/identity/users/{user_id} | users.manage |
+
+### Funcionários
+
+| Método | Rota | Permissão |
+|---|---|---|
+| GET | /api/v1/admin/identity/employees | employees.manage |
+| POST | /api/v1/admin/identity/employees | employees.manage |
+| PATCH | /api/v1/admin/identity/employees/{employee_id} | employees.manage |
+
+### Agenda administrativa
+
+- jornadas e bloqueios exigem scheduling.manage;
+- listagem e atualização de agendamentos exigem ppointments.manage.
+
+Cabeçalhos administrativos compartilhados não são aceitos.

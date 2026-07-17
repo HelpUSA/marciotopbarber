@@ -1,4 +1,3 @@
-import secrets
 from datetime import datetime
 from typing import Annotated
 from uuid import UUID
@@ -6,16 +5,17 @@ from uuid import UUID
 from fastapi import (
     APIRouter,
     Depends,
-    Header,
     HTTPException,
     Query,
     Response,
     status,
 )
-from sqlalchemy.orm import Session
 
-from app.core.config import Settings, get_settings
-from app.db import get_db
+from app.core.auth import (
+    AuthContext,
+    Database,
+    require_permission,
+)
 from app.schemas.management import (
     AppointmentAdminPublic,
     AppointmentStatusUpdate,
@@ -42,40 +42,24 @@ from app.services.management_service import (
 )
 
 
-def require_admin_key(
-    settings: Settings = Depends(get_settings),
-    x_admin_key: Annotated[
-        str | None,
-        Header(alias="X-Admin-Key"),
-    ] = None,
-) -> None:
-    configured_key = settings.admin_api_key
-
-    if not configured_key:
-        raise HTTPException(
-            status_code=503,
-            detail="Acesso administrativo não configurado.",
-        )
-
-    if not secrets.compare_digest(
-        x_admin_key or "",
-        configured_key,
-    ):
-        raise HTTPException(
-            status_code=401,
-            detail="Chave administrativa inválida.",
-        )
-
-
 router = APIRouter(
     prefix="/api/v1/admin",
     tags=["management"],
-    dependencies=[Depends(require_admin_key)],
 )
 
-Database = Annotated[
-    Session,
-    Depends(get_db),
+
+SchedulingManager = Annotated[
+    AuthContext,
+    Depends(
+        require_permission("scheduling.manage")
+    ),
+]
+
+AppointmentsManager = Annotated[
+    AuthContext,
+    Depends(
+        require_permission("appointments.manage")
+    ),
 ]
 
 
@@ -101,7 +85,9 @@ def appointment_to_public(
             duration_minutes=(
                 appointment.service.duration_minutes
             ),
-            price_cents=appointment.service.price_cents,
+            price_cents=(
+                appointment.service.price_cents
+            ),
         ),
         notes=appointment.notes,
     )
@@ -114,6 +100,7 @@ def appointment_to_public(
 def get_schedules(
     barber_id: UUID,
     database: Database,
+    _context: SchedulingManager,
 ) -> list[SchedulePublic]:
     try:
         schedules = list_schedules(
@@ -141,6 +128,7 @@ def post_schedule(
     barber_id: UUID,
     payload: ScheduleCreate,
     database: Database,
+    _context: SchedulingManager,
 ) -> SchedulePublic:
     try:
         schedule = create_schedule(
@@ -159,7 +147,9 @@ def post_schedule(
             detail=str(exc),
         ) from exc
 
-    return SchedulePublic.model_validate(schedule)
+    return SchedulePublic.model_validate(
+        schedule
+    )
 
 
 @router.delete(
@@ -170,6 +160,7 @@ def remove_schedule(
     barber_id: UUID,
     schedule_id: UUID,
     database: Database,
+    _context: SchedulingManager,
 ) -> Response:
     try:
         delete_schedule(
@@ -195,6 +186,7 @@ def remove_schedule(
 def get_blocks(
     barber_id: UUID,
     database: Database,
+    _context: SchedulingManager,
 ) -> list[BlockPublic]:
     try:
         blocks = list_blocks(
@@ -222,6 +214,7 @@ def post_block(
     barber_id: UUID,
     payload: BlockCreate,
     database: Database,
+    _context: SchedulingManager,
 ) -> BlockPublic:
     try:
         block = create_block(
@@ -251,6 +244,7 @@ def remove_block(
     barber_id: UUID,
     block_id: UUID,
     database: Database,
+    _context: SchedulingManager,
 ) -> Response:
     try:
         delete_block(
@@ -275,6 +269,7 @@ def remove_block(
 )
 def get_appointments(
     database: Database,
+    _context: AppointmentsManager,
     status_filter: Annotated[
         str | None,
         Query(alias="status"),
@@ -305,6 +300,7 @@ def patch_appointment_status(
     appointment_id: UUID,
     payload: AppointmentStatusUpdate,
     database: Database,
+    _context: AppointmentsManager,
 ) -> AppointmentAdminPublic:
     try:
         appointment = update_appointment_status(
@@ -318,4 +314,6 @@ def patch_appointment_status(
             detail=str(exc),
         ) from exc
 
-    return appointment_to_public(appointment)
+    return appointment_to_public(
+        appointment
+    )

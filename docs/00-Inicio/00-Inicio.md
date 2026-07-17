@@ -64,3 +64,7 @@ aliases: []
 - [[Identidade-RBAC-e-Auditoria]]
 
 - [[ADR-0011-Sessoes-Opacas-e-RBAC]]
+
+- [[Gestao-de-Identidade-e-Autorizacao-Administrativa]]
+
+- [[ADR-0012-Substituicao-da-Chave-Administrativa-por-RBAC]]

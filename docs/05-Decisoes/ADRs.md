@@ -78,3 +78,9 @@ Documento completo: [[ADR-0010-Modernizacao-Integral-do-Sistema-Legado]]
 **Status:** aceito.
 
 Documento completo: [[ADR-0011-Sessoes-Opacas-e-RBAC]]
+
+## ADR-0012 — Substituição da Chave Administrativa por RBAC
+
+**Status:** aceito.
+
+Documento completo: [[ADR-0012-Substituicao-da-Chave-Administrativa-por-RBAC]]
