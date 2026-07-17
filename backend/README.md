@@ -33,3 +33,19 @@ Reverter todas as migrações:
     .\venv\Scripts\python.exe -m alembic downgrade base
 
 A variável DATABASE_URL define o banco utilizado.
+
+## API de agendamentos
+
+| Método | Rota | Finalidade |
+|---|---|---|
+| GET | /api/v1/barbers | listar barbeiros ativos |
+| GET | /api/v1/services | listar serviços ativos |
+| POST | /api/v1/appointments | criar agendamento |
+
+A criação de agendamentos:
+
+- exige data e hora com fuso horário;
+- rejeita horários passados;
+- reutiliza clientes pelo telefone;
+- bloqueia sobreposição de horários;
+- aceita somente barbeiros e serviços ativos.

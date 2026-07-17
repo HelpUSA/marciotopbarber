@@ -42,3 +42,7 @@ aliases: []
 - [[Inventario-Automatico]]
 - [[Camada-de-Dados]]
 - [[ADR-0006-SQLAlchemy-e-Alembic]]
+
+- [[API-de-Agendamentos]]
+
+- [[ADR-0007-API-de-Agendamentos]]

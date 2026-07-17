@@ -72,3 +72,16 @@ aliases: []
 - [x] testar upgrade e downgrade;
 - [ ] provisionar PostgreSQL na Railway;
 - [ ] executar migração em produção.
+
+## Fase 4 — API de agendamentos
+
+- [x] listar barbeiros ativos;
+- [x] listar serviços ativos;
+- [x] criar agendamento;
+- [x] normalizar telefone;
+- [x] reutilizar cliente;
+- [x] validar horários passados;
+- [x] bloquear sobreposição;
+- [ ] calcular horários disponíveis;
+- [ ] configurar jornada de atendimento;
+- [ ] adicionar bloqueios e folgas.

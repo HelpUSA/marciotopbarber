@@ -2,10 +2,14 @@ from fastapi import APIRouter, Depends, Form, HTTPException
 from pydantic import EmailStr
 
 from app.core.config import Settings, get_settings
+from app.routes.scheduling import (
+    router as scheduling_router,
+)
 from app.services.email_service import (
     EmailDeliveryError,
     send_contact_email,
 )
+
 
 router = APIRouter()
 
@@ -70,3 +74,6 @@ async def submit_contact(
         "success": True,
         "message": "Mensagem enviada com sucesso.",
     }
+
+
+router.include_router(scheduling_router)

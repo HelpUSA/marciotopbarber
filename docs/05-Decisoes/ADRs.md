@@ -48,3 +48,9 @@ Documento completo: [[ADR-0005-Estrutura-Modular-FastAPI]]
 **Status:** aceito.
 
 Documento completo: [[ADR-0006-SQLAlchemy-e-Alembic]]
+
+## ADR-0007 — API de Agendamentos
+
+**Status:** aceito.
+
+Documento completo: [[ADR-0007-API-de-Agendamentos]]

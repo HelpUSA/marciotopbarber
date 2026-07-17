@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-16T21:32:45-03:00",
+    "generated_at":  "2026-07-16T21:51:25-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,13 +19,18 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  932,
-                      "sha256":  "158D989D75A27423E231532C7F44E5E7EF02A96CDEECFCE33CD4403159BFD558"
+                      "bytes":  995,
+                      "sha256":  "E9D1737E1BFB9648B572C0D21A90DAC9A9CDA9FE7BA88757E7BD9B0E93385BA6"
                   },
                   {
                       "path":  "01-Produto/Visao-e-Escopo.md",
                       "bytes":  993,
                       "sha256":  "987DE668FF9C434885A07C94BDD112448E0A43162D8BD501C2E0CD132CB20C86"
+                  },
+                  {
+                      "path":  "02-Arquitetura/API-de-Agendamentos.md",
+                      "bytes":  712,
+                      "sha256":  "4EA95956B92FD73E2EC18366A7C879CE9909DF9F6261110D058AD31FECFEF21B"
                   },
                   {
                       "path":  "02-Arquitetura/Arquitetura-e-Dados.md",
@@ -49,8 +54,8 @@
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  1658,
-                      "sha256":  "C65C34E5DBC5CCC5B3846E8EECF77146EBE3F38DF3B5F7FA16602ABBA0AF1A2E"
+                      "bytes":  2015,
+                      "sha256":  "97637F6AF894C7715981DC3B7B4C85582376F56A7B99A4893688642F4BD0BB32"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
@@ -63,9 +68,14 @@
                       "sha256":  "5ACFFA9F1E58EFFFFD9FF619E411EE2F80DD4A4BF8431BE81BF63EA7579ADAFD"
                   },
                   {
+                      "path":  "05-Decisoes/ADR-0007-API-de-Agendamentos.md",
+                      "bytes":  799,
+                      "sha256":  "00965F658D80234B9DA0E336124D59D4DC720519066137748D6626D9F52662C2"
+                  },
+                  {
                       "path":  "05-Decisoes/ADRs.md",
-                      "bytes":  1038,
-                      "sha256":  "395D248B6799D42CE93F45943B92F5A1711633F042156A5A557FFCD014B2FA83"
+                      "bytes":  1150,
+                      "sha256":  "DEC7A01E6D615D24F398ED240353092DFA020FD81FE5D30A406692A0E3333B31"
                   },
                   {
                       "path":  "06-Operacao/Operacao-e-Deploy.md",
