@@ -50,3 +50,7 @@ aliases: []
 - [[Disponibilidade-e-Jornada]]
 
 - [[ADR-0008-Disponibilidade-e-Jornada]]
+
+- [[Gestao-Administrativa-da-Agenda]]
+
+- [[ADR-0009-Gestao-Administrativa-da-Agenda]]

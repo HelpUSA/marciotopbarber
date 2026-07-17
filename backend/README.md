@@ -70,3 +70,26 @@ O cálculo considera:
 - agendamentos existentes;
 - bloqueios e folgas;
 - fuso horário America/Fortaleza.
+
+## Gestão administrativa
+
+As rotas administrativas utilizam o cabeçalho:
+
+    X-Admin-Key: valor-configurado
+
+A chave é definida pela variável ADMIN_API_KEY.
+
+Rotas disponíveis:
+
+| Método | Rota | Finalidade |
+|---|---|---|
+| GET | /api/v1/admin/barbers/{barber_id}/schedules | listar jornadas |
+| POST | /api/v1/admin/barbers/{barber_id}/schedules | criar jornada |
+| DELETE | /api/v1/admin/barbers/{barber_id}/schedules/{schedule_id} | excluir jornada |
+| GET | /api/v1/admin/barbers/{barber_id}/blocks | listar bloqueios |
+| POST | /api/v1/admin/barbers/{barber_id}/blocks | criar bloqueio |
+| DELETE | /api/v1/admin/barbers/{barber_id}/blocks/{block_id} | excluir bloqueio |
+| GET | /api/v1/admin/appointments | listar agendamentos |
+| PATCH | /api/v1/admin/appointments/{appointment_id}/status | alterar status |
+
+A chave administrativa é temporária e não pode ser exposta no frontend público.

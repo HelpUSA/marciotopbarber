@@ -60,3 +60,9 @@ Documento completo: [[ADR-0007-API-de-Agendamentos]]
 **Status:** aceito.
 
 Documento completo: [[ADR-0008-Disponibilidade-e-Jornada]]
+
+## ADR-0009 — Gestão Administrativa da Agenda
+
+**Status:** aceito como solução temporária.
+
+Documento completo: [[ADR-0009-Gestao-Administrativa-da-Agenda]]

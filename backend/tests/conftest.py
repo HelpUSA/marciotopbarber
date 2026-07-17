@@ -35,6 +35,7 @@ def application():
     test_settings = Settings(
         _env_file=None,
         app_env="test",
+        admin_api_key="test-admin-key",
         email_host=None,
         email_username=None,
         email_password=None,

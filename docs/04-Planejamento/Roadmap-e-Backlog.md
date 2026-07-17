@@ -89,8 +89,19 @@ aliases: []
 
 ## Fase 5 — Gestão da agenda
 
-- [ ] criar API de jornadas;
-- [ ] criar API de bloqueios;
-- [ ] listar agendamentos;
-- [ ] alterar status de agendamento;
-- [ ] proteger rotas administrativas.
+- [x] criar API de jornadas;
+- [x] criar API de bloqueios;
+- [x] listar agendamentos;
+- [x] alterar status de agendamento;
+- [x] proteger rotas administrativas.
+
+
+## Fase 6 — Integração do frontend
+
+- [ ] carregar barbeiros pela API;
+- [ ] carregar serviços pela API;
+- [ ] consultar disponibilidade;
+- [ ] criar fluxo de agendamento;
+- [ ] exibir confirmação e erros;
+- [ ] preservar acessibilidade e responsividade;
+- [ ] substituir a autenticação administrativa temporária antes do painel administrativo.

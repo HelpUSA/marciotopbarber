@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-16T22:00:35-03:00",
+    "generated_at":  "2026-07-16T22:14:52-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,8 +19,8 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  1070,
-                      "sha256":  "5795879F693096D00388945487B6A680B0B1D6E49FF383B5237DBAD8037CD2E5"
+                      "bytes":  1157,
+                      "sha256":  "49439E093BB2B736F45C739C1FFFFA63054D37278E81205F64B6BB5DFDB874D7"
                   },
                   {
                       "path":  "01-Produto/Visao-e-Escopo.md",
@@ -53,14 +53,19 @@
                       "sha256":  "D4BF7B80D76A09065E66121007AB88DD87336EFA10FBA2067501027CA934B0A2"
                   },
                   {
+                      "path":  "02-Arquitetura/Gestao-Administrativa-da-Agenda.md",
+                      "bytes":  958,
+                      "sha256":  "7D0A8AFA0892DB0202F22D78025F6743E9FFFF499AC48541CE60FF05E04DD35F"
+                  },
+                  {
                       "path":  "03-Diagnostico/Diagnostico-Riscos-e-Divida.md",
                       "bytes":  1607,
                       "sha256":  "20CA39241E6FC252A762CAE194B237A3D7B619AE38BC410A69D226DF700881AF"
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  2211,
-                      "sha256":  "6A197279C196E9137AA54CDBB565778A8F27DDAC90B60907464D35D399E4F11C"
+                      "bytes":  2568,
+                      "sha256":  "6DEC2E394A26E9B08662BAFDD785223BD6FECB39D0B02FF5CB28B49A797D30F7"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
@@ -83,9 +88,14 @@
                       "sha256":  "0782E59A50D2054C295AB087A90DFBBCD54C54259FB6F4720366B4E59EE5815C"
                   },
                   {
+                      "path":  "05-Decisoes/ADR-0009-Gestao-Administrativa-da-Agenda.md",
+                      "bytes":  1143,
+                      "sha256":  "89C088CFBD460A320BCBD1D7B2E7E9B323F606B45A8644E8F8256BB1E9B871BB"
+                  },
+                  {
                       "path":  "05-Decisoes/ADRs.md",
-                      "bytes":  1274,
-                      "sha256":  "A9D9EF893F432377A078281A07402256C6551B67F66B842F2FA02EE476094E57"
+                      "bytes":  1438,
+                      "sha256":  "DA8130F8983675320A4B5E8A88107083F6BBC87995355E376544759BE5EECCD5"
                   },
                   {
                       "path":  "06-Operacao/Operacao-e-Deploy.md",
