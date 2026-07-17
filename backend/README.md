@@ -93,3 +93,27 @@ Rotas disponíveis:
 | PATCH | /api/v1/admin/appointments/{appointment_id}/status | alterar status |
 
 A chave administrativa é temporária e não pode ser exposta no frontend público.
+
+## Identidade e autorização
+
+A plataforma utiliza usuários, papéis, permissões e sessões opacas.
+
+Rotas disponíveis:
+
+| Método | Rota | Finalidade |
+|---|---|---|
+| POST | /api/v1/auth/login | autenticar usuário |
+| GET | /api/v1/auth/me | consultar usuário autenticado |
+| POST | /api/v1/auth/logout | revogar a sessão atual |
+
+As senhas são derivadas com `scrypt` e salt aleatório.
+
+O token de sessão é exibido somente no login. O banco armazena apenas seu hash SHA-256.
+
+O primeiro administrador deve ser criado pelo comando:
+
+    python scripts/bootstrap_admin.py
+
+As variáveis `BOOTSTRAP_ADMIN_NAME`, `BOOTSTRAP_ADMIN_EMAIL` e `BOOTSTRAP_ADMIN_PASSWORD` devem existir somente durante a execução do bootstrap.
+
+A autenticação administrativa por `X-Admin-Key` continua temporariamente durante a transição e será removida após a proteção das rotas por RBAC.

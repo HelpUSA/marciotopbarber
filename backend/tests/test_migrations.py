@@ -64,6 +64,14 @@ def test_initial_migration_round_trip(
         "services",
     "barber_schedules",
     "barber_blocks",
+    "roles",
+    "permissions",
+    "role_permissions",
+    "users",
+    "user_roles",
+    "employees",
+    "auth_sessions",
+    "audit_logs",
     }
 
     assert tables == expected_tables
@@ -76,7 +84,7 @@ def test_initial_migration_round_trip(
             )
         )
 
-    assert revision == "20260716_02"
+    assert revision == "20260717_03"
 
     run_alembic(
         "check",
@@ -100,6 +108,14 @@ def test_initial_migration_round_trip(
         "services",
     "barber_schedules",
     "barber_blocks",
+    "roles",
+    "permissions",
+    "role_permissions",
+    "users",
+    "user_roles",
+    "employees",
+    "auth_sessions",
+    "audit_logs",
     }
 
     assert not remaining_tables.intersection(

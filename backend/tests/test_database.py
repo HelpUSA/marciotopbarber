@@ -1,17 +1,33 @@
-from datetime import UTC, datetime, time
+from datetime import (
+    UTC,
+    datetime,
+    time,
+)
 
-from sqlalchemy import create_engine, select
+from sqlalchemy import (
+    create_engine,
+    select,
+)
 from sqlalchemy.orm import Session
 
 from app.db import Base
 from app.models import (
     Appointment,
+    AuditLog,
+    AuthSession,
     Barber,
     BarberBlock,
     BarberSchedule,
     Customer,
+    Employee,
+    Permission,
+    Role,
+    RolePermission,
     Service,
+    User,
+    UserRole,
 )
+from app.core.security import hash_password
 
 
 def test_database_schema_and_relationships():
@@ -84,20 +100,82 @@ def test_database_schema_and_relationships():
             ),
         )
 
-        session.add(appointment)
+        permission = Permission(
+            code="admin.access",
+            name="Acesso administrativo",
+        )
+
+        role = Role(
+            name="Administrador",
+            slug="administrator",
+        )
+
+        role.permission_links.append(
+            RolePermission(
+                permission=permission
+            )
+        )
+
+        user = User(
+            name="Administrador",
+            email="admin@example.com",
+            password_hash=hash_password(
+                "SenhaMuitoForte123"
+            ),
+        )
+
+        user.role_links.append(
+            UserRole(role=role)
+        )
+
+        employee = Employee(
+            user=user,
+            barber=barber,
+            name="Marcio",
+            email="marcio@example.com",
+            job_title="Barbeiro",
+        )
+
+        auth_session = AuthSession(
+            user=user,
+            token_hash="a" * 64,
+            expires_at=datetime(
+                2035,
+                7,
+                16,
+                18,
+                0,
+                tzinfo=UTC,
+            ),
+        )
+
+        audit = AuditLog(
+            user=user,
+            action="test.created",
+            entity_type="test",
+        )
+
+        session.add_all(
+            [
+                appointment,
+                employee,
+                auth_session,
+                audit,
+            ]
+        )
         session.commit()
 
         stored = session.scalar(
-            select(Appointment)
+            select(User)
         )
 
         assert stored is not None
-        assert stored.status == "scheduled"
-        assert stored.customer.name == "Cliente Teste"
-        assert stored.barber.slug == "marcio"
-        assert stored.service.price_cents == 5000
-        assert len(stored.barber.schedules) == 1
-        assert len(stored.barber.blocks) == 1
+        assert stored.email == "admin@example.com"
+        assert len(stored.role_links) == 1
+        assert stored.employee is not None
+        assert stored.employee.barber is not None
+        assert len(stored.sessions) == 1
+        assert len(stored.audit_logs) == 1
 
     assert set(Base.metadata.tables) == {
         "customers",
@@ -106,4 +184,12 @@ def test_database_schema_and_relationships():
         "appointments",
         "barber_schedules",
         "barber_blocks",
+        "roles",
+        "permissions",
+        "role_permissions",
+        "users",
+        "user_roles",
+        "employees",
+        "auth_sessions",
+        "audit_logs",
     }

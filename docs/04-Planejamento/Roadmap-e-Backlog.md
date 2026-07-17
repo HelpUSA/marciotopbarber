@@ -110,10 +110,10 @@ aliases: []
 
 - [ ] usuários administrativos;
 - [ ] funcionários e cargos;
-- [ ] autenticação segura;
-- [ ] papéis e permissões;
+- [x] autenticação segura;
+- [x] papéis e permissões;
 - [ ] recuperação de senha;
-- [ ] auditoria;
+- [x] auditoria;
 - [ ] remover X-Admin-Key.
 
 ## Fase 8 — Cadastros e relacionamento
@@ -173,3 +173,19 @@ aliases: []
 - [ ] preview online;
 - [ ] backup e rollback;
 - [ ] deploy controlado.
+
+
+### Fase 7A — Fundação concluída
+
+- [x] modelos de usuários e funcionários;
+- [x] modelos de papéis e permissões;
+- [x] sessões opacas;
+- [x] hash de senhas com scrypt;
+- [x] login, identificação e logout;
+- [x] auditoria básica;
+- [x] bootstrap do primeiro administrador;
+- [ ] APIs de gestão de usuários;
+- [ ] APIs de gestão de funcionários;
+- [ ] vinculação de funcionários a barbeiros;
+- [ ] proteção das rotas administrativas por RBAC;
+- [ ] remoção da X-Admin-Key.

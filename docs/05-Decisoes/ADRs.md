@@ -72,3 +72,9 @@ Documento completo: [[ADR-0009-Gestao-Administrativa-da-Agenda]]
 **Status:** aceito.
 
 Documento completo: [[ADR-0010-Modernizacao-Integral-do-Sistema-Legado]]
+
+## ADR-0011 — Sessões Opacas e RBAC
+
+**Status:** aceito.
+
+Documento completo: [[ADR-0011-Sessoes-Opacas-e-RBAC]]

@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-17T10:08:01-03:00",
+    "generated_at":  "2026-07-17T10:28:47-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,8 +19,8 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  1285,
-                      "sha256":  "C46D0E861DEFBBB33C5C304C3BFBF85B0E33DBC8FE08C31D5B20DEAAC7F74B8B"
+                      "bytes":  1358,
+                      "sha256":  "6967E204424AACC5F0405741466C6D0F695E71A8CCD44B201B540BBCCFE7B829"
                   },
                   {
                       "path":  "01-Produto/Escopo-Integral-do-Sistema.md",
@@ -63,6 +63,11 @@
                       "sha256":  "7D0A8AFA0892DB0202F22D78025F6743E9FFFF499AC48541CE60FF05E04DD35F"
                   },
                   {
+                      "path":  "02-Arquitetura/Identidade-RBAC-e-Auditoria.md",
+                      "bytes":  1418,
+                      "sha256":  "5DFFBFBE47C02891EA12D19EE48AFBFF1F98D27ECF49D313ABFB15169499DEF3"
+                  },
+                  {
                       "path":  "02-Arquitetura/Mapa-de-Dominios-da-Plataforma.md",
                       "bytes":  1053,
                       "sha256":  "0A636454485234580DDC1AC6E567A766A4A052EF006FE12C4F9AEEA71B3EF874"
@@ -74,8 +79,8 @@
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  3938,
-                      "sha256":  "87E4CDA26A2CC12A184D5118E48DE23092D19E54DD3C86E05056CE0240D89896"
+                      "bytes":  4436,
+                      "sha256":  "E24B9B892DC6526F3A800D89F3B29AF6CEAECB9D37858F0705B71E93FA61B488"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
@@ -108,9 +113,14 @@
                       "sha256":  "D8D56D843E7664E33D082C86D0FB70175F6B4F7252DA40EE8A84483A3760E2F9"
                   },
                   {
+                      "path":  "05-Decisoes/ADR-0011-Sessoes-Opacas-e-RBAC.md",
+                      "bytes":  1183,
+                      "sha256":  "272DF79B3139A9BA980856A49B66EBE6BB88F7A3634BE1BDA2C363A17F64EA75"
+                  },
+                  {
                       "path":  "05-Decisoes/ADRs.md",
-                      "bytes":  1592,
-                      "sha256":  "54C55EAA8021C995EDDE5D42E5D7222255D04A3068242CB5DC78560301DFA342"
+                      "bytes":  1709,
+                      "sha256":  "AF06FB00990709AFCA00F8A345765470F7873700D751212F29B5E572F5318ED1"
                   },
                   {
                       "path":  "06-Operacao/Operacao-e-Deploy.md",

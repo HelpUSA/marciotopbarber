@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     business_timezone: str = "America/Fortaleza"
     slot_interval_minutes: int = 15
     admin_api_key: str | None = None
+    auth_session_duration_hours: int = 12
 
     email_host: str | None = None
     email_port: int = 587

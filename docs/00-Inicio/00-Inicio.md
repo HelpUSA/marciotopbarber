@@ -60,3 +60,7 @@ aliases: []
 - [[Mapa-de-Dominios-da-Plataforma]]
 
 - [[ADR-0010-Modernizacao-Integral-do-Sistema-Legado]]
+
+- [[Identidade-RBAC-e-Auditoria]]
+
+- [[ADR-0011-Sessoes-Opacas-e-RBAC]]
