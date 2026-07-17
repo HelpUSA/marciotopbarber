@@ -46,3 +46,7 @@ aliases: []
 - [[API-de-Agendamentos]]
 
 - [[ADR-0007-API-de-Agendamentos]]
+
+- [[Disponibilidade-e-Jornada]]
+
+- [[ADR-0008-Disponibilidade-e-Jornada]]

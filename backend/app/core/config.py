@@ -22,6 +22,8 @@ class Settings(BaseSettings):
 
     database_url: str = "sqlite:///./marciotopbarber.db"
     sql_echo: bool = False
+    business_timezone: str = "America/Fortaleza"
+    slot_interval_minutes: int = 15
 
     email_host: str | None = None
     email_port: int = 587

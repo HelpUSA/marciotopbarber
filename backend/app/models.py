@@ -1,10 +1,26 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, time
 from uuid import UUID, uuid4
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, Uuid, func
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import (
+    Boolean,
+    CheckConstraint,
+    DateTime,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+    Time,
+    UniqueConstraint,
+    Uuid,
+    func,
+)
+from sqlalchemy.orm import (
+    Mapped,
+    mapped_column,
+    relationship,
+)
 
 from app.db import Base
 
@@ -73,6 +89,16 @@ class Barber(TimestampMixin, Base):
         back_populates="barber"
     )
 
+    schedules: Mapped[list["BarberSchedule"]] = relationship(
+        back_populates="barber",
+        cascade="all, delete-orphan",
+    )
+
+    blocks: Mapped[list["BarberBlock"]] = relationship(
+        back_populates="barber",
+        cascade="all, delete-orphan",
+    )
+
 
 class Service(TimestampMixin, Base):
     __tablename__ = "services"
@@ -98,6 +124,91 @@ class Service(TimestampMixin, Base):
 
     appointments: Mapped[list["Appointment"]] = relationship(
         back_populates="service"
+    )
+
+
+class BarberSchedule(TimestampMixin, Base):
+    __tablename__ = "barber_schedules"
+
+    __table_args__ = (
+        CheckConstraint(
+            "weekday >= 0 AND weekday <= 6",
+            name="ck_barber_schedules_weekday",
+        ),
+        CheckConstraint(
+            "end_time > start_time",
+            name="ck_barber_schedules_time_order",
+        ),
+        UniqueConstraint(
+            "barber_id",
+            "weekday",
+            "start_time",
+            "end_time",
+            name="uq_barber_schedule_window",
+        ),
+    )
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+
+    barber_id: Mapped[UUID] = mapped_column(
+        ForeignKey("barbers.id"),
+        index=True,
+    )
+    weekday: Mapped[int] = mapped_column(
+        Integer,
+        index=True,
+    )
+    start_time: Mapped[time] = mapped_column(Time)
+    end_time: Mapped[time] = mapped_column(Time)
+    active: Mapped[bool] = mapped_column(
+        Boolean,
+        default=True,
+    )
+
+    barber: Mapped["Barber"] = relationship(
+        back_populates="schedules"
+    )
+
+
+class BarberBlock(TimestampMixin, Base):
+    __tablename__ = "barber_blocks"
+
+    __table_args__ = (
+        CheckConstraint(
+            "ends_at > starts_at",
+            name="ck_barber_blocks_time_order",
+        ),
+    )
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+
+    barber_id: Mapped[UUID] = mapped_column(
+        ForeignKey("barbers.id"),
+        index=True,
+    )
+    starts_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        index=True,
+    )
+    ends_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        index=True,
+    )
+    reason: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    barber: Mapped["Barber"] = relationship(
+        back_populates="blocks"
     )
 
 

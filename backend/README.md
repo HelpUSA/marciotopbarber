@@ -49,3 +49,24 @@ A criação de agendamentos:
 - reutiliza clientes pelo telefone;
 - bloqueia sobreposição de horários;
 - aceita somente barbeiros e serviços ativos.
+
+## Disponibilidade
+
+| Método | Rota | Finalidade |
+|---|---|---|
+| GET | `/api/v1/availability` | listar horários livres |
+
+Parâmetros obrigatórios:
+
+- arber_id;
+- service_id;
+- date, no formato AAAA-MM-DD.
+
+O cálculo considera:
+
+- jornada semanal ativa;
+- duração do serviço;
+- intervalo configurável entre horários;
+- agendamentos existentes;
+- bloqueios e folgas;
+- fuso horário America/Fortaleza.

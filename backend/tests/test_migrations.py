@@ -62,6 +62,8 @@ def test_initial_migration_round_trip(
         "barbers",
         "customers",
         "services",
+    "barber_schedules",
+    "barber_blocks",
     }
 
     assert tables == expected_tables
@@ -74,7 +76,7 @@ def test_initial_migration_round_trip(
             )
         )
 
-    assert revision == "20260716_01"
+    assert revision == "20260716_02"
 
     run_alembic(
         "check",
@@ -96,6 +98,8 @@ def test_initial_migration_round_trip(
         "barbers",
         "customers",
         "services",
+    "barber_schedules",
+    "barber_blocks",
     }
 
     assert not remaining_tables.intersection(

@@ -82,6 +82,15 @@ aliases: []
 - [x] reutilizar cliente;
 - [x] validar horários passados;
 - [x] bloquear sobreposição;
-- [ ] calcular horários disponíveis;
-- [ ] configurar jornada de atendimento;
-- [ ] adicionar bloqueios e folgas.
+- [x] calcular horários disponíveis;
+- [x] configurar jornada de atendimento;
+- [x] adicionar bloqueios e folgas.
+
+
+## Fase 5 — Gestão da agenda
+
+- [ ] criar API de jornadas;
+- [ ] criar API de bloqueios;
+- [ ] listar agendamentos;
+- [ ] alterar status de agendamento;
+- [ ] proteger rotas administrativas.

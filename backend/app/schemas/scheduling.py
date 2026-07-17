@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from uuid import UUID
 
 from pydantic import (
@@ -120,3 +120,16 @@ class AppointmentCreated(BaseModel):
     barber: BarberPublic
     service: ServicePublic
     notes: str | None
+
+
+class AvailabilitySlot(BaseModel):
+    starts_at: datetime
+    ends_at: datetime
+
+
+class AvailabilityResponse(BaseModel):
+    date: date
+    timezone: str
+    barber: BarberPublic
+    service: ServicePublic
+    slots: list[AvailabilitySlot]

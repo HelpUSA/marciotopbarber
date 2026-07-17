@@ -54,3 +54,9 @@ Documento completo: [[ADR-0006-SQLAlchemy-e-Alembic]]
 **Status:** aceito.
 
 Documento completo: [[ADR-0007-API-de-Agendamentos]]
+
+## ADR-0008 — Disponibilidade e Jornada
+
+**Status:** aceito.
+
+Documento completo: [[ADR-0008-Disponibilidade-e-Jornada]]

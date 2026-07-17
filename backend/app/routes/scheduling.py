@@ -1,11 +1,25 @@
+from datetime import date
 from typing import Annotated
+from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+    Query,
+    status,
+)
 from sqlalchemy.orm import Session
 
+from app.core.config import Settings, get_settings
 from app.db import get_db
+from app.services.availability_service import (
+    list_available_slots,
+)
 from app.schemas.scheduling import (
     AppointmentCreate,
+    AvailabilityResponse,
+    AvailabilitySlot,
     AppointmentCreated,
     BarberPublic,
     ServicePublic,
@@ -134,4 +148,59 @@ def post_appointment(
             ),
         ),
         notes=appointment.notes,
+    )
+
+
+@router.get(
+    "/availability",
+    response_model=AvailabilityResponse,
+)
+def get_availability(
+    barber_id: UUID,
+    service_id: UUID,
+    day: Annotated[
+        date,
+        Query(alias="date"),
+    ],
+    database: Database,
+    settings: Settings = Depends(get_settings),
+) -> AvailabilityResponse:
+    try:
+        barber, service, slots = list_available_slots(
+            database=database,
+            settings=settings,
+            barber_id=barber_id,
+            service_id=service_id,
+            requested_date=day,
+        )
+    except SchedulingNotFoundError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail=str(exc),
+        ) from exc
+
+    return AvailabilityResponse(
+        date=day,
+        timezone=settings.business_timezone,
+        barber=BarberPublic(
+            id=barber.id,
+            name=barber.name,
+            slug=barber.slug,
+        ),
+        service=ServicePublic(
+            id=service.id,
+            name=service.name,
+            slug=service.slug,
+            duration_minutes=(
+                service.duration_minutes
+            ),
+            price_cents=service.price_cents,
+        ),
+        slots=[
+            AvailabilitySlot(
+                starts_at=starts_at,
+                ends_at=ends_at,
+            )
+            for starts_at, ends_at in slots
+        ],
     )
