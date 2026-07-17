@@ -105,3 +105,71 @@ aliases: []
 - [ ] exibir confirmação e erros;
 - [ ] preservar acessibilidade e responsividade;
 - [ ] substituir a autenticação administrativa temporária antes do painel administrativo.
+
+## Fase 7 — Identidade e autorização
+
+- [ ] usuários administrativos;
+- [ ] funcionários e cargos;
+- [ ] autenticação segura;
+- [ ] papéis e permissões;
+- [ ] recuperação de senha;
+- [ ] auditoria;
+- [ ] remover X-Admin-Key.
+
+## Fase 8 — Cadastros e relacionamento
+
+- [ ] clientes completos;
+- [ ] fornecedores;
+- [ ] categorias de serviços;
+- [ ] serviços completos;
+- [ ] categorias de produtos;
+- [ ] produtos;
+- [ ] configurações e conteúdo;
+- [ ] depoimentos.
+
+## Fase 9 — Atendimento e comissões
+
+- [ ] agenda administrativa;
+- [ ] serviços avulsos;
+- [ ] conclusão de atendimento;
+- [ ] fidelidade;
+- [ ] retorno de clientes;
+- [ ] comissões.
+
+## Fase 10 — Estoque e comercial
+
+- [ ] movimentações de estoque;
+- [ ] estoque mínimo;
+- [ ] compras;
+- [ ] vendas.
+
+## Fase 11 — Financeiro
+
+- [ ] contas a pagar;
+- [ ] contas a receber;
+- [ ] baixas e estornos;
+- [ ] fluxo de caixa.
+
+## Fase 12 — Painel administrativo
+
+- [ ] layout protegido;
+- [ ] dashboards;
+- [ ] cadastros;
+- [ ] agenda;
+- [ ] estoque;
+- [ ] financeiro.
+
+## Fase 13 — Relatórios
+
+- [ ] indicadores;
+- [ ] relatórios operacionais;
+- [ ] relatórios financeiros;
+- [ ] PDF e CSV.
+
+## Fase 14 — Migração e produção
+
+- [ ] importador do banco legado;
+- [ ] validação PostgreSQL;
+- [ ] preview online;
+- [ ] backup e rollback;
+- [ ] deploy controlado.

@@ -1,48 +1,104 @@
-// src/components/Hero.jsx
 import { useEffect, useRef } from "react";
 
 export default function Hero() {
   const vidRef = useRef(null);
 
   useEffect(() => {
-    const v = vidRef.current;
-    if (!v) return;
-    v.muted = true;
-    v.playsInline = true;
-    const tryPlay = async () => { try { await v.play(); } catch {} };
+    const video = vidRef.current;
+
+    if (!video) {
+      return undefined;
+    }
+
+    video.muted = true;
+    video.playsInline = true;
+
+    const tryPlay = async () => {
+      try {
+        await video.play();
+      } catch {
+        // Alguns navegadores aguardam interação do usuário.
+      }
+    };
+
     tryPlay();
+
     const onUserInteract = () => tryPlay();
-    window.addEventListener("click", onUserInteract, { once: true });
-    window.addEventListener("scroll", onUserInteract, { once: true });
+
+    window.addEventListener(
+      "click",
+      onUserInteract,
+      { once: true }
+    );
+
+    window.addEventListener(
+      "scroll",
+      onUserInteract,
+      { once: true }
+    );
+
     return () => {
-      window.removeEventListener("click", onUserInteract);
-      window.removeEventListener("scroll", onUserInteract);
+      window.removeEventListener(
+        "click",
+        onUserInteract
+      );
+
+      window.removeEventListener(
+        "scroll",
+        onUserInteract
+      );
     };
   }, []);
 
-  // scroll suave até a #galeria compensando o header fixo
-  const handleScrollToGallery = (e) => {
-    e.preventDefault();
+  function handleScrollToGallery(event) {
+    event.preventDefault();
+
     const target = document.querySelector("#galeria");
-    if (!target) return;
+
+    if (!target) {
+      return;
+    }
+
     const header = document.querySelector("header");
-    const offset = (header?.offsetHeight || 0) + 8; // 8px de respiro
-    const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top: y, behavior: "smooth" });
-    // atualiza a âncora na URL
-    window.history.replaceState(null, "", "#galeria");
-  };
+    const offset = (header?.offsetHeight || 0) + 8;
+
+    const y =
+      target.getBoundingClientRect().top +
+      window.pageYOffset -
+      offset;
+
+    window.scrollTo({
+      top: y,
+      behavior: "smooth",
+    });
+
+    window.history.replaceState(
+      null,
+      "",
+      "#galeria"
+    );
+  }
 
   return (
-    <section id="home" className="relative w-full overflow-hidden bg-black">
+    <section
+      id="home"
+      className="relative w-full overflow-hidden bg-black"
+    >
       <div className="relative w-full h-[clamp(560px,78vh,880px)]">
         <video
           ref={vidRef}
           className="absolute inset-0 w-full h-full object-cover object-[center_20%] z-0"
-          autoPlay muted loop playsInline preload="auto"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
           poster="/images/hero-marcio-barber.png"
         >
-          <source src="/videos/background.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+          <source
+            src="/videos/background.mp4"
+            type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+          />
         </video>
 
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/55 to-black/20" />
@@ -57,23 +113,25 @@ export default function Hero() {
 
         <div className="relative z-30 h-full max-w-6xl mx-auto px-6 flex flex-col justify-center">
           <h1 className="text-4xl sm:text-6xl font-extrabold text-white leading-tight max-w-3xl">
-            Seu estilo no nível <span className="text-yellow-400">Top</span>
+            Seu estilo no nível{" "}
+            <span className="text-yellow-400">
+              Top
+            </span>
           </h1>
+
           <p className="mt-4 text-white/90 text-lg max-w-2xl">
-            Cortes masculinos, barba e pigmentação com técnicas modernas e atendimento premium.
+            Cortes masculinos, barba e pigmentação com
+            técnicas modernas e atendimento premium.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="https://wa.me/5583987392265"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#agendamento"
               className="px-6 py-3 rounded-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold transition"
             >
-              Agendar agora
+              Agendar online
             </a>
 
-            {/* Ver galeria com rolagem suave */}
             <a
               href="#galeria"
               onClick={handleScrollToGallery}

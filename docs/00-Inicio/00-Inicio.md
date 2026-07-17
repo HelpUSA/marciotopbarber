@@ -54,3 +54,9 @@ aliases: []
 - [[Gestao-Administrativa-da-Agenda]]
 
 - [[ADR-0009-Gestao-Administrativa-da-Agenda]]
+
+- [[Escopo-Integral-do-Sistema]]
+
+- [[Mapa-de-Dominios-da-Plataforma]]
+
+- [[ADR-0010-Modernizacao-Integral-do-Sistema-Legado]]

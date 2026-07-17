@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-16T22:14:52-03:00",
+    "generated_at":  "2026-07-17T10:08:01-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,8 +19,13 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  1157,
-                      "sha256":  "49439E093BB2B736F45C739C1FFFFA63054D37278E81205F64B6BB5DFDB874D7"
+                      "bytes":  1285,
+                      "sha256":  "C46D0E861DEFBBB33C5C304C3BFBF85B0E33DBC8FE08C31D5B20DEAAC7F74B8B"
+                  },
+                  {
+                      "path":  "01-Produto/Escopo-Integral-do-Sistema.md",
+                      "bytes":  1535,
+                      "sha256":  "6DAD602F0C060C8B19E04738079D1642464BCD8BB53AB83990ACEEE79BD91F85"
                   },
                   {
                       "path":  "01-Produto/Visao-e-Escopo.md",
@@ -58,14 +63,19 @@
                       "sha256":  "7D0A8AFA0892DB0202F22D78025F6743E9FFFF499AC48541CE60FF05E04DD35F"
                   },
                   {
+                      "path":  "02-Arquitetura/Mapa-de-Dominios-da-Plataforma.md",
+                      "bytes":  1053,
+                      "sha256":  "0A636454485234580DDC1AC6E567A766A4A052EF006FE12C4F9AEEA71B3EF874"
+                  },
+                  {
                       "path":  "03-Diagnostico/Diagnostico-Riscos-e-Divida.md",
                       "bytes":  1607,
                       "sha256":  "20CA39241E6FC252A762CAE194B237A3D7B619AE38BC410A69D226DF700881AF"
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  2568,
-                      "sha256":  "6DEC2E394A26E9B08662BAFDD785223BD6FECB39D0B02FF5CB28B49A797D30F7"
+                      "bytes":  3938,
+                      "sha256":  "87E4CDA26A2CC12A184D5118E48DE23092D19E54DD3C86E05056CE0240D89896"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
@@ -93,9 +103,14 @@
                       "sha256":  "89C088CFBD460A320BCBD1D7B2E7E9B323F606B45A8644E8F8256BB1E9B871BB"
                   },
                   {
+                      "path":  "05-Decisoes/ADR-0010-Modernizacao-Integral-do-Sistema-Legado.md",
+                      "bytes":  1059,
+                      "sha256":  "D8D56D843E7664E33D082C86D0FB70175F6B4F7252DA40EE8A84483A3760E2F9"
+                  },
+                  {
                       "path":  "05-Decisoes/ADRs.md",
-                      "bytes":  1438,
-                      "sha256":  "DA8130F8983675320A4B5E8A88107083F6BBC87995355E376544759BE5EECCD5"
+                      "bytes":  1592,
+                      "sha256":  "54C55EAA8021C995EDDE5D42E5D7222255D04A3068242CB5DC78560301DFA342"
                   },
                   {
                       "path":  "06-Operacao/Operacao-e-Deploy.md",

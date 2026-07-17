@@ -66,3 +66,9 @@ Documento completo: [[ADR-0008-Disponibilidade-e-Jornada]]
 **Status:** aceito como solução temporária.
 
 Documento completo: [[ADR-0009-Gestao-Administrativa-da-Agenda]]
+
+## ADR-0010 — Modernização Integral do Sistema Legado
+
+**Status:** aceito.
+
+Documento completo: [[ADR-0010-Modernizacao-Integral-do-Sistema-Legado]]
