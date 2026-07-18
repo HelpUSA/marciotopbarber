@@ -212,6 +212,20 @@ aliases: []
 - [x] layout responsivo;
 - [x] dashboard de papéis e permissões;
 - [x] rewrites administrativos na Vercel;
-- [ ] gestão visual de usuários;
-- [ ] gestão visual de funcionários;
+- [x] gestão visual de usuários;
+- [x] gestão visual de funcionários;
 - [ ] bootstrap do administrador de produção.
+
+
+### Fase 7D — Gestão visual concluída
+
+- [x] listagem e pesquisa de usuários;
+- [x] criação e edição de usuários;
+- [x] papéis e redefinição de senha;
+- [x] listagem e pesquisa de funcionários;
+- [x] criação e edição de funcionários;
+- [x] vínculo com usuários e barbeiros;
+- [x] navegação filtrada por permissões;
+- [ ] agenda administrativa visual;
+- [ ] jornadas e bloqueios visuais;
+- [ ] atualização visual de agendamentos.

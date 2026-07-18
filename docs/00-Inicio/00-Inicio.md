@@ -72,3 +72,5 @@ aliases: []
 - [[Painel-Administrativo-React]]
 
 - [[ADR-0013-Sessao-do-Painel-em-Session-Storage]]
+
+- [[Gestao-Visual-de-Usuarios-e-Funcionarios]]

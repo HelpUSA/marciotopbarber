@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -9,6 +10,7 @@ import {
   LogOut,
   Menu,
   ShieldCheck,
+  UserCog,
   UsersRound,
   X,
 } from "lucide-react";
@@ -30,6 +32,21 @@ const navigation = [
     label: "Visão geral",
     icon: LayoutDashboard,
     end: true,
+    permission: null,
+  },
+  {
+    to: "/admin/usuarios",
+    label: "Usuários",
+    icon: UserCog,
+    end: false,
+    permission: "users.manage",
+  },
+  {
+    to: "/admin/funcionarios",
+    label: "Funcionários",
+    icon: UsersRound,
+    end: false,
+    permission: "employees.manage",
   },
 ];
 
@@ -58,7 +75,18 @@ export default function AdminLayout() {
   const {
     user,
     logout,
+    hasPermission,
   } = useAdminAuth();
+
+  const visibleNavigation = useMemo(
+    () => navigation.filter(
+      (item) => (
+        !item.permission ||
+        hasPermission(item.permission)
+      )
+    ),
+    [hasPermission]
+  );
 
   useEffect(() => {
     setMenuOpen(false);
@@ -99,10 +127,10 @@ export default function AdminLayout() {
       </div>
 
       <nav
-        className="flex-1 space-y-2 px-4 py-5"
+        className="flex-1 space-y-2 overflow-y-auto px-4 py-5"
         aria-label="Navegação administrativa"
       >
-        {navigation.map((item) => {
+        {visibleNavigation.map((item) => {
           const Icon = item.icon;
 
           return (
@@ -124,11 +152,6 @@ export default function AdminLayout() {
           </p>
 
           <div className="mt-3 space-y-2 px-4 text-sm text-neutral-500">
-            <p className="flex items-center gap-2">
-              <UsersRound size={16} />
-              Usuários e funcionários
-            </p>
-
             <p className="flex items-center gap-2">
               <ShieldCheck size={16} />
               Agenda e operações

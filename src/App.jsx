@@ -24,6 +24,8 @@ import ProtectedAdminRoute from "./admin/components/ProtectedAdminRoute";
 import AdminLayout from "./admin/components/AdminLayout";
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminDashboard from "./admin/pages/AdminDashboard";
+import AdminUsers from "./admin/pages/AdminUsers";
+import AdminEmployees from "./admin/pages/AdminEmployees";
 import AdminNotFound from "./admin/pages/AdminNotFound";
 
 function PublicLayout() {
@@ -107,6 +109,14 @@ const router = createBrowserRouter(
             {
               index: true,
               element: <AdminDashboard />,
+            },
+            {
+              path: "usuarios",
+              element: <AdminUsers />,
+            },
+            {
+              path: "funcionarios",
+              element: <AdminEmployees />,
             },
             {
               path: "*",

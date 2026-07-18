@@ -14,13 +14,17 @@ export function adminRequest(
     throw error;
   }
 
-  const headers = new Headers(
+  const normalizedHeaders = new Headers(
     options.headers || {}
   );
 
-  headers.set(
+  normalizedHeaders.set(
     "Authorization",
     `Bearer ${token}`
+  );
+
+  const headers = Object.fromEntries(
+    normalizedHeaders.entries()
   );
 
   return apiRequest(path, {
