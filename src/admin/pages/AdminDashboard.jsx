@@ -1,6 +1,7 @@
 import React from "react";
 
 import {
+  ArrowRight,
   CalendarDays,
   CheckCircle2,
   Clock3,
@@ -12,45 +13,55 @@ import {
 } from "lucide-react";
 
 import {
+  Link,
+} from "react-router-dom";
+
+import {
   useAdminAuth,
 } from "../auth/AdminAuthContext";
 
 const modules = [
   {
+    name: "Agenda",
+    description: "Atendimentos e status.",
+    permission: "appointments.manage",
+    icon: CalendarDays,
+    to: "/admin/agenda",
+  },
+  {
+    name: "Jornadas",
+    description: "Horários e bloqueios.",
+    permission: "scheduling.manage",
+    icon: Clock3,
+    to: "/admin/jornadas",
+  },
+  {
     name: "Usuários",
     description: "Contas, papéis e acessos.",
     permission: "users.manage",
     icon: KeyRound,
+    to: "/admin/usuarios",
   },
   {
     name: "Funcionários",
     description: "Equipe e vínculos operacionais.",
     permission: "employees.manage",
     icon: UsersRound,
-  },
-  {
-    name: "Agenda",
-    description: "Jornadas, bloqueios e horários.",
-    permission: "scheduling.manage",
-    icon: CalendarDays,
-  },
-  {
-    name: "Agendamentos",
-    description: "Confirmações e atendimentos.",
-    permission: "appointments.manage",
-    icon: Clock3,
+    to: "/admin/funcionarios",
   },
   {
     name: "Estoque",
     description: "Produtos e movimentações.",
     permission: "inventory.manage",
     icon: Package,
+    to: null,
   },
   {
     name: "Financeiro",
     description: "Contas e fluxo financeiro.",
     permission: "finance.manage",
     icon: WalletCards,
+    to: null,
   },
 ];
 
@@ -85,9 +96,9 @@ export default function AdminDashboard() {
           </h1>
 
           <p className="mt-2 max-w-2xl text-neutral-400">
-            Esta é a fundação do painel moderno.
-            Os módulos serão adicionados de forma
-            progressiva conforme as permissões da conta.
+            Acesse os módulos liberados para sua
+            conta e acompanhe a operação da
+            barbearia.
           </p>
         </div>
 
@@ -112,7 +123,7 @@ export default function AdminDashboard() {
           return (
             <article
               key={module.permission}
-              className="rounded-2xl border border-white/10 bg-neutral-900 p-5 shadow-lg"
+              className="flex flex-col rounded-2xl border border-white/10 bg-neutral-900 p-5 shadow-lg"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="rounded-xl bg-white/5 p-3 text-accent">
@@ -143,6 +154,24 @@ export default function AdminDashboard() {
               <p className="mt-4 font-mono text-xs text-neutral-600">
                 {module.permission}
               </p>
+
+              <div className="mt-auto pt-5">
+                {allowed && module.to ? (
+                  <Link
+                    to={module.to}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:text-yellow-200"
+                  >
+                    Acessar módulo
+                    <ArrowRight size={16} />
+                  </Link>
+                ) : (
+                  <p className="text-xs text-neutral-600">
+                    {allowed
+                      ? "Módulo em implementação."
+                      : "Acesso não autorizado."}
+                  </p>
+                )}
+              </div>
             </article>
           );
         })}

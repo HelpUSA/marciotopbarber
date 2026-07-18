@@ -24,6 +24,8 @@ import ProtectedAdminRoute from "./admin/components/ProtectedAdminRoute";
 import AdminLayout from "./admin/components/AdminLayout";
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminDashboard from "./admin/pages/AdminDashboard";
+import AdminAppointments from "./admin/pages/AdminAppointments";
+import AdminScheduling from "./admin/pages/AdminScheduling";
 import AdminUsers from "./admin/pages/AdminUsers";
 import AdminEmployees from "./admin/pages/AdminEmployees";
 import AdminNotFound from "./admin/pages/AdminNotFound";
@@ -109,6 +111,14 @@ const router = createBrowserRouter(
             {
               index: true,
               element: <AdminDashboard />,
+            },
+            {
+              path: "agenda",
+              element: <AdminAppointments />,
+            },
+            {
+              path: "jornadas",
+              element: <AdminScheduling />,
             },
             {
               path: "usuarios",

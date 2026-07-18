@@ -226,6 +226,20 @@ aliases: []
 - [x] criação e edição de funcionários;
 - [x] vínculo com usuários e barbeiros;
 - [x] navegação filtrada por permissões;
-- [ ] agenda administrativa visual;
-- [ ] jornadas e bloqueios visuais;
-- [ ] atualização visual de agendamentos.
+- [x] agenda administrativa visual;
+- [x] jornadas e bloqueios visuais;
+- [x] atualização visual de agendamentos.
+
+### Fase 7E — Agenda administrativa concluída
+
+- [x] listagem administrativa de agendamentos;
+- [x] pesquisa e filtros da agenda;
+- [x] alteração visual de status;
+- [x] listagem semanal de jornadas;
+- [x] criação e exclusão de jornadas;
+- [x] listagem de bloqueios e folgas;
+- [x] criação e exclusão de bloqueios;
+- [x] atalhos funcionais no dashboard;
+- [ ] APIs administrativas de clientes;
+- [ ] APIs administrativas do catálogo;
+- [ ] interface de clientes e serviços.

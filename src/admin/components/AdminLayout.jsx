@@ -5,11 +5,13 @@ import React, {
 } from "react";
 
 import {
+  CalendarDays,
+  Clock3,
   ExternalLink,
   LayoutDashboard,
   LogOut,
   Menu,
-  ShieldCheck,
+  Package,
   UserCog,
   UsersRound,
   X,
@@ -33,6 +35,20 @@ const navigation = [
     icon: LayoutDashboard,
     end: true,
     permission: null,
+  },
+  {
+    to: "/admin/agenda",
+    label: "Agenda",
+    icon: CalendarDays,
+    end: false,
+    permission: "appointments.manage",
+  },
+  {
+    to: "/admin/jornadas",
+    label: "Jornadas",
+    icon: Clock3,
+    end: false,
+    permission: "scheduling.manage",
   },
   {
     to: "/admin/usuarios",
@@ -153,8 +169,8 @@ export default function AdminLayout() {
 
           <div className="mt-3 space-y-2 px-4 text-sm text-neutral-500">
             <p className="flex items-center gap-2">
-              <ShieldCheck size={16} />
-              Agenda e operações
+              <Package size={16} />
+              Catálogo, estoque e financeiro
             </p>
           </div>
         </div>
