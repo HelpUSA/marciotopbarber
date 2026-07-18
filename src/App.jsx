@@ -22,10 +22,13 @@ import {
 
 import ProtectedAdminRoute from "./admin/components/ProtectedAdminRoute";
 import AdminLayout from "./admin/components/AdminLayout";
+
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminAppointments from "./admin/pages/AdminAppointments";
 import AdminScheduling from "./admin/pages/AdminScheduling";
+import AdminCustomers from "./admin/pages/AdminCustomers";
+import AdminCatalog from "./admin/pages/AdminCatalog";
 import AdminUsers from "./admin/pages/AdminUsers";
 import AdminEmployees from "./admin/pages/AdminEmployees";
 import AdminNotFound from "./admin/pages/AdminNotFound";
@@ -119,6 +122,14 @@ const router = createBrowserRouter(
             {
               path: "jornadas",
               element: <AdminScheduling />,
+            },
+            {
+              path: "clientes",
+              element: <AdminCustomers />,
+            },
+            {
+              path: "catalogo",
+              element: <AdminCatalog />,
             },
             {
               path: "usuarios",

@@ -7,7 +7,9 @@ import {
   Clock3,
   KeyRound,
   Package,
+  Scissors,
   ShieldCheck,
+  UserRound,
   UsersRound,
   WalletCards,
 } from "lucide-react";
@@ -34,6 +36,20 @@ const modules = [
     permission: "scheduling.manage",
     icon: Clock3,
     to: "/admin/jornadas",
+  },
+  {
+    name: "Clientes",
+    description: "Cadastro e relacionamento.",
+    permission: "customers.manage",
+    icon: UserRound,
+    to: "/admin/clientes",
+  },
+  {
+    name: "Catálogo",
+    description: "Categorias, serviços e preços.",
+    permission: "catalog.manage",
+    icon: Scissors,
+    to: "/admin/catalogo",
   },
   {
     name: "Usuários",
@@ -113,9 +129,10 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {modules.map((module) => {
           const Icon = module.icon;
+
           const allowed = hasPermission(
             module.permission
           );

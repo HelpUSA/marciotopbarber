@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-18T19:54:47-03:00",
+    "generated_at":  "2026-07-18T20:11:40-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,8 +19,8 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  1660,
-                      "sha256":  "73B14F7AFD309CAB87FC03E825D2F269211E93A4139EB8C2482B76324C61543A"
+                      "bytes":  1715,
+                      "sha256":  "8A40E62CCAB19E5C1194993619E0EB22D9E64B9BC6415F6A04B1E28CBD1DCB64"
                   },
                   {
                       "path":  "01-Produto/Escopo-Integral-do-Sistema.md",
@@ -88,6 +88,11 @@
                       "sha256":  "5DFFBFBE47C02891EA12D19EE48AFBFF1F98D27ECF49D313ABFB15169499DEF3"
                   },
                   {
+                      "path":  "02-Arquitetura/Interface-Administrativa-de-Clientes-e-Catalogo.md",
+                      "bytes":  2297,
+                      "sha256":  "9BD71E04855E81ADB610357171AD32560497F634129A01FF6EEE03AD7BDAFCCA"
+                  },
+                  {
                       "path":  "02-Arquitetura/Mapa-de-Dominios-da-Plataforma.md",
                       "bytes":  1053,
                       "sha256":  "0A636454485234580DDC1AC6E567A766A4A052EF006FE12C4F9AEEA71B3EF874"
@@ -104,8 +109,8 @@
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  6837,
-                      "sha256":  "CF7C28B7D26AD92A8F55A2FEB9B258AFCC760F63F6FAD860D851E5FF288546FF"
+                      "bytes":  7514,
+                      "sha256":  "3FD4BC3736C0B303CCD63574745D77DFA9CA0CB7E993C1EEAD9028E221BF8150"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",

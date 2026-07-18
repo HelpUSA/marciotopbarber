@@ -256,6 +256,25 @@ aliases: []
 - [x] auditoria das operações;
 - [x] permissões `customers.manage` e `catalog.manage`;
 - [x] migração reversível `20260718_04`;
-- [ ] interface administrativa de clientes;
-- [ ] interface administrativa de categorias;
-- [ ] interface administrativa de serviços.
+- [x] interface administrativa de clientes;
+- [x] interface administrativa de categorias;
+- [x] interface administrativa de serviços.
+
+### Fase 8B — Interface de clientes e catálogo concluída
+
+- [x] rota administrativa de clientes;
+- [x] listagem e pesquisa de clientes;
+- [x] filtro por situação dos clientes;
+- [x] criação e edição de clientes;
+- [x] dados de fidelidade e relacionamento;
+- [x] resumo de agendamentos do cliente;
+- [x] rota administrativa do catálogo;
+- [x] gestão visual de categorias;
+- [x] gestão visual de serviços;
+- [x] filtros por categoria e situação;
+- [x] atalhos funcionais no dashboard;
+- [x] navegação condicionada por RBAC;
+- [ ] modelos de produtos e fornecedores;
+- [ ] APIs de estoque;
+- [ ] entradas e saídas de estoque;
+- [ ] movimentações comerciais.

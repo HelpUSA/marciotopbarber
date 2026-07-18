@@ -12,7 +12,9 @@ import {
   LogOut,
   Menu,
   Package,
+  Scissors,
   UserCog,
+  UserRound,
   UsersRound,
   X,
 } from "lucide-react";
@@ -49,6 +51,20 @@ const navigation = [
     icon: Clock3,
     end: false,
     permission: "scheduling.manage",
+  },
+  {
+    to: "/admin/clientes",
+    label: "Clientes",
+    icon: UserRound,
+    end: false,
+    permission: "customers.manage",
+  },
+  {
+    to: "/admin/catalogo",
+    label: "Catálogo",
+    icon: Scissors,
+    end: false,
+    permission: "catalog.manage",
   },
   {
     to: "/admin/usuarios",
@@ -170,7 +186,7 @@ export default function AdminLayout() {
           <div className="mt-3 space-y-2 px-4 text-sm text-neutral-500">
             <p className="flex items-center gap-2">
               <Package size={16} />
-              Catálogo, estoque e financeiro
+              Produtos, estoque e financeiro
             </p>
           </div>
         </div>
