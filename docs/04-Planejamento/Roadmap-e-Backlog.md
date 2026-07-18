@@ -274,7 +274,34 @@ aliases: []
 - [x] filtros por categoria e situação;
 - [x] atalhos funcionais no dashboard;
 - [x] navegação condicionada por RBAC;
-- [ ] modelos de produtos e fornecedores;
-- [ ] APIs de estoque;
-- [ ] entradas e saídas de estoque;
+- [x] modelos de produtos e fornecedores;
+- [x] APIs de estoque;
+- [x] entradas e saídas de estoque;
 - [ ] movimentações comerciais.
+
+### Fase 9A — Estoque e base comercial concluídos
+
+- [x] modelo de fornecedores;
+- [x] cadastro e atualização de fornecedores;
+- [x] pesquisa e filtros de fornecedores;
+- [x] modelo de produtos;
+- [x] cadastro e atualização de produtos;
+- [x] SKU e código de barras únicos;
+- [x] custo e preço de venda;
+- [x] estoque atual e estoque mínimo;
+- [x] entradas de estoque;
+- [x] saídas de estoque;
+- [x] ajustes positivos e negativos;
+- [x] bloqueio de saldo negativo;
+- [x] histórico de movimentações;
+- [x] resumo gerencial do estoque;
+- [x] auditoria comercial;
+- [x] permissão `inventory.manage`;
+- [x] migração reversível `20260718_05`;
+- [ ] interface administrativa de fornecedores;
+- [ ] interface administrativa de produtos;
+- [ ] interface administrativa de movimentações;
+- [ ] indicadores visuais de estoque baixo;
+- [ ] vendas de produtos;
+- [ ] contas a pagar e receber;
+- [ ] fluxo de caixa.

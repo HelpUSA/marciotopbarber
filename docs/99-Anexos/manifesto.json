@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-18T20:11:40-03:00",
+    "generated_at":  "2026-07-18T20:38:28-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -19,8 +19,8 @@
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  1715,
-                      "sha256":  "8A40E62CCAB19E5C1194993619E0EB22D9E64B9BC6415F6A04B1E28CBD1DCB64"
+                      "bytes":  1747,
+                      "sha256":  "D1DC021795BCB50E44E3571F4273313859EFE9FFF160B9ECB6FF73A98C555D05"
                   },
                   {
                       "path":  "01-Produto/Escopo-Integral-do-Sistema.md",
@@ -68,6 +68,11 @@
                       "sha256":  "D4BF7B80D76A09065E66121007AB88DD87336EFA10FBA2067501027CA934B0A2"
                   },
                   {
+                      "path":  "02-Arquitetura/Estoque-e-Base-Comercial.md",
+                      "bytes":  2678,
+                      "sha256":  "7667C07F93A6BB1131E2583541939861441B8BB02F24A73F1D34DBA71C45BFCC"
+                  },
+                  {
                       "path":  "02-Arquitetura/Gestao-Administrativa-da-Agenda.md",
                       "bytes":  958,
                       "sha256":  "7D0A8AFA0892DB0202F22D78025F6743E9FFFF499AC48541CE60FF05E04DD35F"
@@ -109,8 +114,8 @@
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  7514,
-                      "sha256":  "3FD4BC3736C0B303CCD63574745D77DFA9CA0CB7E993C1EEAD9028E221BF8150"
+                      "bytes":  8439,
+                      "sha256":  "4FB701388A528914A5832605C0951DC2F5F1674945D89DF994F7ED1A21DBEBC2"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
