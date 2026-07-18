@@ -120,7 +120,7 @@ aliases: []
 
 - [ ] clientes completos;
 - [ ] fornecedores;
-- [ ] categorias de serviços;
+- [x] categorias de serviços;
 - [ ] serviços completos;
 - [ ] categorias de produtos;
 - [ ] produtos;
@@ -240,6 +240,22 @@ aliases: []
 - [x] listagem de bloqueios e folgas;
 - [x] criação e exclusão de bloqueios;
 - [x] atalhos funcionais no dashboard;
-- [ ] APIs administrativas de clientes;
-- [ ] APIs administrativas do catálogo;
+- [x] APIs administrativas de clientes;
+- [x] APIs administrativas do catálogo;
 - [ ] interface de clientes e serviços.
+
+### Fase 8A — APIs de clientes e catálogo concluídas
+
+- [x] modelo de categorias de serviços;
+- [x] relacionamento de serviços com categorias;
+- [x] dados de relacionamento dos clientes;
+- [x] APIs administrativas de clientes;
+- [x] APIs administrativas de categorias;
+- [x] APIs administrativas de serviços;
+- [x] pesquisa e filtros administrativos;
+- [x] auditoria das operações;
+- [x] permissões `customers.manage` e `catalog.manage`;
+- [x] migração reversível `20260718_04`;
+- [ ] interface administrativa de clientes;
+- [ ] interface administrativa de categorias;
+- [ ] interface administrativa de serviços.

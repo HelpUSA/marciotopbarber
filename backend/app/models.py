@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from datetime import datetime, time
+from datetime import date, datetime, time
 from typing import Any
 from uuid import UUID, uuid4
 
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
+    Date,
     DateTime,
     ForeignKey,
     Integer,
@@ -51,7 +52,9 @@ class Customer(TimestampMixin, Base):
         default=uuid4,
     )
 
-    name: Mapped[str] = mapped_column(String(120))
+    name: Mapped[str] = mapped_column(
+        String(120)
+    )
     email: Mapped[str | None] = mapped_column(
         String(255),
         nullable=True,
@@ -61,6 +64,34 @@ class Customer(TimestampMixin, Base):
         String(32),
         index=True,
     )
+    birth_date: Mapped[date | None] = mapped_column(
+        Date,
+        nullable=True,
+        index=True,
+    )
+    active: Mapped[bool] = mapped_column(
+        Boolean,
+        default=True,
+        index=True,
+    )
+    notes: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
+    )
+    loyalty_points: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+    )
+    last_service_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+        index=True,
+    )
+    return_due_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+        index=True,
+    )
 
     appointments: Mapped[list["Appointment"]] = relationship(
         back_populates="customer"
@@ -68,6 +99,7 @@ class Customer(TimestampMixin, Base):
 
 
 class Barber(TimestampMixin, Base):
+
     __tablename__ = "barbers"
 
     id: Mapped[UUID] = mapped_column(
@@ -107,6 +139,41 @@ class Barber(TimestampMixin, Base):
     )
 
 
+class ServiceCategory(TimestampMixin, Base):
+    __tablename__ = "service_categories"
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+    name: Mapped[str] = mapped_column(
+        String(120)
+    )
+    slug: Mapped[str] = mapped_column(
+        String(120),
+        unique=True,
+        index=True,
+    )
+    description: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
+    )
+    active: Mapped[bool] = mapped_column(
+        Boolean,
+        default=True,
+        index=True,
+    )
+    position: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+    )
+
+    services: Mapped[list["Service"]] = relationship(
+        back_populates="category"
+    )
+
+
 class Service(TimestampMixin, Base):
     __tablename__ = "services"
 
@@ -116,25 +183,51 @@ class Service(TimestampMixin, Base):
         default=uuid4,
     )
 
-    name: Mapped[str] = mapped_column(String(120))
+    category_id: Mapped[UUID | None] = mapped_column(
+        ForeignKey(
+            "service_categories.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+    name: Mapped[str] = mapped_column(
+        String(120)
+    )
     slug: Mapped[str] = mapped_column(
         String(120),
         unique=True,
         index=True,
     )
-    duration_minutes: Mapped[int] = mapped_column(Integer)
-    price_cents: Mapped[int] = mapped_column(Integer)
+    description: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
+    )
+    duration_minutes: Mapped[int] = mapped_column(
+        Integer
+    )
+    price_cents: Mapped[int] = mapped_column(
+        Integer
+    )
+    position: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+    )
     active: Mapped[bool] = mapped_column(
         Boolean,
         default=True,
     )
 
+    category: Mapped["ServiceCategory | None"] = relationship(
+        back_populates="services"
+    )
     appointments: Mapped[list["Appointment"]] = relationship(
         back_populates="service"
     )
 
 
 class BarberSchedule(TimestampMixin, Base):
+
     __tablename__ = "barber_schedules"
 
     __table_args__ = (

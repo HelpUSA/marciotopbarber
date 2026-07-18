@@ -62,6 +62,7 @@ def test_initial_migration_round_trip(
         "barbers",
         "customers",
         "services",
+    "service_categories",
     "barber_schedules",
     "barber_blocks",
     "roles",
@@ -84,7 +85,7 @@ def test_initial_migration_round_trip(
             )
         )
 
-    assert revision == "20260717_03"
+    assert revision == "20260718_04"
 
     run_alembic(
         "check",

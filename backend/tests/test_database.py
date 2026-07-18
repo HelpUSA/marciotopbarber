@@ -181,6 +181,7 @@ def test_database_schema_and_relationships():
         "customers",
         "barbers",
         "services",
+    "service_categories",
         "appointments",
         "barber_schedules",
         "barber_blocks",

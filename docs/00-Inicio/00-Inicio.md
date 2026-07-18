@@ -76,3 +76,5 @@ aliases: []
 - [[Gestao-Visual-de-Usuarios-e-Funcionarios]]
 
 - [[Agenda-Administrativa-Visual]]
+
+- [[APIs-Administrativas-de-Clientes-e-Catalogo]]
