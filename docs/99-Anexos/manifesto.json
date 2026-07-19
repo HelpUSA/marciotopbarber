@@ -1,226 +1,231 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-18T21:36:00-03:00",
+    "generated_at":  "2026-07-19T14:53:52-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
                       "bytes":  118,
-                      "sha256":  "70A6E91F8431FAA73391E94F2A5141B7BCD69D431B99DF5B3BC8904E1E979F85"
+                      "sha256":  "70a6e91f8431faa73391e94f2a5141b7bcd69d431b99df5b3bc8904e1e979f85"
                   },
                   {
                       "path":  ".obsidian/app.json",
                       "bytes":  207,
-                      "sha256":  "36D08CAC1627A1C6A1A10895340F7D6FF94868DE0275B9A8B84AAA32607E4227"
+                      "sha256":  "36d08cac1627a1c6a1a10895340f7d6ff94868de0275b9a8b84aaa32607e4227"
                   },
                   {
                       "path":  ".obsidian/templates.json",
                       "bytes":  34,
-                      "sha256":  "7B3BFAA38DAA2DAA9C1AB185BEED7903F36A7C9478EDA2AA9016DDD00CCC2894"
+                      "sha256":  "7b3bfaa38daa2daa9c1ab185beed7903f36a7c9478eda2aa9016ddd00ccc2894"
                   },
                   {
                       "path":  "00-Inicio/00-Inicio.md",
-                      "bytes":  1790,
-                      "sha256":  "57E1FC8404247F39835D6A29676D88E22EA5B4976D14F3BA0A644C471F7A3A27"
+                      "bytes":  1815,
+                      "sha256":  "3e4df732f86f0a11a6c16bc0c28515a943099c2a16fe834a77903a18b5330160"
                   },
                   {
                       "path":  "01-Produto/Escopo-Integral-do-Sistema.md",
                       "bytes":  1535,
-                      "sha256":  "6DAD602F0C060C8B19E04738079D1642464BCD8BB53AB83990ACEEE79BD91F85"
+                      "sha256":  "6dad602f0c060c8b19e04738079d1642464bcd8bb53ab83990aceee79bd91f85"
                   },
                   {
                       "path":  "01-Produto/Visao-e-Escopo.md",
                       "bytes":  993,
-                      "sha256":  "987DE668FF9C434885A07C94BDD112448E0A43162D8BD501C2E0CD132CB20C86"
+                      "sha256":  "987de668ff9c434885a07c94bdd112448e0a43162d8bd501c2e0cd132cb20c86"
                   },
                   {
                       "path":  "02-Arquitetura/Agenda-Administrativa-Visual.md",
                       "bytes":  1255,
-                      "sha256":  "57AE8C72EE2B1D0B40912C396950C212F74C3788FA7A322F8C19CCEE88A90B77"
+                      "sha256":  "57ae8c72ee2b1d0b40912c396950c212f74c3788fa7a322f8c19ccee88a90b77"
                   },
                   {
                       "path":  "02-Arquitetura/API-de-Agendamentos.md",
                       "bytes":  712,
-                      "sha256":  "4EA95956B92FD73E2EC18366A7C879CE9909DF9F6261110D058AD31FECFEF21B"
+                      "sha256":  "4ea95956b92fd73e2ec18366a7c879ce9909df9f6261110d058ad31fecfef21b"
                   },
                   {
                       "path":  "02-Arquitetura/APIs-Administrativas-de-Clientes-e-Catalogo.md",
                       "bytes":  2136,
-                      "sha256":  "25593472CB0D761CC54366F171D244A64A21395C5D6D45986E4935571EA28D9C"
+                      "sha256":  "25593472cb0d761cc54366f171d244a64a21395c5d6d45986e4935571ea28d9c"
                   },
                   {
                       "path":  "02-Arquitetura/Arquitetura-e-Dados.md",
                       "bytes":  1565,
-                      "sha256":  "4EA3E1279C12E323CC64EA4B19BAFD2AD1CACAE7EBF1B4CC46D4141FCBAF0AF7"
+                      "sha256":  "4ea3e1279c12e323cc64ea4b19bafd2ad1cacae7ebf1b4cc46d4141fcbaf0af7"
                   },
                   {
                       "path":  "02-Arquitetura/Backend-Modular.md",
                       "bytes":  469,
-                      "sha256":  "F7F4DAF12169E2CC6189EE4F8D65357F1073935563E5E83B98139DF3FFD4D9D0"
+                      "sha256":  "f7f4daf12169e2cc6189ee4f8d65357f1073935563e5e83b98139df3ffd4d9d0"
                   },
                   {
                       "path":  "02-Arquitetura/Camada-de-Dados.md",
                       "bytes":  707,
-                      "sha256":  "CB6695AEB1064625029075AB7670DC74B0933BCC838AD7D00895F0460FD32B21"
+                      "sha256":  "cb6695aeb1064625029075ab7670dc74b0933bcc838ad7d00895f0460fd32b21"
+                  },
+                  {
+                      "path":  "02-Arquitetura/Comandas-e-Vendas.md",
+                      "bytes":  3612,
+                      "sha256":  "bdbc4dcb36e2c0bdde92535ce395a45cb8988fec572ad53e59fba71f1d57b29f"
                   },
                   {
                       "path":  "02-Arquitetura/Disponibilidade-e-Jornada.md",
                       "bytes":  844,
-                      "sha256":  "D4BF7B80D76A09065E66121007AB88DD87336EFA10FBA2067501027CA934B0A2"
+                      "sha256":  "d4bf7b80d76a09065e66121007ab88dd87336efa10fba2067501027ca934b0a2"
                   },
                   {
                       "path":  "02-Arquitetura/Estoque-e-Base-Comercial.md",
                       "bytes":  2678,
-                      "sha256":  "7667C07F93A6BB1131E2583541939861441B8BB02F24A73F1D34DBA71C45BFCC"
+                      "sha256":  "7667c07f93a6bb1131e2583541939861441b8bb02f24a73f1d34dba71c45bfcc"
                   },
                   {
                       "path":  "02-Arquitetura/Gestao-Administrativa-da-Agenda.md",
                       "bytes":  958,
-                      "sha256":  "7D0A8AFA0892DB0202F22D78025F6743E9FFFF499AC48541CE60FF05E04DD35F"
+                      "sha256":  "7d0a8afa0892db0202f22d78025f6743e9ffff499ac48541ce60ff05e04dd35f"
                   },
                   {
                       "path":  "02-Arquitetura/Gestao-de-Identidade-e-Autorizacao-Administrativa.md",
                       "bytes":  1447,
-                      "sha256":  "06AA47508B7F18DE2BED92250205B15AFB8FF3A55539F148DD49A99B49D08F0E"
+                      "sha256":  "06aa47508b7f18de2bed92250205b15afb8ff3a55539f148dd49a99b49d08f0e"
                   },
                   {
                       "path":  "02-Arquitetura/Gestao-Visual-de-Usuarios-e-Funcionarios.md",
                       "bytes":  1174,
-                      "sha256":  "5CED1C7DC6B5BF3D6276B72968FA44F7747355B1A4F890C6106838BFA69FDC69"
+                      "sha256":  "5ced1c7dc6b5bf3d6276b72968fa44f7747355b1a4f890c6106838bfa69fdc69"
                   },
                   {
                       "path":  "02-Arquitetura/Identidade-RBAC-e-Auditoria.md",
                       "bytes":  1418,
-                      "sha256":  "5DFFBFBE47C02891EA12D19EE48AFBFF1F98D27ECF49D313ABFB15169499DEF3"
+                      "sha256":  "5dffbfbe47c02891ea12d19ee48afbff1f98d27ecf49d313abfb15169499def3"
                   },
                   {
                       "path":  "02-Arquitetura/Interface-Administrativa-de-Clientes-e-Catalogo.md",
                       "bytes":  2297,
-                      "sha256":  "9BD71E04855E81ADB610357171AD32560497F634129A01FF6EEE03AD7BDAFCCA"
+                      "sha256":  "9bd71e04855e81adb610357171ad32560497f634129a01ff6eee03ad7bdafcca"
                   },
                   {
                       "path":  "02-Arquitetura/Interface-Administrativa-de-Estoque.md",
                       "bytes":  3056,
-                      "sha256":  "9E8205651D3C22819E0DDD1B0A916A4B10CA466C428C6AFEB71F1BE4BEB86623"
+                      "sha256":  "9e8205651d3c22819e0ddd1b0a916a4b10ca466c428c6afeb71f1be4beb86623"
                   },
                   {
                       "path":  "02-Arquitetura/Mapa-de-Dominios-da-Plataforma.md",
                       "bytes":  1053,
-                      "sha256":  "0A636454485234580DDC1AC6E567A766A4A052EF006FE12C4F9AEEA71B3EF874"
+                      "sha256":  "0a636454485234580ddc1ac6e567a766a4a052ef006fe12c4f9aeea71b3ef874"
                   },
                   {
                       "path":  "02-Arquitetura/Painel-Administrativo-React.md",
                       "bytes":  1203,
-                      "sha256":  "E38F538FF8087A3EC9341BE3DAF62B747D798CF1A16E314BEFC999BB15A94E59"
+                      "sha256":  "e38f538ff8087a3ec9341be3daf62b747d798cf1a16e314befc999bb15a94e59"
                   },
                   {
                       "path":  "03-Diagnostico/Diagnostico-Riscos-e-Divida.md",
                       "bytes":  1607,
-                      "sha256":  "20CA39241E6FC252A762CAE194B237A3D7B619AE38BC410A69D226DF700881AF"
+                      "sha256":  "20ca39241e6fc252a762cae194b237a3d7b619ae38bc410a69d226df700881af"
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  9428,
-                      "sha256":  "8713BF2958A4C562D2A09C207D36E9DFE476E996FAB92A69FD776649DAFD7629"
+                      "bytes":  10249,
+                      "sha256":  "4e875e5b251d306563f2a8b0259e4e3ed15bc681419c1a09a803e4ee899f624d"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
                       "bytes":  977,
-                      "sha256":  "204D63634C3060C51D4D1D285020A45872F12F2E4E8C93CF0FDF4AB9C7A97E88"
+                      "sha256":  "204d63634c3060c51d4d1d285020a45872f12f2e4e8c93cf0fdf4ab9c7a97e88"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0006-SQLAlchemy-e-Alembic.md",
                       "bytes":  586,
-                      "sha256":  "5ACFFA9F1E58EFFFFD9FF619E411EE2F80DD4A4BF8431BE81BF63EA7579ADAFD"
+                      "sha256":  "5acffa9f1e58effffd9ff619e411ee2f80dd4a4bf8431be81bf63ea7579adafd"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0007-API-de-Agendamentos.md",
                       "bytes":  799,
-                      "sha256":  "00965F658D80234B9DA0E336124D59D4DC720519066137748D6626D9F52662C2"
+                      "sha256":  "00965f658d80234b9da0e336124d59d4dc720519066137748d6626d9f52662c2"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0008-Disponibilidade-e-Jornada.md",
                       "bytes":  726,
-                      "sha256":  "0782E59A50D2054C295AB087A90DFBBCD54C54259FB6F4720366B4E59EE5815C"
+                      "sha256":  "0782e59a50d2054c295ab087a90dfbbcd54c54259fb6f4720366b4e59ee5815c"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0009-Gestao-Administrativa-da-Agenda.md",
                       "bytes":  1143,
-                      "sha256":  "89C088CFBD460A320BCBD1D7B2E7E9B323F606B45A8644E8F8256BB1E9B871BB"
+                      "sha256":  "89c088cfbd460a320bcbd1d7b2e7e9b323f606b45a8644e8f8256bb1e9b871bb"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0010-Modernizacao-Integral-do-Sistema-Legado.md",
                       "bytes":  1059,
-                      "sha256":  "D8D56D843E7664E33D082C86D0FB70175F6B4F7252DA40EE8A84483A3760E2F9"
+                      "sha256":  "d8d56d843e7664e33d082c86d0fb70175f6b4f7252da40ee8a84483a3760e2f9"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0011-Sessoes-Opacas-e-RBAC.md",
                       "bytes":  1183,
-                      "sha256":  "272DF79B3139A9BA980856A49B66EBE6BB88F7A3634BE1BDA2C363A17F64EA75"
+                      "sha256":  "272df79b3139a9ba980856a49b66ebe6bb88f7a3634be1bda2c363a17f64ea75"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0012-Substituicao-da-Chave-Administrativa-por-RBAC.md",
                       "bytes":  1120,
-                      "sha256":  "522C8BF8B2B4CB92837764106F6CA4D9F97037C19C636C8FE5841DED8481890C"
+                      "sha256":  "522c8bf8b2b4cb92837764106f6ca4d9f97037c19c636c8fe5841ded8481890c"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0013-Sessao-do-Painel-em-Session-Storage.md",
                       "bytes":  805,
-                      "sha256":  "6D69F7D44FD3EBC9204758405D01FF2C75F9291F1C4A17847D21DD095B99FCC5"
+                      "sha256":  "6d69f7d44fd3ebc9204758405d01ff2c75f9291f1c4a17847d21dd095b99fcc5"
                   },
                   {
                       "path":  "05-Decisoes/ADRs.md",
                       "bytes":  1983,
-                      "sha256":  "EB1F1BA0746FB5404451CE658A43DD840CE4EA6F36CDB3ACE510FBEEA963D797"
+                      "sha256":  "eb1f1ba0746fb5404451ce658a43dd840ce4ea6f36cdb3ace510fbeea963d797"
                   },
                   {
                       "path":  "06-Operacao/Operacao-e-Deploy.md",
                       "bytes":  983,
-                      "sha256":  "DEF0CF6CCB02D563AE0A0B0B836DBD8675C6E6A618BD63D81BAEF4D21FCD694E"
+                      "sha256":  "def0cf6ccb02d563ae0a0b0b836dbd8675c6e6a618bd63d81baef4d21fcd694e"
                   },
                   {
                       "path":  "07-Seguranca/Modelo-de-Seguranca.md",
                       "bytes":  865,
-                      "sha256":  "AC5A8C9EF4B114693745E86DD62E087A47B625E9C389F6DCF495E06F90A40A45"
+                      "sha256":  "ac5a8c9ef4b114693745e86dd62e087a47b625e9c389f6dcf495e06f90a40a45"
                   },
                   {
                       "path":  "08-Integracoes/Integracoes-e-Legado.md",
                       "bytes":  1182,
-                      "sha256":  "320845C2276697B7228D24C1B0E3A73D25BFEE4D50D53D3C34360CCD40AD5499"
+                      "sha256":  "320845c2276697b7228d24c1b0e3a73d25bfee4d50d53d3c34360ccd40ad5499"
                   },
                   {
                       "path":  "09-Templates/Template-ADR.md",
                       "bytes":  355,
-                      "sha256":  "B894DC89EF536B3BB30EA5A836D1B3474739CB37EB0E0FED6A043BCAB25D479D"
+                      "sha256":  "b894dc89ef536b3bb30ea5a836d1b3474739cb37eb0e0fed6a043bcab25d479d"
                   },
                   {
                       "path":  "99-Anexos/attachments/.gitkeep",
                       "bytes":  2,
-                      "sha256":  "7EB70257593DA06F682A3DDDA54A9D260D4FC514F645237F5CA74B08F8DA61A6"
+                      "sha256":  "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
                   },
                   {
                       "path":  "99-Anexos/Backend-Core-20260716-173432.md",
                       "bytes":  218,
-                      "sha256":  "2C89899B60E0C410E9BBB75D33F4DB86E52D62DFEA692A8DFA9E1B9118ABAD78"
+                      "sha256":  "2c89899b60e0c410e9bbb75d33f4db86e52d62dfea692a8dfa9e1b9118abad78"
                   },
                   {
                       "path":  "99-Anexos/Higienizacao-Fase-1-20260716-165634.md",
                       "bytes":  1110,
-                      "sha256":  "ED1F1AD447CD9CD76CCCEF9D7FD7D106AEB749382B69386878206B4C0141B4AE"
+                      "sha256":  "ed1f1ad447cd9cd76cccef9d7fd7d106aeb749382b69386878206b4c0141b4ae"
                   },
                   {
                       "path":  "99-Anexos/Inventario-Automatico.md",
                       "bytes":  883,
-                      "sha256":  "E43E00A9243A4CC1428F2250E3D30EDE83BA641ECE80E92537C31D6D34BAA3B1"
+                      "sha256":  "e43e00a9243a4cc1428f2250e3d30ede83ba641ece80e92537c31d6d34baa3b1"
                   },
                   {
                       "path":  "99-Anexos/Validacao-Final-20260716-170338.md",
                       "bytes":  944,
-                      "sha256":  "97E01B7504CAB59BC0F058415E656570B3EA4B953A952E76F00E70B5393E79FF"
+                      "sha256":  "97e01b7504cab59bc0f058415e656570b3ea4b953a952e76f00e70b5393e79ff"
                   },
                   {
                       "path":  "README.md",
                       "bytes":  682,
-                      "sha256":  "010E4549CC4DF2CD1BF3AD7F6D6199DF25EC5C211C5F926BA55B45E5CED5213A"
+                      "sha256":  "010e4549cc4df2cd1bf3ad7f6d6199df25ec5c211c5f926ba55b45e5ced5213a"
                   }
               ]
 }

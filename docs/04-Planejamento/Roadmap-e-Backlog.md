@@ -334,3 +334,30 @@ aliases: []
 - [ ] formas de pagamento;
 - [ ] contas a pagar e receber;
 - [ ] fluxo de caixa.
+### Fase 10A — APIs de comandas e vendas concluídas
+
+- [x] modelos de comandas;
+- [x] itens de serviços;
+- [x] itens de produtos;
+- [x] pagamentos divididos;
+- [x] vínculo com clientes;
+- [x] vínculo com agendamentos;
+- [x] baixa automática de estoque;
+- [x] estorno ao remover produto;
+- [x] estorno ao cancelar comanda;
+- [x] bloqueio de estoque negativo;
+- [x] fechamento;
+- [x] cancelamento;
+- [x] indicadores comerciais;
+- [x] permissão `commerce.manage`;
+- [x] auditoria comercial;
+- [x] migração reversível `20260718_06`;
+- [x] testes funcionais;
+- [ ] interface administrativa de comandas;
+- [ ] abertura visual;
+- [ ] inclusão visual de serviços;
+- [ ] inclusão visual de produtos;
+- [ ] pagamentos visuais;
+- [ ] fechamento visual;
+- [ ] cancelamento visual;
+- [ ] indicadores comerciais visuais.

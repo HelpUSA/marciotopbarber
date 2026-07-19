@@ -84,3 +84,5 @@ aliases: []
 - [[Estoque-e-Base-Comercial]]
 
 - [[Interface-Administrativa-de-Estoque]]
+
+- [[Comandas-e-Vendas]]

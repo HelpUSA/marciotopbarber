@@ -882,3 +882,417 @@ class StockMovement(TimestampMixin, Base):
     supplier: Mapped["Supplier | None"] = relationship(
         back_populates="stock_movements"
     )
+
+
+class ServiceOrder(TimestampMixin, Base):
+    __tablename__ = "service_orders"
+    __table_args__ = (
+        CheckConstraint(
+            "subtotal_cents >= 0",
+            name=(
+                "ck_service_orders_"
+                "subtotal_non_negative"
+            ),
+        ),
+        CheckConstraint(
+            "discount_cents >= 0",
+            name=(
+                "ck_service_orders_"
+                "discount_non_negative"
+            ),
+        ),
+        CheckConstraint(
+            "total_cents >= 0",
+            name=(
+                "ck_service_orders_"
+                "total_non_negative"
+            ),
+        ),
+        CheckConstraint(
+            "paid_cents >= 0",
+            name=(
+                "ck_service_orders_"
+                "paid_non_negative"
+            ),
+        ),
+        CheckConstraint(
+            (
+                "status IN "
+                "('open', 'closed', 'cancelled')"
+            ),
+            name="ck_service_orders_status",
+        ),
+    )
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+
+    number: Mapped[int] = mapped_column(
+        Integer,
+        unique=True,
+        index=True,
+    )
+
+    customer_id: Mapped[
+        UUID | None
+    ] = mapped_column(
+        ForeignKey(
+            "customers.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+
+    appointment_id: Mapped[
+        UUID | None
+    ] = mapped_column(
+        ForeignKey(
+            "appointments.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        unique=True,
+        index=True,
+    )
+
+    opened_by_user_id: Mapped[
+        UUID | None
+    ] = mapped_column(
+        ForeignKey(
+            "users.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+
+    closed_by_user_id: Mapped[
+        UUID | None
+    ] = mapped_column(
+        ForeignKey(
+            "users.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+
+    status: Mapped[str] = mapped_column(
+        String(24),
+        default="open",
+        index=True,
+    )
+
+    notes: Mapped[
+        str | None
+    ] = mapped_column(
+        Text,
+        nullable=True,
+    )
+
+    cancellation_reason: Mapped[
+        str | None
+    ] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    subtotal_cents: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+    )
+
+    discount_cents: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+    )
+
+    total_cents: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+    )
+
+    paid_cents: Mapped[int] = mapped_column(
+        Integer,
+        default=0,
+    )
+
+    opened_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+        index=True,
+    )
+
+    closed_at: Mapped[
+        datetime | None
+    ] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+        index=True,
+    )
+
+    cancelled_at: Mapped[
+        datetime | None
+    ] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+        index=True,
+    )
+
+    customer: Mapped[
+        "Customer | None"
+    ] = relationship()
+
+    appointment: Mapped[
+        "Appointment | None"
+    ] = relationship()
+
+    opened_by_user: Mapped[
+        "User | None"
+    ] = relationship(
+        foreign_keys=[opened_by_user_id]
+    )
+
+    closed_by_user: Mapped[
+        "User | None"
+    ] = relationship(
+        foreign_keys=[closed_by_user_id]
+    )
+
+    items: Mapped[
+        list["ServiceOrderItem"]
+    ] = relationship(
+        back_populates="service_order",
+        cascade="all, delete-orphan",
+    )
+
+    payments: Mapped[
+        list["ServiceOrderPayment"]
+    ] = relationship(
+        back_populates="service_order",
+        cascade="all, delete-orphan",
+    )
+
+
+class ServiceOrderItem(TimestampMixin, Base):
+    __tablename__ = "service_order_items"
+    __table_args__ = (
+        CheckConstraint(
+            "quantity > 0",
+            name=(
+                "ck_service_order_items_"
+                "quantity_positive"
+            ),
+        ),
+        CheckConstraint(
+            "unit_price_cents >= 0",
+            name=(
+                "ck_service_order_items_"
+                "unit_price_non_negative"
+            ),
+        ),
+        CheckConstraint(
+            "total_cents >= 0",
+            name=(
+                "ck_service_order_items_"
+                "total_non_negative"
+            ),
+        ),
+        CheckConstraint(
+            (
+                "item_type IN "
+                "('service', 'product')"
+            ),
+            name=(
+                "ck_service_order_items_"
+                "item_type"
+            ),
+        ),
+    )
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+
+    service_order_id: Mapped[
+        UUID
+    ] = mapped_column(
+        ForeignKey(
+            "service_orders.id",
+            ondelete="CASCADE",
+        ),
+        index=True,
+    )
+
+    item_type: Mapped[str] = mapped_column(
+        String(24),
+        index=True,
+    )
+
+    service_id: Mapped[
+        UUID | None
+    ] = mapped_column(
+        ForeignKey(
+            "services.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+
+    product_id: Mapped[
+        UUID | None
+    ] = mapped_column(
+        ForeignKey(
+            "products.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+
+    barber_id: Mapped[
+        UUID | None
+    ] = mapped_column(
+        ForeignKey(
+            "barbers.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        index=True,
+    )
+
+    stock_movement_id: Mapped[
+        UUID | None
+    ] = mapped_column(
+        ForeignKey(
+            "stock_movements.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+        unique=True,
+        index=True,
+    )
+
+    name: Mapped[str] = mapped_column(
+        String(160)
+    )
+
+    quantity: Mapped[int] = mapped_column(
+        Integer
+    )
+
+    unit_price_cents: Mapped[
+        int
+    ] = mapped_column(
+        Integer
+    )
+
+    total_cents: Mapped[int] = mapped_column(
+        Integer
+    )
+
+    service_order: Mapped[
+        "ServiceOrder"
+    ] = relationship(
+        back_populates="items"
+    )
+
+    service: Mapped[
+        "Service | None"
+    ] = relationship()
+
+    product: Mapped[
+        "Product | None"
+    ] = relationship()
+
+    barber: Mapped[
+        "Barber | None"
+    ] = relationship()
+
+    stock_movement: Mapped[
+        "StockMovement | None"
+    ] = relationship()
+
+
+class ServiceOrderPayment(
+    TimestampMixin,
+    Base,
+):
+    __tablename__ = "service_order_payments"
+    __table_args__ = (
+        CheckConstraint(
+            "amount_cents > 0",
+            name=(
+                "ck_service_order_payments_"
+                "amount_positive"
+            ),
+        ),
+        CheckConstraint(
+            (
+                "payment_method IN "
+                "('cash', 'pix', "
+                "'credit_card', "
+                "'debit_card', 'other')"
+            ),
+            name=(
+                "ck_service_order_payments_"
+                "payment_method"
+            ),
+        ),
+    )
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+
+    service_order_id: Mapped[
+        UUID
+    ] = mapped_column(
+        ForeignKey(
+            "service_orders.id",
+            ondelete="CASCADE",
+        ),
+        index=True,
+    )
+
+    payment_method: Mapped[
+        str
+    ] = mapped_column(
+        String(32),
+        index=True,
+    )
+
+    amount_cents: Mapped[int] = mapped_column(
+        Integer
+    )
+
+    reference: Mapped[
+        str | None
+    ] = mapped_column(
+        String(120),
+        nullable=True,
+        index=True,
+    )
+
+    paid_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+        index=True,
+    )
+
+    service_order: Mapped[
+        "ServiceOrder"
+    ] = relationship(
+        back_populates="payments"
+    )

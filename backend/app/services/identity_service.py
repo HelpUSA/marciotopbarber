@@ -31,6 +31,7 @@ SYSTEM_PERMISSIONS = {
     "customers.manage": "Gerenciar clientes",
     "catalog.manage": "Gerenciar serviços e produtos",
     "inventory.manage": "Gerenciar estoque",
+    "commerce.manage": "Gerenciar comandas e vendas",
     "finance.manage": "Gerenciar financeiro",
     "reports.read": "Consultar relatórios",
 }
