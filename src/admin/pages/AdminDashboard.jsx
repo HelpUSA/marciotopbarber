@@ -67,10 +67,10 @@ const modules = [
   },
   {
     name: "Estoque",
-    description: "Produtos e movimentações.",
+    description: "Produtos, fornecedores e movimentações.",
     permission: "inventory.manage",
     icon: Package,
-    to: null,
+    to: "/admin/estoque",
   },
   {
     name: "Financeiro",

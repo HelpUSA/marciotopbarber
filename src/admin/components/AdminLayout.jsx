@@ -16,6 +16,7 @@ import {
   UserCog,
   UserRound,
   UsersRound,
+  WalletCards,
   X,
 } from "lucide-react";
 
@@ -65,6 +66,13 @@ const navigation = [
     icon: Scissors,
     end: false,
     permission: "catalog.manage",
+  },
+  {
+    to: "/admin/estoque",
+    label: "Estoque",
+    icon: Package,
+    end: false,
+    permission: "inventory.manage",
   },
   {
     to: "/admin/usuarios",
@@ -185,8 +193,8 @@ export default function AdminLayout() {
 
           <div className="mt-3 space-y-2 px-4 text-sm text-neutral-500">
             <p className="flex items-center gap-2">
-              <Package size={16} />
-              Produtos, estoque e financeiro
+              <WalletCards size={16} />
+              Vendas e financeiro
             </p>
           </div>
         </div>

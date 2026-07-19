@@ -298,10 +298,39 @@ aliases: []
 - [x] auditoria comercial;
 - [x] permissão `inventory.manage`;
 - [x] migração reversível `20260718_05`;
-- [ ] interface administrativa de fornecedores;
-- [ ] interface administrativa de produtos;
-- [ ] interface administrativa de movimentações;
-- [ ] indicadores visuais de estoque baixo;
+- [x] interface administrativa de fornecedores;
+- [x] interface administrativa de produtos;
+- [x] interface administrativa de movimentações;
+- [x] indicadores visuais de estoque baixo;
 - [ ] vendas de produtos;
+- [ ] contas a pagar e receber;
+- [ ] fluxo de caixa.
+
+### Fase 9B — Interface administrativa de estoque concluída
+
+- [x] rota `/admin/estoque`;
+- [x] navegação condicionada por `inventory.manage`;
+- [x] atalho funcional no dashboard;
+- [x] indicadores gerais de estoque;
+- [x] interface de fornecedores;
+- [x] pesquisa e filtro de fornecedores;
+- [x] criação e edição de fornecedores;
+- [x] interface de produtos;
+- [x] pesquisa e filtros de produtos;
+- [x] criação e edição de produtos;
+- [x] alertas visuais de estoque baixo;
+- [x] ações rápidas de entrada;
+- [x] ações rápidas de saída;
+- [x] ações rápidas de ajuste;
+- [x] histórico de movimentações;
+- [x] filtros de movimentações;
+- [x] preservação do site público;
+- [ ] modelo de comandas;
+- [ ] itens de serviços em comandas;
+- [ ] itens de produtos em comandas;
+- [ ] baixa automática de estoque;
+- [ ] fechamento e cancelamento de comandas;
+- [ ] vendas de produtos;
+- [ ] formas de pagamento;
 - [ ] contas a pagar e receber;
 - [ ] fluxo de caixa.

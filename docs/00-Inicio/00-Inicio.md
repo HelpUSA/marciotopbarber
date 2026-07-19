@@ -82,3 +82,5 @@ aliases: []
 - [[Interface-Administrativa-de-Clientes-e-Catalogo]]
 
 - [[Estoque-e-Base-Comercial]]
+
+- [[Interface-Administrativa-de-Estoque]]
