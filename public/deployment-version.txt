@@ -1,0 +1,7 @@
+deployment_id=helpus-vercel-20260720-202939
+requested_at=2026-07-20T20:29:52-03:00
+source_commit=76b660cffdda6064d06b458a078f7d105db516d6
+author=HelpUS Ecommerce
+email=helpus.ecommerce@gmail.com
+repository=HelpUSA/marciotopbarber
+production_branch=main
