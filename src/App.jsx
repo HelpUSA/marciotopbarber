@@ -30,6 +30,7 @@ import AdminScheduling from "./admin/pages/AdminScheduling";
 import AdminCustomers from "./admin/pages/AdminCustomers";
 import AdminCatalog from "./admin/pages/AdminCatalog";
 import AdminInventory from "./admin/pages/AdminInventory";
+import AdminServiceOrders from "./admin/pages/AdminServiceOrders";
 import AdminUsers from "./admin/pages/AdminUsers";
 import AdminEmployees from "./admin/pages/AdminEmployees";
 import AdminNotFound from "./admin/pages/AdminNotFound";
@@ -135,6 +136,10 @@ const router = createBrowserRouter(
             {
               path: "estoque",
               element: <AdminInventory />,
+            },
+            {
+              path: "comandas",
+              element: <AdminServiceOrders />,
             },
             {
               path: "usuarios",

@@ -353,11 +353,30 @@ aliases: []
 - [x] auditoria comercial;
 - [x] migração reversível `20260718_06`;
 - [x] testes funcionais;
-- [ ] interface administrativa de comandas;
-- [ ] abertura visual;
-- [ ] inclusão visual de serviços;
-- [ ] inclusão visual de produtos;
-- [ ] pagamentos visuais;
-- [ ] fechamento visual;
-- [ ] cancelamento visual;
-- [ ] indicadores comerciais visuais.
+- [x] interface administrativa de comandas;
+- [x] abertura visual;
+- [x] inclusão visual de serviços;
+- [x] inclusão visual de produtos;
+- [x] pagamentos visuais;
+- [x] fechamento visual;
+- [x] cancelamento visual;
+- [x] indicadores comerciais visuais;
+### Fase 10B — Interface administrativa de comandas concluída
+
+- [x] rota `/admin/comandas`;
+- [x] navegação condicionada por `commerce.manage`;
+- [x] cartão no painel administrativo;
+- [x] indicadores comerciais;
+- [x] listagem e filtros;
+- [x] abertura e edição;
+- [x] serviços e barbeiros;
+- [x] produtos e estoque;
+- [x] remoção e estorno;
+- [x] descontos;
+- [x] pagamentos divididos;
+- [x] fechamento;
+- [x] cancelamento;
+- [x] detalhamento de itens;
+- [x] histórico de pagamentos;
+- [x] estados de carregamento e erro;
+- [x] build de produção.

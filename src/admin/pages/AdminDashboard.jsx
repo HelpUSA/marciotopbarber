@@ -73,6 +73,13 @@ const modules = [
     to: "/admin/estoque",
   },
   {
+    name: "Comandas",
+    description: "Serviços, produtos, pagamentos e vendas.",
+    permission: "commerce.manage",
+    icon: WalletCards,
+    to: "/admin/comandas",
+  },
+  {
     name: "Financeiro",
     description: "Contas e fluxo financeiro.",
     permission: "finance.manage",

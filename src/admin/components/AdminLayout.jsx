@@ -75,6 +75,13 @@ const navigation = [
     permission: "inventory.manage",
   },
   {
+    to: "/admin/comandas",
+    label: "Comandas",
+    icon: WalletCards,
+    end: false,
+    permission: "commerce.manage",
+  },
+  {
     to: "/admin/usuarios",
     label: "Usuários",
     icon: UserCog,
@@ -194,7 +201,7 @@ export default function AdminLayout() {
           <div className="mt-3 space-y-2 px-4 text-sm text-neutral-500">
             <p className="flex items-center gap-2">
               <WalletCards size={16} />
-              Vendas e financeiro
+              Financeiro
             </p>
           </div>
         </div>

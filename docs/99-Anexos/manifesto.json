@@ -1,6 +1,6 @@
 {
     "project":  "marciotopbarber",
-    "generated_at":  "2026-07-19T14:53:52-03:00",
+    "generated_at":  "2026-07-20T14:41:26-03:00",
     "files":  [
                   {
                       "path":  ".gitignore",
@@ -64,8 +64,8 @@
                   },
                   {
                       "path":  "02-Arquitetura/Comandas-e-Vendas.md",
-                      "bytes":  3612,
-                      "sha256":  "bdbc4dcb36e2c0bdde92535ce395a45cb8988fec572ad53e59fba71f1d57b29f"
+                      "bytes":  5350,
+                      "sha256":  "7f3f7b5737c554a20ce1c707018a17d81f8dd6e72b838d450cf49e4d7cacb941"
                   },
                   {
                       "path":  "02-Arquitetura/Disponibilidade-e-Jornada.md",
@@ -124,8 +124,8 @@
                   },
                   {
                       "path":  "04-Planejamento/Roadmap-e-Backlog.md",
-                      "bytes":  10249,
-                      "sha256":  "4e875e5b251d306563f2a8b0259e4e3ed15bc681419c1a09a803e4ee899f624d"
+                      "bytes":  10813,
+                      "sha256":  "679faa95738d1885cdfb22f107781bcac9e93c84509c7102db31b891fc2b020d"
                   },
                   {
                       "path":  "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",

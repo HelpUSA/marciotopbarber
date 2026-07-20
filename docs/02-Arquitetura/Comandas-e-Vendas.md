@@ -2,7 +2,7 @@
 title: "Comandas e Vendas"
 type: "architecture/backend"
 status: "active"
-updated: "2026-07-19"
+updated: "2026-07-20"
 tags:
   - "commerce"
   - "service-orders"
@@ -192,3 +192,75 @@ A suíte cobre:
 - cancelamento;
 - indicadores;
 - auditoria.
+## Interface administrativa
+
+A interface administrativa está disponível em:
+
+- `/admin/comandas`.
+
+O acesso visual exige:
+
+- `commerce.manage`.
+
+A navegação foi integrada a:
+
+- `AdminLayout`;
+- `AdminDashboard`;
+- roteamento central em `App.jsx`.
+
+### Recursos visuais
+
+A página permite:
+
+- consultar indicadores comerciais;
+- listar e pesquisar comandas;
+- filtrar por situação;
+- filtrar por cliente;
+- abrir uma comanda;
+- editar cliente, agendamento, desconto e observações;
+- adicionar serviços;
+- informar o barbeiro responsável;
+- adicionar produtos;
+- acompanhar a baixa automática do estoque;
+- remover itens;
+- acompanhar o estorno de produtos;
+- dividir pagamentos;
+- fechar a comanda;
+- cancelar a comanda;
+- visualizar itens e pagamentos;
+- visualizar o motivo do cancelamento.
+
+### Integrações
+
+A interface utiliza:
+
+- `GET /api/v1/admin/service-orders`;
+- `GET /api/v1/admin/service-orders/summary`;
+- `POST /api/v1/admin/service-orders`;
+- `PATCH /api/v1/admin/service-orders/{order_id}`;
+- `POST /api/v1/admin/service-orders/{order_id}/items/services`;
+- `POST /api/v1/admin/service-orders/{order_id}/items/products`;
+- `DELETE /api/v1/admin/service-orders/{order_id}/items/{item_id}`;
+- `POST /api/v1/admin/service-orders/{order_id}/close`;
+- `POST /api/v1/admin/service-orders/{order_id}/cancel`.
+
+Também consulta:
+
+- clientes;
+- agendamentos;
+- serviços;
+- produtos;
+- barbeiros.
+
+### Validações no navegador
+
+A página valida:
+
+- desconto monetário;
+- quantidade inteira positiva;
+- preço unitário personalizado;
+- pagamentos com valor positivo;
+- soma exata dos pagamentos;
+- motivo do cancelamento;
+- bloqueio visual de fechamento sem itens;
+- bloqueio de alterações em comandas concluídas.
