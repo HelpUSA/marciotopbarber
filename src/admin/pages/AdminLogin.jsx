@@ -1,4 +1,6 @@
+
 import React, {
+  useCallback,
   useState,
 } from "react";
 
@@ -18,63 +20,129 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+import GoogleSignInButton from "../../components/GoogleSignInButton";
+
 import {
   useAdminAuth,
 } from "../auth/AdminAuthContext";
+
+function destinationForUser(
+  user,
+  requestedPath,
+) {
+  const permissions = Array.isArray(
+    user?.permissions
+  )
+    ? user.permissions
+    : [];
+
+  const isAdministrator = permissions.includes(
+    "admin.access"
+  );
+
+  if (
+    isAdministrator &&
+    requestedPath?.startsWith("/admin")
+  ) {
+    return requestedPath;
+  }
+
+  return isAdministrator
+    ? "/admin"
+    : "/conta";
+}
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] =
     useState("");
-
   const [showPassword, setShowPassword] =
     useState(false);
-
+  const [showPasswordLogin, setShowPasswordLogin] =
+    useState(false);
   const [submitting, setSubmitting] =
     useState(false);
-
   const [error, setError] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const {
+    user,
     login,
+    loginWithGoogle,
     isAuthenticated,
   } = useAdminAuth();
+
+  const requestedPath =
+    location.state?.from?.pathname;
+
+  const completeLogin = useCallback(
+    (authenticatedUser) => {
+      navigate(
+        destinationForUser(
+          authenticatedUser,
+          requestedPath,
+        ),
+        { replace: true }
+      );
+    },
+    [
+      navigate,
+      requestedPath,
+    ]
+  );
+
+  const handleGoogleCredential = useCallback(
+    async (credential) => {
+      setError("");
+      setSubmitting(true);
+
+      try {
+        const authenticatedUser =
+          await loginWithGoogle(credential);
+
+        completeLogin(authenticatedUser);
+      } catch (requestError) {
+        setError(
+          requestError.message ||
+          "Não foi possível autenticar com o Google."
+        );
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [
+      completeLogin,
+      loginWithGoogle,
+    ]
+  );
 
   if (isAuthenticated) {
     return (
       <Navigate
-        to="/admin"
+        to={destinationForUser(
+          user,
+          requestedPath,
+        )}
         replace
       />
     );
   }
 
-  async function handleSubmit(event) {
+  async function handlePasswordSubmit(event) {
     event.preventDefault();
 
     setError("");
     setSubmitting(true);
 
     try {
-      await login(email, password);
-
-      const requestedPath =
-        location.state?.from?.pathname;
-
-      const destination = (
-        requestedPath &&
-        requestedPath.startsWith("/admin")
-      )
-        ? requestedPath
-        : "/admin";
-
-      navigate(
-        destination,
-        { replace: true }
+      const authenticatedUser = await login(
+        email,
+        password,
       );
+
+      completeLogin(authenticatedUser);
     } catch (requestError) {
       setError(
         requestError.message ||
@@ -109,13 +177,13 @@ export default function AdminLogin() {
                 />
 
                 <h1 className="mt-7 max-w-md text-4xl font-bold leading-tight">
-                  Gestão segura da sua barbearia.
+                  Sua conta em uma plataforma segura.
                 </h1>
 
                 <p className="mt-4 max-w-md text-lg text-neutral-300">
-                  Acesse agenda, equipe, clientes,
-                  estoque, financeiro e relatórios
-                  em uma única plataforma.
+                  Clientes, operadores, administradores
+                  e proprietários acessam somente as
+                  áreas permitidas ao seu perfil.
                 </p>
               </div>
             </div>
@@ -125,9 +193,8 @@ export default function AdminLogin() {
                 size={20}
                 className="text-accent"
               />
-
-              Sessão protegida por usuário,
-              papéis e permissões.
+              Identidade Google, sessão da aplicação,
+              papéis, permissões e auditoria.
             </div>
           </div>
 
@@ -143,16 +210,15 @@ export default function AdminLogin() {
 
               <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent">
                 <LockKeyhole size={17} />
-                Área administrativa
+                Acesso à plataforma
               </span>
 
               <h2 className="mt-6 text-3xl font-bold">
-                Entre na sua conta
+                Entrar
               </h2>
 
               <p className="mt-2 text-neutral-400">
-                Use as credenciais administrativas
-                provisionadas para sua equipe.
+                Continue com sua conta Google.
               </p>
 
               {error && (
@@ -164,113 +230,144 @@ export default function AdminLogin() {
                 </div>
               )}
 
-              <form
-                onSubmit={handleSubmit}
-                className="mt-7 space-y-5"
-              >
-                <label className="block">
-                  <span className="mb-2 block text-sm font-semibold text-neutral-200">
-                    E-mail
-                  </span>
-
-                  <div className="relative">
-                    <Mail
-                      size={19}
-                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500"
-                    />
-
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(event) => (
-                        setEmail(event.target.value)
-                      )}
-                      autoComplete="username"
-                      placeholder="administrador@empresa.com"
-                      className="w-full rounded-xl border border-white/15 bg-black/30 py-3.5 pl-12 pr-4 text-white outline-none transition placeholder:text-neutral-600 focus:border-accent focus:ring-2 focus:ring-accent/20"
-                      required
-                    />
-                  </div>
-                </label>
-
-                <label className="block">
-                  <span className="mb-2 block text-sm font-semibold text-neutral-200">
-                    Senha
-                  </span>
-
-                  <div className="relative">
-                    <LockKeyhole
-                      size={19}
-                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500"
-                    />
-
-                    <input
-                      type={
-                        showPassword
-                          ? "text"
-                          : "password"
-                      }
-                      value={password}
-                      onChange={(event) => (
-                        setPassword(
-                          event.target.value
-                        )
-                      )}
-                      autoComplete="current-password"
-                      placeholder="Sua senha"
-                      className="w-full rounded-xl border border-white/15 bg-black/30 py-3.5 pl-12 pr-12 text-white outline-none transition placeholder:text-neutral-600 focus:border-accent focus:ring-2 focus:ring-accent/20"
-                      required
-                    />
-
-                    <button
-                      type="button"
-                      aria-label={
-                        showPassword
-                          ? "Ocultar senha"
-                          : "Mostrar senha"
-                      }
-                      onClick={() => (
-                        setShowPassword(
-                          (current) => !current
-                        )
-                      )}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-500 transition hover:text-white"
-                    >
-                      {showPassword ? (
-                        <EyeOff size={19} />
-                      ) : (
-                        <Eye size={19} />
-                      )}
-                    </button>
-                  </div>
-                </label>
-
-                <button
-                  type="submit"
+              <div className="mt-7">
+                <GoogleSignInButton
+                  onCredential={
+                    handleGoogleCredential
+                  }
                   disabled={submitting}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3.5 font-bold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                />
+              </div>
+
+              <div className="my-7 flex items-center gap-3">
+                <div className="h-px flex-1 bg-white/10" />
+                <span className="text-xs uppercase tracking-wider text-neutral-600">
+                  acesso legado
+                </span>
+                <div className="h-px flex-1 bg-white/10" />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => (
+                  setShowPasswordLogin(
+                    (current) => !current
+                  )
+                )}
+                className="w-full rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-neutral-300 transition hover:border-accent hover:text-accent"
+              >
+                {showPasswordLogin
+                  ? "Ocultar login por senha"
+                  : "Entrar com e-mail e senha"}
+              </button>
+
+              {showPasswordLogin && (
+                <form
+                  onSubmit={handlePasswordSubmit}
+                  className="mt-5 space-y-5"
                 >
-                  {submitting ? (
-                    <>
-                      <LoaderCircle
-                        className="animate-spin"
-                        size={20}
+                  <label className="block">
+                    <span className="mb-2 block text-sm font-semibold text-neutral-200">
+                      E-mail
+                    </span>
+
+                    <div className="relative">
+                      <Mail
+                        size={19}
+                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500"
                       />
-                      Autenticando...
-                    </>
-                  ) : (
-                    <>
-                      <LockKeyhole size={19} />
-                      Entrar no painel
-                    </>
-                  )}
-                </button>
-              </form>
+
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(event) => (
+                          setEmail(event.target.value)
+                        )}
+                        autoComplete="username"
+                        className="w-full rounded-xl border border-white/15 bg-black/30 py-3.5 pl-12 pr-4 text-white outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                        required
+                      />
+                    </div>
+                  </label>
+
+                  <label className="block">
+                    <span className="mb-2 block text-sm font-semibold text-neutral-200">
+                      Senha
+                    </span>
+
+                    <div className="relative">
+                      <LockKeyhole
+                        size={19}
+                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500"
+                      />
+
+                      <input
+                        type={
+                          showPassword
+                            ? "text"
+                            : "password"
+                        }
+                        value={password}
+                        onChange={(event) => (
+                          setPassword(
+                            event.target.value
+                          )
+                        )}
+                        autoComplete="current-password"
+                        className="w-full rounded-xl border border-white/15 bg-black/30 py-3.5 pl-12 pr-12 text-white outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                        required
+                      />
+
+                      <button
+                        type="button"
+                        aria-label={
+                          showPassword
+                            ? "Ocultar senha"
+                            : "Mostrar senha"
+                        }
+                        onClick={() => (
+                          setShowPassword(
+                            (current) => !current
+                          )
+                        )}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-500 transition hover:text-white"
+                      >
+                        {showPassword ? (
+                          <EyeOff size={19} />
+                        ) : (
+                          <Eye size={19} />
+                        )}
+                      </button>
+                    </div>
+                  </label>
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3.5 font-bold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {submitting ? (
+                      <>
+                        <LoaderCircle
+                          className="animate-spin"
+                          size={20}
+                        />
+                        Autenticando...
+                      </>
+                    ) : (
+                      <>
+                        <LockKeyhole size={19} />
+                        Entrar com senha
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
 
               <p className="mt-6 text-center text-xs leading-relaxed text-neutral-500">
-                A senha nunca é armazenada no navegador.
-                Somente o token temporário da sessão fica
-                disponível enquanto esta aba permanecer aberta.
+                O token Google é validado no backend.
+                A aplicação cria sua própria sessão
+                temporária e revogável.
               </p>
             </div>
           </div>

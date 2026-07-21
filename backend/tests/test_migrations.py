@@ -79,6 +79,7 @@ def test_initial_migration_round_trip(
     "employees",
     "auth_sessions",
     "audit_logs",
+    "external_identities",
     }
 
     assert tables == expected_tables
@@ -91,7 +92,7 @@ def test_initial_migration_round_trip(
             )
         )
 
-    assert revision == "20260718_06"
+    assert revision == "20260721_07"
 
     run_alembic(
         "check",

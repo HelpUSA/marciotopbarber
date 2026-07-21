@@ -185,6 +185,39 @@ export function AdminAuthProvider({
     []
   );
 
+
+  const loginWithGoogle = useCallback(
+    async (credential) => {
+      setLoading(true);
+
+      try {
+        const response = await apiRequest(
+          "/api/v1/auth/google",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              credential,
+            }),
+          }
+        );
+
+        const nextSession = {
+          token: response.access_token,
+          expiresAt: response.expires_at,
+        };
+
+        writeStoredSession(nextSession);
+        setSession(nextSession);
+        setUser(response.user);
+
+        return response.user;
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
   const logout = useCallback(async () => {
     const token = session?.token;
 
@@ -250,6 +283,7 @@ export function AdminAuthProvider({
         user && session?.token
       ),
       login,
+      loginWithGoogle,
       logout,
       request,
       refreshUser,
@@ -261,6 +295,7 @@ export function AdminAuthProvider({
       session?.expiresAt,
       loading,
       login,
+      loginWithGoogle,
       logout,
       request,
       refreshUser,

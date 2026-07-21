@@ -16,6 +16,8 @@ import Contato from "./components/Contato";
 import Footer from "./components/Footer";
 import WhatsappIcon from "./components/WhatsappIcon";
 
+import PublicAccount from "./pages/PublicAccount";
+
 import {
   AdminAuthProvider,
 } from "./admin/auth/AdminAuthContext";
@@ -100,7 +102,16 @@ const router = createBrowserRouter(
           path: "/",
           element: <HomePage />,
         },
+
+        {
+          path: "/conta",
+          element: <PublicAccount />,
+        },
       ],
+    },
+    {
+      path: "/entrar",
+      element: <AdminLogin />,
     },
     {
       path: "/admin/login",

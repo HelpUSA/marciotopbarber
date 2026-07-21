@@ -380,3 +380,56 @@ aliases: []
 - [x] histórico de pagamentos;
 - [x] estados de carregamento e erro;
 - [x] build de produção.
+
+## Fase 11 — Identidade Google e plataforma multiempresa
+
+### Fase 11A — Google Identity e hierarquia
+
+- [x] inventariar funcionalidades do sistema legado;
+- [x] documentar implementado, parcial e pendente;
+- [x] botão Entrar na página principal;
+- [x] login Google no frontend;
+- [x] validação do ID token no backend;
+- [x] sessão própria da aplicação;
+- [x] superadministrador da plataforma;
+- [x] papel padrão de cliente;
+- [x] definir papéis de proprietário, administrador, operador e funcionário;
+- [ ] configurar Client ID na Vercel e Railway;
+- [ ] validar login Google em produção.
+
+### Fase 11B — Multi-tenancy por barbearia
+
+- [ ] criar `barbershops`;
+- [ ] criar `barbershop_memberships`;
+- [ ] adicionar `barbershop_id` aos domínios de negócio;
+- [ ] aplicar escopo obrigatório em consultas e mutações;
+- [ ] converter restrições únicas para escopo por tenant;
+- [ ] adicionar contexto de barbearia à auditoria;
+- [ ] aprovar testes de isolamento;
+- [ ] ativar papéis por barbearia.
+
+### Fase 11C — Infraestrutura online
+
+- [ ] vincular o projeto Railway correto;
+- [ ] validar PostgreSQL de produção;
+- [ ] executar Alembic até o head;
+- [ ] configurar CORS;
+- [ ] configurar `VITE_API_URL`;
+- [ ] configurar Google Client ID;
+- [ ] testar backend e navegador;
+- [ ] publicar e promover deployment validado.
+
+### Fase 12 — Recursos restantes do legado
+
+- [ ] categorias de produtos;
+- [ ] compras;
+- [ ] contas a pagar;
+- [ ] contas a receber;
+- [ ] fluxo de caixa;
+- [ ] comissões;
+- [ ] conteúdo configurável;
+- [ ] depoimentos;
+- [ ] alertas de retorno;
+- [ ] recuperação de senha;
+- [ ] relatórios;
+- [ ] PDF e CSV.

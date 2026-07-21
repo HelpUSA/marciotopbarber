@@ -62,6 +62,13 @@ export default function Header() {
           >
             Agendar
           </a>
+
+          <a
+            href="/entrar"
+            className="px-4 py-2 rounded-2xl border border-white/20 text-white font-medium hover:border-accent hover:text-accent transition"
+          >
+            Entrar
+          </a>
         </nav>
       </div>
 
@@ -88,6 +95,14 @@ export default function Header() {
             onClick={() => setOpen(false)}
           >
             Agendar
+          </a>
+
+          <a
+            href="/entrar"
+            className="block rounded-2xl border border-white/20 px-4 py-2 text-center font-medium text-white transition hover:border-accent hover:text-accent"
+            onClick={() => setOpen(false)}
+          >
+            Entrar
           </a>
         </nav>
       )}

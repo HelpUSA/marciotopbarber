@@ -1296,3 +1296,52 @@ class ServiceOrderPayment(
     ] = relationship(
         back_populates="payments"
     )
+
+class ExternalIdentity(TimestampMixin, Base):
+    __tablename__ = "external_identities"
+    __table_args__ = (
+        UniqueConstraint(
+            "provider",
+            "subject",
+            name="uq_external_identity_provider_subject",
+        ),
+        UniqueConstraint(
+            "user_id",
+            "provider",
+            name="uq_external_identity_user_provider",
+        ),
+    )
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+    user_id: Mapped[UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    provider: Mapped[str] = mapped_column(
+        String(32),
+        nullable=False,
+        index=True,
+    )
+    subject: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+        index=True,
+    )
+    email: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+        index=True,
+    )
+    display_name: Mapped[str | None] = mapped_column(
+        String(160),
+        nullable=True,
+    )
+    avatar_url: Mapped[str | None] = mapped_column(
+        String(1024),
+        nullable=True,
+    )

@@ -86,3 +86,10 @@ aliases: []
 - [[Interface-Administrativa-de-Estoque]]
 
 - [[Comandas-e-Vendas]]
+
+## Identidade Google e escopo funcional
+
+- [[Matriz-Funcional-Sistema-Barbearia]]
+- [[Google-Identity-e-Hierarquia-de-Acesso]]
+- [[Multitenancy-por-Barbearia]]
+- [[ADR-0015-Google-Identity-e-Superadministrador]]

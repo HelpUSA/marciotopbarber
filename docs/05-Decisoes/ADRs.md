@@ -90,3 +90,10 @@ Documento completo: [[ADR-0012-Substituicao-da-Chave-Administrativa-por-RBAC]]
 **Status:** aceito.
 
 Documento completo: [[ADR-0013-Sessao-do-Painel-em-Session-Storage]]
+
+## ADR-0015 — Google Identity e Superadministrador
+
+**Status:** aceito.
+
+Documento completo:
+[[ADR-0015-Google-Identity-e-Superadministrador]]

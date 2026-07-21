@@ -199,4 +199,5 @@ def test_database_schema_and_relationships():
         "employees",
         "auth_sessions",
         "audit_logs",
+        "external_identities",
     }
