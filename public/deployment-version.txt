@@ -1,8 +1,10 @@
-deployment_id=helpus-runtime-fix-20260720-213251
-requested_at=20260720-213251
-source_commit_base=2e84122317a79d26227505f69aad9e256b44a364
+deployment_id=helpus-routing-fix-20260721-172021
+requested_at=20260721-172021
+source_commit_base=2f41b45ad7467005223810b403a934f823f47bc5
 author=HelpUS Ecommerce
 email=helpus.ecommerce@gmail.com
 repository=HelpUSA/marciotopbarber
 production_branch=main
-runtime_fix=array-response-validation
+routing_fix=vite-spa-deep-link
+clean_urls=False
+spa_destination=/index.html
