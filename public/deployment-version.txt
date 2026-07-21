@@ -1,7 +1,8 @@
-deployment_id=helpus-vercel-20260720-202939
-requested_at=2026-07-20T20:29:52-03:00
-source_commit=76b660cffdda6064d06b458a078f7d105db516d6
+deployment_id=helpus-runtime-fix-20260720-213251
+requested_at=20260720-213251
+source_commit_base=2e84122317a79d26227505f69aad9e256b44a364
 author=HelpUS Ecommerce
 email=helpus.ecommerce@gmail.com
 repository=HelpUSA/marciotopbarber
 production_branch=main
+runtime_fix=array-response-validation

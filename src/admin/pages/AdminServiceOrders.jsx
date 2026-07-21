@@ -34,6 +34,10 @@ import {
 import AdminModal from "../components/AdminModal";
 
 import {
+  expectArrayResponse,
+} from "../../services/api";
+
+import {
   useAdminAuth,
 } from "../auth/AdminAuthContext";
 
@@ -338,11 +342,41 @@ export default function AdminServiceOrders() {
         request("/api/v1/barbers"),
       ]);
 
-      setOrders(ordersResponse);
+      const orderList = expectArrayResponse(
+        ordersResponse,
+        "comandas"
+      );
+
+      const customerList = expectArrayResponse(
+        customersResponse,
+        "clientes"
+      );
+
+      const appointmentList = expectArrayResponse(
+        appointmentsResponse,
+        "agendamentos"
+      );
+
+      const serviceList = expectArrayResponse(
+        servicesResponse,
+        "serviços"
+      );
+
+      const productList = expectArrayResponse(
+        productsResponse,
+        "produtos"
+      );
+
+      const barberList = expectArrayResponse(
+        barbersResponse,
+        "profissionais"
+      );
+
+      setOrders(orderList);
       setSummary(summaryResponse);
-      setCustomers(customersResponse);
+      setCustomers(customerList);
       setAppointments(
-        appointmentsResponse.filter(
+        appointmentList.filter(
           (appointment) => (
             ![
               "cancelled",
@@ -351,20 +385,20 @@ export default function AdminServiceOrders() {
           )
         )
       );
-      setServices(servicesResponse);
-      setProducts(productsResponse);
-      setBarbers(barbersResponse);
+      setServices(serviceList);
+      setProducts(productList);
+      setBarbers(barberList);
 
       setSelectedOrder((current) => {
         if (!current) {
-          return ordersResponse[0] || null;
+          return orderList[0] || null;
         }
 
         return (
-          ordersResponse.find(
+          orderList.find(
             (order) => order.id === current.id
           ) ||
-          ordersResponse[0] ||
+          orderList[0] ||
           null
         );
       });
@@ -493,7 +527,12 @@ export default function AdminServiceOrders() {
         "/api/v1/admin/products?active=true"
       );
 
-      setProducts(response);
+      setProducts(
+        expectArrayResponse(
+          response,
+          "produtos"
+        )
+      );
     } catch (requestError) {
       if (requestError.status !== 403) {
         throw requestError;

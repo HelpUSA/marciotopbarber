@@ -13,7 +13,10 @@ import {
   UserRound,
 } from "lucide-react";
 
-import { apiRequest } from "../services/api";
+import {
+  apiRequest,
+  expectArrayResponse,
+} from "../services/api";
 
 const initialCustomer = {
   name: "",
@@ -112,11 +115,15 @@ export default function Agendamento() {
     setAvailabilityVersion,
   ] = useState(0);
 
-  const selectedBarber = barbers.find(
+  const selectedBarber = (
+    Array.isArray(barbers) ? barbers : []
+  ).find(
     (item) => item.id === selectedBarberId
   );
 
-  const selectedService = services.find(
+  const selectedService = (
+    Array.isArray(services) ? services : []
+  ).find(
     (item) => item.id === selectedServiceId
   );
 
@@ -138,15 +145,25 @@ export default function Agendamento() {
             }),
           ]);
 
-        setBarbers(barberData || []);
-        setServices(serviceData || []);
+        const barberList = expectArrayResponse(
+          barberData,
+          "profissionais"
+        );
+
+        const serviceList = expectArrayResponse(
+          serviceData,
+          "serviços"
+        );
+
+        setBarbers(barberList);
+        setServices(serviceList);
 
         setSelectedBarberId((current) => (
-          current || barberData?.[0]?.id || ""
+          current || barberList[0]?.id || ""
         ));
 
         setSelectedServiceId((current) => (
-          current || serviceData?.[0]?.id || ""
+          current || serviceList[0]?.id || ""
         ));
       } catch (requestError) {
         if (requestError.name !== "AbortError") {
@@ -199,7 +216,12 @@ export default function Agendamento() {
           }
         );
 
-        setSlots(data?.slots || []);
+        setSlots(
+          expectArrayResponse(
+            data?.slots ?? data,
+            "horários disponíveis"
+          )
+        );
       } catch (requestError) {
         if (requestError.name !== "AbortError") {
           setSlots([]);

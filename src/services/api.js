@@ -5,8 +5,41 @@ const configuredBaseUrl = (
 const baseUrl = configuredBaseUrl.replace(/\/+$/, "");
 
 export function apiUrl(path) {
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  const normalizedPath = path.startsWith("/")
+    ? path
+    : `/${path}`;
+
+  if (
+    baseUrl.endsWith("/api") &&
+    normalizedPath.startsWith("/api/")
+  ) {
+    return `${baseUrl}${normalizedPath.slice(4)}`;
+  }
+
   return `${baseUrl}${normalizedPath}`;
+}
+
+export function expectArrayResponse(
+  value,
+  label = "dados"
+) {
+  if (Array.isArray(value)) {
+    return value;
+  }
+
+  for (const key of [
+    "items",
+    "results",
+    "data",
+  ]) {
+    if (Array.isArray(value?.[key])) {
+      return value[key];
+    }
+  }
+
+  throw new TypeError(
+    `A API retornou formato inválido para ${label}.`
+  );
 }
 
 async function parseResponse(response) {
@@ -16,9 +49,46 @@ async function parseResponse(response) {
     return null;
   }
 
+  const normalizedStart = text
+    .trimStart()
+    .toLowerCase();
+
+  const contentType = (
+    response.headers.get("content-type") || ""
+  ).toLowerCase();
+
+  if (
+    normalizedStart.startsWith("<!doctype html") ||
+    normalizedStart.startsWith("<html") ||
+    contentType.includes("text/html")
+  ) {
+    const error = new Error(
+      "A API respondeu uma página HTML em vez de JSON."
+    );
+
+    error.status = response.status;
+    error.data = {
+      contentType,
+    };
+
+    throw error;
+  }
+
   try {
     return JSON.parse(text);
   } catch {
+    if (
+      contentType.includes("application/json") ||
+      contentType.includes("+json")
+    ) {
+      const error = new Error(
+        "A API retornou JSON inválido."
+      );
+
+      error.status = response.status;
+      throw error;
+    }
+
     return text;
   }
 }
