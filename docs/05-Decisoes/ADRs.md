@@ -97,3 +97,10 @@ Documento completo: [[ADR-0013-Sessao-do-Painel-em-Session-Storage]]
 
 Documento completo:
 [[ADR-0015-Google-Identity-e-Superadministrador]]
+
+## ADR-0016 — Núcleo Multiempresa
+
+**Status:** aceito.
+
+Documento:
+[[ADR-0016-Nucleo-Multiempresa]]

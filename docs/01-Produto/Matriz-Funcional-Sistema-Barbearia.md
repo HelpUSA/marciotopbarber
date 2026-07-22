@@ -207,3 +207,17 @@ produção depois de passar por:
 5. configuração das variáveis;
 6. teste em navegador;
 7. validação de autorização e auditoria.
+
+## Evolução multiempresa — Fase 11B-1
+
+| Recurso | Estado | Observação |
+|---|---|---|
+| Cadastro de barbearias | Implementado | Entidade `barbershops` e API exclusiva da plataforma |
+| Vínculos por barbearia | Implementado | Entidade `barbershop_memberships` |
+| Proprietário | Implementado | Atribuição exclusiva da plataforma |
+| Administrador local | Implementado | Atua somente na barbearia vinculada |
+| Operador | Implementado | Sem gestão de membros |
+| Funcionário | Implementado | Sem gestão de membros |
+| Isolamento de membros | Implementado | Proíbe leitura de membros de outra barbearia |
+| Isolamento comercial | Pendente | Clientes, agenda, estoque e comandas receberão `barbershop_id` |
+| Seletor de barbearia | Pendente | Será criado depois do isolamento comercial |

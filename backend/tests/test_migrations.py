@@ -80,6 +80,8 @@ def test_initial_migration_round_trip(
     "auth_sessions",
     "audit_logs",
     "external_identities",
+    "barbershops",
+    "barbershop_memberships",
     }
 
     assert tables == expected_tables
@@ -92,7 +94,7 @@ def test_initial_migration_round_trip(
             )
         )
 
-    assert revision == "20260721_07"
+    assert revision == "20260721_08"
 
     run_alembic(
         "check",

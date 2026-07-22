@@ -93,3 +93,8 @@ aliases: []
 - [[Google-Identity-e-Hierarquia-de-Acesso]]
 - [[Multitenancy-por-Barbearia]]
 - [[ADR-0015-Google-Identity-e-Superadministrador]]
+
+## Núcleo multiempresa
+
+- [[Multitenancy-por-Barbearia]]
+- [[ADR-0016-Nucleo-Multiempresa]]

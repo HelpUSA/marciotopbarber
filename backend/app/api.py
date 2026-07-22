@@ -2,6 +2,9 @@ from fastapi import APIRouter, Depends, Form, HTTPException
 from pydantic import EmailStr
 
 from app.core.config import Settings, get_settings
+from app.routes.barbershops import (
+    router as barbershops_router,
+)
 from app.routes.google_identity import (
     router as google_identity_router,
 )
@@ -105,3 +108,4 @@ router.include_router(catalog_clients_router)
 router.include_router(inventory_router)
 router.include_router(service_orders_router)
 router.include_router(google_identity_router)
+router.include_router(barbershops_router)

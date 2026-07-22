@@ -1345,3 +1345,113 @@ class ExternalIdentity(TimestampMixin, Base):
         String(1024),
         nullable=True,
     )
+
+
+
+class Barbershop(TimestampMixin, Base):
+    __tablename__ = "barbershops"
+    __table_args__ = (
+        UniqueConstraint(
+            "slug",
+            name="uq_barbershops_slug",
+        ),
+    )
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+    name: Mapped[str] = mapped_column(
+        String(160),
+        nullable=False,
+    )
+    slug: Mapped[str] = mapped_column(
+        String(160),
+        nullable=False,
+        index=True,
+    )
+    document: Mapped[str | None] = mapped_column(
+        String(32),
+        nullable=True,
+        index=True,
+    )
+    email: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+    phone: Mapped[str | None] = mapped_column(
+        String(32),
+        nullable=True,
+    )
+    timezone: Mapped[str] = mapped_column(
+        String(64),
+        nullable=False,
+        default="America/Recife",
+    )
+    active: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=True,
+    )
+    settings: Mapped[dict] = mapped_column(
+        JSON,
+        nullable=False,
+        default=dict,
+    )
+
+
+class BarbershopMembership(TimestampMixin, Base):
+    __tablename__ = "barbershop_memberships"
+    __table_args__ = (
+        UniqueConstraint(
+            "barbershop_id",
+            "user_id",
+            name=(
+                "uq_barbershop_memberships_"
+                "barbershop_user"
+            ),
+        ),
+    )
+
+    id: Mapped[UUID] = mapped_column(
+        Uuid,
+        primary_key=True,
+        default=uuid4,
+    )
+    barbershop_id: Mapped[UUID] = mapped_column(
+        ForeignKey(
+            "barbershops.id",
+            ondelete="CASCADE",
+        ),
+        nullable=False,
+        index=True,
+    )
+    user_id: Mapped[UUID] = mapped_column(
+        ForeignKey(
+            "users.id",
+            ondelete="CASCADE",
+        ),
+        nullable=False,
+        index=True,
+    )
+    role: Mapped[str] = mapped_column(
+        String(48),
+        nullable=False,
+        index=True,
+    )
+    active: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=True,
+    )
+    invited_by_user_id: Mapped[UUID | None] = (
+        mapped_column(
+            ForeignKey(
+                "users.id",
+                ondelete="SET NULL",
+            ),
+            nullable=True,
+            index=True,
+        )
+    )

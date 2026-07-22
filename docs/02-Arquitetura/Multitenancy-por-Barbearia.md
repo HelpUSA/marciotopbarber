@@ -103,3 +103,33 @@ isolamento seja implementado.
 
 Os papéis por barbearia somente serão ativados depois que todos
 os testes de isolamento forem aprovados.
+
+## Implementação da Fase 11B-1
+
+Implementado:
+
+- `barbershops`;
+- `barbershop_memberships`;
+- criação de barbearias pelo superadministrador;
+- proprietário opcional na criação;
+- administradores locais;
+- operadores;
+- funcionários;
+- listagem das barbearias acessíveis;
+- gestão de membros com regras de delegação;
+- proteção do último proprietário ativo;
+- auditoria;
+- isolamento da leitura de membros entre barbearias.
+
+Regras:
+
+- o superadministrador pode atribuir qualquer papel local;
+- o proprietário atribui administrador, operador e funcionário;
+- o administrador atribui operador e funcionário;
+- operador e funcionário não gerenciam membros;
+- somente a plataforma atribui proprietários;
+- uma barbearia não pode perder seu último proprietário ativo.
+
+Os papéis locais ainda não concedem acesso às APIs comerciais.
+Clientes, agenda, catálogo, estoque, comandas, financeiro e
+relatórios continuarão bloqueados até receberem `barbershop_id`.

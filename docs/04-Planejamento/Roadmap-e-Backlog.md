@@ -433,3 +433,23 @@ aliases: []
 - [ ] recuperação de senha;
 - [ ] relatórios;
 - [ ] PDF e CSV.
+
+### Fase 11B-1 — Núcleo multiempresa
+
+- [x] criar `barbershops`;
+- [x] criar `barbershop_memberships`;
+- [x] cadastrar barbearias;
+- [x] cadastrar proprietário;
+- [x] cadastrar administrador;
+- [x] cadastrar operador;
+- [x] cadastrar funcionário;
+- [x] proteger a atribuição de proprietário;
+- [x] proteger o último proprietário ativo;
+- [x] listar barbearias acessíveis;
+- [x] proteger a gestão de membros;
+- [x] registrar auditoria;
+- [x] testar isolamento de membros;
+- [ ] adicionar `barbershop_id` aos domínios comerciais;
+- [ ] aplicar isolamento nas APIs existentes;
+- [ ] criar seletor de barbearia no frontend;
+- [ ] ativar painel operacional por tenant.

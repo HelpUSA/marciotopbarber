@@ -16,7 +16,7 @@
     },
     {
       "path": "00-Inicio/00-Inicio.md",
-      "bytes": 2028
+      "bytes": 2122
     },
     {
       "path": "01-Produto/Escopo-Integral-do-Sistema.md",
@@ -24,7 +24,7 @@
     },
     {
       "path": "01-Produto/Matriz-Funcional-Sistema-Barbearia.md",
-      "bytes": 7611
+      "bytes": 8413
     },
     {
       "path": "01-Produto/Visao-e-Escopo.md",
@@ -100,7 +100,7 @@
     },
     {
       "path": "02-Arquitetura/Multitenancy-por-Barbearia.md",
-      "bytes": 2466
+      "bytes": 3451
     },
     {
       "path": "02-Arquitetura/Painel-Administrativo-React.md",
@@ -112,7 +112,7 @@
     },
     {
       "path": "04-Planejamento/Roadmap-e-Backlog.md",
-      "bytes": 12490
+      "bytes": 13168
     },
     {
       "path": "05-Decisoes/ADR-0005-Estrutura-Modular-FastAPI.md",
@@ -155,8 +155,12 @@
       "bytes": 1443
     },
     {
+      "path": "05-Decisoes/ADR-0016-Nucleo-Multiempresa.md",
+      "bytes": 1034
+    },
+    {
       "path": "05-Decisoes/ADRs.md",
-      "bytes": 2129
+      "bytes": 2233
     },
     {
       "path": "06-Operacao/Operacao-e-Deploy.md",
@@ -189,10 +193,6 @@
     {
       "path": "99-Anexos/Inventario-Automatico.md",
       "bytes": 883
-    },
-    {
-      "path": "99-Anexos/manifesto.json",
-      "bytes": 11580
     },
     {
       "path": "99-Anexos/Validacao-Final-20260716-170338.md",
