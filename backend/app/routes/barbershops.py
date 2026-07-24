@@ -315,3 +315,32 @@ def patch_barbershop_member(
         membership,
         user,
     )
+
+
+from sqlalchemy import select as public_select
+from app.models import Barbershop as PublicBarbershopModel
+from app.schemas.barbershops import PublicBarbershopSummary
+
+
+@router.get(
+    "/public/barbershops",
+    response_model=list[PublicBarbershopSummary],
+)
+def get_public_barbershops(
+    database: Database,
+) -> list[PublicBarbershopSummary]:
+    rows = list(
+        database.scalars(
+            public_select(PublicBarbershopModel)
+            .where(PublicBarbershopModel.active.is_(True))
+            .order_by(PublicBarbershopModel.name, PublicBarbershopModel.slug)
+        ).all()
+    )
+    return [
+        PublicBarbershopSummary(
+            id=item.id,
+            name=item.name,
+            slug=item.slug,
+        )
+        for item in rows
+    ]

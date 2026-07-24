@@ -453,3 +453,23 @@ aliases: []
 - [ ] aplicar isolamento nas APIs existentes;
 - [ ] criar seletor de barbearia no frontend;
 - [ ] ativar painel operacional por tenant.
+
+### Fase 11B-2 — Isolamento comercial
+
+- [x] validar 14 modelos comerciais;
+- [x] adicionar `barbershop_id`;
+- [x] criar migração e backfill;
+- [x] proteger leituras por tenant;
+- [x] proteger inclusões por tenant;
+- [x] bloquear alterações cruzadas;
+- [x] bloquear exclusões cruzadas;
+- [x] bloquear referências cruzadas;
+- [x] criar catálogo público de barbearias;
+- [x] proteger os quatro routers comerciais;
+- [x] endurecer a governança de proprietários;
+- [x] criar seletor de barbearia;
+- [x] enviar `X-Barbershop-ID`;
+- [x] criar testes de isolamento;
+- [ ] homologar papéis funcionais locais;
+- [ ] configurar infraestrutura de produção;
+- [ ] publicar somente após homologação.

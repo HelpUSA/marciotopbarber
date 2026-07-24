@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from sqlalchemy.orm import declared_attr
+
 from datetime import date, datetime, time
 from typing import Any
 from uuid import UUID, uuid4
@@ -43,7 +45,23 @@ class TimestampMixin:
     )
 
 
-class Customer(TimestampMixin, Base):
+class TenantScopedMixin:
+    """Entidade comercial pertencente a uma barbearia."""
+
+    @declared_attr
+    def barbershop_id(cls) -> Mapped[UUID]:
+        return mapped_column(
+            Uuid,
+            ForeignKey(
+                "barbershops.id",
+                ondelete="RESTRICT",
+            ),
+            nullable=False,
+            index=True,
+        )
+
+
+class Customer(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "customers"
 
     id: Mapped[UUID] = mapped_column(
@@ -98,8 +116,7 @@ class Customer(TimestampMixin, Base):
     )
 
 
-class Barber(TimestampMixin, Base):
-
+class Barber(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "barbers"
 
     id: Mapped[UUID] = mapped_column(
@@ -139,7 +156,7 @@ class Barber(TimestampMixin, Base):
     )
 
 
-class ServiceCategory(TimestampMixin, Base):
+class ServiceCategory(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "service_categories"
 
     id: Mapped[UUID] = mapped_column(
@@ -174,7 +191,7 @@ class ServiceCategory(TimestampMixin, Base):
     )
 
 
-class Service(TimestampMixin, Base):
+class Service(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "services"
 
     id: Mapped[UUID] = mapped_column(
@@ -226,8 +243,7 @@ class Service(TimestampMixin, Base):
     )
 
 
-class BarberSchedule(TimestampMixin, Base):
-
+class BarberSchedule(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "barber_schedules"
 
     __table_args__ = (
@@ -274,7 +290,7 @@ class BarberSchedule(TimestampMixin, Base):
     )
 
 
-class BarberBlock(TimestampMixin, Base):
+class BarberBlock(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "barber_blocks"
 
     __table_args__ = (
@@ -312,7 +328,7 @@ class BarberBlock(TimestampMixin, Base):
     )
 
 
-class Appointment(TimestampMixin, Base):
+class Appointment(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "appointments"
 
     id: Mapped[UUID] = mapped_column(
@@ -505,7 +521,7 @@ class UserRole(Base):
     )
 
 
-class Employee(TimestampMixin, Base):
+class Employee(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "employees"
 
     id: Mapped[UUID] = mapped_column(
@@ -630,7 +646,7 @@ class AuditLog(TimestampMixin, Base):
     )
 
 
-class Supplier(TimestampMixin, Base):
+class Supplier(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "suppliers"
 
     id: Mapped[UUID] = mapped_column(
@@ -691,7 +707,7 @@ class Supplier(TimestampMixin, Base):
     )
 
 
-class Product(TimestampMixin, Base):
+class Product(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "products"
     __table_args__ = (
         CheckConstraint(
@@ -790,7 +806,7 @@ class Product(TimestampMixin, Base):
     )
 
 
-class StockMovement(TimestampMixin, Base):
+class StockMovement(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "stock_movements"
     __table_args__ = (
         CheckConstraint(
@@ -884,7 +900,7 @@ class StockMovement(TimestampMixin, Base):
     )
 
 
-class ServiceOrder(TimestampMixin, Base):
+class ServiceOrder(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "service_orders"
     __table_args__ = (
         CheckConstraint(
@@ -1079,7 +1095,7 @@ class ServiceOrder(TimestampMixin, Base):
     )
 
 
-class ServiceOrderItem(TimestampMixin, Base):
+class ServiceOrderItem(TenantScopedMixin, TimestampMixin, Base):
     __tablename__ = "service_order_items"
     __table_args__ = (
         CheckConstraint(
@@ -1222,10 +1238,8 @@ class ServiceOrderItem(TimestampMixin, Base):
     ] = relationship()
 
 
-class ServiceOrderPayment(
-    TimestampMixin,
-    Base,
-):
+class ServiceOrderPayment(TenantScopedMixin, TimestampMixin,
+    Base,):
     __tablename__ = "service_order_payments"
     __table_args__ = (
         CheckConstraint(

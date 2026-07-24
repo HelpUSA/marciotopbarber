@@ -133,3 +133,22 @@ Regras:
 Os papéis locais ainda não concedem acesso às APIs comerciais.
 Clientes, agenda, catálogo, estoque, comandas, financeiro e
 relatórios continuarão bloqueados até receberem `barbershop_id`.
+
+## Fase 11B-2 — Isolamento comercial
+
+Os 14 modelos comerciais implementam `TenantScopedMixin` e possuem
+`barbershop_id` obrigatório.
+
+O tenant selecionado é transmitido por `X-Barbershop-ID`. O backend
+valida a barbearia, o vínculo local ativo ou a permissão global de
+administração da plataforma.
+
+As consultas ORM recebem filtro automático. Inclusões recebem o tenant
+ativo e alterações, exclusões ou referências para outra barbearia são
+bloqueadas.
+
+As rotas públicas de catálogo não exigem tenant. As rotas públicas de
+agendamento recebem apenas o contexto necessário para manter o
+agendamento dentro da barbearia selecionada.
+
+A migração `20260722_09` executa o backfill dos registros anteriores.
