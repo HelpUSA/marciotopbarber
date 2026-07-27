@@ -118,3 +118,9 @@ class BarbershopPublic(BaseModel):
     timezone: str
     active: bool
     current_user_role: MembershipRole | None = None
+
+
+class PublicBarbershopSummary(BaseModel):
+    id: UUID
+    name: str
+    slug: str

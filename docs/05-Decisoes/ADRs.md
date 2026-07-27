@@ -104,3 +104,10 @@ Documento completo:
 
 Documento:
 [[ADR-0016-Nucleo-Multiempresa]]
+
+## ADR-0017 — Isolamento Comercial por Barbearia
+
+**Status:** aceito.
+
+Documento:
+[[ADR-0017-Isolamento-Comercial-por-Barbearia]]

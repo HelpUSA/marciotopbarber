@@ -190,6 +190,28 @@ def validate_role_assignment(
     )
 
 
+
+def validate_existing_membership_management(
+    *,
+    scope: str,
+    membership: BarbershopMembership,
+) -> None:
+    if scope == "platform":
+        return
+
+    if membership.role == "barbershop-owner":
+        raise BarbershopPermissionError(
+            "Somente o superadministrador da plataforma pode alterar proprietários."
+        )
+
+    if (
+        scope == "barbershop-administrator"
+        and membership.role == "barbershop-administrator"
+    ):
+        raise BarbershopPermissionError(
+            "O administrador local não pode alterar outro administrador."
+        )
+
 def ensure_not_last_owner(
     database: Session,
     *,
@@ -569,6 +591,11 @@ def add_or_update_member(
 
         database.add(membership)
     else:
+        validate_existing_membership_management(
+            scope=scope,
+            membership=membership,
+        )
+
         ensure_not_last_owner(
             database,
             membership=membership,
@@ -641,6 +668,11 @@ def update_member(
         raise BarbershopNotFoundError(
             "Vínculo não encontrado."
         )
+
+    validate_existing_membership_management(
+        scope=scope,
+        membership=membership,
+    )
 
     resulting_role = (
         payload.role

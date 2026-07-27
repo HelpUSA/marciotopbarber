@@ -1,3 +1,7 @@
+from app.models import BarbershopMembership
+
+from sqlalchemy import select
+
 
 import pytest
 
@@ -444,3 +448,90 @@ def test_barbershop_routes_registered():
     }
 
     assert not required - paths
+
+
+
+def test_administrator_cannot_demote_owner(
+    db_session,
+):
+    prepare_identity(db_session)
+    superadmin = create_platform_user(db_session, "governance-owner")
+    owner = create_customer(db_session, name="Owner", email="governance-owner@example.com")
+    administrator = create_customer(db_session, name="Administrator", email="governance-admin@example.com")
+    barbershop = create_barbershop(
+        db_session,
+        payload=BarbershopCreate(
+            name="Governance One",
+            slug="governance-one",
+            owner_user_id=owner.id,
+        ),
+        actor_user_id=superadmin.id,
+    )
+    add_or_update_member(
+        db_session,
+        barbershop_id=barbershop.id,
+        payload=MembershipCreate(
+            user_id=administrator.id,
+            role="barbershop-administrator",
+        ),
+        actor_user_id=owner.id,
+    )
+    owner_membership = db_session.scalar(
+        select(BarbershopMembership).where(
+            BarbershopMembership.barbershop_id == barbershop.id,
+            BarbershopMembership.user_id == owner.id,
+        )
+    )
+    assert owner_membership is not None
+    with pytest.raises(BarbershopPermissionError):
+        update_member(
+            db_session,
+            barbershop_id=barbershop.id,
+            membership_id=owner_membership.id,
+            payload=MembershipUpdate(role="operator"),
+            actor_user_id=administrator.id,
+        )
+
+
+def test_administrator_cannot_disable_another_administrator(
+    db_session,
+):
+    prepare_identity(db_session)
+    superadmin = create_platform_user(db_session, "governance-admins")
+    owner = create_customer(db_session, name="Owner", email="governance-owner2@example.com")
+    first_admin = create_customer(db_session, name="Admin One", email="governance-admin1@example.com")
+    second_admin = create_customer(db_session, name="Admin Two", email="governance-admin2@example.com")
+    barbershop = create_barbershop(
+        db_session,
+        payload=BarbershopCreate(
+            name="Governance Two",
+            slug="governance-two",
+            owner_user_id=owner.id,
+        ),
+        actor_user_id=superadmin.id,
+    )
+    for user in (first_admin, second_admin):
+        add_or_update_member(
+            db_session,
+            barbershop_id=barbershop.id,
+            payload=MembershipCreate(
+                user_id=user.id,
+                role="barbershop-administrator",
+            ),
+            actor_user_id=owner.id,
+        )
+    second_membership = db_session.scalar(
+        select(BarbershopMembership).where(
+            BarbershopMembership.barbershop_id == barbershop.id,
+            BarbershopMembership.user_id == second_admin.id,
+        )
+    )
+    assert second_membership is not None
+    with pytest.raises(BarbershopPermissionError):
+        update_member(
+            db_session,
+            barbershop_id=barbershop.id,
+            membership_id=second_membership.id,
+            payload=MembershipUpdate(active=False),
+            actor_user_id=first_admin.id,
+        )

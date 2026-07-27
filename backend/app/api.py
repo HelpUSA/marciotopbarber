@@ -2,6 +2,11 @@ from fastapi import APIRouter, Depends, Form, HTTPException
 from pydantic import EmailStr
 
 from app.core.config import Settings, get_settings
+from fastapi import Depends
+from app.core.tenant import (
+    require_tenant_access,
+    require_tenant_context,
+)
 from app.routes.barbershops import (
     router as barbershops_router,
 )
@@ -100,12 +105,12 @@ async def submit_contact(
     }
 
 
-router.include_router(scheduling_router)
+router.include_router(scheduling_router, dependencies=[Depends(require_tenant_context)])
 router.include_router(identity_router)
 router.include_router(identity_management_router)
-router.include_router(management_router)
-router.include_router(catalog_clients_router)
+router.include_router(management_router, dependencies=[Depends(require_tenant_access)])
+router.include_router(catalog_clients_router, dependencies=[Depends(require_tenant_access)])
 router.include_router(inventory_router)
-router.include_router(service_orders_router)
+router.include_router(service_orders_router, dependencies=[Depends(require_tenant_access)])
 router.include_router(google_identity_router)
 router.include_router(barbershops_router)

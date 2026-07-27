@@ -94,7 +94,7 @@ def test_initial_migration_round_trip(
             )
         )
 
-    assert revision == "20260721_08"
+    assert revision == "20260722_09"
 
     run_alembic(
         "check",

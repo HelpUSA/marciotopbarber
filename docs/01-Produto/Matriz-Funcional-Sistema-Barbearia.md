@@ -221,3 +221,19 @@ produção depois de passar por:
 | Isolamento de membros | Implementado | Proíbe leitura de membros de outra barbearia |
 | Isolamento comercial | Pendente | Clientes, agenda, estoque e comandas receberão `barbershop_id` |
 | Seletor de barbearia | Pendente | Será criado depois do isolamento comercial |
+
+## Isolamento comercial — Fase 11B-2
+
+| Recurso | Estado | Observação |
+|---|---|---|
+| `barbershop_id` comercial | Implementado | Obrigatório nos 14 modelos comerciais |
+| Seleção da barbearia | Implementada | Cabeçalho `X-Barbershop-ID` |
+| Leitura por tenant | Implementada | Filtro ORM no contexto ativo |
+| Inclusão por tenant | Implementada | Tenant preenchido na gravação |
+| Alteração cruzada | Bloqueada | Outro tenant não pode ser alterado |
+| Exclusão cruzada | Bloqueada | Outro tenant não pode ser excluído |
+| Referência cruzada | Bloqueada | Relacionamentos são validados |
+| Catálogo público | Implementado | Permite selecionar a barbearia |
+| Seletor no frontend | Implementado | Entrada real descoberta pelo `index.html` |
+| Backfill legado | Implementado | Dados anteriores associados à barbearia legada |
+| Papéis locais comerciais | Pendente | Permanecem bloqueados até homologação específica |
