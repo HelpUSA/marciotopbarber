@@ -62,13 +62,18 @@ export default function TenantSelector() {
         display: "flex",
         alignItems: "center",
         gap: 8,
-        padding: "8px 10px",
-        borderRadius: 10,
-        background: "rgba(255, 255, 255, 0.96)",
-        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.16)",
+        padding: "8px 14px",
+        borderRadius: 12,
+        background: "rgba(23, 23, 23, 0.92)",
+        backdropFilter: "blur(12px)",
+        border: "1px solid rgba(255, 255, 255, 0.15)",
+        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.5)",
+        color: "#ffffff",
+        fontSize: "0.85rem",
+        fontWeight: 600,
       }}
     >
-      <label htmlFor="tenant-selector">Barbearia</label>
+      <label htmlFor="tenant-selector" style={{ color: "#d4d4d4" }}>Barbearia</label>
       <select
         id="tenant-selector"
         value={selected}
@@ -78,9 +83,19 @@ export default function TenantSelector() {
           setSelectedBarbershopId(value);
           window.location.reload();
         }}
+        style={{
+          background: "#0a0a0a",
+          color: "#ffffff",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          borderRadius: 8,
+          padding: "4px 8px",
+          outline: "none",
+          cursor: "pointer",
+          fontSize: "0.85rem",
+        }}
       >
         {barbershops.map((barbershop) => (
-          <option key={barbershop.id} value={barbershop.id}>
+          <option key={barbershop.id} value={barbershop.id} style={{ background: "#171717", color: "#ffffff" }}>
             {barbershop.name}
           </option>
         ))}

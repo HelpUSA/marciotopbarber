@@ -56,13 +56,12 @@ def login_with_google(
     settings: Settings,
 ) -> User:
     client_id = (
-        settings.google_client_id or ""
+        settings.google_client_id or
+        "812202824664-cnh072h6rkto1je3ouspq08qo73c674n.apps.googleusercontent.com"
     ).strip()
 
     if not client_id:
-        raise GoogleIdentityError(
-            "O login Google ainda não foi configurado."
-        )
+        client_id = "812202824664-cnh072h6rkto1je3ouspq08qo73c674n.apps.googleusercontent.com"
 
     claims = verify_google_credential(
         credential,
