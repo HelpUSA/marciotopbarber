@@ -108,45 +108,30 @@ def seed_identity(database: Session) -> Role:
 
     database.commit()
 
-    # Seed default admin accounts for legacy and superadmin logins
-    default_admin_email = "admin@admin.com"
-    existing_admin = database.scalar(
-        select(User).where(User.email == default_admin_email)
-    )
-    if existing_admin is None:
-        create_user(
-            database,
-            name="Administrador",
-            email=default_admin_email,
-            password="123",
-            role_slugs=["administrator"],
-        )
+    # Seed default admin accounts for legacy and superadmin logins with password @dmLocal1993
+    target_password = "@dmLocal1993"
 
-    helpus_email = "helpus.ecommerce@gmail.com"
-    existing_helpus = database.scalar(
-        select(User).where(User.email == helpus_email)
-    )
-    if existing_helpus is None:
-        create_user(
-            database,
-            name="Super Admin",
-            email=helpus_email,
-            password="admin123",
-            role_slugs=["administrator"],
-        )
+    for email_to_seed, name_to_seed in [
+        ("admin@admin.com", "Administrador"),
+        ("helpus.ecommerce@gmail.com", "Super Admin"),
+        ("admin@admin", "Administrador Legado"),
+    ]:
+        norm_email = normalize_email(email_to_seed)
+        usr = database.scalar(select(User).where(User.email == norm_email))
+        if usr is None:
+            create_user(
+                database,
+                name=name_to_seed,
+                email=norm_email,
+                password=target_password,
+                role_slugs=["administrator"],
+            )
+        else:
+            usr.password_hash = hash_password(target_password)
+            usr.active = True
+            database.add(usr)
 
-    short_admin_email = "admin@admin"
-    existing_short = database.scalar(
-        select(User).where(User.email == short_admin_email)
-    )
-    if existing_short is None:
-        create_user(
-            database,
-            name="Administrador Legado",
-            email=short_admin_email,
-            password="123",
-            role_slugs=["administrator"],
-        )
+    database.commit()
 
     return administrator
 
