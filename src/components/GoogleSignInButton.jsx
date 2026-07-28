@@ -75,7 +75,8 @@ export default function GoogleSignInButton({
     let active = true;
 
     const clientId = (
-      import.meta.env.VITE_GOOGLE_CLIENT_ID || ""
+      import.meta.env.VITE_GOOGLE_CLIENT_ID ||
+      "812202824664-cnh072h6rkto1je3ouspq08qo73c674n.apps.googleusercontent.com"
     ).trim();
 
     if (!clientId) {
