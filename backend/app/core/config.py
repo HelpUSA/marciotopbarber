@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     app_env: str = "development"
 
     allowed_origins: str = (
+        "https://marciotopbarber.helpusbr.com,"
         "http://localhost:5173,"
         "http://127.0.0.1:5173"
     )

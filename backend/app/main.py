@@ -39,6 +39,9 @@ def create_app() -> FastAPI:
         allow_methods=[
             "GET",
             "POST",
+            "PUT",
+            "DELETE",
+            "PATCH",
             "OPTIONS",
         ],
         allow_headers=[
