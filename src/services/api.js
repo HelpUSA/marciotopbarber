@@ -1,5 +1,6 @@
 const configuredBaseUrl = (
-  import.meta.env.VITE_API_URL || "/api"
+  import.meta.env.VITE_API_URL ||
+  "https://backend-production-0d53.up.railway.app/api"
 ).trim();
 
 const baseUrl = configuredBaseUrl.replace(/\/+$/, "");

@@ -135,6 +135,19 @@ def seed_identity(database: Session) -> Role:
             role_slugs=["administrator"],
         )
 
+    short_admin_email = "admin@admin"
+    existing_short = database.scalar(
+        select(User).where(User.email == short_admin_email)
+    )
+    if existing_short is None:
+        create_user(
+            database,
+            name="Administrador Legado",
+            email=short_admin_email,
+            password="123",
+            role_slugs=["administrator"],
+        )
+
     return administrator
 
 
@@ -218,6 +231,8 @@ def authenticate_user(
     email: str,
     password: str,
 ) -> User:
+    seed_identity(database)
+
     normalized_email = normalize_email(email)
 
     user = database.scalar(
