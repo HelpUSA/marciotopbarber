@@ -108,6 +108,33 @@ def seed_identity(database: Session) -> Role:
 
     database.commit()
 
+    # Seed default admin accounts for legacy and superadmin logins
+    default_admin_email = "admin@admin.com"
+    existing_admin = database.scalar(
+        select(User).where(User.email == default_admin_email)
+    )
+    if existing_admin is None:
+        create_user(
+            database,
+            name="Administrador",
+            email=default_admin_email,
+            password="123",
+            role_slugs=["administrator"],
+        )
+
+    helpus_email = "helpus.ecommerce@gmail.com"
+    existing_helpus = database.scalar(
+        select(User).where(User.email == helpus_email)
+    )
+    if existing_helpus is None:
+        create_user(
+            database,
+            name="Super Admin",
+            email=helpus_email,
+            password="admin123",
+            role_slugs=["administrator"],
+        )
+
     return administrator
 
 
