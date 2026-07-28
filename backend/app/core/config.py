@@ -26,7 +26,9 @@ class Settings(BaseSettings):
     business_timezone: str = "America/Fortaleza"
     slot_interval_minutes: int = 15
     auth_session_duration_hours: int = 12
-    google_client_id: str | None = None
+    google_client_id: str | None = (
+        "812202824664-cnh072h6rkto1je3ouspq08qo73c674n.apps.googleusercontent.com"
+    )
     platform_superadmin_email: str = "helpus.ecommerce@gmail.com"
     google_auto_provision_customers: bool = True
 
