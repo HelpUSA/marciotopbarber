@@ -59,7 +59,7 @@ export default function AdminLogin() {
   const [showPassword, setShowPassword] =
     useState(false);
   const [showPasswordLogin, setShowPasswordLogin] =
-    useState(false);
+    useState(true);
   const [submitting, setSubmitting] =
     useState(false);
   const [error, setError] = useState("");
