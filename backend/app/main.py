@@ -45,6 +45,13 @@ def create_app() -> FastAPI:
         request: Request,
         call_next,
     ):
+        if request.method == "OPTIONS":
+            response = Response(status_code=200)
+            response.headers["Access-Control-Allow-Origin"] = "*"
+            response.headers["Access-Control-Allow-Methods"] = "*"
+            response.headers["Access-Control-Allow-Headers"] = "*"
+            return response
+
         request_id = (
             request.headers.get("X-Request-ID")
             or uuid4().hex
@@ -59,6 +66,9 @@ def create_app() -> FastAPI:
         )
 
         response.headers["X-Request-ID"] = request_id
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "*"
 
         logging.getLogger("marciotopbarber").info(
             "method=%s path=%s status=%s "
