@@ -74,9 +74,6 @@ def login(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=str(exc),
-            headers={
-                "WWW-Authenticate": "Bearer",
-            },
         ) from exc
 
     session, raw_token = create_session(

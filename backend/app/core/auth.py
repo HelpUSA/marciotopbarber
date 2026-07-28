@@ -49,9 +49,6 @@ def get_auth_context(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Autenticação necessária.",
-            headers={
-                "WWW-Authenticate": "Bearer",
-            },
         )
 
     session = get_session_by_token(
@@ -63,9 +60,6 @@ def get_auth_context(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Sessão inválida ou expirada.",
-            headers={
-                "WWW-Authenticate": "Bearer",
-            },
         )
 
     permissions = set(
