@@ -40,6 +40,24 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
+    @application.on_event("startup")
+    def on_startup():
+        from app.db import engine, SessionLocal
+        from app.models import Base
+        from app.services.access_hierarchy_service import seed_access_hierarchy
+        from app.services.identity_service import seed_identity
+
+        try:
+            Base.metadata.create_all(bind=engine)
+            db = SessionLocal()
+            try:
+                seed_identity(db)
+                seed_access_hierarchy(db)
+            finally:
+                db.close()
+        except Exception as exc:
+            logging.getLogger("marciotopbarber").error("Database startup failed: %s", exc)
+
     @application.middleware("http")
     async def request_context(
         request: Request,
