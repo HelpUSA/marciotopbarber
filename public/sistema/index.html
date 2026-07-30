@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Márcio Top Barber SaaS Enterprise - Painel Gestor</title>
+  <title>Márcio Top Barber SaaS Enterprise - Painel Gestor & Relatórios</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google One Tap & OAuth SDK -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     tailwind.config = {
@@ -28,11 +27,16 @@
     .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      header, aside, .no-print { display: none !important; }
+      .print-area { display: block !important; width: 100% !important; }
+    }
   </style>
 </head>
 <body class="bg-darkBg text-neutral-100 font-sans min-h-screen custom-scrollbar selection:bg-gold selection:text-black">
 
-  <!-- TELA DE LOGIN (COM GOOGLE OAUTH & RBAC) -->
+  <!-- TELA DE LOGIN -->
   <div id="screen-login" class="flex min-h-screen items-center justify-center p-4 bg-gradient-to-br from-neutral-950 via-darkBg to-neutral-900">
     <div class="w-full max-w-sm sm:max-w-md bg-darkCard p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
       <div class="absolute -top-10 -right-10 w-32 h-32 bg-gold/10 rounded-full blur-2xl"></div>
@@ -42,14 +46,13 @@
           💈
         </div>
         <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">Márcio Top Barber</h1>
-        <p class="text-xs text-neutral-400 mt-1">Plataforma SaaS Enterprise & Gestão VIP</p>
+        <p class="text-xs text-neutral-400 mt-1">Plataforma SaaS Enterprise & Relatórios BI</p>
       </div>
 
       <div id="login-error" class="hidden mb-4 p-3 rounded-xl bg-red-950/60 border border-red-500/30 text-red-300 text-xs text-center font-semibold">
         ⚠️ E-mail ou senha inválidos. Tente <span class="text-white font-mono">helpus.ecommerce@gmail.com</span> ou <span class="text-white font-mono">admin@admin</span>
       </div>
 
-      <!-- GOOGLE OAUTH ONE TAP / SIGN IN BUTTON -->
       <div class="mb-6 relative z-10">
         <div id="g_id_onload"
              data-client_id="812202824664-cnh072h6rkto1je3ouspq08qo73c674n.apps.googleusercontent.com"
@@ -94,10 +97,10 @@
     </div>
   </div>
 
-  <!-- TELA DASHBOARD SAAS ENTERPRISE (COM RBAC & GESTÃO DE LICENÇAS) -->
+  <!-- DASHBOARD SAAS (COM RELATÓRIOS BI) -->
   <div id="screen-dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
 
-    <!-- OVERLAY E DRAWER MOBILE -->
+    <!-- DRAWER LATERAL -->
     <div id="mobile-drawer-overlay" onclick="toggleMobileDrawer()" class="hidden fixed inset-0 z-40 bg-black/80 backdrop-blur-sm md:hidden"></div>
     
     <aside id="mobile-drawer" class="fixed top-0 left-0 bottom-0 w-72 bg-darkSidebar border-r border-white/10 z-50 flex flex-col justify-between transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:w-64 md:z-auto">
@@ -118,7 +121,6 @@
         </div>
 
         <nav class="p-3 space-y-1 text-xs font-bold">
-          <!-- ABA EXCLUSIVA DO DESENVOLVEDOR -->
           <button onclick="selectTabMobile('licenses')" id="btn-tab-licenses" class="sidebar-btn developer-only w-full flex items-center gap-3 px-4 py-3 rounded-xl text-yellow-400 bg-yellow-950/30 border border-yellow-500/30 transition">
             <i class="fa-solid fa-key text-sm"></i> Gestão de Licenças SaaS
           </button>
@@ -126,6 +128,12 @@
           <button onclick="selectTabMobile('dashboard')" id="btn-tab-dashboard" class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gold bg-gold/10 border border-gold/20 transition">
             <i class="fa-solid fa-chart-pie text-sm"></i> Visão Geral & KPIs
           </button>
+
+          <!-- ABA DE RELATÓRIOS & ANALYTICS BI -->
+          <button onclick="selectTabMobile('relatorios')" id="btn-tab-relatorios" class="sidebar-btn owner-only w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-chart-line text-sm text-gold"></i> Relatórios & Analytics (BI)
+          </button>
+
           <button onclick="selectTabMobile('agendamentos')" id="btn-tab-agendamentos" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
             <i class="fa-solid fa-calendar-check text-sm"></i> Agenda Interativa
           </button>
@@ -153,7 +161,7 @@
       <div class="p-4 border-t border-white/10">
         <div class="flex items-center gap-3 mb-3 px-2">
           <div class="w-8 h-8 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xs font-bold overflow-hidden">
-            <span id="user-avatar-text">ADM</span>
+            <span>ADM</span>
           </div>
           <div class="overflow-hidden">
             <p id="user-display-name" class="text-xs font-bold text-white truncate">Márcio Top Barber</p>
@@ -166,7 +174,7 @@
       </div>
     </aside>
 
-    <!-- ÁREA PRINCIPAL DA APLICAÇÃO -->
+    <!-- ÁREA PRINCIPAL -->
     <div class="flex-1 flex flex-col min-w-0">
 
       <!-- TOPBAR HEADER -->
@@ -191,28 +199,103 @@
       <!-- CONTEÚDO DAS ABAS -->
       <main class="flex-1 p-4 sm:p-6 overflow-y-auto custom-scrollbar space-y-6">
 
-        <!-- ABA EXCLUSIVA DESENVOLVEDOR: GESTÃO DE LICENÇAS & TRIAL -->
+        <!-- ABA DE RELATÓRIOS & ANALYTICS BI -->
+        <div id="tab-relatorios" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold text-gold uppercase tracking-widest">Business Intelligence (BI)</span>
+              <h2 class="text-lg sm:text-xl font-bold text-white mt-0.5">Relatórios Gerenciais Executivos</h2>
+              <p class="text-xs text-neutral-400">Análise de faturamento, desempenho por barbeiro e rentabilidade.</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-white/10 border border-white/15 text-white font-bold text-xs hover:bg-white/20 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-print"></i> Imprimir Relatório
+              </button>
+            </div>
+          </div>
+
+          <!-- MÉTRICAS FINANCEIRAS DO RELATÓRIO -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-xs text-neutral-400 font-semibold">Faturamento Bruto</span>
+              <h3 id="rep-faturamento-total" class="text-2xl sm:text-3xl font-black text-gold mt-1">R$ 0,00</h3>
+              <span class="text-[10px] text-green-400 font-bold">Vendas POS + Agendamentos</span>
+            </div>
+            <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-xs text-neutral-400 font-semibold">Comissões Pagas</span>
+              <h3 id="rep-comissoes-total" class="text-2xl sm:text-3xl font-black text-green-400 mt-1">R$ 0,00</h3>
+              <span class="text-[10px] text-neutral-400">Repasse para Barbeiros</span>
+            </div>
+            <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-xs text-neutral-400 font-semibold">Lucro Líquido Estimado</span>
+              <h3 id="rep-lucro-liquido" class="text-2xl sm:text-3xl font-black text-white mt-1">R$ 0,00</h3>
+              <span class="text-[10px] text-gold font-bold">Após Comissões & Custos</span>
+            </div>
+            <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-xs text-neutral-400 font-semibold">Ticket Médio por Cliente</span>
+              <h3 id="rep-ticket-medio" class="text-2xl sm:text-3xl font-black text-white mt-1">R$ 0,00</h3>
+              <span class="text-[10px] text-neutral-400">Média por Atendimento</span>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-6">
+            <!-- RELATÓRIO DE DESEMPENHO POR BARBEIRO -->
+            <div class="bg-darkCard p-5 rounded-2xl border border-white/10">
+              <h3 class="font-bold text-white text-base mb-4"><i class="fa-solid fa-user-scissors text-gold mr-2"></i> Relatório por Barbeiro</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-neutral-300">
+                  <thead class="bg-black/40 text-[10px] uppercase text-neutral-400 border-b border-white/10">
+                    <tr>
+                      <th class="p-2.5">Barbeiro</th>
+                      <th class="p-2.5">Atendimentos</th>
+                      <th class="p-2.5">Faturamento</th>
+                      <th class="p-2.5">Comissões</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-rep-barbeiros" class="divide-y divide-white/5"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- RELATÓRIO DE SERVIÇOS MAIS VENDIDOS -->
+            <div class="bg-darkCard p-5 rounded-2xl border border-white/10">
+              <h3 class="font-bold text-white text-base mb-4"><i class="fa-solid fa-trophy text-gold mr-2"></i> Top Serviços Mais Vendidos</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-neutral-300">
+                  <thead class="bg-black/40 text-[10px] uppercase text-neutral-400 border-b border-white/10">
+                    <tr>
+                      <th class="p-2.5">Serviço</th>
+                      <th class="p-2.5">Categoria</th>
+                      <th class="p-2.5">Volume</th>
+                      <th class="p-2.5">Receita Gerada</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-rep-servicos" class="divide-y divide-white/5"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEMAIS ABAS PERMANECEM MANTIDAS -->
         <div id="tab-licenses" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-6 rounded-2xl border border-yellow-500/30 flex justify-between items-center">
             <div>
               <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Painel do Desenvolvedor</span>
               <h2 class="text-xl font-bold text-white mt-1">Gestão de Licenças & Trial SaaS</h2>
-              <p class="text-xs text-neutral-400">Autorização, extensão de prazos de teste e ativações de empresas.</p>
             </div>
-            <span class="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-300 font-extrabold text-xs border border-yellow-500/40">SuperAdmin Active</span>
           </div>
-
           <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs sm:text-sm text-neutral-300 min-w-[650px]">
                 <thead class="bg-black/40 text-[10px] sm:text-xs uppercase tracking-wider text-neutral-400 border-b border-white/10">
                   <tr>
                     <th class="p-4">ID</th>
-                    <th class="p-4">Barbearia / Empresa</th>
-                    <th class="p-4">E-mail Proprietário</th>
-                    <th class="p-4">Status da Licença</th>
-                    <th class="p-4">Expiração do Trial</th>
-                    <th class="p-4">Ação do Desenvolvedor</th>
+                    <th class="p-4">Barbearia</th>
+                    <th class="p-4">Proprietário</th>
+                    <th class="p-4">Status</th>
+                    <th class="p-4">Expiração</th>
+                    <th class="p-4">Ação</th>
                   </tr>
                 </thead>
                 <tbody id="table-licenses" class="divide-y divide-white/5"></tbody>
@@ -221,7 +304,6 @@
           </div>
         </div>
 
-        <!-- ABA 1: VISÃO GERAL -->
         <div id="tab-dashboard" class="tab-content space-y-6">
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             <div class="p-4 sm:p-6 rounded-2xl bg-darkCard border border-white/10">
@@ -266,22 +348,15 @@
           </div>
         </div>
 
-        <!-- ABA 2: AGENDA INTERATIVA -->
         <div id="tab-agendamentos" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 class="text-lg sm:text-xl font-bold text-white">Agenda Interativa</h2>
-              <p class="text-xs text-neutral-400">Finalize serviços e lance valores automaticamente no caixa.</p>
-            </div>
-            <button onclick="openModal('modal-agendamento')" class="px-4 py-2.5 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
-              + Novo Agendamento
-            </button>
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg sm:text-xl font-bold text-white">Agenda Interativa</h2>
+            <button onclick="openModal('modal-agendamento')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Novo Agendamento</button>
           </div>
-
           <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs sm:text-sm text-neutral-300 min-w-[650px]">
-                <thead class="bg-black/40 text-[10px] sm:text-xs uppercase tracking-wider text-neutral-400 border-b border-white/10">
+                <thead class="bg-black/40 text-[10px] uppercase text-neutral-400 border-b border-white/10">
                   <tr>
                     <th class="p-3 sm:p-4">ID</th>
                     <th class="p-3 sm:p-4">Cliente</th>
@@ -299,41 +374,37 @@
           </div>
         </div>
 
-        <!-- ABA 3: FRENTE DE CAIXA (POS) -->
         <div id="tab-pos" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-            <h2 class="text-lg sm:text-xl font-bold text-white mb-1">Frente de Caixa (POS)</h2>
-            <p class="text-xs text-neutral-400">Vendas de produtos e recebimentos com baixa de estoque.</p>
+            <h2 class="text-lg sm:text-xl font-bold text-white">Frente de Caixa (POS)</h2>
           </div>
-
           <div class="grid lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-              <h3 class="font-bold text-white text-sm sm:text-base mb-4">Produtos Disponíveis</h3>
-              <div id="pos-products-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"></div>
+              <h3 class="font-bold text-white text-sm mb-4">Produtos Disponíveis</h3>
+              <div id="pos-products-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
-
             <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
               <div>
-                <h3 class="font-bold text-white text-sm sm:text-base mb-4">Resumo da Venda</h3>
+                <h3 class="font-bold text-white text-sm mb-4">Resumo da Venda</h3>
                 <div class="space-y-3">
                   <div>
-                    <label class="block text-xs font-semibold text-neutral-300 mb-1">Item Selecionado</label>
-                    <input type="text" id="pos-item-name" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" readonly placeholder="Clique em um produto">
+                    <label class="block text-xs text-neutral-300 mb-1">Item Selecionado</label>
+                    <input type="text" id="pos-item-name" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs" readonly placeholder="Clique em um produto">
                     <input type="hidden" id="pos-product-id">
                   </div>
                   <div class="grid grid-cols-2 gap-3">
                     <div>
-                      <label class="block text-xs font-semibold text-neutral-300 mb-1">Qtd</label>
-                      <input type="number" id="pos-qty" min="1" value="1" onchange="updatePosTotal()" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm">
+                      <label class="block text-xs text-neutral-300 mb-1">Qtd</label>
+                      <input type="number" id="pos-qty" min="1" value="1" onchange="updatePosTotal()" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs">
                     </div>
                     <div>
-                      <label class="block text-xs font-semibold text-neutral-300 mb-1">Preço</label>
-                      <input type="text" id="pos-unit-price" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-gold font-bold text-xs sm:text-sm" readonly value="R$ 0,00">
+                      <label class="block text-xs text-neutral-300 mb-1">Preço</label>
+                      <input type="text" id="pos-unit-price" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-gold font-bold text-xs" readonly value="R$ 0,00">
                     </div>
                   </div>
                   <div>
-                    <label class="block text-xs font-semibold text-neutral-300 mb-1">Pagamento</label>
-                    <select id="pos-payment" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm outline-none focus:border-gold">
+                    <label class="block text-xs text-neutral-300 mb-1">Pagamento</label>
+                    <select id="pos-payment" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs">
                       <option value="Pix">Pix Instantâneo</option>
                       <option value="Cartão de Crédito">Cartão de Crédito</option>
                       <option value="Cartão de Débito">Cartão de Débito</option>
@@ -342,77 +413,60 @@
                   </div>
                 </div>
               </div>
-
               <div class="mt-6 border-t border-white/10 pt-4">
                 <div class="flex justify-between items-center mb-3">
-                  <span class="text-xs font-semibold text-neutral-400">Total a Pagar</span>
+                  <span class="text-xs text-neutral-400">Total</span>
                   <span id="pos-total-display" class="text-xl font-extrabold text-gold">R$ 0,00</span>
                 </div>
-                <button onclick="executePosCheckout()" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm flex items-center justify-center gap-2">
-                  <i class="fa-solid fa-check-circle"></i> Finalizar Venda
-                </button>
+                <button onclick="executePosCheckout()" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl text-xs">Finalizar Venda</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ABA 4: BARBEIROS -->
         <div id="tab-barbeiros" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
             <h2 class="text-lg sm:text-xl font-bold text-white">Equipe de Barbeiros</h2>
-            <button onclick="openModal('modal-barbeiro')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
-              + Cadastrar Barbeiro
-            </button>
+            <button onclick="openModal('modal-barbeiro')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Cadastrar Barbeiro</button>
           </div>
-          <div id="grid-barbeiros-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+          <div id="grid-barbeiros-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
         </div>
 
-        <!-- ABA 5: CLIENTES & CRM -->
         <div id="tab-clientes" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
             <h2 class="text-lg sm:text-xl font-bold text-white">Clientes & WhatsApp CRM</h2>
-            <button onclick="openModal('modal-cliente')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
-              + Cadastrar Cliente
-            </button>
+            <button onclick="openModal('modal-cliente')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Cadastrar Cliente</button>
           </div>
           <div id="grid-clientes-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
         </div>
 
-        <!-- ABA 6: SERVIÇOS -->
         <div id="tab-servicos" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
             <h2 class="text-lg sm:text-xl font-bold text-white">Catálogo de Serviços</h2>
-            <button onclick="openModal('modal-servico')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
-              + Cadastrar Serviço
-            </button>
+            <button onclick="openModal('modal-servico')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Cadastrar Serviço</button>
           </div>
-          <div id="grid-servicos-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
+          <div id="grid-servicos-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
-        <!-- ABA 7: PRODUTOS & ESTOQUE -->
         <div id="tab-produtos" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
             <h2 class="text-lg sm:text-xl font-bold text-white">Produtos & Estoque</h2>
-            <button onclick="openModal('modal-produto')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
-              + Cadastrar Produto
-            </button>
+            <button onclick="openModal('modal-produto')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Cadastrar Produto</button>
           </div>
-          <div id="grid-produtos-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"></div>
+          <div id="grid-produtos-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
         </div>
 
-        <!-- ABA 8: FINANCEIRO -->
         <div id="tab-financeiro" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-            <h2 class="text-lg sm:text-xl font-bold text-white mb-1">Vendas & Comissões</h2>
+            <h2 class="text-lg sm:text-xl font-bold text-white">Vendas & Comissões</h2>
           </div>
-
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-              <h3 class="text-base font-bold text-white mb-4"><i class="fa-solid fa-file-invoice-dollar text-gold mr-2"></i> Histórico de Vendas</h3>
+              <h3 class="text-base font-bold text-white mb-4">Histórico de Vendas</h3>
               <div id="list-vendas" class="space-y-3"></div>
             </div>
             <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-              <h3 class="text-base font-bold text-white mb-4"><i class="fa-solid fa-coins text-gold mr-2"></i> Comissões dos Barbeiros</h3>
+              <h3 class="text-base font-bold text-white mb-4">Comissões dos Barbeiros</h3>
               <div id="list-comissoes" class="space-y-3"></div>
             </div>
           </div>
@@ -422,7 +476,7 @@
     </div>
   </div>
 
-  <!-- MODAIS COMPATÍVEIS COM DISPOSITIVOS MÓVEIS -->
+  <!-- MODAL DE AGENDAMENTO -->
   <div id="modal-agendamento" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-lg bg-darkCard p-5 sm:p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
@@ -465,7 +519,7 @@
     </div>
   </div>
 
-  <!-- SCRIPT DE ESTADO E GOOGLE OAUTH -->
+  <!-- SCRIPT DE ESTADO, RELATÓRIOS & BI -->
   <script>
     let currentUser = null;
     let globalState = { licenses: [], servicos: [], barbeiros: [], clientes: [], agendamentos: [], produtos: [], vendas: [], comissoes: [] };
@@ -527,6 +581,7 @@
 
       const titles = {
         licenses: 'Gestão de Licenças SaaS',
+        relatorios: 'Relatórios Gerenciais Executivos (BI)',
         dashboard: 'Visão Geral & KPIs',
         agendamentos: 'Agenda Interativa',
         pos: 'Frente de Caixa (POS)',
@@ -542,7 +597,6 @@
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // LOGIN LOCAL API
     document.getElementById('form-login').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('login-email').value;
@@ -610,6 +664,7 @@
         globalState = { licenses, servicos, barbeiros, clientes, agendamentos, produtos, vendas, comissoes };
 
         renderLicenses();
+        renderRelatoriosBI();
         renderDashboard();
         renderAgendamentos();
         renderBarbeiros();
@@ -625,7 +680,80 @@
       }
     }
 
-    // RENDERIZADOR DE LICENÇAS (EXCLUSIVO DESENVOLVEDOR)
+    // RENDERIZADOR DE RELATÓRIOS & ANALYTICS BI
+    function renderRelatoriosBI() {
+      const totalVendas = globalState.vendas.reduce((acc, v) => acc + (v.valor_total || 0), 0);
+      const totalAgendamentosConcluidos = globalState.agendamentos.filter(a => a.status === 'Concluído').reduce((acc, a) => acc + (a.valor || 0), 0);
+      const faturamentoTotal = totalVendas + totalAgendamentosConcluidos;
+
+      const totalComissoes = globalState.comissoes.reduce((acc, c) => acc + (c.comissao || 0), 0);
+      const lucroLiquido = faturamentoTotal - totalComissoes;
+
+      const numClientesAtendidos = globalState.agendamentos.filter(a => a.status === 'Concluído').length || 1;
+      const ticketMedio = faturamentoTotal / numClientesAtendidos;
+
+      document.getElementById('rep-faturamento-total').textContent = `R$ ${faturamentoTotal.toFixed(2)}`;
+      document.getElementById('rep-comissoes-total').textContent = `R$ ${totalComissoes.toFixed(2)}`;
+      document.getElementById('rep-lucro-liquido').textContent = `R$ ${lucroLiquido.toFixed(2)}`;
+      document.getElementById('rep-ticket-medio').textContent = `R$ ${ticketMedio.toFixed(2)}`;
+
+      // Relatório por Barbeiro
+      const barberStats = {};
+      globalState.barbeiros.forEach(b => {
+        barberStats[b.nome] = { nome: b.nome, atendimentos: 0, faturamento: 0, comissoes: 0 };
+      });
+
+      globalState.agendamentos.forEach(a => {
+        if (!barberStats[a.barbeiro]) {
+          barberStats[a.barbeiro] = { nome: a.barbeiro, atendimentos: 0, faturamento: 0, comissoes: 0 };
+        }
+        barberStats[a.barbeiro].atendimentos += 1;
+        if (a.status === 'Concluído') {
+          barberStats[a.barbeiro].faturamento += (a.valor || 0);
+        }
+      });
+
+      globalState.comissoes.forEach(c => {
+        if (barberStats[c.barbeiro]) {
+          barberStats[c.barbeiro].comissoes += (c.comissao || 0);
+        }
+      });
+
+      document.getElementById('table-rep-barbeiros').innerHTML = Object.values(barberStats).map(b => `
+        <tr class="hover:bg-white/5 transition">
+          <td class="p-2.5 font-bold text-white">${b.nome}</td>
+          <td class="p-2.5">${b.atendimentos} cortes</td>
+          <td class="p-2.5 font-bold text-gold">R$ ${b.faturamento.toFixed(2)}</td>
+          <td class="p-2.5 font-bold text-green-400">R$ ${b.comissoes.toFixed(2)}</td>
+        </tr>
+      `).join('');
+
+      // Relatório de Serviços Mais Vendidos
+      const serviceStats = {};
+      globalState.servicos.forEach(s => {
+        serviceStats[s.nome] = { nome: s.nome, categoria: s.categoria, quantidade: 0, receita: 0 };
+      });
+
+      globalState.agendamentos.forEach(a => {
+        if (!serviceStats[a.servico]) {
+          serviceStats[a.servico] = { nome: a.servico, categoria: 'Geral', quantidade: 0, receita: 0 };
+        }
+        serviceStats[a.servico].quantidade += 1;
+        if (a.status === 'Concluído') {
+          serviceStats[a.servico].receita += (a.valor || 0);
+        }
+      });
+
+      document.getElementById('table-rep-servicos').innerHTML = Object.values(serviceStats).map(s => `
+        <tr class="hover:bg-white/5 transition">
+          <td class="p-2.5 font-bold text-white">${s.nome}</td>
+          <td class="p-2.5 text-neutral-400">${s.categoria}</td>
+          <td class="p-2.5 font-extrabold text-white">${s.quantidade} x</td>
+          <td class="p-2.5 font-bold text-gold">R$ ${s.receita.toFixed(2)}</td>
+        </tr>
+      `).join('');
+    }
+
     function renderLicenses() {
       const tbody = document.getElementById('table-licenses');
       if (!tbody) return;
