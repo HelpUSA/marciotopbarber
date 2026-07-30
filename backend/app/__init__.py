@@ -1,1 +1,0 @@
-"""Marcio TopBarber API."""

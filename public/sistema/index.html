@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Barbearia SaaS - Painel Gestor Responsivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: '#EAB308',
+            goldHover: '#CA8A04',
+            darkBg: '#09090b',
+            darkCard: '#18181b',
+            darkSidebar: '#121215'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
+  </style>
+</head>
+<body class="bg-darkBg text-neutral-100 font-sans min-h-screen custom-scrollbar selection:bg-gold selection:text-black">
+
+  <!-- TELA DE LOGIN (MOBILE RESPONSIVO) -->
+  <div id="screen-login" class="flex min-h-screen items-center justify-center p-4 bg-gradient-to-br from-neutral-950 via-darkBg to-neutral-900">
+    <div class="w-full max-w-sm sm:max-w-md bg-darkCard p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
+      <div class="absolute -top-10 -right-10 w-32 h-32 bg-gold/10 rounded-full blur-2xl"></div>
+      
+      <div class="text-center mb-6 sm:mb-8 relative z-10">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-3 rounded-2xl bg-gold/10 flex items-center justify-center border border-gold/30 text-gold text-2xl sm:text-3xl font-extrabold shadow-lg shadow-gold/10">
+          ✂️
+        </div>
+        <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">Barbearia SaaS Gestor</h1>
+        <p class="text-xs text-neutral-400 mt-1">Plataforma Móvel & Controle Total</p>
+      </div>
+
+      <div id="login-error" class="hidden mb-4 p-3 rounded-xl bg-red-950/60 border border-red-500/30 text-red-300 text-xs text-center font-semibold">
+        ⚠️ E-mail ou senha inválidos. Tente <span class="text-white font-mono">admin@admin</span> / <span class="text-white font-mono">123</span>
+      </div>
+
+      <form id="form-login" class="space-y-4 relative z-10">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1 uppercase tracking-wider">E-mail / Usuário</label>
+          <input type="text" id="login-email" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" value="admin@admin" required>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1 uppercase tracking-wider">Senha</label>
+          <input type="password" id="login-password" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" value="123" required>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3.5 rounded-xl hover:bg-goldHover transition text-sm shadow-lg shadow-gold/20 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Acessar Painel
+        </button>
+      </form>
+      <div class="mt-6 text-center text-xs text-neutral-500">
+        Login rápido: <span class="text-gold font-mono">admin@admin</span> | <span class="text-gold font-mono">123</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA DASHBOARD SAAS (MOBILE COMPATIBLE) -->
+  <div id="screen-dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
+
+    <!-- DRAWER LATERAL MOBILE (SLIDE-OVER) -->
+    <div id="mobile-drawer-overlay" onclick="toggleMobileDrawer()" class="hidden fixed inset-0 z-40 bg-black/80 backdrop-blur-sm md:hidden"></div>
+    
+    <aside id="mobile-drawer" class="fixed top-0 left-0 bottom-0 w-72 bg-darkSidebar border-r border-white/10 z-50 flex flex-col justify-between transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:w-64 md:z-auto">
+      <div>
+        <div class="p-5 border-b border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gold/10 flex items-center justify-center border border-gold/30 text-gold text-lg font-bold">
+              ✂️
+            </div>
+            <div>
+              <h2 class="font-extrabold text-white text-sm leading-tight">Barbearia SaaS</h2>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/20">Mobile & Web</span>
+            </div>
+          </div>
+          <button onclick="toggleMobileDrawer()" class="md:hidden text-neutral-400 hover:text-white p-2">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <nav class="p-3 space-y-1 text-xs font-bold">
+          <button onclick="selectTabMobile('dashboard')" id="btn-tab-dashboard" class="sidebar-btn active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gold bg-gold/10 border border-gold/20 transition">
+            <i class="fa-solid fa-chart-pie text-sm"></i> Visão Geral & KPIs
+          </button>
+          <button onclick="selectTabMobile('agendamentos')" id="btn-tab-agendamentos" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-calendar-check text-sm"></i> Agenda & Horários
+          </button>
+          <button onclick="selectTabMobile('pos')" id="btn-tab-pos" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-cash-register text-sm"></i> Frente de Caixa (POS)
+          </button>
+          <button onclick="selectTabMobile('barbeiros')" id="btn-tab-barbeiros" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-user-scissors text-sm"></i> Barbeiros & Equipe
+          </button>
+          <button onclick="selectTabMobile('clientes')" id="btn-tab-clientes" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-users text-sm"></i> Clientes & WhatsApp CRM
+          </button>
+          <button onclick="selectTabMobile('servicos')" id="btn-tab-servicos" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-list-check text-sm"></i> Catálogo de Serviços
+          </button>
+          <button onclick="selectTabMobile('produtos')" id="btn-tab-produtos" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-boxes-stacked text-sm"></i> Produtos & Estoque
+          </button>
+          <button onclick="selectTabMobile('financeiro')" id="btn-tab-financeiro" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-wallet text-sm"></i> Vendas & Comissões
+          </button>
+        </nav>
+      </div>
+
+      <div class="p-4 border-t border-white/10">
+        <div class="flex items-center gap-3 mb-3 px-2">
+          <div class="w-8 h-8 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xs font-bold">
+            ADM
+          </div>
+          <div class="overflow-hidden">
+            <p id="user-display-name" class="text-xs font-bold text-white truncate">Administrador</p>
+            <p class="text-[10px] text-neutral-400">Barbearia Studio</p>
+          </div>
+        </div>
+        <button id="btn-logout" class="w-full py-2.5 rounded-xl border border-red-500/30 bg-red-950/20 text-red-400 hover:bg-red-950/50 text-xs font-bold transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </button>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- TOPBAR HEADER DE NAVEGAÇÃO -->
+      <header class="border-b border-white/10 bg-neutral-950 px-4 sm:px-6 py-3.5 flex items-center justify-between sticky top-0 z-30">
+        <div class="flex items-center gap-3">
+          <button onclick="toggleMobileDrawer()" class="md:hidden text-gold p-2 rounded-xl bg-gold/10 border border-gold/20 hover:bg-gold/20 transition">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+          <span id="tab-title" class="text-base sm:text-lg font-black text-white truncate">Visão Geral & KPIs</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="openModal('modal-agendamento')" class="px-3 sm:px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg shadow-gold/20 flex items-center gap-1.5">
+            <i class="fa-solid fa-plus text-xs"></i> <span>Agendar</span>
+          </button>
+          <button onclick="openModal('modal-pos')" class="px-3 sm:px-4 py-2 rounded-xl border border-white/20 bg-black/40 text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-cart-shopping text-xs"></i> <span class="hidden sm:inline">POS</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- BARRA DE NAVEGAÇÃO RÁPIDA MOBILE (BOTTOM TAB BAR FOR PHONES) -->
+      <div class="md:hidden bg-neutral-950 border-b border-white/10 px-2 py-2 flex items-center justify-around text-[11px] font-bold overflow-x-auto custom-scrollbar">
+        <button onclick="switchTab('dashboard')" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-gold">Visão Geral</button>
+        <button onclick="switchTab('agendamentos')" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-gold">Agenda</button>
+        <button onclick="switchTab('pos')" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-gold">POS Caixa</button>
+        <button onclick="switchTab('barbeiros')" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-gold">Equipe</button>
+        <button onclick="switchTab('clientes')" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-gold">CRM</button>
+      </div>
+
+      <!-- CONTEÚDO DAS ABAS -->
+      <main class="flex-1 p-4 sm:p-6 overflow-y-auto custom-scrollbar space-y-6">
+
+        <!-- ABA 1: VISÃO GERAL -->
+        <div id="tab-dashboard" class="tab-content space-y-6">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+            <div class="p-4 sm:p-6 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-[11px] sm:text-xs font-semibold text-neutral-400">Agendamentos</span>
+              <h3 id="dash-stat-agendamentos" class="text-2xl sm:text-3xl font-extrabold text-white mt-1">0</h3>
+            </div>
+            <div class="p-4 sm:p-6 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-[11px] sm:text-xs font-semibold text-neutral-400">Faturamento</span>
+              <h3 id="dash-stat-faturamento" class="text-xl sm:text-3xl font-extrabold text-gold mt-1">R$ 0,00</h3>
+            </div>
+            <div class="p-4 sm:p-6 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-[11px] sm:text-xs font-semibold text-neutral-400">Clientes</span>
+              <h3 id="dash-stat-clientes" class="text-2xl sm:text-3xl font-extrabold text-white mt-1">0</h3>
+            </div>
+            <div class="p-4 sm:p-6 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-[11px] sm:text-xs font-semibold text-neutral-400">Estoque</span>
+              <h3 id="dash-stat-estoque" class="text-2xl sm:text-3xl font-extrabold text-white mt-1">0</h3>
+            </div>
+          </div>
+
+          <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
+            <div class="p-4 sm:p-6 border-b border-white/10 flex items-center justify-between">
+              <h3 class="font-bold text-white text-sm sm:text-base"><i class="fa-solid fa-clock text-gold mr-2"></i> Próximos na Agenda</h3>
+              <button onclick="switchTab('agendamentos')" class="text-xs text-gold hover:underline font-bold">Ver todos →</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs sm:text-sm text-neutral-300 min-w-[600px]">
+                <thead class="bg-black/40 text-[10px] sm:text-xs uppercase tracking-wider text-neutral-400 border-b border-white/10">
+                  <tr>
+                    <th class="p-3 sm:p-4">Cliente</th>
+                    <th class="p-3 sm:p-4">Barbeiro</th>
+                    <th class="p-3 sm:p-4">Serviço</th>
+                    <th class="p-3 sm:p-4">Data & Hora</th>
+                    <th class="p-3 sm:p-4">Valor</th>
+                    <th class="p-3 sm:p-4">Status</th>
+                    <th class="p-3 sm:p-4">Ação</th>
+                  </tr>
+                </thead>
+                <tbody id="table-dash-agendamentos" class="divide-y divide-white/5"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 2: AGENDA -->
+        <div id="tab-agendamentos" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 class="text-lg sm:text-xl font-bold text-white">Agenda Interativa</h2>
+              <p class="text-xs text-neutral-400">Finalize serviços e lance valores automaticamente no caixa.</p>
+            </div>
+            <button onclick="openModal('modal-agendamento')" class="px-4 py-2.5 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Novo Agendamento
+            </button>
+          </div>
+
+          <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs sm:text-sm text-neutral-300 min-w-[650px]">
+                <thead class="bg-black/40 text-[10px] sm:text-xs uppercase tracking-wider text-neutral-400 border-b border-white/10">
+                  <tr>
+                    <th class="p-3 sm:p-4">ID</th>
+                    <th class="p-3 sm:p-4">Cliente</th>
+                    <th class="p-3 sm:p-4">Barbeiro</th>
+                    <th class="p-3 sm:p-4">Serviço</th>
+                    <th class="p-3 sm:p-4">Data & Hora</th>
+                    <th class="p-3 sm:p-4">Valor</th>
+                    <th class="p-3 sm:p-4">Status</th>
+                    <th class="p-3 sm:p-4">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="table-full-agendamentos" class="divide-y divide-white/5"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 3: FRENTE DE CAIXA (POS) -->
+        <div id="tab-pos" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
+            <h2 class="text-lg sm:text-xl font-bold text-white mb-1">Frente de Caixa (POS)</h2>
+            <p class="text-xs text-neutral-400">Vendas de produtos e recebimentos com baixa de estoque.</p>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
+              <h3 class="font-bold text-white text-sm sm:text-base mb-4">Produtos Disponíveis</h3>
+              <div id="pos-products-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"></div>
+            </div>
+
+            <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
+              <div>
+                <h3 class="font-bold text-white text-sm sm:text-base mb-4">Resumo da Venda</h3>
+                <div class="space-y-3">
+                  <div>
+                    <label class="block text-xs font-semibold text-neutral-300 mb-1">Item Selecionado</label>
+                    <input type="text" id="pos-item-name" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" readonly placeholder="Clique em um produto">
+                    <input type="hidden" id="pos-product-id">
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-semibold text-neutral-300 mb-1">Qtd</label>
+                      <input type="number" id="pos-qty" min="1" value="1" onchange="updatePosTotal()" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm">
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-neutral-300 mb-1">Preço</label>
+                      <input type="text" id="pos-unit-price" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-gold font-bold text-xs sm:text-sm" readonly value="R$ 0,00">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-neutral-300 mb-1">Pagamento</label>
+                    <select id="pos-payment" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm outline-none focus:border-gold">
+                      <option value="Pix">Pix Instantâneo</option>
+                      <option value="Cartão de Crédito">Cartão de Crédito</option>
+                      <option value="Cartão de Débito">Cartão de Débito</option>
+                      <option value="Dinheiro">Dinheiro</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 border-t border-white/10 pt-4">
+                <div class="flex justify-between items-center mb-3">
+                  <span class="text-xs font-semibold text-neutral-400">Total a Pagar</span>
+                  <span id="pos-total-display" class="text-xl font-extrabold text-gold">R$ 0,00</span>
+                </div>
+                <button onclick="executePosCheckout()" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-check-circle"></i> Finalizar Venda
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 4: BARBEIROS -->
+        <div id="tab-barbeiros" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg sm:text-xl font-bold text-white">Equipe de Barbeiros</h2>
+            <button onclick="openModal('modal-barbeiro')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Barbeiro
+            </button>
+          </div>
+          <div id="grid-barbeiros-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+        </div>
+
+        <!-- ABA 5: CLIENTES & CRM -->
+        <div id="tab-clientes" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg sm:text-xl font-bold text-white">Clientes & WhatsApp CRM</h2>
+            <button onclick="openModal('modal-cliente')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Cliente
+            </button>
+          </div>
+          <div id="grid-clientes-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        </div>
+
+        <!-- ABA 6: SERVIÇOS -->
+        <div id="tab-servicos" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg sm:text-xl font-bold text-white">Catálogo de Serviços</h2>
+            <button onclick="openModal('modal-servico')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Serviço
+            </button>
+          </div>
+          <div id="grid-servicos-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
+        </div>
+
+        <!-- ABA 7: PRODUTOS & ESTOQUE -->
+        <div id="tab-produtos" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg sm:text-xl font-bold text-white">Produtos & Estoque</h2>
+            <button onclick="openModal('modal-produto')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Produto
+            </button>
+          </div>
+          <div id="grid-produtos-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"></div>
+        </div>
+
+        <!-- ABA 8: FINANCEIRO -->
+        <div id="tab-financeiro" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
+            <h2 class="text-lg sm:text-xl font-bold text-white mb-1">Vendas & Comissões</h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
+              <h3 class="text-base font-bold text-white mb-4"><i class="fa-solid fa-file-invoice-dollar text-gold mr-2"></i> Histórico de Vendas</h3>
+              <div id="list-vendas" class="space-y-3"></div>
+            </div>
+            <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
+              <h3 class="text-base font-bold text-white mb-4"><i class="fa-solid fa-coins text-gold mr-2"></i> Comissões dos Barbeiros</h3>
+              <div id="list-comissoes" class="space-y-3"></div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAIS RESPONSIVOS -->
+  <div id="modal-agendamento" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-darkCard p-5 sm:p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-base sm:text-lg font-bold text-white">Criar Novo Agendamento</h3>
+        <button onclick="closeModal('modal-agendamento')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-agendamento" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome do Cliente</label>
+          <input type="text" id="m-appt-cliente" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required placeholder="Ex: João Carlos">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Telefone WhatsApp</label>
+          <input type="text" id="m-appt-telefone" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" placeholder="(31) 99999-8888">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Serviço</label>
+            <select id="m-appt-servico" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required></select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Barbeiro</label>
+            <select id="m-appt-barbeiro" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required></select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Data</label>
+            <input type="date" id="m-appt-data" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Horário</label>
+            <input type="time" id="m-appt-hora" value="14:00" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required>
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Agendamento
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-barbeiro" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-5 sm:p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-base sm:text-lg font-bold text-white">Cadastrar Barbeiro</h3>
+        <button onclick="closeModal('modal-barbeiro')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-barbeiro" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome Completo</label>
+          <input type="text" id="m-barber-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Cargo / Especialidade</label>
+          <input type="text" id="m-barber-cargo" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Especialista em Barba">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Telefone</label>
+          <input type="text" id="m-barber-telefone" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="(31) 98888-0000">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Chave PIX</label>
+          <input type="text" id="m-barber-pix" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" placeholder="CPF ou E-mail">
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Barbeiro
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-5 sm:p-6 rounded-3xl border border-white/10 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-base sm:text-lg font-bold text-white">Cadastrar Cliente</h3>
+        <button onclick="closeModal('modal-cliente')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-cliente" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome Completo</label>
+          <input type="text" id="m-client-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Telefone WhatsApp</label>
+          <input type="text" id="m-client-telefone" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="(31) 99999-1111">
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Cliente
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-servico" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-5 sm:p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-base sm:text-lg font-bold text-white">Cadastrar Serviço</h3>
+        <button onclick="closeModal('modal-servico')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-servico" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome do Serviço</label>
+          <input type="text" id="m-srv-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Alisamento Capilar">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Categoria</label>
+            <input type="text" id="m-srv-cat" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Química">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Tempo</label>
+            <input type="text" id="m-srv-tempo" value="30 min" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Valor Venda (R$)</label>
+            <input type="number" step="0.5" id="m-srv-valor" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="35.00">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Comissão (R$)</label>
+            <input type="number" step="0.5" id="m-srv-comissao" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="14.00">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Serviço
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-produto" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-5 sm:p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-base sm:text-lg font-bold text-white">Cadastrar Produto</h3>
+        <button onclick="closeModal('modal-produto')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-produto" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome do Produto</label>
+          <input type="text" id="m-prod-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Gel Fixador 250g">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Categoria</label>
+            <input type="text" id="m-prod-cat" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Pomadas">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Qtd Estoque</label>
+            <input type="number" id="m-prod-estoque" value="10" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Custo (R$)</label>
+            <input type="number" step="0.5" id="m-prod-compra" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="12.00">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Venda (R$)</label>
+            <input type="number" step="0.5" id="m-prod-venda" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="25.00">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Produto
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LÓGICA E ESTADO DA APLICAÇÃO -->
+  <script>
+    let globalState = { servicos: [], barbeiros: [], clientes: [], agendamentos: [], produtos: [], vendas: [], comissoes: [] };
+
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobile-drawer');
+      const overlay = document.getElementById('mobile-drawer-overlay');
+      drawer.classList.toggle('-translate-x-full');
+      overlay.classList.toggle('hidden');
+    }
+
+    function selectTabMobile(tabName) {
+      switchTab(tabName);
+      toggleMobileDrawer();
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.sidebar-btn').forEach(el => {
+        el.classList.remove('active', 'text-gold', 'bg-gold/10', 'border', 'border-gold/20');
+        el.classList.add('text-neutral-400');
+      });
+
+      const targetTab = document.getElementById('tab-' + tabName);
+      const targetBtn = document.getElementById('btn-tab-' + tabName);
+
+      if (targetTab) targetTab.classList.remove('hidden');
+      if (targetBtn) {
+        targetBtn.classList.add('active', 'text-gold', 'bg-gold/10', 'border', 'border-gold/20');
+        targetBtn.classList.remove('text-neutral-400');
+      }
+
+      const titles = {
+        dashboard: 'Visão Geral & KPIs',
+        agendamentos: 'Agenda Interativa',
+        pos: 'Frente de Caixa (POS)',
+        barbeiros: 'Equipe de Barbeiros',
+        clientes: 'Clientes & WhatsApp CRM',
+        servicos: 'Catálogo de Serviços',
+        produtos: 'Produtos & Estoque',
+        financeiro: 'Vendas & Comissões'
+      };
+      document.getElementById('tab-title').textContent = titles[tabName] || 'Painel Gestor';
+    }
+
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+    // LOGIN API
+    document.getElementById('form-login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          document.getElementById('screen-login').classList.add('hidden');
+          document.getElementById('screen-dashboard').classList.remove('hidden');
+          document.getElementById('user-display-name').textContent = data.user.name;
+          loadAllData();
+        } else {
+          document.getElementById('login-error').classList.remove('hidden');
+        }
+      } catch (err) {
+        document.getElementById('login-error').classList.remove('hidden');
+      }
+    });
+
+    document.getElementById('btn-logout').addEventListener('click', () => {
+      document.getElementById('screen-dashboard').classList.add('hidden');
+      document.getElementById('screen-login').classList.remove('hidden');
+    });
+
+    async function loadAllData() {
+      try {
+        const [servicos, barbeiros, clientes, agendamentos, produtos, vendas, comissoes] = await Promise.all([
+          fetch('/api/servicos').then(r => r.json()),
+          fetch('/api/barbeiros').then(r => r.json()),
+          fetch('/api/clientes').then(r => r.json()),
+          fetch('/api/agendamentos').then(r => r.json()),
+          fetch('/api/produtos').then(r => r.json()),
+          fetch('/api/vendas').then(r => r.json()),
+          fetch('/api/comissoes').then(r => r.json())
+        ]);
+
+        globalState = { servicos, barbeiros, clientes, agendamentos, produtos, vendas, comissoes };
+
+        renderDashboard();
+        renderAgendamentos();
+        renderBarbeiros();
+        renderClientes();
+        renderServicos();
+        renderProdutos();
+        renderPOS();
+        renderFinanceiro();
+        populateModalSelects();
+
+      } catch (err) {
+        console.error('Erro ao carregar dados:', err);
+      }
+    }
+
+    // RENDERIZADORES COMPATÍVEIS COM DISPOSITIVOS MÓVEIS
+    function renderDashboard() {
+      document.getElementById('dash-stat-agendamentos').textContent = globalState.agendamentos.length;
+      
+      const totalVendas = globalState.vendas.reduce((acc, v) => acc + (v.valor_total || 0), 0);
+      const totalAppts = globalState.agendamentos.filter(a => a.status === 'Concluído').reduce((acc, a) => acc + (a.valor || 0), 0);
+      document.getElementById('dash-stat-faturamento').textContent = `R$ ${(totalVendas + totalAppts).toFixed(2)}`;
+      
+      document.getElementById('dash-stat-clientes').textContent = globalState.clientes.length;
+      document.getElementById('dash-stat-estoque').textContent = globalState.produtos.reduce((acc, p) => acc + (p.estoque || 0), 0);
+
+      document.getElementById('table-dash-agendamentos').innerHTML = globalState.agendamentos.slice(0, 5).map(a => `
+        <tr class="hover:bg-white/5 transition">
+          <td class="p-3 sm:p-4 font-bold text-white">${a.cliente}</td>
+          <td class="p-3 sm:p-4">${a.barbeiro}</td>
+          <td class="p-3 sm:p-4">${a.servico}</td>
+          <td class="p-3 sm:p-4 text-xs font-mono">${a.data} ${a.hora}</td>
+          <td class="p-3 sm:p-4 font-bold text-gold">R$ ${(a.valor || 0).toFixed(2)}</td>
+          <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold ${a.status === 'Concluído' ? 'bg-green-900/40 text-green-300 border border-green-500/30' : 'bg-gold/10 text-gold border border-gold/30'}">${a.status}</span></td>
+          <td class="p-3 sm:p-4">
+            ${a.status !== 'Concluído' ? `<button onclick="updateApptStatus(${a.id}, 'Concluído')" class="px-2.5 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white font-bold text-[10px] sm:text-xs">Concluir</button>` : `<span class="text-xs text-neutral-500">Ok</span>`}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderAgendamentos() {
+      document.getElementById('table-full-agendamentos').innerHTML = globalState.agendamentos.map(a => `
+        <tr class="hover:bg-white/5 transition">
+          <td class="p-3 sm:p-4 font-mono text-[10px] text-neutral-400">#${a.id}</td>
+          <td class="p-3 sm:p-4 font-bold text-white">${a.cliente}</td>
+          <td class="p-3 sm:p-4">${a.barbeiro}</td>
+          <td class="p-3 sm:p-4">${a.servico}</td>
+          <td class="p-3 sm:p-4 text-xs font-mono">${a.data} ${a.hora}</td>
+          <td class="p-3 sm:p-4 font-bold text-gold">R$ ${(a.valor || 0).toFixed(2)}</td>
+          <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold ${a.status === 'Concluído' ? 'bg-green-900/40 text-green-300 border border-green-500/30' : 'bg-gold/10 text-gold border border-gold/30'}">${a.status}</span></td>
+          <td class="p-3 sm:p-4 space-x-1 sm:space-x-2">
+            ${a.status !== 'Concluído' ? `
+              <button onclick="updateApptStatus(${a.id}, 'Concluído')" class="px-2 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white font-bold text-[10px] sm:text-xs">Concluir</button>
+              <button onclick="updateApptStatus(${a.id}, 'Cancelado')" class="px-2 py-1 rounded-lg bg-red-900/50 hover:bg-red-800 text-red-200 font-bold text-[10px] sm:text-xs">Cancelar</button>
+            ` : `<span class="text-xs text-green-400 font-bold">✓ Finalizado</span>`}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function updateApptStatus(id, status) {
+      await fetch(`/api/agendamentos/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      loadAllData();
+    }
+
+    function renderBarbeiros() {
+      document.getElementById('grid-barbeiros-admin').innerHTML = globalState.barbeiros.map(b => `
+        <div class="p-5 rounded-2xl bg-darkCard border border-white/10 text-center">
+          <div class="w-14 h-14 mx-auto mb-2 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xl font-bold">💈</div>
+          <h3 class="font-bold text-white text-sm sm:text-base">${b.nome}</h3>
+          <p class="text-xs text-gold mt-0.5">${b.cargo}</p>
+          <p class="text-xs text-neutral-400 mt-2"><i class="fa-solid fa-phone mr-1"></i> ${b.telefone}</p>
+          <p class="text-[11px] text-neutral-500 mt-1 font-mono">PIX: ${b.chave_pix || 'Não cadastrado'}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderClientes() {
+      document.getElementById('grid-clientes-admin').innerHTML = globalState.clientes.map(c => {
+        const cleanPhone = (c.telefone || '').replace(/\D/g, '');
+        const waMsg = encodeURIComponent(`Olá ${c.nome}! Passando para lembrar do seu atendimento na Barbearia Studio.`);
+        const waLink = `https://wa.me/55${cleanPhone}?text=${waMsg}`;
+
+        return `
+          <div class="p-4 rounded-2xl bg-darkCard border border-white/10 flex justify-between items-center gap-3">
+            <div>
+              <p class="font-bold text-white text-sm sm:text-base">${c.nome}</p>
+              <p class="text-xs text-neutral-400"><i class="fa-solid fa-phone mr-1"></i> ${c.telefone}</p>
+              <p class="text-[11px] text-gold mt-1"><i class="fa-solid fa-calendar-day mr-1"></i> Retorno: ${c.retorno || '2026-08-30'}</p>
+            </div>
+            <div class="text-right space-y-1.5">
+              <span class="inline-block px-2.5 py-1 rounded-full bg-gold/10 text-gold font-bold text-[10px] sm:text-xs border border-gold/30">${c.cartoes} Cartões</span>
+              <div>
+                <a href="${waLink}" target="_blank" class="px-2.5 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white font-bold text-[10px] inline-flex items-center gap-1">
+                  <i class="fa-brands fa-whatsapp text-xs"></i> WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderServicos() {
+      document.getElementById('grid-servicos-admin').innerHTML = globalState.servicos.map(s => `
+        <div class="p-5 rounded-2xl bg-darkCard border border-white/10 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start">
+              <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/30">${s.categoria}</span>
+              <span class="text-[10px] text-neutral-400"><i class="fa-regular fa-clock"></i> ${s.tempo}</span>
+            </div>
+            <h3 class="font-bold text-white mt-3 text-base">${s.nome}</h3>
+          </div>
+          <div class="mt-4 border-t border-white/10 pt-3 flex justify-between items-end">
+            <div>
+              <p class="text-[9px] text-neutral-400 uppercase">Preço</p>
+              <p class="text-gold font-extrabold text-lg">R$ ${(s.valor || 0).toFixed(2)}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[9px] text-neutral-400 uppercase">Comissão</p>
+              <p class="text-green-400 font-bold text-xs">R$ ${(s.comissao || 0).toFixed(2)}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderProdutos() {
+      document.getElementById('grid-produtos-admin').innerHTML = globalState.produtos.map(p => `
+        <div class="p-4 rounded-2xl bg-darkCard border border-white/10 flex justify-between items-center gap-2">
+          <div>
+            <p class="font-bold text-white text-sm">${p.nome}</p>
+            <p class="text-xs text-neutral-400 mt-0.5">Cat: ${p.categoria}</p>
+            <p class="text-xs text-neutral-500 mt-0.5">Venda: <strong class="text-gold">R$ ${(p.valor_venda || 0).toFixed(2)}</strong></p>
+          </div>
+          <div class="text-right">
+            <span class="px-2.5 py-1 rounded-lg ${p.estoque <= 10 ? 'bg-red-900/30 text-red-300 border border-red-500/30' : 'bg-black/50 text-white border border-white/15'} font-extrabold text-xs">
+              ${p.estoque} un
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderPOS() {
+      document.getElementById('pos-products-grid').innerHTML = globalState.produtos.map(p => `
+        <div onclick="selectPosProduct(${p.id}, '${p.nome}', ${p.valor_venda})" class="p-3.5 rounded-2xl bg-black/40 border border-white/10 hover:border-gold cursor-pointer transition">
+          <p class="font-bold text-white text-xs sm:text-sm truncate">${p.nome}</p>
+          <div class="mt-2 flex justify-between items-center">
+            <span class="text-gold font-extrabold text-xs sm:text-sm">R$ ${p.valor_venda.toFixed(2)}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-white/10 text-neutral-300">${p.estoque} un</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectPosProduct(id, nome, valor) {
+      document.getElementById('pos-product-id').value = id;
+      document.getElementById('pos-item-name').value = nome;
+      document.getElementById('pos-unit-price').value = `R$ ${valor.toFixed(2)}`;
+      updatePosTotal();
+    }
+
+    function updatePosTotal() {
+      const priceStr = document.getElementById('pos-unit-price').value.replace('R$ ', '');
+      const unitPrice = parseFloat(priceStr) || 0;
+      const qty = parseInt(document.getElementById('pos-qty').value) || 1;
+      document.getElementById('pos-total-display').textContent = `R$ ${(unitPrice * qty).toFixed(2)}`;
+    }
+
+    async function executePosCheckout() {
+      const item = document.getElementById('pos-item-name').value;
+      if (!item) return alert('Selecione um produto!');
+
+      const product_id = document.getElementById('pos-product-id').value;
+      const quantidade = parseInt(document.getElementById('pos-qty').value) || 1;
+      const priceStr = document.getElementById('pos-unit-price').value.replace('R$ ', '');
+      const valor_total = parseFloat(priceStr) * quantidade;
+      const forma_pgto = document.getElementById('pos-payment').value;
+
+      await fetch('/api/pos/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item, product_id, quantidade, valor_total, forma_pgto })
+      });
+
+      alert('✅ Venda realizada com sucesso!');
+      document.getElementById('pos-item-name').value = '';
+      document.getElementById('pos-product-id').value = '';
+      document.getElementById('pos-total-display').textContent = 'R$ 0,00';
+      loadAllData();
+    }
+
+    function renderFinanceiro() {
+      document.getElementById('list-vendas').innerHTML = globalState.vendas.map(v => `
+        <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs sm:text-sm">
+          <div>
+            <p class="font-bold text-white">${v.item}</p>
+            <p class="text-[10px] text-neutral-400">Data: ${v.data} | Pgto: ${v.forma_pgto}</p>
+          </div>
+          <span class="font-extrabold text-gold">R$ ${(v.valor_total || 0).toFixed(2)}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('list-comissoes').innerHTML = globalState.comissoes.map(c => `
+        <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs sm:text-sm">
+          <div>
+            <p class="font-bold text-white">${c.barbeiro}</p>
+            <p class="text-[10px] text-neutral-400">${c.servico} (${c.data})</p>
+          </div>
+          <div class="text-right">
+            <p class="font-extrabold text-green-400">R$ ${(c.comissao || 0).toFixed(2)}</p>
+            ${c.pago !== 'Sim' ? `<button onclick="payCommission(${c.id})" class="mt-0.5 px-2 py-0.5 rounded bg-green-600 text-white font-bold text-[9px]">Dar Baixa</button>` : `<span class="text-[9px] text-neutral-500 font-bold">✓ Pago</span>`}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function payCommission(id) {
+      await fetch(`/api/comissoes/${id}/pagar`, { method: 'PATCH' });
+      loadAllData();
+    }
+
+    function populateModalSelects() {
+      const selectSrv = document.getElementById('m-appt-servico');
+      const selectBarber = document.getElementById('m-appt-barbeiro');
+
+      if (selectSrv) selectSrv.innerHTML = globalState.servicos.map(s => `<option value="${s.nome}">${s.nome} - R$ ${s.valor.toFixed(2)}</option>`).join('');
+      if (selectBarber) selectBarber.innerHTML = globalState.barbeiros.map(b => `<option value="${b.nome}">${b.nome}</option>`).join('');
+      document.getElementById('m-appt-data').value = new Date().toISOString().split('T')[0];
+    }
+
+    // FORM MODAL SUBMITS
+    document.getElementById('form-modal-agendamento').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        cliente: document.getElementById('m-appt-cliente').value,
+        cliente_telefone: document.getElementById('m-appt-telefone').value,
+        servico: document.getElementById('m-appt-servico').value,
+        barbeiro: document.getElementById('m-appt-barbeiro').value,
+        data: document.getElementById('m-appt-data').value,
+        hora: document.getElementById('m-appt-hora').value
+      };
+      await fetch('/api/agendamentos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-agendamento');
+      loadAllData();
+    });
+
+    document.getElementById('form-modal-barbeiro').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nome: document.getElementById('m-barber-nome').value,
+        cargo: document.getElementById('m-barber-cargo').value,
+        telefone: document.getElementById('m-barber-telefone').value,
+        chave_pix: document.getElementById('m-barber-pix').value
+      };
+      await fetch('/api/barbeiros', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-barbeiro');
+      loadAllData();
+    });
+
+    document.getElementById('form-modal-cliente').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nome: document.getElementById('m-client-nome').value,
+        telefone: document.getElementById('m-client-telefone').value
+      };
+      await fetch('/api/clientes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-cliente');
+      loadAllData();
+    });
+
+    document.getElementById('form-modal-servico').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nome: document.getElementById('m-srv-nome').value,
+        categoria: document.getElementById('m-srv-cat').value,
+        tempo: document.getElementById('m-srv-tempo').value,
+        valor: document.getElementById('m-srv-valor').value,
+        comissao: document.getElementById('m-srv-comissao').value
+      };
+      await fetch('/api/servicos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-servico');
+      loadAllData();
+    });
+
+    document.getElementById('form-modal-produto').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nome: document.getElementById('m-prod-nome').value,
+        categoria: document.getElementById('m-prod-cat').value,
+        estoque: document.getElementById('m-prod-estoque').value,
+        valor_compra: document.getElementById('m-prod-compra').value,
+        valor_venda: document.getElementById('m-prod-venda').value
+      };
+      await fetch('/api/produtos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-produto');
+      loadAllData();
+    });
+  </script>
+</body>
+</html>

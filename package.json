@@ -1,25 +1,17 @@
 {
-    "name": "marcio-site",
-    "version": "1.0.0",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview",
-        "check": "npm run build"
-    },
-    "dependencies": {
-        "lucide-react": "^0.460.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-router-dom": "^6.26.2"
-    },
-    "devDependencies": {
-        "@vitejs/plugin-react": "^4.3.1",
-        "autoprefixer": "^10.4.20",
-        "postcss": "^8.4.47",
-        "tailwindcss": "^3.4.10",
-        "vite": "^5.3.4"
-    }
+  "name": "marciotopbarber",
+  "version": "2.0.0",
+  "description": "Plataforma Márcio Top Barber - Gestão SaaS de Alta Performance",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "sqlite3": "^5.1.7"
+  }
 }

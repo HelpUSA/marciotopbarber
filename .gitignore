@@ -1,40 +1,7 @@
-# Python
-__pycache__/
-*.py[cod]
-*.sqlite3
-.env
-venv/
-
-# IDEs
-.idea/
-.vscode/
-
-# Logs
-*.log
-
-# Node.js / Vite / React
 node_modules/
+legacy_backup/
+.env
+.env.local
 dist/
-.vite/
-npm-debug.log*
-.pnpm-debug.log
 .DS_Store
-
-# Output do build extra (caso use)
-build/
-.env.*
-!.env.example
-backend/venv/
-backend/.venv/
-backend/__pycache__/
-backend/.env
-backend/.env.*
-!backend/.env.example
-
-# Local databases
-backend/*.db
-backend/*.sqlite
-backend/*.sqlite3
-
-.vercel
-.env*
+*.log
