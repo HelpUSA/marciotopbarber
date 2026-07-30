@@ -1,138 +1,253 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Márcio Top Barber - Estilo, Tradição & Exclusividade</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Márcio Top Barber | Estilo, Tradição & Atendimento VIP</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
             gold: '#EAB308',
             goldHover: '#CA8A04',
             darkBg: '#09090b',
-            darkCard: '#18181b'
+            darkCard: '#141417',
+            darkNav: '#0d0d10'
           }
         }
       }
     }
   </script>
+  <style>
+    .glass-card {
+      background: rgba(20, 20, 23, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #eab308; border-radius: 9999px; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .floating-badge { animation: float 4s ease-in-out infinite; }
+  </style>
 </head>
-<body class="bg-darkBg text-neutral-100 font-sans min-h-screen flex flex-col selection:bg-gold selection:text-black">
+<body class="bg-darkBg text-neutral-100 font-sans min-h-screen flex flex-col selection:bg-gold selection:text-black custom-scrollbar">
 
-  <!-- Header -->
-  <header class="border-b border-white/10 bg-neutral-950/90 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-full bg-gold/20 flex items-center justify-center border border-gold/40 text-gold font-bold text-xl shadow-lg shadow-gold/10">
+  <!-- HEADER NAVBAR TOPBAR -->
+  <header class="border-b border-white/10 bg-darkNav/90 backdrop-blur-md sticky top-0 z-50 transition-all">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <a href="#inicio" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gold/20 flex items-center justify-center border border-gold/40 text-gold font-bold text-xl shadow-lg shadow-gold/10 group-hover:scale-105 transition">
           💈
         </div>
         <div>
-          <span class="text-lg font-black text-white tracking-tight block leading-tight">Márcio Top Barber</span>
-          <span class="text-[10px] text-gold uppercase font-bold tracking-wider">Estilo & Excelência</span>
+          <span class="text-base sm:text-lg font-black text-white tracking-tight block leading-tight group-hover:text-gold transition">Márcio Top Barber</span>
+          <span class="text-[10px] text-gold uppercase font-bold tracking-widest block">Atendimento VIP & Visagismo</span>
         </div>
-      </div>
+      </a>
 
+      <!-- Menu Desktop -->
       <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-neutral-300">
         <a href="#inicio" class="hover:text-gold transition">Início</a>
+        <a href="#sobre" class="hover:text-gold transition">Sobre o Márcio</a>
         <a href="#servicos" class="hover:text-gold transition">Serviços</a>
-        <a href="#barbeiros" class="hover:text-gold transition">Equipe</a>
-        <a href="#agendar" class="hover:text-gold transition">Agendar Horário</a>
-        <a href="/sistema" class="px-4 py-2 rounded-xl bg-gold text-black font-extrabold hover:bg-goldHover transition shadow-lg shadow-gold/20">Painel Gestor (/sistema)</a>
+        <a href="#galeria" class="hover:text-gold transition">Galeria</a>
+        <a href="#contato" class="hover:text-gold transition">Contato & Localização</a>
+        <a href="#agendar" class="px-4 py-2 rounded-xl bg-gold text-black font-extrabold hover:bg-goldHover transition shadow-lg shadow-gold/20">
+          <i class="fa-solid fa-calendar-check mr-1.5"></i> Agendar Horário
+        </a>
+        <a href="/sistema" class="px-3 py-2 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition">
+          <i class="fa-solid fa-lock text-xs mr-1"></i> Gestor (/sistema)
+        </a>
       </nav>
+
+      <!-- Botão Menu Mobile -->
+      <div class="flex items-center gap-2 md:hidden">
+        <a href="#agendar" class="px-3 py-1.5 rounded-xl bg-gold text-black font-extrabold text-xs">Agendar</a>
+        <a href="/sistema" class="p-2 rounded-xl border border-white/20 text-white text-xs"><i class="fa-solid fa-lock"></i></a>
+      </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section id="inicio" class="relative py-16 sm:py-24 px-4 overflow-hidden border-b border-white/5 bg-gradient-to-b from-neutral-950 via-darkBg to-neutral-900">
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-      <span class="inline-block px-4 py-1.5 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-bold uppercase tracking-wider mb-6">
-        Barbearia Oficial Márcio Top Barber
-      </span>
-      <h1 class="text-3xl sm:text-6xl font-black text-white leading-tight tracking-tight mb-6">
-        O Atendimento Exclusivo que o seu Estilo Merece
-      </h1>
-      <p class="text-neutral-400 text-base sm:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
-        Agende seu horário online em poucos segundos. Cortes modernos, barba com toalha quente, química e visagismo sob medida.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="#agendar" class="px-8 py-4 rounded-xl bg-gold text-black font-extrabold text-base hover:bg-goldHover transition shadow-xl shadow-gold/20 flex items-center gap-2">
-          <i class="fa-solid fa-calendar-check"></i> Agendar Agora
-        </a>
-        <a href="https://wa.me/5583987392265?text=Ol%C3%A1%20M%C3%A1rcio!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio." target="_blank" class="px-8 py-4 rounded-xl border border-green-500/40 bg-green-950/30 text-green-300 font-bold hover:bg-green-900/50 transition flex items-center gap-2">
-          <i class="fa-brands fa-whatsapp text-lg"></i> Falar no WhatsApp
-        </a>
+  <!-- HERO SECTION COM VIDEO DE FUNDO & FOTO DE ALTA RESOLUÇÃO -->
+  <section id="inicio" class="relative min-h-[85vh] flex items-center justify-center py-16 px-4 overflow-hidden border-b border-white/10 bg-neutral-950">
+    <!-- Vídeo Background Loop -->
+    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-25 filter blur-[2px]">
+      <source src="/videos/background.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/80 to-transparent"></div>
+
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-12 relative z-10">
+      <div class="space-y-6 text-center md:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-extrabold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-gold animate-ping"></span> Barbearia Oficial em João Pessoa - PB
+        </div>
+        
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
+          Corte & Barba com a <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-yellow-500">Excelência Márcio Top Barber</span>
+        </h1>
+        
+        <p class="text-neutral-300 text-base sm:text-lg max-w-xl leading-relaxed">
+          Especialista em visagismo masculino, barba com toalha quente, cortes modernos e acabamento impecável. Agende seu atendimento online em poucos cliques!
+        </p>
+
+        <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+          <a href="#agendar" class="px-8 py-4 rounded-2xl bg-gold text-black font-black text-sm hover:bg-goldHover transition shadow-xl shadow-gold/25 flex items-center gap-2.5 transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-calendar-check text-base"></i> Agendar Meu Horário
+          </a>
+          <a href="https://wa.me/5583987392265?text=Ol%C3%A1%20M%C3%A1rcio!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio." target="_blank" class="px-8 py-4 rounded-2xl border border-green-500/50 bg-green-950/40 text-green-300 font-extrabold text-sm hover:bg-green-900/60 transition shadow-lg shadow-green-950/30 flex items-center gap-2.5 transform hover:-translate-y-0.5">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Falar no WhatsApp
+          </a>
+        </div>
+
+        <div class="pt-4 flex items-center justify-center md:justify-start gap-6 text-xs text-neutral-400 font-semibold border-t border-white/10">
+          <div><i class="fa-solid fa-star text-gold mr-1"></i> 5.0 Avaliação dos Clientes</div>
+          <div><i class="fa-solid fa-location-dot text-gold mr-1"></i> João Pessoa - PB</div>
+        </div>
+      </div>
+
+      <!-- Foto Destaque do Márcio -->
+      <div class="relative flex justify-center">
+        <div class="relative w-72 sm:w-96 h-96 sm:h-[450px] rounded-3xl overflow-hidden border-2 border-gold/40 shadow-2xl shadow-gold/10 group">
+          <img src="/images/hero-marcio-barber.png" onerror="this.src='/images/marcio.jpg'" alt="Márcio Top Barber" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl glass-card text-center">
+            <h3 class="font-black text-white text-lg">Márcio Top Barber</h3>
+            <p class="text-xs text-gold font-bold">Barber Master & Visagista</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Serviços -->
+  <!-- SEÇÃO SOBRE O MÁRCIO -->
+  <section id="sobre" class="py-16 px-4 max-w-6xl mx-auto border-b border-white/5">
+    <div class="grid md:grid-cols-2 items-center gap-10">
+      <div class="relative">
+        <div class="grid grid-cols-2 gap-4">
+          <img src="/images/corte-masculino01.jpg" alt="Corte Masculino" class="rounded-2xl border border-white/10 shadow-lg object-cover h-48 w-full">
+          <img src="/images/barba01.jpg" alt="Barba Terapia" class="rounded-2xl border border-white/10 shadow-lg object-cover h-48 w-full">
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <span class="text-gold font-extrabold text-xs uppercase tracking-widest">Tradição & Visagismo</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white">Sobre o Márcio Top Barber</h2>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          Com anos de experiência e constante aperfeiçoamento nas melhores técnicas de barbearia do Brasil, o Márcio oferece um atendimento personalizado que respeita o formato do seu rosto, seu estilo de vida e sua personalidade.
+        </p>
+        <div class="grid grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-2xl bg-darkCard border border-white/10">
+            <h4 class="font-extrabold text-gold text-2xl mb-1">+1000</h4>
+            <p class="text-xs text-neutral-400">Clientes Atendidos com Satisfação</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-darkCard border border-white/10">
+            <h4 class="font-extrabold text-gold text-2xl mb-1">100%</h4>
+            <p class="text-xs text-neutral-400">Produtos Premium de Barbearia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO DE SERVIÇOS COM PREÇOS -->
   <section id="servicos" class="py-16 px-4 max-w-6xl mx-auto">
     <div class="text-center mb-12">
-      <h2 class="text-2xl sm:text-4xl font-black text-white mb-2">Nossos Serviços</h2>
-      <p class="text-neutral-400 text-sm">Confira nosso menu completo de tratamentos e cuidados masculinos</p>
+      <span class="text-gold font-extrabold text-xs uppercase tracking-widest">Menu de Tratamentos</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white mt-1">Serviços Exclusivos</h2>
+      <p class="text-neutral-400 text-sm mt-2">Escolha o seu serviço e agende diretamente pelo sistema online</p>
     </div>
 
     <div id="servicos-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="p-6 rounded-2xl bg-darkCard border border-white/10 animate-pulse text-center text-neutral-400">
-        Carregando catálogo de serviços...
-      </div>
+      <!-- Injetado via JS -->
     </div>
   </section>
 
-  <!-- Equipe de Barbeiros -->
-  <section id="barbeiros" class="py-16 px-4 bg-neutral-900/40 border-t border-b border-white/5">
+  <!-- GALERIA DE FOTOS E TRABALHOS -->
+  <section id="galeria" class="py-16 px-4 bg-neutral-950/60 border-t border-b border-white/5">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
-        <h2 class="text-2xl sm:text-4xl font-black text-white mb-2">Márcio Top Barber & Equipe</h2>
-        <p class="text-neutral-400 text-sm">Profissionais qualificados para entregar o melhor corte e acabamento</p>
+        <span class="text-gold font-extrabold text-xs uppercase tracking-widest">Portfólio de Trabalhos</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-1">Galeria de Estilos</h2>
+        <p class="text-neutral-400 text-sm mt-2">Confira alguns dos cortes e acabamentos realizados no salão</p>
       </div>
 
-      <div id="barbeiros-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+          <img src="/images/corte-masculino01.jpg" alt="Corte Moderno" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
+            <span class="text-xs font-bold text-gold">Corte Fade Moderno</span>
+          </div>
+        </div>
+        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+          <img src="/images/barba01.jpg" alt="Barba Terapia" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
+            <span class="text-xs font-bold text-gold">Barba Terapia Toalha Quente</span>
+          </div>
+        </div>
+        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+          <img src="/images/corte-masculino02.jpg" alt="Corte Degradê" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
+            <span class="text-xs font-bold text-gold">Degradê Navalhado</span>
+          </div>
+        </div>
+        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+          <img src="/images/corte-infantil01.jpg" alt="Corte Infantil" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
+            <span class="text-xs font-bold text-gold">Corte Infantil Especial</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Agendamento Online -->
+  <!-- FORMULÁRIO DE AGENDAMENTO COMPATÍVEL -->
   <section id="agendar" class="py-16 px-4 max-w-2xl mx-auto">
     <div class="bg-darkCard p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
       <div class="text-center mb-8">
-        <span class="text-gold font-bold text-xs uppercase tracking-wider">Agendamento Instantâneo</span>
-        <h2 class="text-2xl sm:text-3xl font-black text-white mt-1">Marque seu Horário</h2>
+        <span class="text-gold font-extrabold text-xs uppercase tracking-widest">Agendamento Online</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white mt-1">Reserve seu Horário</h2>
+        <p class="text-xs text-neutral-400 mt-1">Escolha a data, o horário e o serviço desejado</p>
       </div>
 
       <form id="form-agendar" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-neutral-300 mb-1">Seu Nome Completo</label>
-          <input type="text" id="cliente-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold" placeholder="Ex: Lucas Souza" required>
+          <input type="text" id="cliente-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" placeholder="Ex: João Carlos" required>
         </div>
 
         <div>
           <label class="block text-xs font-semibold text-neutral-300 mb-1">Telefone WhatsApp</label>
-          <input type="text" id="cliente-telefone" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold" placeholder="(83) 99999-8888" required>
+          <input type="text" id="cliente-telefone" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" placeholder="(83) 99999-8888" required>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-neutral-300 mb-1">Serviço Desejado</label>
-            <select id="select-servico" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold" required></select>
+            <select id="select-servico" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" required></select>
           </div>
           <div>
             <label class="block text-xs font-semibold text-neutral-300 mb-1">Barbeiro Responsável</label>
-            <select id="select-barbeiro" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold" required></select>
+            <select id="select-barbeiro" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" required></select>
           </div>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-neutral-300 mb-1">Data</label>
-            <input type="date" id="data-agendamento" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold" required>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Data do Atendimento</label>
+            <input type="date" id="data-agendamento" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" required>
           </div>
           <div>
             <label class="block text-xs font-semibold text-neutral-300 mb-1">Horário</label>
-            <input type="time" id="hora-agendamento" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold" value="14:00" required>
+            <input type="time" id="hora-agendamento" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" value="14:00" required>
           </div>
         </div>
 
@@ -142,20 +257,57 @@
       </form>
 
       <div id="msg-sucesso" class="hidden mt-4 p-4 rounded-xl bg-green-950/60 border border-green-500/30 text-green-200 text-center text-sm font-semibold">
-        ✅ Agendamento realizado com sucesso! Aguarde o nosso contato.
+        ✅ Agendamento realizado com sucesso!
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="mt-auto border-t border-white/10 bg-neutral-950 py-8 text-center text-xs text-neutral-500">
-    <div class="max-w-6xl mx-auto px-4 space-y-2">
-      <p class="font-bold text-neutral-400">Márcio Top Barber - Contato & Agendamentos: (83) 98739-2265</p>
-      <p>© 2026 Márcio Top Barber - Todos os direitos reservados.</p>
-      <p><a href="/sistema" class="text-neutral-400 hover:text-gold underline font-semibold">Acessar Painel Gestor (/sistema)</a></p>
+  <!-- CONTATO & REDES SOCIAIS -->
+  <section id="contato" class="py-16 px-4 bg-neutral-950 border-t border-white/10">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-center md:text-left">
+      <div>
+        <div class="flex items-center justify-center md:justify-start gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center text-gold font-bold text-lg border border-gold/30">💈</div>
+          <span class="font-black text-white text-lg">Márcio Top Barber</span>
+        </div>
+        <p class="text-neutral-400 text-xs leading-relaxed">
+          Sua barbearia de confiança com atendimento VIP, visagismo e produtos de alta qualidade.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Contato & Redes Sociais</h4>
+        <div class="space-y-2 text-xs text-neutral-300 font-semibold">
+          <p><i class="fa-brands fa-whatsapp text-green-400 text-sm mr-2"></i> WhatsApp: <a href="https://wa.me/5583987392265" target="_blank" class="text-gold hover:underline">+55 (83) 98739-2265</a></p>
+          <p><i class="fa-brands fa-instagram text-pink-400 text-sm mr-2"></i> Instagram: <a href="https://www.instagram.com/marciotopbarber/" target="_blank" class="text-gold hover:underline">@marciotopbarber</a></p>
+          <p><i class="fa-solid fa-envelope text-gold text-sm mr-2"></i> E-mail: helpus.ecommerce@gmail.com</p>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Localização & Atendimento</h4>
+        <div class="space-y-2 text-xs text-neutral-300 font-semibold">
+          <p><i class="fa-solid fa-location-dot text-gold text-sm mr-2"></i> João Pessoa - PB</p>
+          <p><i class="fa-regular fa-clock text-gold text-sm mr-2"></i> Terça a Sábado: 08:00 às 19:00</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIDGET FLUTUANTE DO WHATSAPP -->
+  <a href="https://wa.me/5583987392265?text=Ol%C3%A1%20M%C3%A1rcio!%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-green-500 hover:bg-green-400 text-white flex items-center justify-center text-3xl shadow-2xl shadow-green-500/50 transform hover:scale-110 transition duration-300">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 bg-black py-6 text-center text-xs text-neutral-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
+      <p>© 2026 Márcio Top Barber - Desenvolvido em parceria com HelpUS E-commerce</p>
+      <a href="/sistema" class="text-neutral-400 hover:text-gold font-bold">Painel Gestor (/sistema)</a>
     </div>
   </footer>
 
+  <!-- SCRIPT DINÂMICO -->
   <script>
     async function loadData() {
       try {
@@ -164,7 +316,6 @@
           fetch('/api/barbeiros').then(r => r.json())
         ]);
 
-        // Render Servicos
         const servicosGrid = document.getElementById('servicos-grid');
         const selectServico = document.getElementById('select-servico');
         
@@ -172,13 +323,13 @@
           <div class="p-6 rounded-2xl bg-darkCard border border-white/10 hover:border-gold/50 transition flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-start mb-3">
-                <span class="text-[10px] font-bold px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">${s.categoria}</span>
-                <span class="text-xl font-black text-gold">R$ ${s.valor.toFixed(2)}</span>
+                <span class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">${s.categoria}</span>
+                <span class="text-2xl font-black text-gold">R$ ${s.valor.toFixed(2)}</span>
               </div>
               <h3 class="text-lg font-bold text-white mb-2">${s.nome}</h3>
-              <p class="text-xs text-neutral-400 mb-4"><i class="fa-regular fa-clock mr-1"></i> Duração estimada: ${s.tempo}</p>
+              <p class="text-xs text-neutral-400 mb-4"><i class="fa-regular fa-clock mr-1"></i> Duração: ${s.tempo}</p>
             </div>
-            <a href="#agendar" class="block text-center w-full py-2.5 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">
+            <a href="#agendar" class="block text-center w-full py-3 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">
               Agendar este Serviço
             </a>
           </div>
@@ -186,23 +337,11 @@
 
         selectServico.innerHTML = servicosRes.map(s => `<option value="${s.nome}">${s.nome} - R$ ${s.valor.toFixed(2)}</option>`).join('');
 
-        // Render Barbeiros
-        const barbeirosGrid = document.getElementById('barbeiros-grid');
         const selectBarbeiro = document.getElementById('select-barbeiro');
-
-        barbeirosGrid.innerHTML = barbeirosRes.map(b => `
-          <div class="p-6 rounded-2xl bg-darkCard border border-white/10 text-center">
-            <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-2xl font-bold">💈</div>
-            <h3 class="text-base font-bold text-white">${b.nome}</h3>
-            <p class="text-xs text-gold mt-0.5 font-semibold">${b.cargo}</p>
-            <p class="text-xs text-neutral-400 mt-2"><i class="fa-solid fa-phone mr-1"></i> ${b.telefone}</p>
-          </div>
-        `).join('');
-
         selectBarbeiro.innerHTML = barbeirosRes.map(b => `<option value="${b.nome}">${b.nome}</option>`).join('');
 
       } catch (err) {
-        console.error('Erro ao carregar dados:', err);
+        console.error('Erro ao carregar catálogo:', err);
       }
     }
 
