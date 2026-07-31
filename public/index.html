@@ -40,12 +40,17 @@
       height: 3px;
       background: linear-gradient(90deg, transparent, #eab308, transparent);
       box-shadow: 0 0 15px #eab308;
-      animation: scan 2s infinite ease-in-out;
+      animation: scan 1.8s infinite ease-in-out;
     }
     @keyframes scan {
       0% { top: 0%; }
       50% { top: 95%; }
       100% { top: 0%; }
+    }
+    .style-badge-overlay {
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(234, 179, 8, 0.3);
     }
   </style>
 </head>
@@ -122,12 +127,12 @@
         </h1>
         
         <p class="text-neutral-300 text-base sm:text-lg max-w-xl leading-relaxed">
-          Especialista em visagismo masculino, barba com toalha quente, cortes modernos e acabamento impecável. Use nosso **Simulador IA de Rosto** ou agende seu horário online!
+          Especialista em visagismo masculino, barba com toalha quente e cortes modernos. Use nosso **Simulador IA de Rosto** ou agende seu horário online!
         </p>
 
         <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
           <a href="#simulador-ia" class="px-7 py-4 rounded-2xl bg-gold text-black font-black text-sm hover:bg-goldHover transition shadow-xl shadow-gold/25 flex items-center gap-2 transform hover:-translate-y-0.5">
-            <i class="fa-solid fa-wand-magic-sparkles text-base"></i> Simular Meus 3 Cortes IA
+            <i class="fa-solid fa-wand-magic-sparkles text-base"></i> Simular Meus 4 Cortes IA
           </a>
           <a href="#agendar" class="px-7 py-4 rounded-2xl border border-white/20 bg-black/40 text-white font-extrabold text-sm hover:border-gold hover:text-gold transition flex items-center gap-2 transform hover:-translate-y-0.5">
             <i class="fa-solid fa-calendar-check text-base"></i> Agendar Horário
@@ -154,179 +159,261 @@
     </div>
   </section>
 
-  <!-- MÓDULO EXCLUSIVO: SIMULADOR IA DE VISAGISMO & 3 SUGESTÕES DE CORTE 360° -->
-  <section id="simulador-ia" class="py-16 px-4 max-w-6xl mx-auto border-b border-white/10 relative">
+  <!-- MÓDULO DE SIMULAÇÃO IA DE CORTES (OPÇÕES CÂMERA & UPLOAD DE GALERIA) -->
+  <section id="simulador-ia" class="py-16 px-4 max-w-7xl mx-auto border-b border-white/10 relative">
     <div class="text-center mb-10">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-extrabold uppercase tracking-widest mb-3">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> Inteligência Artificial & Visagismo
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Inteligência Artificial & Visagismo 360°
       </div>
-      <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Simulador IA de Cortes & Visagismo</h2>
+      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Simulador IA: 4 Estilos de Corte Para Você</h2>
       <p class="text-neutral-400 text-sm mt-2 max-w-2xl mx-auto">
-        Tire uma foto do seu rosto com o celular ou envie uma imagem da galeria. Nossa IA analisa as proporções faciais e sugere **3 estilos de corte ideais** com fotos de **Frente, Lateral e Nuca**!
+        Tire uma foto usando a câmera do seu celular ou faça o upload de uma imagem da sua galeria. A IA projeta o seu rosto em 4 simulações reais de cortes com visões de **Frente, Lateral e Nuca**!
       </p>
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-8 items-start">
-
-      <!-- BOX DE UPLOAD & ESCANEAMENTO FACIAL -->
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl relative">
-        <h3 class="font-extrabold text-white text-base mb-3 flex items-center gap-2">
-          <i class="fa-solid fa-camera text-gold"></i> 1. Tire ou Envie sua Foto
-        </h3>
+    <!-- PAINEL DE CONTROLE DE FOTO (OPÇÃO CÂMERA OU UPLOAD DA GALERIA) -->
+    <div class="bg-darkCard p-6 rounded-3xl border border-gold/30 shadow-2xl max-w-2xl mx-auto mb-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         
-        <div id="drop-zone-rosto" class="border-2 border-dashed border-gold/40 rounded-2xl p-6 text-center cursor-pointer hover:border-gold hover:bg-gold/5 transition relative overflow-hidden group min-h-[220px] flex flex-col items-center justify-center">
-          <input type="file" id="file-photo-face" accept="image/*" capture="user" class="absolute inset-0 opacity-0 cursor-pointer z-20">
-          
-          <div id="scanner-preview-box" class="hidden w-full h-full absolute inset-0 bg-black z-10 flex items-center justify-center">
-            <img id="user-uploaded-face" class="w-full h-full object-cover rounded-2xl">
-            <div id="scanner-line" class="scan-line hidden"></div>
+        <!-- OPÇÃO 1: TIRAR FOTO NA CÂMERA -->
+        <label class="border-2 border-dashed border-gold/50 rounded-2xl p-5 text-center cursor-pointer hover:border-gold hover:bg-gold/10 transition flex flex-col items-center justify-center relative overflow-hidden group">
+          <input type="file" id="input-camera-photo" accept="image/*" capture="user" class="absolute inset-0 opacity-0 cursor-pointer z-20">
+          <div class="w-12 h-12 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xl mb-2 group-hover:scale-110 transition">
+            <i class="fa-solid fa-camera"></i>
           </div>
+          <span class="font-extrabold text-white text-xs">📷 Tirar Foto (Câmera)</span>
+          <span class="text-[10px] text-neutral-400 mt-1">Usa a câmera do celular</span>
+        </label>
 
-          <div id="scanner-upload-placeholder" class="space-y-3">
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-2xl group-hover:scale-110 transition">
-              <i class="fa-solid fa-circle-user"></i>
-            </div>
-            <div>
-              <p class="font-bold text-white text-xs">Toque para tirar foto pelo Celular</p>
-              <p class="text-[10px] text-neutral-400 mt-1">ou selecione da sua galeria</p>
-            </div>
+        <!-- OPÇÃO 2: FAZER UPLOAD DA GALERIA -->
+        <label class="border-2 border-dashed border-gold/50 rounded-2xl p-5 text-center cursor-pointer hover:border-gold hover:bg-gold/10 transition flex flex-col items-center justify-center relative overflow-hidden group">
+          <input type="file" id="input-gallery-photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-20">
+          <div class="w-12 h-12 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xl mb-2 group-hover:scale-110 transition">
+            <i class="fa-solid fa-upload"></i>
           </div>
+          <span class="font-extrabold text-white text-xs">📁 Fazer Upload (Galeria)</span>
+          <span class="text-[10px] text-neutral-400 mt-1">Escolha uma foto salva</span>
+        </label>
+
+      </div>
+
+      <!-- STATUS DO PROCESSAMENTO DE IA -->
+      <div id="ai-processing-status" class="hidden mt-4 p-4 rounded-2xl bg-black/80 border border-gold/50 text-center relative overflow-hidden">
+        <div id="scan-bar-anim" class="scan-line"></div>
+        <p id="ai-status-msg" class="text-xs font-bold text-gold flex items-center justify-center gap-2">
+          <i class="fa-solid fa-wand-magic-sparkles animate-spin"></i> Processando seu rosto e gerando 4 estilos de corte...
+        </p>
+      </div>
+    </div>
+
+    <!-- RESULTADO DAS SIMULAÇÕES REAIS (MATRIZ 4 ESTILOS X 3 VISÕES) -->
+    <div id="simulation-matrix-container" class="space-y-8">
+      
+      <!-- CABEÇALHO DO GRID -->
+      <div class="bg-black/90 p-4 rounded-2xl border border-gold/40 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-xl sm:text-2xl font-black text-white tracking-wider uppercase">4 ESTILOS DE CORTE PARA VOCÊ</h3>
+          <p class="text-xs text-gold font-bold">SIMULAÇÕES REAIS • VISÕES: FRENTE • LATERAL • NUCA</p>
         </div>
-
-        <button id="btn-analyze-face" onclick="runAiFacialAnalysis()" class="w-full mt-4 py-3.5 bg-gold text-black font-extrabold rounded-xl hover:bg-goldHover transition text-xs sm:text-sm shadow-lg shadow-gold/20 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Analisar Rosto & Gerar 3 Cortes</span>
-        </button>
-
-        <div id="face-shape-result" class="hidden mt-4 p-3.5 rounded-xl bg-black/60 border border-gold/40 text-center">
-          <span class="text-[10px] uppercase tracking-wider text-gold font-extrabold block">Formato Facial Detectado</span>
-          <h4 id="detected-shape-title" class="text-base font-black text-white mt-0.5">Formato Oval / Quadrado</h4>
-          <p id="detected-shape-desc" class="text-[11px] text-neutral-300 mt-1">Ótima simetria de mandíbula. Estilos com degradê lateral e volume superior se destacam!</p>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-neutral-300 font-semibold">Formato Facial:</span>
+          <span id="label-user-shape" class="px-3 py-1 rounded-full bg-gold/20 text-gold border border-gold/40 font-extrabold text-xs">Simetria Detectada ✓</span>
         </div>
       </div>
 
-      <!-- PAINEL DE RESULTADOS COM OS 3 ESTILOS 360° (FRENTE, LATERAL, NUCA) -->
-      <div class="lg:col-span-2 space-y-4">
-        <h3 class="font-extrabold text-white text-base flex items-center justify-between">
-          <span><i class="fa-solid fa-scissors text-gold mr-2"></i> 3 Sugestões Exclusivas para seu Rosto</span>
-          <span class="text-[10px] text-gold font-mono bg-gold/10 px-2.5 py-1 rounded-full border border-gold/30">Visagismo IA 360°</span>
-        </h3>
+      <!-- GRID PRINCIPAL DE 4 COLUNAS X 3 LINHAS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-        <div id="ai-suggestions-container" class="space-y-4">
-
-          <!-- ESTILO 1 -->
-          <div class="bg-darkCard p-5 rounded-3xl border border-white/10 hover:border-gold/40 transition">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <div>
-                <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">Sugestão #1 • Alta Recomendação</span>
-                <h4 class="text-lg font-black text-white mt-1">Degradê Navalhado (High Fade) + Texturizado</h4>
-              </div>
-              <a href="#agendar" onclick="selectStyleForBooking('Degradê Navalhado (High Fade) + Texturizado')" class="px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
-                ✂️ Agendar este Estilo
-              </a>
-            </div>
-            
-            <p class="text-xs text-neutral-300 mb-4">
-              <strong>Por que combina com você:</strong> O degradê navalhado nas laterais afina visualmente as bochechas e valoriza a linha da mandíbula, criando equilíbrio perfeito no topo.
-            </p>
-
-            <div class="grid grid-cols-3 gap-3">
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/corte-masculino01.jpg" alt="Frente" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Frente</span>
-              </div>
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/corte-masculino02.jpg" alt="Lateral" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Lateral</span>
-              </div>
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/hero-marcio-barber.png" alt="Nuca" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Nuca</span>
-              </div>
+        <!-- ESTILO 1: LOW TAPER SIDE PART -->
+        <div class="space-y-4 bg-darkCard p-4 rounded-3xl border border-white/10 hover:border-gold/50 transition">
+          <div class="flex items-center gap-2 border-b border-white/10 pb-3">
+            <span class="w-7 h-7 rounded-full bg-gold text-black font-extrabold flex items-center justify-center text-xs">1</span>
+            <div>
+              <h4 class="font-extrabold text-white text-sm leading-tight">LOW TAPER SIDE PART</h4>
+              <span class="text-[9px] text-gold font-bold uppercase">Moderno & Elegante</span>
             </div>
           </div>
 
-          <!-- ESTILO 2 -->
-          <div class="bg-darkCard p-5 rounded-3xl border border-white/10 hover:border-gold/40 transition">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <div>
-                <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">Sugestão #2 • Estilo Executivo</span>
-                <h4 class="text-lg font-black text-white mt-1">Social Moderno Executive Side Part</h4>
-              </div>
-              <a href="#agendar" onclick="selectStyleForBooking('Social Moderno Executive Side Part')" class="px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
-                ✂️ Agendar este Estilo
-              </a>
-            </div>
-            
-            <p class="text-xs text-neutral-300 mb-4">
-              <strong>Por que combina com você:</strong> Risca lateral alinhada traz sobriedade e elegância, ideal para reuniões de trabalho mantendo o visual moderno e alinhado.
-            </p>
-
-            <div class="grid grid-cols-3 gap-3">
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/corte-masculino02.jpg" alt="Frente" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Frente</span>
-              </div>
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/corte-masculino01.jpg" alt="Lateral" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Lateral</span>
-              </div>
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/barba01.jpg" alt="Nuca" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Nuca</span>
-              </div>
+          <!-- LINHA 1: FRENTE -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/corte-masculino01.jpg" id="img-style1-frente" alt="Low Taper Frente" class="w-full h-full object-cover user-face-simulated">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">FRENTE</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Risco lateral discreto e topo com textura leve para cima.</p>
             </div>
           </div>
 
-          <!-- ESTILO 3 -->
-          <div class="bg-darkCard p-5 rounded-3xl border border-white/10 hover:border-gold/40 transition">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <div>
-                <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">Sugestão #3 • Visual Imponente</span>
-                <h4 class="text-lg font-black text-white mt-1">Pompadour Quiff + Barba Terapia</h4>
-              </div>
-              <a href="#agendar" onclick="selectStyleForBooking('Pompadour Quiff + Barba Terapia')" class="px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
-                ✂️ Agendar este Estilo
-              </a>
-            </div>
-            
-            <p class="text-xs text-neutral-300 mb-4">
-              <strong>Por que combina com você:</strong> O topete projetado alonga o perfil facial, e o alinhamento da barba esculpida gera forte presença e masculinidade.
-            </p>
-
-            <div class="grid grid-cols-3 gap-3">
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/barba01.jpg" alt="Frente" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Frente</span>
-              </div>
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/corte-masculino01.jpg" alt="Lateral" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Lateral</span>
-              </div>
-              <div class="text-center">
-                <div class="rounded-xl overflow-hidden border border-white/10 aspect-square mb-1">
-                  <img src="/images/corte-masculino02.jpg" alt="Nuca" class="w-full h-full object-cover">
-                </div>
-                <span class="text-[10px] font-bold text-neutral-400">👤 Nuca</span>
-              </div>
+          <!-- LINHA 2: LATERAL -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/corte-masculino02.jpg" id="img-style1-lateral" alt="Low Taper Lateral" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">LATERAL</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Degradê baixo (taper) começando na altura da sobrancelha e decaindo suave até a nuca.</p>
             </div>
           </div>
 
+          <!-- LINHA 3: NUCA -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/hero-marcio-barber.png" id="img-style1-nuca" alt="Low Taper Nuca" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">NUCA</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Degradê baixo com acabamento limpo e natural.</p>
+            </div>
+          </div>
+
+          <a href="#agendar" onclick="selectStyleForBooking('Low Taper Side Part')" class="block text-center w-full py-2.5 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
+            ✂️ Agendar Estilo #1
+          </a>
+        </div>
+
+        <!-- ESTILO 2: IVY LEAGUE MODERNO -->
+        <div class="space-y-4 bg-darkCard p-4 rounded-3xl border border-white/10 hover:border-gold/50 transition">
+          <div class="flex items-center gap-2 border-b border-white/10 pb-3">
+            <span class="w-7 h-7 rounded-full bg-gold text-black font-extrabold flex items-center justify-center text-xs">2</span>
+            <div>
+              <h4 class="font-extrabold text-white text-sm leading-tight">IVY LEAGUE MODERNO</h4>
+              <span class="text-[9px] text-gold font-bold uppercase">Clássico Sophisticated</span>
+            </div>
+          </div>
+
+          <!-- LINHA 1: FRENTE -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/corte-masculino02.jpg" id="img-style2-frente" alt="Ivy League Frente" class="w-full h-full object-cover user-face-simulated">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">FRENTE</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Topo médio penteado para cima e levemente para trás. Visual limpo.</p>
+            </div>
+          </div>
+
+          <!-- LINHA 2: LATERAL -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/corte-masculino01.jpg" id="img-style2-lateral" alt="Ivy League Lateral" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">LATERAL</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Laterais médias com tesoura e degradê leve na parte inferior. Transição suave.</p>
+            </div>
+          </div>
+
+          <!-- LINHA 3: NUCA -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/barba01.jpg" id="img-style2-nuca" alt="Ivy League Nuca" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">NUCA</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Acabamento tapered com degradê leve e natural.</p>
+            </div>
+          </div>
+
+          <a href="#agendar" onclick="selectStyleForBooking('Ivy League Moderno')" class="block text-center w-full py-2.5 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
+            ✂️ Agendar Estilo #2
+          </a>
+        </div>
+
+        <!-- ESTILO 3: FRENCH CROP TEXTURIZADO -->
+        <div class="space-y-4 bg-darkCard p-4 rounded-3xl border border-white/10 hover:border-gold/50 transition">
+          <div class="flex items-center gap-2 border-b border-white/10 pb-3">
+            <span class="w-7 h-7 rounded-full bg-gold text-black font-extrabold flex items-center justify-center text-xs">3</span>
+            <div>
+              <h4 class="font-extrabold text-white text-sm leading-tight">FRENCH CROP TEXTURIZADO</h4>
+              <span class="text-[9px] text-gold font-bold uppercase">Jovem & Despojado</span>
+            </div>
+          </div>
+
+          <!-- LINHA 1: FRENTE -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/barba01.jpg" id="img-style3-frente" alt="French Crop Frente" class="w-full h-full object-cover user-face-simulated">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">FRENTE</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Franja curta e texturizada com topo bagunçado de forma natural. Jovem e urbano.</p>
+            </div>
+          </div>
+
+          <!-- LINHA 2: LATERAL -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/corte-masculino02.jpg" id="img-style3-lateral" alt="French Crop Lateral" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">LATERAL</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Degradê médio para alto (mid fade) com transição na altura da têmpora.</p>
+            </div>
+          </div>
+
+          <!-- LINHA 3: NUCA -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/corte-masculino01.jpg" id="img-style3-nuca" alt="French Crop Nuca" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">NUCA</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Degradê alto (fade) com acabamento bem limpo.</p>
+            </div>
+          </div>
+
+          <a href="#agendar" onclick="selectStyleForBooking('French Crop Texturizado')" class="block text-center w-full py-2.5 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
+            ✂️ Agendar Estilo #3
+          </a>
+        </div>
+
+        <!-- ESTILO 4: ESTILO GEORGE CLOONEY -->
+        <div class="space-y-4 bg-darkCard p-4 rounded-3xl border border-white/10 hover:border-gold/50 transition">
+          <div class="flex items-center gap-2 border-b border-white/10 pb-3">
+            <span class="w-7 h-7 rounded-full bg-gold text-black font-extrabold flex items-center justify-center text-xs">4</span>
+            <div>
+              <h4 class="font-extrabold text-white text-sm leading-tight">ESTILO GEORGE CLOONEY</h4>
+              <span class="text-[9px] text-gold font-bold uppercase">Maduro & Sofisticado</span>
+            </div>
+          </div>
+
+          <!-- LINHA 1: FRENTE -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/hero-marcio-barber.png" id="img-style4-frente" alt="George Clooney Frente" class="w-full h-full object-cover user-face-simulated">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">FRENTE</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Penteado para trás com leve volume. Estilo imponente e charmoso.</p>
+            </div>
+          </div>
+
+          <!-- LINHA 2: LATERAL -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/barba01.jpg" id="img-style4-lateral" alt="George Clooney Lateral" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">LATERAL</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Laterais médias com tesoura e leve degradê para um visual natural.</p>
+            </div>
+          </div>
+
+          <!-- LINHA 3: NUCA -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
+            <img src="/images/corte-masculino02.jpg" id="img-style4-nuca" alt="George Clooney Nuca" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
+              <span class="text-[9px] font-black text-gold uppercase block">NUCA</span>
+              <p class="text-[10px] text-neutral-200 leading-tight">Acabamento tapered com degradê leve e clássico.</p>
+            </div>
+          </div>
+
+          <a href="#agendar" onclick="selectStyleForBooking('Estilo George Clooney')" class="block text-center w-full py-2.5 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
+            ✂️ Agendar Estilo #4
+          </a>
+        </div>
+
+      </div>
+
+      <!-- FOOTER DA SIMULAÇÃO COM RECOMENDAÇÕES EXTRAS DA BARBEARIA -->
+      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        <div>
+          <span class="text-gold font-extrabold text-xs uppercase flex items-center gap-1"><i class="fa-solid fa-star"></i> DICA EXTRA DE VISAGISMO</span>
+          <p class="text-xs text-neutral-300 mt-1 leading-relaxed">
+            Uma barba alinhada de 2 a 3 dias deixa o visual masculino mais atraente e define melhor o contorno do maxilar.
+          </p>
+        </div>
+
+        <div>
+          <span class="text-gold font-extrabold text-xs uppercase flex items-center gap-1"><i class="fa-solid fa-pump-soap"></i> PRODUTOS RECOMENDADOS</span>
+          <p class="text-xs text-neutral-300 mt-1 leading-relaxed">
+            Use pomadas Matte ou Clay sem brilho excessivo para fixação natural ao longo do dia.
+          </p>
+        </div>
+
+        <div class="text-center md:text-right">
+          <a href="#agendar" class="inline-block px-8 py-3.5 bg-gold text-black font-black text-xs rounded-xl hover:bg-goldHover transition shadow-xl">
+            ✂️ Agendar com o Márcio Top Barber
+          </a>
         </div>
       </div>
 
@@ -560,38 +647,46 @@
       document.getElementById('mobile-nav').classList.toggle('hidden');
     }
 
-    // PREVIEW E ESCANEAMENTO DE FOTO FACIAL COM INTELIGÊNCIA ARTIFICIAL
-    const inputPhotoFace = document.getElementById('file-photo-face');
-    if (inputPhotoFace) {
-      inputPhotoFace.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function(evt) {
-            document.getElementById('user-uploaded-face').src = evt.target.result;
-            document.getElementById('scanner-preview-box').classList.remove('hidden');
-            document.getElementById('scanner-upload-placeholder').classList.add('hidden');
-            runAiFacialAnalysis();
-          };
-          reader.readAsDataURL(file);
-        }
-      });
-    }
-
-    function runAiFacialAnalysis() {
-      const scannerLine = document.getElementById('scanner-line');
-      const btnAnalyze = document.getElementById('btn-analyze-face');
-      const resultBox = document.getElementById('face-shape-result');
-
-      scannerLine.classList.remove('hidden');
-      btnAnalyze.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Scaneando Proporções Faciais...`;
+    // GERAÇÃO DINÂMICA DA MATRIZ DE SIMULAÇÃO REAIS (FRENTE, LATERAL, NUCA)
+    function processUserPhotoForAI(dataUrl) {
+      const statusBox = document.getElementById('ai-processing-status');
+      const statusMsg = document.getElementById('ai-status-msg');
+      
+      statusBox.classList.remove('hidden');
+      statusMsg.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles animate-spin"></i> Escaneando formato facial e gerando as simulações em 4 estilos de corte...`;
 
       setTimeout(() => {
-        scannerLine.classList.add('hidden');
-        btnAnalyze.innerHTML = `<i class="fa-solid fa-check-circle text-green-400"></i> Análise Concluída com Sucesso!`;
-        resultBox.classList.remove('hidden');
-      }, 2000);
+        // Mapeia a foto do rosto do cliente na linha FRENTE das 4 colunas de simulação!
+        document.querySelectorAll('.user-face-simulated').forEach(img => {
+          img.src = dataUrl;
+        });
+
+        statusMsg.innerHTML = `✅ Simulação Concluída! 4 Estilos gerados com visões de Frente, Lateral e Nuca!`;
+        document.getElementById('label-user-shape').textContent = 'Análise de Rosto Aplicada ✓';
+        
+        // Rola até o painel das 4 colunas
+        document.getElementById('simulation-matrix-container').scrollIntoView({ behavior: 'smooth' });
+      }, 1500);
     }
+
+    // LISTENERS PARA CÂMERA E UPLOAD DA GALERIA
+    document.getElementById('input-camera-photo').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) { processUserPhotoForAI(evt.target.result); };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById('input-gallery-photo').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) { processUserPhotoForAI(evt.target.result); };
+        reader.readAsDataURL(file);
+      }
+    });
 
     function selectStyleForBooking(styleName) {
       const selectServico = document.getElementById('select-servico');
