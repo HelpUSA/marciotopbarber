@@ -167,7 +167,7 @@
     </div>
   </section>
 
-  <!-- CATÁLOGO DE SERVIÇOS COM PREÇOS -->
+  <!-- CATÁLOGO DE SERVIÇOS COM PREÇOS DA BARBEARIA -->
   <section id="servicos" class="py-16 px-4 max-w-6xl mx-auto">
     <div class="text-center mb-12">
       <span class="text-gold font-extrabold text-xs uppercase tracking-widest">Menu de Tratamentos</span>
@@ -175,10 +175,47 @@
       <p class="text-neutral-400 text-sm mt-2">Escolha o seu serviço e agende diretamente pelo sistema online</p>
     </div>
 
-    <div id="servicos-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="servicos-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Fallback Inicial Exclusivo Márcio Top Barber -->
+      <div class="p-6 rounded-2xl bg-darkCard border border-white/10 hover:border-gold/50 transition flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-start mb-3">
+            <span class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">Corte</span>
+            <span class="text-2xl font-black text-gold">R$ 35,00</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Corte Márcio Top Barber</h3>
+          <p class="text-xs text-neutral-400 mb-4"><i class="fa-regular fa-clock mr-1"></i> Duração: 30 min</p>
+        </div>
+        <a href="#agendar" class="block text-center w-full py-3 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">Agendar este Serviço</a>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-darkCard border border-white/10 hover:border-gold/50 transition flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-start mb-3">
+            <span class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">Barba</span>
+            <span class="text-2xl font-black text-gold">R$ 25,00</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Barba Terapia com Toalha Quente</h3>
+          <p class="text-xs text-neutral-400 mb-4"><i class="fa-regular fa-clock mr-1"></i> Duração: 25 min</p>
+        </div>
+        <a href="#agendar" class="block text-center w-full py-3 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">Agendar este Serviço</a>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-darkCard border border-white/10 hover:border-gold/50 transition flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-start mb-3">
+            <span class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">Combo</span>
+            <span class="text-2xl font-black text-gold">R$ 55,00</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Combo Premium Corte + Barba</h3>
+          <p class="text-xs text-neutral-400 mb-4"><i class="fa-regular fa-clock mr-1"></i> Duração: 50 min</p>
+        </div>
+        <a href="#agendar" class="block text-center w-full py-3 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">Agendar este Serviço</a>
+      </div>
+    </div>
   </section>
 
-  <!-- GALERIA DE FOTOS DINÂMICA -->
+  <!-- GALERIA DE FOTOS DINÂMICA DO SITE -->
   <section id="galeria" class="py-16 px-4 bg-neutral-950/60 border-t border-b border-white/5">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
@@ -188,7 +225,35 @@
       </div>
 
       <div id="galeria-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        <!-- Injetado Dinamicamente da API /api/gallery -->
+        <!-- Fallback Inicial com Imagens do Márcio -->
+        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+          <img src="/images/corte-masculino01.jpg" alt="Corte Fade" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-2 text-center">
+            <span class="text-xs font-bold text-gold">Fade Moderno</span>
+            <span class="text-[10px] text-neutral-300">Cortes</span>
+          </div>
+        </div>
+        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+          <img src="/images/barba01.jpg" alt="Barba Terapia" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-2 text-center">
+            <span class="text-xs font-bold text-gold">Barba Terapia</span>
+            <span class="text-[10px] text-neutral-300">Barba</span>
+          </div>
+        </div>
+        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+          <img src="/images/corte-masculino02.jpg" alt="Degradê Navalhado" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-2 text-center">
+            <span class="text-xs font-bold text-gold">Degradê Navalhado</span>
+            <span class="text-[10px] text-neutral-300">Cortes</span>
+          </div>
+        </div>
+        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+          <img src="/images/corte-infantil01.jpg" alt="Corte Infantil" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-2 text-center">
+            <span class="text-xs font-bold text-gold">Corte Infantil</span>
+            <span class="text-[10px] text-neutral-300">Infantil</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -216,11 +281,18 @@
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-neutral-300 mb-1">Serviço Desejado</label>
-            <select id="select-servico" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" required></select>
+            <select id="select-servico" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" required>
+              <option value="Corte Márcio Top Barber">Corte Márcio Top Barber - R$ 35,00</option>
+              <option value="Barba Terapia com Toalha Quente">Barba Terapia - R$ 25,00</option>
+              <option value="Combo Premium Corte + Barba">Combo Premium - R$ 55,00</option>
+            </select>
           </div>
           <div>
             <label class="block text-xs font-semibold text-neutral-300 mb-1">Barbeiro Responsável</label>
-            <select id="select-barbeiro" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" required></select>
+            <select id="select-barbeiro" class="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" required>
+              <option value="Márcio Top Barber">Márcio Top Barber</option>
+              <option value="Hugo Freitas">Hugo Freitas</option>
+            </select>
           </div>
         </div>
 
@@ -296,16 +368,14 @@
 
     async function loadData() {
       try {
-        const [servicosRes, barbeirosRes, galleryRes] = await Promise.all([
+        const [servicosRes, barbeirosRes, galleryRes] = await Promise.allSettled([
           fetch('/api/servicos').then(r => r.json()),
           fetch('/api/barbeiros').then(r => r.json()),
           fetch('/api/gallery').then(r => r.json())
         ]);
 
-        // Render Galeria Dinâmica
-        const galeriaGrid = document.getElementById('galeria-grid');
-        if (galleryRes && galleryRes.length > 0) {
-          galeriaGrid.innerHTML = galleryRes.map(g => `
+        if (galleryRes.status === 'fulfilled' && Array.isArray(galleryRes.value) && galleryRes.value.length > 0) {
+          document.getElementById('galeria-grid').innerHTML = galleryRes.value.map(g => `
             <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
               <img src="${g.url}" alt="${g.titulo}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
               <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-2 text-center">
@@ -316,32 +386,31 @@
           `).join('');
         }
 
-        const servicosGrid = document.getElementById('servicos-grid');
-        const selectServico = document.getElementById('select-servico');
-        
-        servicosGrid.innerHTML = servicosRes.map(s => `
-          <div class="p-6 rounded-2xl bg-darkCard border border-white/10 hover:border-gold/50 transition flex flex-col justify-between">
-            <div>
-              <div class="flex justify-between items-start mb-3">
-                <span class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">${s.categoria}</span>
-                <span class="text-2xl font-black text-gold">R$ ${s.valor.toFixed(2)}</span>
+        if (servicosRes.status === 'fulfilled' && Array.isArray(servicosRes.value) && servicosRes.value.length > 0) {
+          const srvs = servicosRes.value;
+          document.getElementById('servicos-grid').innerHTML = srvs.map(s => `
+            <div class="p-6 rounded-2xl bg-darkCard border border-white/10 hover:border-gold/50 transition flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-start mb-3">
+                  <span class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/30 uppercase">${s.categoria}</span>
+                  <span class="text-2xl font-black text-gold">R$ ${(s.valor || 0).toFixed(2)}</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">${s.nome}</h3>
+                <p class="text-xs text-neutral-400 mb-4"><i class="fa-regular fa-clock mr-1"></i> Duração: ${s.tempo}</p>
               </div>
-              <h3 class="text-lg font-bold text-white mb-2">${s.nome}</h3>
-              <p class="text-xs text-neutral-400 mb-4"><i class="fa-regular fa-clock mr-1"></i> Duração: ${s.tempo}</p>
+              <a href="#agendar" class="block text-center w-full py-3 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">Agendar este Serviço</a>
             </div>
-            <a href="#agendar" class="block text-center w-full py-3 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">
-              Agendar este Serviço
-            </a>
-          </div>
-        `).join('');
+          `).join('');
 
-        selectServico.innerHTML = servicosRes.map(s => `<option value="${s.nome}">${s.nome} - R$ ${s.valor.toFixed(2)}</option>`).join('');
+          document.getElementById('select-servico').innerHTML = srvs.map(s => `<option value="${s.nome}">${s.nome} - R$ ${(s.valor || 0).toFixed(2)}</option>`).join('');
+        }
 
-        const selectBarbeiro = document.getElementById('select-barbeiro');
-        selectBarbeiro.innerHTML = barbeirosRes.map(b => `<option value="${b.nome}">${b.nome}</option>`).join('');
+        if (barbeirosRes.status === 'fulfilled' && Array.isArray(barbeirosRes.value) && barbeirosRes.value.length > 0) {
+          document.getElementById('select-barbeiro').innerHTML = barbeirosRes.value.map(b => `<option value="${b.nome}">${b.nome}</option>`).join('');
+        }
 
       } catch (err) {
-        console.error('Erro ao carregar dados:', err);
+        console.error('Erro ao hidratar dados:', err);
       }
     }
 
