@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  <!-- DASHBOARD SAAS (COM TODOS OS BOTÕES DE CADASTRO E MODAIS FUNCIONAIS) -->
+  <!-- DASHBOARD SAAS -->
   <div id="screen-dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
 
     <!-- DRAWER LATERAL -->
@@ -147,12 +147,15 @@
             <i class="fa-solid fa-boxes-stacked text-sm"></i> Produtos & Estoque
           </button>
           <button onclick="selectTabMobile('financeiro')" id="btn-tab-financeiro" class="sidebar-btn owner-only w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
-            <i class="fa-solid fa-wallet text-sm"></i> Vendas & Comissões
+            <i class="fa-solid fa-wallet text-sm text-gold"></i> Vendas & Financeiro
           </button>
         </nav>
       </div>
 
       <div class="p-4 border-t border-white/10">
+        <a href="/" class="w-full mb-3 py-2 px-3 rounded-xl bg-white/5 hover:bg-gold/10 border border-white/10 hover:border-gold/40 text-neutral-200 hover:text-gold text-xs font-bold transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-globe text-gold"></i> <span>Voltar ao Site Principal</span>
+        </a>
         <div class="flex items-center gap-3 mb-3 px-2">
           <div class="w-8 h-8 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xs font-bold overflow-hidden">
             <span>ADM</span>
@@ -171,7 +174,7 @@
     <!-- ÁREA PRINCIPAL -->
     <div class="flex-1 flex flex-col min-w-0">
 
-      <!-- TOPBAR HEADER -->
+      <!-- TOPBAR HEADER COM BOTÃO DE VOLTAR AO SITE E BOTÃO DE CONTEXTO -->
       <header class="border-b border-white/10 bg-neutral-950 px-4 sm:px-6 py-3.5 flex items-center justify-between sticky top-0 z-30">
         <div class="flex items-center gap-3">
           <button onclick="toggleMobileDrawer()" class="md:hidden text-gold p-2 rounded-xl bg-gold/10 border border-gold/20 hover:bg-gold/20 transition">
@@ -181,9 +184,9 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <button onclick="openModal('modal-agendamento')" class="px-3 sm:px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg shadow-gold/20 flex items-center gap-1.5">
-            <i class="fa-solid fa-plus text-xs"></i> <span>Agendar</span>
-          </button>
+          <a href="/" class="px-3 py-2 rounded-xl border border-gold/40 bg-gold/10 text-gold hover:bg-gold hover:text-black font-extrabold text-xs transition flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-house text-xs"></i> <span>Ver Site Principal</span>
+          </a>
         </div>
       </header>
 
@@ -391,12 +394,47 @@
           <div id="grid-produtos-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
         </div>
 
-        <!-- ABA FINANCEIRO -->
+        <!-- ABA FINANCEIRO (TOTALMENTE COMPLETA E DETALHADA) -->
         <div id="tab-financeiro" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 rounded-2xl border border-white/10"><h2 class="text-lg font-bold text-white">Financeiro</h2></div>
+          <div class="bg-darkCard p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-xs font-bold text-gold uppercase tracking-widest">Gestão de Caixa & Repasses</span>
+              <h2 class="text-xl font-bold text-white mt-1">Controle Financeiro & Vendas</h2>
+            </div>
+            <button onclick="openModal('modal-transacao')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Nova Transação / Venda
+            </button>
+          </div>
+
+          <!-- CARDS KPIS FINANCEIROS -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-xs text-neutral-400 font-semibold">Faturamento Total</span>
+              <h3 id="fin-faturamento-total" class="text-2xl font-black text-gold mt-1">R$ 0,00</h3>
+            </div>
+            <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-xs text-neutral-400 font-semibold">Entradas de Vendas (POS)</span>
+              <h3 id="fin-vendas-pos" class="text-2xl font-black text-white mt-1">R$ 0,00</h3>
+            </div>
+            <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-xs text-neutral-400 font-semibold">Comissões Acumuladas</span>
+              <h3 id="fin-comissoes-total" class="text-2xl font-black text-green-400 mt-1">R$ 0,00</h3>
+            </div>
+            <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
+              <span class="text-xs text-neutral-400 font-semibold">Saldo Líquido em Caixa</span>
+              <h3 id="fin-saldo-liquido" class="text-2xl font-black text-white mt-1">R$ 0,00</h3>
+            </div>
+          </div>
+
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-darkCard p-4 rounded-2xl border border-white/10"><div id="list-vendas" class="space-y-2"></div></div>
-            <div class="bg-darkCard p-4 rounded-2xl border border-white/10"><div id="list-comissoes" class="space-y-2"></div></div>
+            <div class="bg-darkCard p-5 rounded-2xl border border-white/10 space-y-4">
+              <h3 class="font-bold text-white text-base">Histórico de Vendas & Entradas</h3>
+              <div id="list-vendas" class="space-y-2"></div>
+            </div>
+            <div class="bg-darkCard p-5 rounded-2xl border border-white/10 space-y-4">
+              <h3 class="font-bold text-white text-base">Repasse de Comissões por Barbeiro</h3>
+              <div id="list-comissoes" class="space-y-2"></div>
+            </div>
           </div>
         </div>
 
@@ -404,7 +442,7 @@
     </div>
   </div>
 
-  <!-- TODOS OS 5 MODAIS DE CADASTRO (COMPLETOS E FUNCIONAIS) -->
+  <!-- MODAIS DE CADASTRO -->
   <div id="modal-historico-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-lg bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
@@ -418,7 +456,6 @@
     </div>
   </div>
 
-  <!-- MODAL CADASTRAR FOTO DO SITE -->
   <div id="modal-foto" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -450,7 +487,6 @@
     </div>
   </div>
 
-  <!-- MODAL CADASTRAR BARBEIRO -->
   <div id="modal-barbeiro" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -481,7 +517,6 @@
     </div>
   </div>
 
-  <!-- MODAL CADASTRAR CLIENTE -->
   <div id="modal-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -504,7 +539,6 @@
     </div>
   </div>
 
-  <!-- MODAL CADASTRAR SERVIÇO -->
   <div id="modal-servico" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -543,7 +577,6 @@
     </div>
   </div>
 
-  <!-- MODAL CADASTRAR PRODUTO -->
   <div id="modal-produto" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -577,6 +610,40 @@
         </div>
         <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
           Salvar Produto
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL NOVA TRANSAÇÃO FINANCEIRA -->
+  <div id="modal-transacao" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Lançar Nova Transação / Venda</h3>
+        <button onclick="closeModal('modal-transacao')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-transacao" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Descrição do Item / Serviço</label>
+          <input type="text" id="m-trans-item" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Venda Pomada Matte + Corte">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Valor Total (R$)</label>
+            <input type="number" step="0.5" id="m-trans-valor" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="45.00">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Forma de Pagamento</label>
+            <select id="m-trans-pgto" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm">
+              <option value="Pix">Pix</option>
+              <option value="Cartão de Crédito">Cartão de Crédito</option>
+              <option value="Cartão de Débito">Cartão de Débito</option>
+              <option value="Dinheiro">Dinheiro</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Registrar Transação
         </button>
       </form>
     </div>
@@ -624,7 +691,7 @@
     </div>
   </div>
 
-  <!-- SCRIPT DINÂMICO DE ESTADO, CADASTROS E API SUBMITS -->
+  <!-- SCRIPT DINÂMICO DE ESTADO, FINANCEIRO E SUBMITS -->
   <script>
     let currentUser = null;
     let globalState = { licenses: [], gallery: [], servicos: [], barbeiros: [], clientes: [], agendamentos: [], produtos: [], vendas: [], comissoes: [] };
@@ -670,7 +737,7 @@
         clientes: 'Clientes & CRM Retorno',
         servicos: 'Catálogo de Serviços',
         produtos: 'Produtos & Estoque',
-        financeiro: 'Vendas & Comissões'
+        financeiro: 'Vendas & Financeiro'
       };
       document.getElementById('tab-title').textContent = titles[tabName] || 'Painel Gestor';
     }
@@ -830,15 +897,9 @@
       loadAllData();
     });
 
-    // FORMULÁRIOS DE SUBMIT PARA TODOS OS RECURSOS ADMINISTRATIVOS
     document.getElementById('form-modal-barbeiro').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const payload = {
-        nome: document.getElementById('m-barber-nome').value,
-        cargo: document.getElementById('m-barber-cargo').value,
-        telefone: document.getElementById('m-barber-telefone').value,
-        chave_pix: document.getElementById('m-barber-pix').value
-      };
+      const payload = { nome: document.getElementById('m-barber-nome').value, cargo: document.getElementById('m-barber-cargo').value, telefone: document.getElementById('m-barber-telefone').value, chave_pix: document.getElementById('m-barber-pix').value };
       await fetch('/api/barbeiros', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       closeModal('modal-barbeiro');
       loadAllData();
@@ -846,10 +907,7 @@
 
     document.getElementById('form-modal-cliente').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const payload = {
-        nome: document.getElementById('m-client-nome').value,
-        telefone: document.getElementById('m-client-telefone').value
-      };
+      const payload = { nome: document.getElementById('m-client-nome').value, telefone: document.getElementById('m-client-telefone').value };
       await fetch('/api/clientes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       closeModal('modal-cliente');
       loadAllData();
@@ -857,13 +915,7 @@
 
     document.getElementById('form-modal-servico').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const payload = {
-        nome: document.getElementById('m-srv-nome').value,
-        categoria: document.getElementById('m-srv-cat').value,
-        tempo: document.getElementById('m-srv-tempo').value,
-        valor: document.getElementById('m-srv-valor').value,
-        comissao: document.getElementById('m-srv-comissao').value
-      };
+      const payload = { nome: document.getElementById('m-srv-nome').value, categoria: document.getElementById('m-srv-cat').value, tempo: document.getElementById('m-srv-tempo').value, valor: document.getElementById('m-srv-valor').value, comissao: document.getElementById('m-srv-comissao').value };
       await fetch('/api/servicos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       closeModal('modal-servico');
       loadAllData();
@@ -871,15 +923,24 @@
 
     document.getElementById('form-modal-produto').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const payload = {
-        nome: document.getElementById('m-prod-nome').value,
-        categoria: document.getElementById('m-prod-cat').value,
-        estoque: document.getElementById('m-prod-estoque').value,
-        valor_compra: document.getElementById('m-prod-compra').value,
-        valor_venda: document.getElementById('m-prod-venda').value
-      };
+      const payload = { nome: document.getElementById('m-prod-nome').value, categoria: document.getElementById('m-prod-cat').value, estoque: document.getElementById('m-prod-estoque').value, valor_compra: document.getElementById('m-prod-compra').value, valor_venda: document.getElementById('m-prod-venda').value };
       await fetch('/api/produtos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       closeModal('modal-produto');
+      loadAllData();
+    });
+
+    document.getElementById('form-modal-transacao').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const item = document.getElementById('m-trans-item').value;
+      const valor_total = parseFloat(document.getElementById('m-trans-valor').value) || 0;
+      const forma_pgto = document.getElementById('m-trans-pgto').value;
+
+      await fetch('/api/pos/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item, quantidade: 1, valor_total, forma_pgto })
+      });
+      closeModal('modal-transacao');
       loadAllData();
     });
 
@@ -1088,20 +1149,51 @@
       loadAllData();
     }
 
+    // RENDERIZADOR COMPLETO DA ABA FINANCEIRO (KPIS + HISTÓRICO + COMISSÕES)
     function renderFinanceiro() {
-      document.getElementById('list-vendas').innerHTML = globalState.vendas.map(v => `
-        <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs">
-          <div><p class="font-bold text-white">${v.item}</p><p class="text-[10px] text-neutral-400">${v.data} - ${v.forma_pgto}</p></div>
-          <span class="font-extrabold text-gold">R$ ${(v.valor_total || 0).toFixed(2)}</span>
-        </div>
-      `).join('');
+      const totalVendas = globalState.vendas.reduce((acc, v) => acc + (v.valor_total || 0), 0);
+      const totalAgendamentosConcluidos = globalState.agendamentos.filter(a => a.status === 'Concluído').reduce((acc, a) => acc + (a.valor || 0), 0);
+      const faturamentoTotal = totalVendas + totalAgendamentosConcluidos;
+      const totalComissoes = globalState.comissoes.reduce((acc, c) => acc + (c.comissao || 0), 0);
+      const saldoLiquido = faturamentoTotal - totalComissoes;
 
-      document.getElementById('list-comissoes').innerHTML = globalState.comissoes.map(c => `
-        <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs">
-          <div><p class="font-bold text-white">${c.barbeiro}</p><p class="text-[10px] text-neutral-400">${c.servico} (${c.data})</p></div>
-          <span class="font-extrabold text-green-400">R$ ${(c.comissao || 0).toFixed(2)}</span>
-        </div>
-      `).join('');
+      document.getElementById('fin-faturamento-total').textContent = `R$ ${faturamentoTotal.toFixed(2)}`;
+      document.getElementById('fin-vendas-pos').textContent = `R$ ${totalVendas.toFixed(2)}`;
+      document.getElementById('fin-comissoes-total').textContent = `R$ ${totalComissoes.toFixed(2)}`;
+      document.getElementById('fin-saldo-liquido').textContent = `R$ ${saldoLiquido.toFixed(2)}`;
+
+      const listVendas = document.getElementById('list-vendas');
+      if (globalState.vendas.length === 0) {
+        listVendas.innerHTML = `<p class="text-xs text-neutral-400 py-3 text-center">Nenhuma venda ou lançamento efetuado ainda.</p>`;
+      } else {
+        listVendas.innerHTML = globalState.vendas.map(v => `
+          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex justify-between items-center text-xs">
+            <div>
+              <p class="font-bold text-white">${v.item}</p>
+              <p class="text-[10px] text-neutral-400 mt-0.5"><i class="fa-regular fa-clock"></i> ${v.data} • Forma: <strong class="text-gold">${v.forma_pgto || 'Pix'}</strong></p>
+            </div>
+            <span class="font-black text-gold text-sm">R$ ${(v.valor_total || 0).toFixed(2)}</span>
+          </div>
+        `).join('');
+      }
+
+      const listComissoes = document.getElementById('list-comissoes');
+      if (globalState.comissoes.length === 0) {
+        listComissoes.innerHTML = `<p class="text-xs text-neutral-400 py-3 text-center">Nenhuma comissão acumulada.</p>`;
+      } else {
+        listComissoes.innerHTML = globalState.comissoes.map(c => `
+          <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex justify-between items-center text-xs">
+            <div>
+              <p class="font-bold text-white">${c.barbeiro}</p>
+              <p class="text-[10px] text-neutral-400 mt-0.5">${c.servico} (${c.data})</p>
+            </div>
+            <div class="text-right">
+              <span class="font-black text-green-400 text-sm block">R$ ${(c.comissao || 0).toFixed(2)}</span>
+              <span class="text-[9px] px-2 py-0.5 rounded bg-green-950 text-green-300 border border-green-500/30">Paga ✓</span>
+            </div>
+          </div>
+        `).join('');
+      }
     }
 
     function populateModalSelects() {
