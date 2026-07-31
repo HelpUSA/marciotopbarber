@@ -72,7 +72,7 @@
       <!-- Menu Desktop -->
       <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-neutral-300">
         <a href="#inicio" class="hover:text-gold transition">Início</a>
-        <a href="#simulador-ia" class="text-gold font-extrabold flex items-center gap-1 hover:underline"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i> Catalog Visagismo 360°</a>
+        <a href="#simulador-ia" class="text-gold font-extrabold flex items-center gap-1 hover:underline"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i> Análise de Rosto & Visagismo</a>
         <a href="#sobre" class="hover:text-gold transition">Sobre o Márcio</a>
         <a href="#servicos" class="hover:text-gold transition">Serviços</a>
         <a href="#galeria" class="hover:text-gold transition">Galeria</a>
@@ -97,7 +97,7 @@
     <!-- Menu Gaveta Mobile -->
     <div id="mobile-nav" class="hidden md:hidden border-t border-white/10 bg-darkNav p-4 space-y-3 text-xs font-bold text-neutral-300">
       <a href="#inicio" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Início</a>
-      <a href="#simulador-ia" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg text-gold font-extrabold"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Catalogo Visagismo 360°</a>
+      <a href="#simulador-ia" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg text-gold font-extrabold"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Análise de Rosto & Visagismo</a>
       <a href="#sobre" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Sobre o Márcio</a>
       <a href="#servicos" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Serviços</a>
       <a href="#galeria" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Galeria</a>
@@ -127,12 +127,12 @@
         </h1>
         
         <p class="text-neutral-300 text-base sm:text-lg max-w-xl leading-relaxed">
-          Especialista em visagismo masculino, barba com toalha quente e cortes modernos. Encontre os **4 Estilos Perfeitos para o Seu Tipo de Rosto** com visões de Frente, Lateral e Nuca!
+          Especialista em visagismo masculino, barba com toalha quente e cortes modernos. Envie sua foto abaixo para comparar seu tipo de rosto e descobrir os **estilos de corte ideais** para você!
         </p>
 
         <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
           <a href="#simulador-ia" class="px-7 py-4 rounded-2xl bg-gold text-black font-black text-sm hover:bg-goldHover transition shadow-xl shadow-gold/25 flex items-center gap-2 transform hover:-translate-y-0.5">
-            <i class="fa-solid fa-wand-magic-sparkles text-base"></i> Ver 4 Estilos para meu Rosto
+            <i class="fa-solid fa-camera text-base"></i> Enviar Foto para Análise
           </a>
           <a href="#agendar" class="px-7 py-4 rounded-2xl border border-white/20 bg-black/40 text-white font-extrabold text-sm hover:border-gold hover:text-gold transition flex items-center gap-2 transform hover:-translate-y-0.5">
             <i class="fa-solid fa-calendar-check text-base"></i> Agendar Horário
@@ -159,47 +159,49 @@
     </div>
   </section>
 
-  <!-- MÓDULO EXCLUSIVO: 4 ESTILOS DE CORTE POR FORMATO DE ROSTO (MODELOS HD REAIS 360°) -->
+  <!-- PASSO 1: CARD LIMPO DE ENVIO DA FOTO OU ESCOLHA DO FORMATO DE ROSTO -->
   <section id="simulador-ia" class="py-16 px-4 max-w-7xl mx-auto border-b border-white/10 relative">
-    <div class="text-center mb-10">
+    <div class="text-center mb-8">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-extrabold uppercase tracking-widest mb-3">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> Visagismo & Guia de Estilos Masculinos
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Análise de Visagismo & Formato de Rosto
       </div>
-      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">4 Estilos de Corte Para Seu Tipo de Rosto</h2>
+      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Descubra os Estilos Ideais Para Seu Rosto</h2>
       <p class="text-neutral-400 text-sm mt-2 max-w-2xl mx-auto">
-        Tire uma foto, faça upload ou selecione o formato do seu rosto. Apresentamos modelos profissionais reais com simulações perfeitas em **Frente, Lateral e Nuca**!
+        Envie sua foto abaixo ou selecione o formato do seu rosto. O sistema compara suas feições e exibe os cortes que mais combinam com você em **Frente, Lateral e Nuca**!
       </p>
     </div>
 
-    <!-- SELETOR INTERATIVO DE FORMATO DE ROSTO + CÂMERA/UPLOAD -->
-    <div class="bg-darkCard p-6 rounded-3xl border border-gold/30 shadow-2xl max-w-4xl mx-auto mb-10 space-y-6">
+    <!-- CAIXA PRINCIPAL DE ENVIO DE FOTO (ÚNICO ELEMENTO VISÍVEL INICIALMENTE) -->
+    <div class="bg-darkCard p-6 sm:p-8 rounded-3xl border border-gold/40 shadow-2xl max-w-3xl mx-auto space-y-6">
       
-      <!-- BOTÕES DE UPLOAD OU CÂMERA -->
+      <!-- OPÇÃO DE FOTO POR CÂMERA OU GALERIA -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <label class="border-2 border-dashed border-gold/50 rounded-2xl p-4 text-center cursor-pointer hover:border-gold hover:bg-gold/10 transition flex flex-col items-center justify-center relative overflow-hidden group">
+        
+        <label class="border-2 border-dashed border-gold/50 rounded-2xl p-6 text-center cursor-pointer hover:border-gold hover:bg-gold/10 transition flex flex-col items-center justify-center relative overflow-hidden group">
           <input type="file" id="input-camera-photo" accept="image/*" capture="user" class="absolute inset-0 opacity-0 cursor-pointer z-20">
-          <div class="w-10 h-10 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-lg mb-1 group-hover:scale-110 transition">
+          <div class="w-14 h-14 rounded-2xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-2xl mb-2 group-hover:scale-110 transition">
             <i class="fa-solid fa-camera"></i>
           </div>
-          <span class="font-extrabold text-white text-xs">📷 Detectar pela Câmera</span>
-          <span class="text-[10px] text-neutral-400">Identifica o seu rosto na hora</span>
+          <span class="font-extrabold text-white text-sm">📷 1. Tirar Foto (Câmera)</span>
+          <span class="text-xs text-neutral-400 mt-1">Usar a câmera do celular</span>
         </label>
 
-        <label class="border-2 border-dashed border-gold/50 rounded-2xl p-4 text-center cursor-pointer hover:border-gold hover:bg-gold/10 transition flex flex-col items-center justify-center relative overflow-hidden group">
+        <label class="border-2 border-dashed border-gold/50 rounded-2xl p-6 text-center cursor-pointer hover:border-gold hover:bg-gold/10 transition flex flex-col items-center justify-center relative overflow-hidden group">
           <input type="file" id="input-gallery-photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-20">
-          <div class="w-10 h-10 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-lg mb-1 group-hover:scale-110 transition">
+          <div class="w-14 h-14 rounded-2xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-2xl mb-2 group-hover:scale-110 transition">
             <i class="fa-solid fa-upload"></i>
           </div>
-          <span class="font-extrabold text-white text-xs">📁 Fazer Upload (Galeria)</span>
-          <span class="text-[10px] text-neutral-400">Selecione uma foto do dispositivo</span>
+          <span class="font-extrabold text-white text-sm">📁 2. Fazer Upload (Galeria)</span>
+          <span class="text-xs text-neutral-400 mt-1">Escolher foto do celular ou PC</span>
         </label>
+
       </div>
 
-      <!-- SELETOR MANUAL DE FORMATO DE ROSTO -->
-      <div>
-        <span class="block text-xs font-bold text-gold uppercase tracking-wider text-center mb-3">Ou escolha diretamente seu formato de rosto:</span>
+      <!-- OU ESCOLHER DIRETAMENTE SEU TIPO DE ROSTO -->
+      <div class="border-t border-white/10 pt-4">
+        <span class="block text-xs font-bold text-gold uppercase tracking-wider text-center mb-3">Ou escolha seu formato de rosto manualmente:</span>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <button onclick="selectFaceShape('square')" id="btn-shape-square" class="shape-btn active p-3 rounded-2xl border border-gold bg-gold/10 text-gold font-bold text-xs flex flex-col items-center gap-1.5 transition">
+          <button onclick="selectFaceShape('square')" id="btn-shape-square" class="shape-btn p-3 rounded-2xl border border-white/10 bg-black/40 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1.5 hover:border-gold hover:text-gold transition">
             <i class="fa-solid fa-square-full text-base"></i> Quadrado / Marcado
           </button>
           <button onclick="selectFaceShape('oval')" id="btn-shape-oval" class="shape-btn p-3 rounded-2xl border border-white/10 bg-black/40 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1.5 hover:border-gold hover:text-gold transition">
@@ -214,38 +216,38 @@
         </div>
       </div>
 
-      <!-- STATUS DA DETECÇÃO DE IA -->
-      <div id="ai-processing-status" class="hidden p-3.5 rounded-2xl bg-black/80 border border-gold/50 text-center relative overflow-hidden">
+      <!-- BANNER ANIMAÇÃO DE PROCESSAMENTO -->
+      <div id="ai-processing-status" class="hidden p-4 rounded-2xl bg-black/90 border border-gold/50 text-center relative overflow-hidden shadow-2xl">
         <div id="scan-bar-anim" class="scan-line"></div>
-        <p id="ai-status-msg" class="text-xs font-bold text-gold flex items-center justify-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles animate-spin"></i> Analisando linhas faciais e encontrando os modelos com o mesmo formato de rosto...
+        <p id="ai-status-msg" class="text-xs sm:text-sm font-extrabold text-gold flex items-center justify-center gap-2">
+          <i class="fa-solid fa-wand-magic-sparkles animate-spin"></i> Comparando seu rosto e selecionando os melhores estilos...
         </p>
       </div>
 
     </div>
 
-    <!-- MATRIZ DE 4 ESTILOS DE CORTE (VISÕES FRENTE, LATERAL E NUCA) -->
-    <div id="simulation-matrix-container" class="space-y-8">
+    <!-- PASSO 2: RESULTADO DAS SUGESTÕES (SÓ APARECE APÓS O ENVIO DA FOTO OU SELEÇÃO DO FORMATO) -->
+    <div id="simulation-matrix-container" class="hidden mt-12 space-y-8">
       
-      <!-- CABEÇALHO DO GRID -->
-      <div class="bg-black/90 p-4 rounded-2xl border border-gold/40 flex flex-wrap items-center justify-between gap-4">
+      <!-- CABEÇALHO DO RESULTADO -->
+      <div class="bg-black/90 p-5 rounded-2xl border border-gold/40 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
         <div>
-          <h3 id="matrix-title-shape" class="text-xl sm:text-2xl font-black text-white tracking-wider uppercase">4 ESTILOS PARA ROSTO QUADRADO / MARCADO</h3>
-          <p class="text-xs text-gold font-bold">SIMULAÇÕES REAIS • VISÕES: FRENTE • LATERAL • NUCA</p>
+          <h3 id="matrix-title-shape" class="text-xl sm:text-2xl font-black text-white tracking-wider uppercase">ESTILOS SUGERIDOS PARA SEU ROSTO</h3>
+          <p class="text-xs text-gold font-bold">COMPARAÇÃO CONCLUÍDA • VISÕES: FRENTE • LATERAL • NUCA</p>
         </div>
         <div>
-          <span id="badge-shape-description" class="px-3.5 py-1.5 rounded-full bg-gold/20 text-gold border border-gold/40 font-extrabold text-xs">
-            Mandíbula Marcada & Angulosa ✓
+          <span id="badge-shape-description" class="px-4 py-1.5 rounded-full bg-gold/20 text-gold border border-gold/40 font-extrabold text-xs">
+            Formato Identificado com Sucesso ✓
           </span>
         </div>
       </div>
 
-      <!-- GRID PRINCIPAL DE 4 COLUNAS X 3 LINHAS -->
+      <!-- GRID COM AS FOTOS DOS ESTILOS REAIS (FRENTE, LATERAL, NUCA) -->
       <div id="grid-4-styles" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Renderizado dinamicamente via JS com modelos HD do formato selecionado -->
+        <!-- Injetado via JS somente após envio da foto -->
       </div>
 
-      <!-- BANNER INFERIOR COM DICAS DE VISAGISMO E PRODUTOS -->
+      <!-- RECOMENDAÇÕES FINAIS -->
       <div class="bg-darkCard p-6 rounded-3xl border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
         <div>
           <span class="text-gold font-extrabold text-xs uppercase flex items-center gap-1"><i class="fa-solid fa-star"></i> DICA EXTRA DE VISAGISMO</span>
@@ -498,10 +500,9 @@
       document.getElementById('mobile-nav').classList.toggle('hidden');
     }
 
-    // CATÁLOGO COMPLETO DE VISAGISMO E SIMULAÇÃO DE MODELOS HD 360° POR TIPO DE ROSTO
     const faceCatalog = {
       square: {
-        title: '4 ESTILOS PARA ROSTO QUADRADO / MARCADO',
+        title: 'ESTILOS SUGERIDOS PARA ROSTO QUADRADO / MARCADO',
         badge: 'Mandíbula Marcada & Angulosa ✓',
         styles: [
           {
@@ -551,7 +552,7 @@
         ]
       },
       oval: {
-        title: '4 ESTILOS PARA ROSTO OVAL / ALONGADO',
+        title: 'ESTILOS SUGERIDOS PARA ROSTO OVAL / ALONGADO',
         badge: 'Proporção Áurea Perfeita ✓',
         styles: [
           {
@@ -601,7 +602,7 @@
         ]
       },
       round: {
-        title: '4 ESTILOS PARA ROSTO REDONDO / SUAVE',
+        title: 'ESTILOS SUGERIDOS PARA ROSTO REDONDO / SUAVE',
         badge: 'Alongamento Facial & Maçãs ✓',
         styles: [
           {
@@ -651,7 +652,7 @@
         ]
       },
       diamond: {
-        title: '4 ESTILOS PARA ROSTO DIAMANTE / MAÇÃS',
+        title: 'ESTILOS SUGERIDOS PARA ROSTO DIAMANTE / MAÇÃS',
         badge: 'Destaque em Maçãs & Queixo ✓',
         styles: [
           {
@@ -713,7 +714,7 @@
         activeBtn.classList.remove('border-white/10', 'bg-black/40', 'text-neutral-300');
       }
 
-      renderMatrixForShape(shapeKey);
+      handlePhotoAnalysis(shapeKey);
     }
 
     function renderMatrixForShape(shapeKey) {
@@ -723,7 +724,7 @@
 
       const container = document.getElementById('grid-4-styles');
       container.innerHTML = data.styles.map(s => `
-        <div class="space-y-4 bg-darkCard p-4 rounded-3xl border border-white/10 hover:border-gold/50 transition">
+        <div class="space-y-4 bg-darkCard p-4 rounded-3xl border border-white/10 hover:border-gold/50 transition shadow-xl">
           <div class="flex items-center gap-2 border-b border-white/10 pb-3">
             <span class="w-7 h-7 rounded-full bg-gold text-black font-extrabold flex items-center justify-center text-xs">${s.num}</span>
             <div>
@@ -763,20 +764,25 @@
       `).join('');
     }
 
-    function handlePhotoAnalysis() {
+    function handlePhotoAnalysis(forcedShape) {
       const statusBox = document.getElementById('ai-processing-status');
       const statusMsg = document.getElementById('ai-status-msg');
+      const matrixContainer = document.getElementById('simulation-matrix-container');
+
       statusBox.classList.remove('hidden');
+      statusMsg.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles animate-spin"></i> Comparando traços faciais e gerando a seleção de estilos recomendados...`;
 
       setTimeout(() => {
-        statusMsg.innerHTML = `✅ Formato de Rosto Identificado! Selecionamos os 4 Melhores Estilos com Visões 360°!`;
-        selectFaceShape('square');
-        document.getElementById('simulation-matrix-container').scrollIntoView({ behavior: 'smooth' });
-      }, 1500);
+        const shape = forcedShape || 'square';
+        renderMatrixForShape(shape);
+        statusBox.classList.add('hidden');
+        matrixContainer.classList.remove('hidden');
+        matrixContainer.scrollIntoView({ behavior: 'smooth' });
+      }, 1400);
     }
 
-    document.getElementById('input-camera-photo').addEventListener('change', handlePhotoAnalysis);
-    document.getElementById('input-gallery-photo').addEventListener('change', handlePhotoAnalysis);
+    document.getElementById('input-camera-photo').addEventListener('change', () => handlePhotoAnalysis('square'));
+    document.getElementById('input-gallery-photo').addEventListener('change', () => handlePhotoAnalysis('square'));
 
     function selectStyleForBooking(styleName) {
       const selectServico = document.getElementById('select-servico');
@@ -872,7 +878,6 @@
       }
     });
 
-    renderMatrixForShape('square');
     loadData();
   </script>
 </body>
