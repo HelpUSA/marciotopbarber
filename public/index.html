@@ -32,26 +32,6 @@
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #eab308; border-radius: 9999px; }
-    .scan-line {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #eab308, transparent);
-      box-shadow: 0 0 15px #eab308;
-      animation: scan 1.8s infinite ease-in-out;
-    }
-    @keyframes scan {
-      0% { top: 0%; }
-      50% { top: 95%; }
-      100% { top: 0%; }
-    }
-    .style-badge-overlay {
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(234, 179, 8, 0.3);
-    }
   </style>
 </head>
 <body class="bg-darkBg text-neutral-100 font-sans min-h-screen flex flex-col selection:bg-gold selection:text-black custom-scrollbar">
@@ -72,7 +52,6 @@
       <!-- Menu Desktop -->
       <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-neutral-300">
         <a href="#inicio" class="hover:text-gold transition">Início</a>
-        <a href="#simulador-ia" class="text-gold font-extrabold flex items-center gap-1 hover:underline"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i> Análise de Rosto & Visagismo</a>
         <a href="#sobre" class="hover:text-gold transition">Sobre o Márcio</a>
         <a href="#servicos" class="hover:text-gold transition">Serviços</a>
         <a href="#galeria" class="hover:text-gold transition">Galeria</a>
@@ -97,7 +76,6 @@
     <!-- Menu Gaveta Mobile -->
     <div id="mobile-nav" class="hidden md:hidden border-t border-white/10 bg-darkNav p-4 space-y-3 text-xs font-bold text-neutral-300">
       <a href="#inicio" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Início</a>
-      <a href="#simulador-ia" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg text-gold font-extrabold"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Análise de Rosto & Visagismo</a>
       <a href="#sobre" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Sobre o Márcio</a>
       <a href="#servicos" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Serviços</a>
       <a href="#galeria" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Galeria</a>
@@ -127,15 +105,15 @@
         </h1>
         
         <p class="text-neutral-300 text-base sm:text-lg max-w-xl leading-relaxed">
-          Especialista em visagismo masculino, barba com toalha quente e cortes modernos. Envie sua foto abaixo para comparar seu tipo de rosto e descobrir os **estilos de corte ideais** para você!
+          Especialista em visagismo masculino, barba com toalha quente, cortes modernos e atendimento VIP personalizado. Reserve seu horário online!
         </p>
 
         <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
-          <a href="#simulador-ia" class="px-7 py-4 rounded-2xl bg-gold text-black font-black text-sm hover:bg-goldHover transition shadow-xl shadow-gold/25 flex items-center gap-2 transform hover:-translate-y-0.5">
-            <i class="fa-solid fa-camera text-base"></i> Enviar Foto para Análise
+          <a href="#agendar" class="px-8 py-4 rounded-2xl bg-gold text-black font-black text-sm hover:bg-goldHover transition shadow-xl shadow-gold/25 flex items-center gap-2.5 transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-calendar-check text-base"></i> Agendar Meu Horário
           </a>
-          <a href="#agendar" class="px-7 py-4 rounded-2xl border border-white/20 bg-black/40 text-white font-extrabold text-sm hover:border-gold hover:text-gold transition flex items-center gap-2 transform hover:-translate-y-0.5">
-            <i class="fa-solid fa-calendar-check text-base"></i> Agendar Horário
+          <a href="https://wa.me/5583987392265?text=Ol%C3%A1%20M%C3%A1rcio!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio." target="_blank" class="px-8 py-4 rounded-2xl border border-green-500/50 bg-green-950/40 text-green-300 font-extrabold text-sm hover:bg-green-900/60 transition shadow-lg shadow-green-950/30 flex items-center gap-2.5 transform hover:-translate-y-0.5">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Falar no WhatsApp
           </a>
         </div>
 
@@ -156,120 +134,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- PASSO 1: CARD LIMPO DE ENVIO DA FOTO OU ESCOLHA DO FORMATO DE ROSTO -->
-  <section id="simulador-ia" class="py-16 px-4 max-w-7xl mx-auto border-b border-white/10 relative">
-    <div class="text-center mb-8">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-extrabold uppercase tracking-widest mb-3">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> Análise de Visagismo & Formato de Rosto
-      </div>
-      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Descubra os Estilos Ideais Para Seu Rosto</h2>
-      <p class="text-neutral-400 text-sm mt-2 max-w-2xl mx-auto">
-        Envie sua foto abaixo ou selecione o formato do seu rosto. O sistema compara suas feições e exibe os cortes que mais combinam com você em **Frente, Lateral e Nuca**!
-      </p>
-    </div>
-
-    <!-- CAIXA PRINCIPAL DE ENVIO DE FOTO (ÚNICO ELEMENTO VISÍVEL INICIALMENTE) -->
-    <div class="bg-darkCard p-6 sm:p-8 rounded-3xl border border-gold/40 shadow-2xl max-w-3xl mx-auto space-y-6">
-      
-      <!-- OPÇÃO DE FOTO POR CÂMERA OU GALERIA -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        
-        <label class="border-2 border-dashed border-gold/50 rounded-2xl p-6 text-center cursor-pointer hover:border-gold hover:bg-gold/10 transition flex flex-col items-center justify-center relative overflow-hidden group">
-          <input type="file" id="input-camera-photo" accept="image/*" capture="user" class="absolute inset-0 opacity-0 cursor-pointer z-20">
-          <div class="w-14 h-14 rounded-2xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-2xl mb-2 group-hover:scale-110 transition">
-            <i class="fa-solid fa-camera"></i>
-          </div>
-          <span class="font-extrabold text-white text-sm">📷 1. Tirar Foto (Câmera)</span>
-          <span class="text-xs text-neutral-400 mt-1">Usar a câmera do celular</span>
-        </label>
-
-        <label class="border-2 border-dashed border-gold/50 rounded-2xl p-6 text-center cursor-pointer hover:border-gold hover:bg-gold/10 transition flex flex-col items-center justify-center relative overflow-hidden group">
-          <input type="file" id="input-gallery-photo" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-20">
-          <div class="w-14 h-14 rounded-2xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-2xl mb-2 group-hover:scale-110 transition">
-            <i class="fa-solid fa-upload"></i>
-          </div>
-          <span class="font-extrabold text-white text-sm">📁 2. Fazer Upload (Galeria)</span>
-          <span class="text-xs text-neutral-400 mt-1">Escolher foto do celular ou PC</span>
-        </label>
-
-      </div>
-
-      <!-- OU ESCOLHER DIRETAMENTE SEU TIPO DE ROSTO -->
-      <div class="border-t border-white/10 pt-4">
-        <span class="block text-xs font-bold text-gold uppercase tracking-wider text-center mb-3">Ou escolha seu formato de rosto manualmente:</span>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <button onclick="selectFaceShape('square')" id="btn-shape-square" class="shape-btn p-3 rounded-2xl border border-white/10 bg-black/40 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1.5 hover:border-gold hover:text-gold transition">
-            <i class="fa-solid fa-square-full text-base"></i> Quadrado / Marcado
-          </button>
-          <button onclick="selectFaceShape('oval')" id="btn-shape-oval" class="shape-btn p-3 rounded-2xl border border-white/10 bg-black/40 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1.5 hover:border-gold hover:text-gold transition">
-            <i class="fa-solid fa-egg text-base"></i> Oval / Alongado
-          </button>
-          <button onclick="selectFaceShape('round')" id="btn-shape-round" class="shape-btn p-3 rounded-2xl border border-white/10 bg-black/40 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1.5 hover:border-gold hover:text-gold transition">
-            <i class="fa-solid fa-circle text-base"></i> Redondo / Suave
-          </button>
-          <button onclick="selectFaceShape('diamond')" id="btn-shape-diamond" class="shape-btn p-3 rounded-2xl border border-white/10 bg-black/40 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1.5 hover:border-gold hover:text-gold transition">
-            <i class="fa-solid fa-gem text-base"></i> Diamante / Maçãs
-          </button>
-        </div>
-      </div>
-
-      <!-- BANNER ANIMAÇÃO DE PROCESSAMENTO -->
-      <div id="ai-processing-status" class="hidden p-4 rounded-2xl bg-black/90 border border-gold/50 text-center relative overflow-hidden shadow-2xl">
-        <div id="scan-bar-anim" class="scan-line"></div>
-        <p id="ai-status-msg" class="text-xs sm:text-sm font-extrabold text-gold flex items-center justify-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles animate-spin"></i> Comparando seu rosto e selecionando os melhores estilos...
-        </p>
-      </div>
-
-    </div>
-
-    <!-- PASSO 2: RESULTADO DAS SUGESTÕES (SÓ APARECE APÓS O ENVIO DA FOTO OU SELEÇÃO DO FORMATO) -->
-    <div id="simulation-matrix-container" class="hidden mt-12 space-y-8">
-      
-      <!-- CABEÇALHO DO RESULTADO -->
-      <div class="bg-black/90 p-5 rounded-2xl border border-gold/40 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
-        <div>
-          <h3 id="matrix-title-shape" class="text-xl sm:text-2xl font-black text-white tracking-wider uppercase">ESTILOS SUGERIDOS PARA SEU ROSTO</h3>
-          <p class="text-xs text-gold font-bold">COMPARAÇÃO CONCLUÍDA • VISÕES: FRENTE • LATERAL • NUCA</p>
-        </div>
-        <div>
-          <span id="badge-shape-description" class="px-4 py-1.5 rounded-full bg-gold/20 text-gold border border-gold/40 font-extrabold text-xs">
-            Formato Identificado com Sucesso ✓
-          </span>
-        </div>
-      </div>
-
-      <!-- GRID COM AS FOTOS DOS ESTILOS REAIS (FRENTE, LATERAL, NUCA) -->
-      <div id="grid-4-styles" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Injetado via JS somente após envio da foto -->
-      </div>
-
-      <!-- RECOMENDAÇÕES FINAIS -->
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-        <div>
-          <span class="text-gold font-extrabold text-xs uppercase flex items-center gap-1"><i class="fa-solid fa-star"></i> DICA EXTRA DE VISAGISMO</span>
-          <p class="text-xs text-neutral-300 mt-1 leading-relaxed">
-            Uma barba alinhada de 2 a 3 dias deixa o visual masculino mais atraente e define melhor o contorno do maxilar.
-          </p>
-        </div>
-
-        <div>
-          <span class="text-gold font-extrabold text-xs uppercase flex items-center gap-1"><i class="fa-solid fa-pump-soap"></i> PRODUTOS RECOMENDADOS</span>
-          <p class="text-xs text-neutral-300 mt-1 leading-relaxed">
-            Use pomadas Matte ou Clay sem brilho excessivo para fixação natural ao longo do dia.
-          </p>
-        </div>
-
-        <div class="text-center md:text-right">
-          <a href="#agendar" class="inline-block px-8 py-3.5 bg-gold text-black font-black text-xs rounded-xl hover:bg-goldHover transition shadow-xl">
-            ✂️ Agendar com o Márcio Top Barber
-          </a>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -500,306 +364,6 @@
       document.getElementById('mobile-nav').classList.toggle('hidden');
     }
 
-    const faceCatalog = {
-      square: {
-        title: 'ESTILOS SUGERIDOS PARA ROSTO QUADRADO / MARCADO',
-        badge: 'Mandíbula Marcada & Angulosa ✓',
-        styles: [
-          {
-            num: 1,
-            name: 'LOW TAPER SIDE PART',
-            tag: 'Moderno & Elegante',
-            imgFrente: '/images/models/model_square_executive.jpg',
-            descFrente: 'Risco lateral discreto e topo com textura leve para cima.',
-            imgLateral: '/images/corte-masculino01.jpg',
-            descLateral: 'Degradê baixo (taper) começando na altura da sobrancelha e decaindo suave até a nuca.',
-            imgNuca: '/images/hero-marcio-barber.png',
-            descNuca: 'Degradê baixo com acabamento limpo e natural.'
-          },
-          {
-            num: 2,
-            name: 'IVY LEAGUE MODERNO',
-            tag: 'Clássico Sophisticated',
-            imgFrente: '/images/corte-masculino02.jpg',
-            descFrente: 'Topo médio penteado para cima e levemente para trás. Visual limpo.',
-            imgLateral: '/images/corte-masculino01.jpg',
-            descLateral: 'Laterais médias com tesoura e degradê leve na parte inferior. Transição suave.',
-            imgNuca: '/images/barba01.jpg',
-            descNuca: 'Acabamento tapered com degradê leve e natural.'
-          },
-          {
-            num: 3,
-            name: 'FRENCH CROP TEXTURIZADO',
-            tag: 'Jovem & Despojado',
-            imgFrente: '/images/barba01.jpg',
-            descFrente: 'Franja curta e texturizada com topo bagunçado de forma natural. Jovem e urbano.',
-            imgLateral: '/images/corte-masculino02.jpg',
-            descLateral: 'Degradê médio para alto (mid fade) com transição na altura da têmpora.',
-            imgNuca: '/images/corte-masculino01.jpg',
-            descNuca: 'Degradê alto (fade) com acabamento bem limpo.'
-          },
-          {
-            num: 4,
-            name: 'ESTILO GEORGE CLOONEY',
-            tag: 'Maduro & Sofisticado',
-            imgFrente: '/images/hero-marcio-barber.png',
-            descFrente: 'Penteado para trás com leve volume. Estilo imponente e charmoso.',
-            imgLateral: '/images/barba01.jpg',
-            descLateral: 'Laterais médias com tesoura e leve degradê para um visual natural.',
-            imgNuca: '/images/corte-masculino02.jpg',
-            descNuca: 'Acabamento tapered com degradê leve e clássico.'
-          }
-        ]
-      },
-      oval: {
-        title: 'ESTILOS SUGERIDOS PARA ROSTO OVAL / ALONGADO',
-        badge: 'Proporção Áurea Perfeita ✓',
-        styles: [
-          {
-            num: 1,
-            name: 'HIGH FADE TEXTURIZADO',
-            tag: 'Visual Jovem & Alta Definição',
-            imgFrente: '/images/models/model_oval_fade.jpg',
-            descFrente: 'Topo com textura solta e volume médio ideal para destacar o olhar.',
-            imgLateral: '/images/corte-masculino02.jpg',
-            descLateral: 'Degradê alto (High Fade) rasado na navalha criando forte contraste.',
-            imgNuca: '/images/corte-masculino01.jpg',
-            descNuca: 'Nuca alta limpa e perfeitamente desenhada.'
-          },
-          {
-            num: 2,
-            name: 'MID FADE SOCIAL MODERN',
-            tag: 'Versátil & Impecável',
-            imgFrente: '/images/corte-masculino01.jpg',
-            descFrente: 'Penteado lateral suave com fios alinhados e acabamento impecável.',
-            imgLateral: '/images/corte-masculino02.jpg',
-            descLateral: 'Degradê médio com transição perfeita na altura das têmporas.',
-            imgNuca: '/images/hero-marcio-barber.png',
-            descNuca: 'Acabamento quadrado limpo com máquina de acabamento.'
-          },
-          {
-            num: 3,
-            name: 'BUZZ CUT FADE URBAN',
-            tag: 'Prático & Masculino',
-            imgFrente: '/images/barba01.jpg',
-            descFrente: 'Corte militar raspado no topo com contornos frontais bem definidos.',
-            imgLateral: '/images/corte-masculino01.jpg',
-            descLateral: 'Degradê lateral navalhado em tom cinza gradual.',
-            imgNuca: '/images/corte-masculino02.jpg',
-            descNuca: 'Nuca arredondada natural sem marcas de lâmina.'
-          },
-          {
-            num: 4,
-            name: 'POMPADOUR SLICK BACK',
-            tag: 'Estilo Master Barber',
-            imgFrente: '/images/hero-marcio-barber.png',
-            descFrente: 'Topete projetado para trás com alta fixação e brilho moderado.',
-            imgLateral: '/images/barba01.jpg',
-            descLateral: 'Laterais baixas na tesoura mantendo caimento perfeito.',
-            imgNuca: '/images/corte-masculino01.jpg',
-            descNuca: 'Nuca tapered clássica com acabamento com tesoura.'
-          }
-        ]
-      },
-      round: {
-        title: 'ESTILOS SUGERIDOS PARA ROSTO REDONDO / SUAVE',
-        badge: 'Alongamento Facial & Maçãs ✓',
-        styles: [
-          {
-            num: 1,
-            name: 'FRENCH CROP MID FADE',
-            tag: 'Alongamento de Perfil',
-            imgFrente: '/images/models/model_round_crop.jpg',
-            descFrente: 'Franja reta texturizada que cria ilusão de rosto mais vertical.',
-            imgLateral: '/images/corte-masculino02.jpg',
-            descLateral: 'Degradê médio marcante que afina visualmente as laterais.',
-            imgNuca: '/images/corte-masculino01.jpg',
-            descNuca: 'Acabamento nuca limpo com leve degradê.'
-          },
-          {
-            num: 2,
-            name: 'HIGH TOP QUIFF + BARBA',
-            tag: 'Verticalidade & Contorno',
-            imgFrente: '/images/barba01.jpg',
-            descFrente: 'Topete alto para cima com barba desenhada em V para afinar o queixo.',
-            imgLateral: '/images/corte-masculino01.jpg',
-            descLateral: 'Degradê navalhado alto conectando com a patida da barba.',
-            imgNuca: '/images/hero-marcio-barber.png',
-            descNuca: 'Acabamento em V na nuca valorizando o pescoço.'
-          },
-          {
-            num: 3,
-            name: 'EXECUTIVE SIDE PART FADE',
-            tag: 'Alinhamento Elegante',
-            imgFrente: '/images/corte-masculino01.jpg',
-            descFrente: 'Divisão lateral com risca de navalha que quebra a simetria circular.',
-            imgLateral: '/images/corte-masculino02.jpg',
-            descLateral: 'Degradê baixo a médio mantendo textura suave.',
-            imgNuca: '/images/barba01.jpg',
-            descNuca: 'Nuca limpa natural com acabamento afiado.'
-          },
-          {
-            num: 4,
-            name: 'TEXTURED SPIKY SHORT',
-            tag: 'Modernidade Urbana',
-            imgFrente: '/images/corte-masculino02.jpg',
-            descFrente: 'Espetado irregular que direciona o olhar para o topo da cabeça.',
-            imgLateral: '/images/corte-masculino01.jpg',
-            descLateral: 'Laterais raspadas no pente 1 e 2 com transição rápida.',
-            imgNuca: '/images/hero-marcio-barber.png',
-            descNuca: 'Nuca tapered bem leve e confortável.'
-          }
-        ]
-      },
-      diamond: {
-        title: 'ESTILOS SUGERIDOS PARA ROSTO DIAMANTE / MAÇÃS',
-        badge: 'Destaque em Maçãs & Queixo ✓',
-        styles: [
-          {
-            num: 1,
-            name: 'POMPADOUR QUIFF PREMIUM',
-            tag: 'Destaque Anguloso',
-            imgFrente: '/images/models/model_diamond_quiff.jpg',
-            descFrente: 'Volume superior expressivo equilibrando as maçãs do rosto proeminentes.',
-            imgLateral: '/images/barba01.jpg',
-            descLateral: 'Degradê navalhado médio trazendo fluidez até a barba.',
-            imgNuca: '/images/corte-masculino01.jpg',
-            descNuca: 'Acabamento impecável com nuca degradê alta.'
-          },
-          {
-            num: 2,
-            name: 'MESSY TEXTURED CROP',
-            tag: 'Descontraído & Estiloso',
-            imgFrente: '/images/corte-masculino01.jpg',
-            descFrente: 'Fios bagunçados com pomada matte que adicionam textura no topo.',
-            imgLateral: '/images/corte-masculino02.jpg',
-            descLateral: 'Degradê baixo preservando volume sutil nas têmporas.',
-            imgNuca: '/images/hero-marcio-barber.png',
-            descNuca: 'Nuca quadrada com acabamento navalhado.'
-          },
-          {
-            num: 3,
-            name: 'SLICK BACK LOW FADE',
-            tag: 'Visual Galã & Sofisticado',
-            imgFrente: '/images/hero-marcio-barber.png',
-            descFrente: 'Fios penteados para trás com caimento natural e elegância extrema.',
-            imgLateral: '/images/barba01.jpg',
-            descLateral: 'Degradê sutil na tesoura valorizando o desenho das orelhas.',
-            imgNuca: '/images/corte-masculino02.jpg',
-            descNuca: 'Nuca tapered clássica e limpa.'
-          },
-          {
-            num: 4,
-            name: 'CLASSIC TAPER + BEARD',
-            tag: 'Harmonia & Masculinidade',
-            imgFrente: '/images/barba01.jpg',
-            descFrente: 'Corte tradicional curto com topo penteado e barba completa alinhada.',
-            imgLateral: '/images/corte-masculino01.jpg',
-            descLateral: 'Laterais em degradê leve sem rasar a pele.',
-            imgNuca: '/images/corte-masculino02.jpg',
-            descNuca: 'Acabamento com toalha quente e lâmina.'
-          }
-        ]
-      }
-    };
-
-    function selectFaceShape(shapeKey) {
-      document.querySelectorAll('.shape-btn').forEach(btn => {
-        btn.classList.remove('active', 'border-gold', 'bg-gold/10', 'text-gold');
-        btn.classList.add('border-white/10', 'bg-black/40', 'text-neutral-300');
-      });
-      const activeBtn = document.getElementById('btn-shape-' + shapeKey);
-      if (activeBtn) {
-        activeBtn.classList.add('active', 'border-gold', 'bg-gold/10', 'text-gold');
-        activeBtn.classList.remove('border-white/10', 'bg-black/40', 'text-neutral-300');
-      }
-
-      handlePhotoAnalysis(shapeKey);
-    }
-
-    function renderMatrixForShape(shapeKey) {
-      const data = faceCatalog[shapeKey] || faceCatalog.square;
-      document.getElementById('matrix-title-shape').textContent = data.title;
-      document.getElementById('badge-shape-description').textContent = data.badge;
-
-      const container = document.getElementById('grid-4-styles');
-      container.innerHTML = data.styles.map(s => `
-        <div class="space-y-4 bg-darkCard p-4 rounded-3xl border border-white/10 hover:border-gold/50 transition shadow-xl">
-          <div class="flex items-center gap-2 border-b border-white/10 pb-3">
-            <span class="w-7 h-7 rounded-full bg-gold text-black font-extrabold flex items-center justify-center text-xs">${s.num}</span>
-            <div>
-              <h4 class="font-extrabold text-white text-sm leading-tight">${s.name}</h4>
-              <span class="text-[9px] text-gold font-bold uppercase">${s.tag}</span>
-            </div>
-          </div>
-
-          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
-            <img src="${s.imgFrente}" alt="${s.name} Frente" class="w-full h-full object-cover">
-            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
-              <span class="text-[9px] font-black text-gold uppercase block">FRENTE</span>
-              <p class="text-[10px] text-neutral-200 leading-tight">${s.descFrente}</p>
-            </div>
-          </div>
-
-          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
-            <img src="${s.imgLateral}" alt="${s.name} Lateral" class="w-full h-full object-cover">
-            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
-              <span class="text-[9px] font-black text-gold uppercase block">LATERAL</span>
-              <p class="text-[10px] text-neutral-200 leading-tight">${s.descLateral}</p>
-            </div>
-          </div>
-
-          <div class="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] group">
-            <img src="${s.imgNuca}" alt="${s.name} Nuca" class="w-full h-full object-cover">
-            <div class="absolute bottom-2 left-2 right-2 p-2.5 rounded-xl style-badge-overlay text-left">
-              <span class="text-[9px] font-black text-gold uppercase block">NUCA</span>
-              <p class="text-[10px] text-neutral-200 leading-tight">${s.descNuca}</p>
-            </div>
-          </div>
-
-          <a href="#agendar" onclick="selectStyleForBooking('${s.name}')" class="block text-center w-full py-2.5 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
-            ✂️ Agendar Estilo #${s.num}
-          </a>
-        </div>
-      `).join('');
-    }
-
-    function handlePhotoAnalysis(forcedShape) {
-      const statusBox = document.getElementById('ai-processing-status');
-      const statusMsg = document.getElementById('ai-status-msg');
-      const matrixContainer = document.getElementById('simulation-matrix-container');
-
-      statusBox.classList.remove('hidden');
-      statusMsg.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles animate-spin"></i> Comparando traços faciais e gerando a seleção de estilos recomendados...`;
-
-      setTimeout(() => {
-        const shape = forcedShape || 'square';
-        renderMatrixForShape(shape);
-        statusBox.classList.add('hidden');
-        matrixContainer.classList.remove('hidden');
-        matrixContainer.scrollIntoView({ behavior: 'smooth' });
-      }, 1400);
-    }
-
-    document.getElementById('input-camera-photo').addEventListener('change', () => handlePhotoAnalysis('square'));
-    document.getElementById('input-gallery-photo').addEventListener('change', () => handlePhotoAnalysis('square'));
-
-    function selectStyleForBooking(styleName) {
-      const selectServico = document.getElementById('select-servico');
-      if (selectServico) {
-        const exists = Array.from(selectServico.options).some(o => o.value.includes(styleName));
-        if (!exists) {
-          const opt = document.createElement('option');
-          opt.value = styleName;
-          opt.textContent = `${styleName} (Sugerido no Guia Visagista)`;
-          opt.selected = true;
-          selectServico.prepend(opt);
-        } else {
-          selectServico.value = styleName;
-        }
-      }
-    }
-
     async function loadData() {
       try {
         const [servicosRes, barbeirosRes, galleryRes] = await Promise.allSettled([
@@ -832,7 +396,7 @@
                 <h3 class="text-lg font-bold text-white mb-2">${s.nome}</h3>
                 <p class="text-xs text-neutral-400 mb-4"><i class="fa-regular fa-clock mr-1"></i> Duração: ${s.tempo}</p>
               </div>
-              <a href="#agendar" onclick="selectStyleForBooking('${s.nome}')" class="block text-center w-full py-3 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">Agendar este Serviço</a>
+              <a href="#agendar" class="block text-center w-full py-3 rounded-xl border border-white/20 bg-black/40 text-white font-bold hover:border-gold hover:text-gold transition text-xs">Agendar este Serviço</a>
             </div>
           `).join('');
 

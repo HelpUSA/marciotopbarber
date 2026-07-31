@@ -56,9 +56,26 @@ const memoryStore = {
     { id: 2, nome: 'Cliente Vip 2', telefone: '(83) 98777-6666', cartoes: 8, ultimo_atendimento: '2026-07-10', retorno_previsto: '2026-07-30' },
     { id: 3, nome: 'Hugo Freitas', telefone: '(31) 97527-5084', cartoes: 2, ultimo_atendimento: '2026-07-25', retorno_previsto: '2026-08-14' }
   ],
+  client_photos: [
+    { id: 1, cliente_id: 1, url: '/images/corte-masculino01.jpg', data: '2026-07-01', observacao: 'Degradê Navalhado High Fade' },
+    { id: 2, cliente_id: 1, url: '/images/barba01.jpg', data: '2026-07-01', observacao: 'Barba Terapia Modelada' },
+    { id: 3, cliente_id: 2, url: '/images/corte-masculino02.jpg', data: '2026-07-10', observacao: 'Low Taper Fade' }
+  ],
+  tipos_cortes: [
+    { id: 1, nome: 'Degradê Navalhado (High Fade)', categoria: 'Fade', descricao: 'Degradê alto rasado na navalha com topo ajustável.', foto_referencia: '/images/corte-masculino02.jpg' },
+    { id: 2, nome: 'Low Taper Fade', categoria: 'Fade', descricao: 'Degradê baixo apenas nas patilhas e nuca.', foto_referencia: '/images/corte-masculino01.jpg' },
+    { id: 3, nome: 'Mid Fade Social', categoria: 'Social', descricao: 'Degradê médio equilibrado para ambientes profissionais e casuais.', foto_referencia: '/images/corte-masculino01.jpg' },
+    { id: 4, nome: 'French Crop Texturizado', categoria: 'Moderno', descricao: 'Franja curta e reta com textura no topo.', foto_referencia: '/images/models/model_round_crop.jpg' },
+    { id: 5, nome: 'Pompadour Executive', categoria: 'Clássico', descricao: 'Topete projetado com brilho e laterais alinhadas.', foto_referencia: '/images/hero-marcio-barber.png' },
+    { id: 6, nome: 'Buzz Cut Urban (Militar)', categoria: 'Curto', descricao: 'Corte raspado homogêneo com linhas do pezinho perfeitas.', foto_referencia: '/images/corte-masculino01.jpg' },
+    { id: 7, nome: 'Americano / Taper Fade', categoria: 'Fade', descricao: 'Suavização nas pontas das têmporas e acabamento limpo.', foto_referencia: '/images/corte-masculino02.jpg' },
+    { id: 8, nome: 'Corte Social Tesoura', categoria: 'Clássico', descricao: 'Corte 100% tesoura com caimento natural.', foto_referencia: '/images/models/model_square_executive.jpg' },
+    { id: 9, nome: 'Mullet Moderno / Burst Fade', categoria: 'Estilo', descricao: 'Lateral em degradê circular com comprimento na nuca.', foto_referencia: '/images/corte-masculino01.jpg' },
+    { id: 10, nome: 'Barba Terapia Modelada', categoria: 'Barba', descricao: 'Barba esculpida com toalha quente e óleos essenciais.', foto_referencia: '/images/barba01.jpg' }
+  ],
   appointments: [
-    { id: 101, cliente: 'Cliente Vip 1', cliente_telefone: '(83) 99888-7777', barbeiro: 'Márcio Top Barber', servico: 'Combo Premium Corte + Barba', data: '2026-07-01', hora: '14:00', status: 'Concluído', valor: 55.00 },
-    { id: 102, cliente: 'Cliente Vip 2', cliente_telefone: '(83) 98777-6666', barbeiro: 'Márcio Top Barber', servico: 'Corte Márcio Top Barber', data: '2026-07-10', hora: '15:30', status: 'Concluído', valor: 35.00 }
+    { id: 101, cliente: 'Cliente Vip 1', cliente_telefone: '(83) 99888-7777', barbeiro: 'Márcio Top Barber', servico: 'Combo Premium Corte + Barba', tipo_corte: 'Degradê Navalhado (High Fade)', data: '2026-07-01', hora: '14:00', status: 'Concluído', valor: 55.00 },
+    { id: 102, cliente: 'Cliente Vip 2', cliente_telefone: '(83) 98777-6666', barbeiro: 'Márcio Top Barber', servico: 'Corte Márcio Top Barber', tipo_corte: 'Low Taper Fade', data: '2026-07-10', hora: '15:30', status: 'Concluído', valor: 35.00 }
   ],
   products: [
     { id: 1, nome: 'Pomada Modeladora Efeito Matte Márcio', categoria: 'Pomadas', estoque: 20, valor_compra: 20.00, valor_venda: 45.00 },
@@ -86,7 +103,9 @@ if (sqlite3) {
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, valor REAL, comissao REAL, tempo TEXT, ativo TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS barbers (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, cargo TEXT, telefone TEXT, chave_pix TEXT, ativo TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, telefone TEXT, cartoes INTEGER, ultimo_atendimento TEXT, retorno_previsto TEXT)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS appointments (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT, cliente_telefone TEXT, barbeiro TEXT, servico TEXT, data TEXT, hora TEXT, status TEXT, valor REAL)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS client_photos (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente_id INTEGER, url TEXT, data TEXT, observacao TEXT)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS tipos_cortes (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, descricao TEXT, foto_referencia TEXT)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS appointments (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT, cliente_telefone TEXT, barbeiro TEXT, servico TEXT, tipo_corte TEXT, data TEXT, hora TEXT, status TEXT, valor REAL)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, estoque INTEGER, valor_compra REAL, valor_venda REAL)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS sales (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT, tipo TEXT, quantidade INTEGER, valor_total REAL, forma_pgto TEXT, data TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS commissions (id INTEGER PRIMARY KEY AUTOINCREMENT, barbeiro TEXT, servico TEXT, comissao REAL, data TEXT, pago TEXT)`);
@@ -98,8 +117,53 @@ if (sqlite3) {
       });
     });
   } catch (e) {
-    sqliteInstance = null;
+    console.error('Erro ao inicializar SQLite:', e);
   }
 }
 
-export { sqliteInstance, memoryStore };
+export const db = {
+  getLicenses: async () => memoryStore.licenses,
+  getUsers: async () => memoryStore.users,
+  addUser: async (user) => { user.id = Date.now(); memoryStore.users.push(user); return user; },
+  getGallery: async () => memoryStore.gallery,
+  addGalleryItem: async (item) => { item.id = Date.now(); memoryStore.gallery.push(item); return item; },
+  getServices: async () => memoryStore.services,
+  addService: async (service) => { service.id = Date.now(); memoryStore.services.push(service); return service; },
+  getBarbers: async () => memoryStore.barbers,
+  addBarber: async (barber) => { barber.id = Date.now(); memoryStore.barbers.push(barber); return barber; },
+  getClients: async () => memoryStore.clients,
+  addClient: async (client) => { client.id = Date.now(); memoryStore.clients.push(client); return client; },
+  
+  // Fotos do Cliente
+  getClientPhotos: async (clienteId) => {
+    return memoryStore.client_photos.filter(p => p.cliente_id === parseInt(clienteId));
+  },
+  addClientPhoto: async (photo) => {
+    photo.id = Date.now();
+    photo.data = photo.data || new Date().toISOString().split('T')[0];
+    memoryStore.client_photos.push(photo);
+    return photo;
+  },
+
+  // Tipos de Cortes
+  getTiposCortes: async () => memoryStore.tipos_cortes,
+  addTipoCorte: async (corte) => {
+    corte.id = Date.now();
+    memoryStore.tipos_cortes.push(corte);
+    return corte;
+  },
+
+  getAppointments: async () => memoryStore.appointments,
+  addAppointment: async (app) => { app.id = Date.now(); memoryStore.appointments.push(app); return app; },
+  updateAppointment: async (id, data) => {
+    const app = memoryStore.appointments.find(a => a.id === parseInt(id));
+    if (app) Object.assign(app, data);
+    return app;
+  },
+  getProducts: async () => memoryStore.products,
+  addProduct: async (product) => { product.id = Date.now(); memoryStore.products.push(product); return product; },
+  getSales: async () => memoryStore.sales,
+  addSale: async (sale) => { sale.id = Date.now(); memoryStore.sales.push(sale); return sale; },
+  getCommissions: async () => memoryStore.commissions,
+  addCommission: async (commission) => { commission.id = Date.now(); memoryStore.commissions.push(commission); return commission; }
+};
