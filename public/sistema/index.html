@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Márcio Top Barber SaaS Enterprise - Painel Gestor</title>
+  <title>Márcio Top Barber SaaS Enterprise - Painel Gestor Completo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  <!-- DASHBOARD SAAS (COM CORREÇÃO TOTAL DA TABELA DE LICENÇAS E TODAS AS ABAS) -->
+  <!-- DASHBOARD SAAS (COM TODOS OS BOTÕES DE CADASTRO E MODAIS FUNCIONAIS) -->
   <div id="screen-dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
 
     <!-- DRAWER LATERAL -->
@@ -168,7 +168,7 @@
       </div>
     </aside>
 
-    <!-- ÁREA PRINCIPAL DA APLICAÇÃO -->
+    <!-- ÁREA PRINCIPAL -->
     <div class="flex-1 flex flex-col min-w-0">
 
       <!-- TOPBAR HEADER -->
@@ -190,7 +190,7 @@
       <!-- CONTEÚDO DAS ABAS -->
       <main class="flex-1 p-4 sm:p-6 overflow-y-auto custom-scrollbar space-y-6">
 
-        <!-- ABA EXCLUSIVA DO DESENVOLVEDOR: GESTÃO DE LICENÇAS & TRIAL SAAS -->
+        <!-- ABA LICENÇAS -->
         <div id="tab-licenses" class="tab-content space-y-6">
           <div class="bg-darkCard p-6 rounded-2xl border border-yellow-500/30 flex justify-between items-center">
             <div>
@@ -214,21 +214,19 @@
                     <th class="p-4">Ação de Autorização</th>
                   </tr>
                 </thead>
-                <tbody id="table-licenses" class="divide-y divide-white/5 font-semibold">
-                  <!-- Injetado dinamicamente via JS com fallback visual -->
-                </tbody>
+                <tbody id="table-licenses" class="divide-y divide-white/5 font-semibold"></tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- ABA GESTÃO DE FOTOS & MÍDIA DO SITE -->
+        <!-- ABA GESTÃO DE FOTOS -->
         <div id="tab-gallery-admin" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-6 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-4">
             <div>
               <span class="text-xs font-bold text-gold uppercase tracking-widest">Painel de Mídia</span>
               <h2 class="text-xl font-bold text-white mt-1">Gestão de Fotos & Galeria do Site</h2>
-              <p class="text-xs text-neutral-400">Cadastre novas fotos de cortes, modelos e fotos de clientes que aparecem na Landing Page.</p>
+              <p class="text-xs text-neutral-400">Cadastre novas fotos de cortes, modelos e clientes que aparecem na Landing Page.</p>
             </div>
             <button onclick="openModal('modal-foto')" class="px-4 py-2.5 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
               + Cadastrar Nova Foto
@@ -241,7 +239,7 @@
           </div>
         </div>
 
-        <!-- ABA DE RELATÓRIOS & ANALYTICS BI -->
+        <!-- ABA RELATÓRIOS BI -->
         <div id="tab-relatorios" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-4">
             <div>
@@ -271,15 +269,11 @@
           <div class="grid lg:grid-cols-2 gap-6">
             <div class="bg-darkCard p-5 rounded-2xl border border-white/10">
               <h3 class="font-bold text-white text-base mb-4">Relatório por Barbeiro</h3>
-              <table class="w-full text-left text-xs text-neutral-300">
-                <tbody id="table-rep-barbeiros"></tbody>
-              </table>
+              <table class="w-full text-left text-xs text-neutral-300"><tbody id="table-rep-barbeiros"></tbody></table>
             </div>
             <div class="bg-darkCard p-5 rounded-2xl border border-white/10">
               <h3 class="font-bold text-white text-base mb-4">Top Serviços Vendidos</h3>
-              <table class="w-full text-left text-xs text-neutral-300">
-                <tbody id="table-rep-servicos"></tbody>
-              </table>
+              <table class="w-full text-left text-xs text-neutral-300"><tbody id="table-rep-servicos"></tbody></table>
             </div>
           </div>
         </div>
@@ -306,9 +300,7 @@
           </div>
           <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
             <div class="p-4 border-b border-white/10 font-bold text-white text-sm">Próximos na Agenda</div>
-            <table class="w-full text-left text-xs text-neutral-300">
-              <tbody id="table-dash-agendamentos"></tbody>
-            </table>
+            <table class="w-full text-left text-xs text-neutral-300"><tbody id="table-dash-agendamentos"></tbody></table>
           </div>
         </div>
 
@@ -319,9 +311,7 @@
             <button onclick="openModal('modal-agendamento')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Novo Agendamento</button>
           </div>
           <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
-            <table class="w-full text-left text-xs text-neutral-300">
-              <tbody id="table-full-agendamentos"></tbody>
-            </table>
+            <table class="w-full text-left text-xs text-neutral-300"><tbody id="table-full-agendamentos"></tbody></table>
           </div>
         </div>
 
@@ -350,7 +340,12 @@
 
         <!-- ABA BARBEIROS -->
         <div id="tab-barbeiros" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 rounded-2xl border border-white/10 flex justify-between items-center"><h2 class="text-lg font-bold text-white">Barbeiros</h2></div>
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg font-bold text-white">Equipe de Barbeiros</h2>
+            <button onclick="openModal('modal-barbeiro')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Barbeiro
+            </button>
+          </div>
           <div id="grid-barbeiros-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
         </div>
 
@@ -376,13 +371,23 @@
 
         <!-- ABA SERVIÇOS -->
         <div id="tab-servicos" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 rounded-2xl border border-white/10 flex justify-between items-center"><h2 class="text-lg font-bold text-white">Serviços</h2></div>
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg font-bold text-white">Catálogo de Serviços</h2>
+            <button onclick="openModal('modal-servico')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Serviço
+            </button>
+          </div>
           <div id="grid-servicos-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
         <!-- ABA PRODUTOS -->
         <div id="tab-produtos" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 rounded-2xl border border-white/10 flex justify-between items-center"><h2 class="text-lg font-bold text-white">Produtos</h2></div>
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg font-bold text-white">Produtos & Estoque</h2>
+            <button onclick="openModal('modal-produto')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Produto
+            </button>
+          </div>
           <div id="grid-produtos-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
         </div>
 
@@ -399,7 +404,7 @@
     </div>
   </div>
 
-  <!-- MODAIS -->
+  <!-- TODOS OS 5 MODAIS DE CADASTRO (COMPLETOS E FUNCIONAIS) -->
   <div id="modal-historico-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-lg bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
@@ -413,6 +418,7 @@
     </div>
   </div>
 
+  <!-- MODAL CADASTRAR FOTO DO SITE -->
   <div id="modal-foto" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -439,6 +445,138 @@
         </div>
         <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
           Salvar na Galeria do Site
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CADASTRAR BARBEIRO -->
+  <div id="modal-barbeiro" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Cadastrar Barbeiro</h3>
+        <button onclick="closeModal('modal-barbeiro')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-barbeiro" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome Completo</label>
+          <input type="text" id="m-barber-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Carlos Silva">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Cargo / Especialidade</label>
+          <input type="text" id="m-barber-cargo" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Especialista em Barba">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Telefone WhatsApp</label>
+          <input type="text" id="m-barber-telefone" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="(83) 98888-0000">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Chave PIX</label>
+          <input type="text" id="m-barber-pix" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" placeholder="CPF ou E-mail">
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Barbeiro
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CADASTRAR CLIENTE -->
+  <div id="modal-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Cadastrar Cliente</h3>
+        <button onclick="closeModal('modal-cliente')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-cliente" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome Completo</label>
+          <input type="text" id="m-client-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Rodrigo Lima">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Telefone WhatsApp</label>
+          <input type="text" id="m-client-telefone" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="(83) 99999-1111">
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Cliente
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CADASTRAR SERVIÇO -->
+  <div id="modal-servico" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Cadastrar Serviço</h3>
+        <button onclick="closeModal('modal-servico')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-servico" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome do Serviço</label>
+          <input type="text" id="m-srv-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Alisamento Capilar">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Categoria</label>
+            <input type="text" id="m-srv-cat" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Química">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Tempo Duração</label>
+            <input type="text" id="m-srv-tempo" value="30 min" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Valor Venda (R$)</label>
+            <input type="number" step="0.5" id="m-srv-valor" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="35.00">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Comissão (R$)</label>
+            <input type="number" step="0.5" id="m-srv-comissao" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="14.00">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Serviço
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CADASTRAR PRODUTO -->
+  <div id="modal-produto" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Cadastrar Produto</h3>
+        <button onclick="closeModal('modal-produto')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-produto" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome do Produto</label>
+          <input type="text" id="m-prod-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Gel Fixador Extra Forte">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Categoria</label>
+            <input type="text" id="m-prod-cat" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Pomadas">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Estoque Qtd</label>
+            <input type="number" id="m-prod-estoque" value="10" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Custo Custo (R$)</label>
+            <input type="number" step="0.5" id="m-prod-compra" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="15.00">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-neutral-300 mb-1">Valor Venda (R$)</label>
+            <input type="number" step="0.5" id="m-prod-venda" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="35.00">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Produto
         </button>
       </form>
     </div>
@@ -486,12 +624,11 @@
     </div>
   </div>
 
-  <!-- SCRIPT DINÂMICO DE ESTADO, LICENÇAS E CRM -->
+  <!-- SCRIPT DINÂMICO DE ESTADO, CADASTROS E API SUBMITS -->
   <script>
     let currentUser = null;
     let globalState = { licenses: [], gallery: [], servicos: [], barbeiros: [], clientes: [], agendamentos: [], produtos: [], vendas: [], comissoes: [] };
 
-    // Fallback de licença exclusivo do Márcio Top Barber
     const defaultLicenses = [
       { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31' }
     ];
@@ -634,11 +771,9 @@
       }
     }
 
-    // RENDERIZADOR COMPLETO DA TABELA DE LICENÇAS (EXCLUSIVO DESENVOLVEDOR)
     function renderLicenses() {
       const tbody = document.getElementById('table-licenses');
       if (!tbody) return;
-
       const list = globalState.licenses.length > 0 ? globalState.licenses : defaultLicenses;
 
       tbody.innerHTML = list.map(l => `
@@ -654,13 +789,9 @@
           <td class="p-4 font-mono text-xs text-neutral-400">${l.trial_ends_at || '2026-12-31'}</td>
           <td class="p-4">
             ${l.status !== 'active' ? `
-              <button onclick="toggleLicense(${l.id}, 'active')" class="px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 text-white font-extrabold text-xs shadow-lg shadow-green-900/30 transition">
-                ⚡ Ativar Licença Livre
-              </button>
+              <button onclick="toggleLicense(${l.id}, 'active')" class="px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 text-white font-extrabold text-xs shadow">⚡ Ativar Licença Livre</button>
             ` : `
-              <button onclick="toggleLicense(${l.id}, 'trial')" class="px-4 py-2 rounded-xl bg-yellow-950/60 border border-yellow-500/50 text-yellow-300 font-bold text-xs hover:bg-yellow-900 transition">
-                Colocar em Trial
-              </button>
+              <button onclick="toggleLicense(${l.id}, 'trial')" class="px-4 py-2 rounded-xl bg-yellow-950/60 border border-yellow-500/50 text-yellow-300 font-bold text-xs">Colocar em Trial</button>
             `}
           </td>
         </tr>
@@ -668,11 +799,7 @@
     }
 
     async function toggleLicense(id, status) {
-      await fetch(`/api/licenses/${id}/activate`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
-      });
+      await fetch(`/api/licenses/${id}/activate`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
       loadAllData();
     }
 
@@ -684,9 +811,7 @@
           <img src="${g.url}" alt="${g.titulo}" class="w-full h-32 object-cover rounded-xl mb-2">
           <p class="font-bold text-white text-xs truncate">${g.titulo}</p>
           <span class="text-[10px] text-gold font-semibold">${g.categoria}</span>
-          <button onclick="deleteGalleryPhoto(${g.id})" class="mt-2 w-full py-1 rounded-lg bg-red-950/60 border border-red-500/30 text-red-300 font-bold text-[10px]">
-            Remover Foto
-          </button>
+          <button onclick="deleteGalleryPhoto(${g.id})" class="mt-2 w-full py-1 rounded-lg bg-red-950/60 border border-red-500/30 text-red-300 font-bold text-[10px]">Remover Foto</button>
         </div>
       `).join('');
     }
@@ -699,13 +824,62 @@
 
     document.getElementById('form-modal-foto').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const payload = {
-        titulo: document.getElementById('m-foto-titulo').value,
-        url: document.getElementById('m-foto-url').value,
-        categoria: document.getElementById('m-foto-cat').value
-      };
+      const payload = { titulo: document.getElementById('m-foto-titulo').value, url: document.getElementById('m-foto-url').value, categoria: document.getElementById('m-foto-cat').value };
       await fetch('/api/gallery', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       closeModal('modal-foto');
+      loadAllData();
+    });
+
+    // FORMULÁRIOS DE SUBMIT PARA TODOS OS RECURSOS ADMINISTRATIVOS
+    document.getElementById('form-modal-barbeiro').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nome: document.getElementById('m-barber-nome').value,
+        cargo: document.getElementById('m-barber-cargo').value,
+        telefone: document.getElementById('m-barber-telefone').value,
+        chave_pix: document.getElementById('m-barber-pix').value
+      };
+      await fetch('/api/barbeiros', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-barbeiro');
+      loadAllData();
+    });
+
+    document.getElementById('form-modal-cliente').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nome: document.getElementById('m-client-nome').value,
+        telefone: document.getElementById('m-client-telefone').value
+      };
+      await fetch('/api/clientes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-cliente');
+      loadAllData();
+    });
+
+    document.getElementById('form-modal-servico').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nome: document.getElementById('m-srv-nome').value,
+        categoria: document.getElementById('m-srv-cat').value,
+        tempo: document.getElementById('m-srv-tempo').value,
+        valor: document.getElementById('m-srv-valor').value,
+        comissao: document.getElementById('m-srv-comissao').value
+      };
+      await fetch('/api/servicos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-servico');
+      loadAllData();
+    });
+
+    document.getElementById('form-modal-produto').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nome: document.getElementById('m-prod-nome').value,
+        categoria: document.getElementById('m-prod-cat').value,
+        estoque: document.getElementById('m-prod-estoque').value,
+        valor_compra: document.getElementById('m-prod-compra').value,
+        valor_venda: document.getElementById('m-prod-venda').value
+      };
+      await fetch('/api/produtos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-produto');
       loadAllData();
     });
 
@@ -764,9 +938,7 @@
               <p class="font-bold text-white">${h.servico}</p>
               <p class="text-[10px] text-neutral-400">Atendido por: ${h.barbeiro} (${h.data} ${h.hora})</p>
             </div>
-            <div class="text-right">
-              <span class="font-extrabold text-gold">R$ ${(h.valor || 0).toFixed(2)}</span>
-            </div>
+            <div class="text-right"><span class="font-extrabold text-gold">R$ ${(h.valor || 0).toFixed(2)}</span></div>
           </div>
         `).join('');
       }
@@ -825,6 +997,7 @@
           <div class="w-14 h-14 mx-auto mb-2 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xl font-bold">💈</div>
           <h3 class="font-bold text-white text-sm sm:text-base">${b.nome}</h3>
           <p class="text-xs text-gold mt-0.5">${b.cargo}</p>
+          <p class="text-xs text-neutral-400 mt-2"><i class="fa-solid fa-phone mr-1"></i> ${b.telefone}</p>
         </div>
       `).join('');
     }
@@ -832,9 +1005,22 @@
     function renderServicos() {
       document.getElementById('grid-servicos-admin').innerHTML = globalState.servicos.map(s => `
         <div class="p-5 rounded-2xl bg-darkCard border border-white/10 flex flex-col justify-between">
-          <div><h3 class="font-bold text-white text-base">${s.nome}</h3></div>
+          <div>
+            <div class="flex justify-between items-start">
+              <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/30">${s.categoria}</span>
+              <span class="text-[10px] text-neutral-400"><i class="fa-regular fa-clock"></i> ${s.tempo}</span>
+            </div>
+            <h3 class="font-bold text-white mt-3 text-base">${s.nome}</h3>
+          </div>
           <div class="mt-4 border-t border-white/10 pt-3 flex justify-between items-end">
-            <p class="text-gold font-extrabold text-lg">R$ ${(s.valor || 0).toFixed(2)}</p>
+            <div>
+              <p class="text-[9px] text-neutral-400 uppercase">Preço</p>
+              <p class="text-gold font-extrabold text-lg">R$ ${(s.valor || 0).toFixed(2)}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[9px] text-neutral-400 uppercase">Comissão</p>
+              <p class="text-green-400 font-bold text-xs">R$ ${(s.comissao || 0).toFixed(2)}</p>
+            </div>
           </div>
         </div>
       `).join('');
@@ -843,8 +1029,12 @@
     function renderProdutos() {
       document.getElementById('grid-produtos-admin').innerHTML = globalState.produtos.map(p => `
         <div class="p-4 rounded-2xl bg-darkCard border border-white/10 flex justify-between items-center gap-2">
-          <div><p class="font-bold text-white text-sm">${p.nome}</p></div>
-          <span class="px-2.5 py-1 rounded-lg bg-black/50 text-white font-extrabold text-xs">${p.estoque} un</span>
+          <div>
+            <p class="font-bold text-white text-sm">${p.nome}</p>
+            <p class="text-xs text-neutral-400 mt-0.5">Cat: ${p.categoria}</p>
+            <p class="text-xs text-neutral-500 mt-0.5">Venda: <strong class="text-gold">R$ ${(p.valor_venda || 0).toFixed(2)}</strong></p>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-black/50 text-white font-extrabold text-xs border border-white/15">${p.estoque} un</span>
         </div>
       `).join('');
     }
@@ -853,21 +1043,62 @@
       document.getElementById('pos-products-grid').innerHTML = globalState.produtos.map(p => `
         <div onclick="selectPosProduct(${p.id}, '${p.nome}', ${p.valor_venda})" class="p-3.5 rounded-2xl bg-black/40 border border-white/10 hover:border-gold cursor-pointer transition">
           <p class="font-bold text-white text-xs truncate">${p.nome}</p>
+          <div class="mt-2 flex justify-between items-center">
+            <span class="text-gold font-extrabold text-xs">R$ ${p.valor_venda.toFixed(2)}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-white/10 text-neutral-300">${p.estoque} un</span>
+          </div>
         </div>
       `).join('');
+    }
+
+    function selectPosProduct(id, nome, valor) {
+      document.getElementById('pos-product-id').value = id;
+      document.getElementById('pos-item-name').value = nome;
+      document.getElementById('pos-unit-price').value = `R$ ${valor.toFixed(2)}`;
+      updatePosTotal();
+    }
+
+    function updatePosTotal() {
+      const priceStr = document.getElementById('pos-unit-price').value.replace('R$ ', '');
+      const unitPrice = parseFloat(priceStr) || 0;
+      const qty = parseInt(document.getElementById('pos-qty').value) || 1;
+      document.getElementById('pos-total-display').textContent = `R$ ${(unitPrice * qty).toFixed(2)}`;
+    }
+
+    async function executePosCheckout() {
+      const item = document.getElementById('pos-item-name').value;
+      if (!item) return alert('Selecione um produto!');
+
+      const product_id = document.getElementById('pos-product-id').value;
+      const quantidade = parseInt(document.getElementById('pos-qty').value) || 1;
+      const priceStr = document.getElementById('pos-unit-price').value.replace('R$ ', '');
+      const valor_total = parseFloat(priceStr) * quantidade;
+      const forma_pgto = document.getElementById('pos-payment').value;
+
+      await fetch('/api/pos/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item, product_id, quantidade, valor_total, forma_pgto })
+      });
+
+      alert('✅ Venda realizada com sucesso!');
+      document.getElementById('pos-item-name').value = '';
+      document.getElementById('pos-product-id').value = '';
+      document.getElementById('pos-total-display').textContent = 'R$ 0,00';
+      loadAllData();
     }
 
     function renderFinanceiro() {
       document.getElementById('list-vendas').innerHTML = globalState.vendas.map(v => `
         <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs">
-          <p class="font-bold text-white">${v.item}</p>
+          <div><p class="font-bold text-white">${v.item}</p><p class="text-[10px] text-neutral-400">${v.data} - ${v.forma_pgto}</p></div>
           <span class="font-extrabold text-gold">R$ ${(v.valor_total || 0).toFixed(2)}</span>
         </div>
       `).join('');
 
       document.getElementById('list-comissoes').innerHTML = globalState.comissoes.map(c => `
         <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs">
-          <p class="font-bold text-white">${c.barbeiro}</p>
+          <div><p class="font-bold text-white">${c.barbeiro}</p><p class="text-[10px] text-neutral-400">${c.servico} (${c.data})</p></div>
           <span class="font-extrabold text-green-400">R$ ${(c.comissao || 0).toFixed(2)}</span>
         </div>
       `).join('');
