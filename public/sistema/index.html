@@ -491,10 +491,9 @@
     let currentUser = null;
     let globalState = { licenses: [], gallery: [], servicos: [], barbeiros: [], clientes: [], agendamentos: [], produtos: [], vendas: [], comissoes: [] };
 
-    // Fallback de licenças garantido caso a API demore
+    // Fallback de licença exclusivo do Márcio Top Barber
     const defaultLicenses = [
-      { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31' },
-      { id: 2, name: 'Barbearia Unidade Demo', owner_email: 'demo@barber.com', status: 'trial', trial_ends_at: '2026-08-15' }
+      { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31' }
     ];
 
     function toggleMobileDrawer() {

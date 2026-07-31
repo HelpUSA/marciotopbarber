@@ -22,11 +22,10 @@ if (!fs.existsSync(dataDir)) {
   } catch (e) {}
 }
 
-// Memory Store Enterprise (Galeria Dinâmica, CRM e Licenças)
+// Memory Store Exclusivo do Márcio Top Barber
 const memoryStore = {
   licenses: [
-    { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31', created_at: '2026-07-30' },
-    { id: 2, name: 'Barbearia Unidade Demo', owner_email: 'demo@barber.com', status: 'trial', trial_ends_at: '2026-08-15', created_at: '2026-07-30' }
+    { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31', created_at: '2026-07-30' }
   ],
   users: [
     { id: 1, name: 'Márcio Top Barber', email: 'helpus.ecommerce@gmail.com', google_id: '812202824664', password: '@dmLocal1993', role: 'developer', tenant_id: 1, avatar: '/images/marcio.jpg' },
@@ -92,9 +91,9 @@ if (sqlite3) {
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS sales (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT, tipo TEXT, quantidade INTEGER, valor_total REAL, forma_pgto TEXT, data TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS commissions (id INTEGER PRIMARY KEY AUTOINCREMENT, barbeiro TEXT, servico TEXT, comissao REAL, data TEXT, pago TEXT)`);
 
-      sqliteInstance.get('SELECT COUNT(*) as count FROM gallery', (err, row) => {
+      sqliteInstance.get('SELECT COUNT(*) as count FROM licenses', (err, row) => {
         if (row && row.count === 0) {
-          memoryStore.gallery.forEach(g => sqliteInstance.run(`INSERT INTO gallery (titulo, url, categoria) VALUES (?, ?, ?)`, [g.titulo, g.url, g.categoria]));
+          sqliteInstance.run(`INSERT INTO licenses (name, owner_email, status, trial_ends_at, created_at) VALUES ('Márcio Top Barber', 'helpus.ecommerce@gmail.com', 'active', '2026-12-31', '2026-07-30')`);
         }
       });
     });
