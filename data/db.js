@@ -22,7 +22,7 @@ if (!fs.existsSync(dataDir)) {
   } catch (e) {}
 }
 
-// Memory Store Enterprise (Google OAuth + RBAC + Trial + Licenças)
+// Memory Store Enterprise (Galeria Dinâmica, CRM e Licenças)
 const memoryStore = {
   licenses: [
     { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31', created_at: '2026-07-30' },
@@ -32,6 +32,12 @@ const memoryStore = {
     { id: 1, name: 'Márcio Top Barber', email: 'helpus.ecommerce@gmail.com', google_id: '812202824664', password: '@dmLocal1993', role: 'developer', tenant_id: 1, avatar: '/images/marcio.jpg' },
     { id: 2, name: 'Administrador Local', email: 'admin@admin', google_id: null, password: '123', role: 'owner', tenant_id: 1, avatar: '' },
     { id: 3, name: 'Hugo Freitas', email: 'hugo@barber.com', google_id: null, password: '123', role: 'barber', tenant_id: 1, avatar: '' }
+  ],
+  gallery: [
+    { id: 1, titulo: 'Corte Fade Moderno', url: '/images/corte-masculino01.jpg', categoria: 'Cortes' },
+    { id: 2, titulo: 'Barba Terapia com Toalha Quente', url: '/images/barba01.jpg', categoria: 'Barba' },
+    { id: 3, titulo: 'Degradê Navalhado', url: '/images/corte-masculino02.jpg', categoria: 'Cortes' },
+    { id: 4, titulo: 'Corte Infantil Especial', url: '/images/corte-infantil01.jpg', categoria: 'Infantil' }
   ],
   services: [
     { id: 1, nome: 'Corte Márcio Top Barber', categoria: 'Corte', valor: 35.00, comissao: 15.00, tempo: '30 min', ativo: 'Sim' },
@@ -47,13 +53,13 @@ const memoryStore = {
     { id: 3, nome: 'Marcos Silva', cargo: 'Barbeiro Visagista', telefone: '(31) 98888-1111', chave_pix: '31988881111', ativo: 'Sim' }
   ],
   clients: [
-    { id: 1, nome: 'Cliente Vip 1', telefone: '(83) 99888-7777', cartoes: 5, retorno: '2026-08-10' },
-    { id: 2, nome: 'Cliente Vip 2', telefone: '(83) 98777-6666', cartoes: 8, retorno: '2026-08-15' },
-    { id: 3, nome: 'Hugo Freitas', telefone: '(31) 97527-5084', cartoes: 2, retorno: '2026-08-20' }
+    { id: 1, nome: 'Cliente Vip 1', telefone: '(83) 99888-7777', cartoes: 5, ultimo_atendimento: '2026-07-01', retorno_previsto: '2026-07-21' },
+    { id: 2, nome: 'Cliente Vip 2', telefone: '(83) 98777-6666', cartoes: 8, ultimo_atendimento: '2026-07-10', retorno_previsto: '2026-07-30' },
+    { id: 3, nome: 'Hugo Freitas', telefone: '(31) 97527-5084', cartoes: 2, ultimo_atendimento: '2026-07-25', retorno_previsto: '2026-08-14' }
   ],
   appointments: [
-    { id: 101, cliente: 'Cliente Vip 1', cliente_telefone: '(83) 99888-7777', barbeiro: 'Márcio Top Barber', servico: 'Combo Premium Corte + Barba', data: '2026-07-30', hora: '14:00', status: 'Concluído', valor: 55.00 },
-    { id: 102, cliente: 'Cliente Vip 2', cliente_telefone: '(83) 98777-6666', barbeiro: 'Márcio Top Barber', servico: 'Corte Márcio Top Barber', data: '2026-07-30', hora: '15:30', status: 'Agendado', valor: 35.00 }
+    { id: 101, cliente: 'Cliente Vip 1', cliente_telefone: '(83) 99888-7777', barbeiro: 'Márcio Top Barber', servico: 'Combo Premium Corte + Barba', data: '2026-07-01', hora: '14:00', status: 'Concluído', valor: 55.00 },
+    { id: 102, cliente: 'Cliente Vip 2', cliente_telefone: '(83) 98777-6666', barbeiro: 'Márcio Top Barber', servico: 'Corte Márcio Top Barber', data: '2026-07-10', hora: '15:30', status: 'Concluído', valor: 35.00 }
   ],
   products: [
     { id: 1, nome: 'Pomada Modeladora Efeito Matte Márcio', categoria: 'Pomadas', estoque: 20, valor_compra: 20.00, valor_venda: 45.00 },
@@ -64,7 +70,7 @@ const memoryStore = {
     { id: 1, item: 'Pomada Modeladora Efeito Matte Márcio', tipo: 'produto', quantidade: 1, valor_total: 45.00, forma_pgto: 'Pix', data: '2026-07-30' }
   ],
   commissions: [
-    { id: 1, barbeiro: 'Márcio Top Barber', servico: 'Combo Premium', comissao: 25.00, data: '2026-07-30', pago: 'Sim' }
+    { id: 1, barbeiro: 'Márcio Top Barber', servico: 'Combo Premium', comissao: 25.00, data: '2026-07-01', pago: 'Sim' }
   ]
 };
 
@@ -77,29 +83,18 @@ if (sqlite3) {
     sqliteInstance.serialize(() => {
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS licenses (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, owner_email TEXT, status TEXT, trial_ends_at TEXT, created_at TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT UNIQUE, google_id TEXT, password TEXT, role TEXT, tenant_id INTEGER, avatar TEXT)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS gallery (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT, url TEXT, categoria TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, valor REAL, comissao REAL, tempo TEXT, ativo TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS barbers (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, cargo TEXT, telefone TEXT, chave_pix TEXT, ativo TEXT)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, telefone TEXT, cartoes INTEGER, retorno TEXT)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, telefone TEXT, cartoes INTEGER, ultimo_atendimento TEXT, retorno_previsto TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS appointments (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT, cliente_telefone TEXT, barbeiro TEXT, servico TEXT, data TEXT, hora TEXT, status TEXT, valor REAL)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, estoque INTEGER, valor_compra REAL, valor_venda REAL)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS sales (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT, tipo TEXT, quantidade INTEGER, valor_total REAL, forma_pgto TEXT, data TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS commissions (id INTEGER PRIMARY KEY AUTOINCREMENT, barbeiro TEXT, servico TEXT, comissao REAL, data TEXT, pago TEXT)`);
 
-      // Migration de segurança para caso a coluna tenant_id ainda não existisse
-      sqliteInstance.run(`ALTER TABLE users ADD COLUMN tenant_id INTEGER`, () => {});
-      sqliteInstance.run(`ALTER TABLE users ADD COLUMN google_id TEXT`, () => {});
-
-      sqliteInstance.get('SELECT COUNT(*) as count FROM licenses', (err, row) => {
+      sqliteInstance.get('SELECT COUNT(*) as count FROM gallery', (err, row) => {
         if (row && row.count === 0) {
-          sqliteInstance.run(`INSERT INTO licenses (name, owner_email, status, trial_ends_at, created_at) VALUES ('Márcio Top Barber', 'helpus.ecommerce@gmail.com', 'active', '2026-12-31', '2026-07-30')`);
-          sqliteInstance.run(`INSERT OR IGNORE INTO users (name, email, google_id, password, role, tenant_id) VALUES ('Márcio Top Barber', 'helpus.ecommerce@gmail.com', '812202824664', '@dmLocal1993', 'developer', 1)`);
-          sqliteInstance.run(`INSERT OR IGNORE INTO users (name, email, password, role, tenant_id) VALUES ('Administrador Local', 'admin@admin', '123', 'owner', 1)`);
-
-          memoryStore.services.forEach(s => sqliteInstance.run(`INSERT INTO services (nome, categoria, valor, comissao, tempo, ativo) VALUES (?, ?, ?, ?, ?, 'Sim')`, [s.nome, s.categoria, s.valor, s.comissao, s.tempo]));
-          memoryStore.barbers.forEach(b => sqliteInstance.run(`INSERT INTO barbers (nome, cargo, telefone, chave_pix, ativo) VALUES (?, ?, ?, ?, 'Sim')`, [b.nome, b.cargo, b.telefone, b.chave_pix]));
-          memoryStore.clients.forEach(c => sqliteInstance.run(`INSERT INTO clients (nome, telefone, cartoes, retorno) VALUES (?, ?, ?, ?)`, [c.nome, c.telefone, c.cartoes, c.retorno]));
-          memoryStore.products.forEach(p => sqliteInstance.run(`INSERT INTO products (nome, categoria, estoque, valor_compra, valor_venda) VALUES (?, ?, ?, ?, ?)`, [p.nome, p.categoria, p.estoque, p.valor_compra, p.valor_venda]));
-          memoryStore.appointments.forEach(a => sqliteInstance.run(`INSERT INTO appointments (cliente, cliente_telefone, barbeiro, servico, data, hora, status, valor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, [a.cliente, a.cliente_telefone, a.barbeiro, a.servico, a.data, a.hora, a.status, a.valor]));
+          memoryStore.gallery.forEach(g => sqliteInstance.run(`INSERT INTO gallery (titulo, url, categoria) VALUES (?, ?, ?)`, [g.titulo, g.url, g.categoria]));
         }
       });
     });

@@ -17,15 +17,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servir arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota de Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'marciotopbarber-saas-enterprise', mode: sqliteInstance ? 'sqlite' : 'serverless-memory' });
 });
 
-// Helper de query para sqlite / memory fallback
 const queryAll = (sql, params, memoryKey) => {
   return new Promise((resolve) => {
     if (sqliteInstance) {
@@ -60,50 +57,26 @@ const runExec = (sql, params, memoryKey, newObj) => {
 // ----------------------------------------------------
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
-  
   if (email === 'helpus.ecommerce@gmail.com' && (password === '@dmLocal1993' || password === '123')) {
-    return res.json({
-      success: true,
-      user: { id: 1, name: 'Márcio Top Barber (Super Admin)', email, role: 'developer', tenant_id: 1 }
-    });
+    return res.json({ success: true, user: { id: 1, name: 'Márcio Top Barber (Super Admin)', email, role: 'developer', tenant_id: 1 } });
   }
-
   if ((email === 'admin@admin' || email === 'admin@admin.com') && (password === '123' || password === '@dmLocal1993')) {
-    return res.json({
-      success: true,
-      user: { id: 2, name: 'Administrador Local', email, role: 'owner', tenant_id: 1 }
-    });
+    return res.json({ success: true, user: { id: 2, name: 'Administrador Local', email, role: 'owner', tenant_id: 1 } });
   }
-
   const users = await queryAll('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], 'users');
-  if (users.length > 0) {
-    res.json({ success: true, user: users[0] });
-  } else {
-    res.status(401).json({ success: false, message: 'Credenciais inválidas' });
-  }
+  if (users.length > 0) res.json({ success: true, user: users[0] });
+  else res.status(401).json({ success: false, message: 'Credenciais inválidas' });
 });
 
-// Autenticação Google OAuth Integration
 app.post('/api/auth/google', async (req, res) => {
   const { credential, email, name, picture } = req.body;
-
   const targetEmail = email || 'helpus.ecommerce@gmail.com';
   const role = (targetEmail === 'helpus.ecommerce@gmail.com') ? 'developer' : 'owner';
-
-  const user = {
-    id: Date.now(),
-    name: name || 'Usuário Google',
-    email: targetEmail,
-    role,
-    tenant_id: 1,
-    avatar: picture || '/images/marcio.jpg'
-  };
-
-  res.json({ success: true, user });
+  res.json({ success: true, user: { id: Date.now(), name: name || 'Usuário Google', email: targetEmail, role, tenant_id: 1, avatar: picture || '/images/marcio.jpg' } });
 });
 
 // ----------------------------------------------------
-// ROTAS DE LICENCIAMENTO & TRIAL (PAINEL DESENVOLVEDOR)
+// ROTAS DE LICENCIAMENTO & GALERIA DE MÍDIA
 // ----------------------------------------------------
 app.get('/api/licenses', async (req, res) => {
   const licenses = await queryAll('SELECT * FROM licenses', [], 'licenses');
@@ -112,19 +85,39 @@ app.get('/api/licenses', async (req, res) => {
 
 app.patch('/api/licenses/:id/activate', async (req, res) => {
   const { id } = req.params;
-  const { status } = req.body; // 'active' ou 'trial' ou 'blocked'
-
-  if (sqliteInstance) {
-    sqliteInstance.run('UPDATE licenses SET status = ? WHERE id = ?', [status, id]);
-  }
+  const { status } = req.body;
+  if (sqliteInstance) sqliteInstance.run('UPDATE licenses SET status = ? WHERE id = ?', [status, id]);
   const license = memoryStore.licenses.find(l => l.id == id);
   if (license) license.status = status;
-
   res.json({ success: true, status });
 });
 
+// API GALERIA DO SITE
+app.get('/api/gallery', async (req, res) => {
+  const rows = await queryAll('SELECT * FROM gallery ORDER BY id DESC', [], 'gallery');
+  res.json(rows);
+});
+
+app.post('/api/gallery', async (req, res) => {
+  const { titulo, url, categoria } = req.body;
+  const created = await runExec(
+    'INSERT INTO gallery (titulo, url, categoria) VALUES (?, ?, ?)',
+    [titulo, url, categoria || 'Geral'],
+    'gallery',
+    { titulo, url, categoria: categoria || 'Geral' }
+  );
+  res.status(201).json(created);
+});
+
+app.delete('/api/gallery/:id', async (req, res) => {
+  const { id } = req.params;
+  if (sqliteInstance) sqliteInstance.run('DELETE FROM gallery WHERE id = ?', [id]);
+  memoryStore.gallery = memoryStore.gallery.filter(g => g.id != id);
+  res.json({ success: true });
+});
+
 // ----------------------------------------------------
-// REST APIS (SERVIÇOS, BARBEIROS, CLIENTES, AGENDAMENTOS, POS)
+// REST APIS (SERVIÇOS, BARBEIROS, CLIENTES & HISTÓRICO CRM)
 // ----------------------------------------------------
 app.get('/api/servicos', async (req, res) => {
   const rows = await queryAll('SELECT * FROM services', [], 'services');
@@ -165,13 +158,22 @@ app.get('/api/clientes', async (req, res) => {
 
 app.post('/api/clientes', async (req, res) => {
   const { nome, telefone } = req.body;
+  const dataHoje = new Date().toISOString().split('T')[0];
+  const retornoPrevisto = new Date(Date.now() + 20 * 86400000).toISOString().split('T')[0];
   const created = await runExec(
-    'INSERT INTO clients (nome, telefone, cartoes, retorno) VALUES (?, ?, 1, ?)',
-    [nome, telefone, new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0]],
+    'INSERT INTO clients (nome, telefone, cartoes, ultimo_atendimento, retorno_previsto) VALUES (?, ?, 1, ?, ?)',
+    [nome, telefone, dataHoje, retornoPrevisto],
     'clients',
-    { nome, telefone, cartoes: 1, retorno: new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0] }
+    { nome, telefone, cartoes: 1, ultimo_atendimento: dataHoje, retorno_previsto: retornoPrevisto }
   );
   res.status(201).json(created);
+});
+
+// HISTÓRICO DE VISITAS DO CLIENTE
+app.get('/api/clientes/:nome/historico', async (req, res) => {
+  const { nome } = req.params;
+  const appts = await queryAll('SELECT * FROM appointments WHERE cliente = ? ORDER BY id DESC', [nome], 'appointments');
+  res.json(appts);
 });
 
 app.get('/api/agendamentos', async (req, res) => {
@@ -224,7 +226,6 @@ app.post('/api/produtos', async (req, res) => {
 
 app.post('/api/pos/checkout', async (req, res) => {
   const { item, product_id, quantidade, valor_total, forma_pgto } = req.body;
-
   const dataAtual = new Date().toISOString().split('T')[0];
   const sale = await runExec(
     'INSERT INTO sales (item, tipo, quantidade, valor_total, forma_pgto, data) VALUES (?, "produto", ?, ?, ?, ?)',
@@ -232,7 +233,6 @@ app.post('/api/pos/checkout', async (req, res) => {
     'sales',
     { item, tipo: 'produto', quantidade: parseInt(quantidade), valor_total: parseFloat(valor_total), forma_pgto, data: dataAtual }
   );
-
   res.json({ success: true, sale });
 });
 
@@ -246,7 +246,6 @@ app.get('/api/comissoes', async (req, res) => {
   res.json(rows);
 });
 
-// Fallback SPA para rotas do sistema
 app.get('/sistema*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'sistema', 'index.html'));
 });

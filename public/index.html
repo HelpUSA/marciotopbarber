@@ -32,11 +32,6 @@
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #eab308; border-radius: 9999px; }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-    .floating-badge { animation: float 4s ease-in-out infinite; }
   </style>
 </head>
 <body class="bg-darkBg text-neutral-100 font-sans min-h-screen flex flex-col selection:bg-gold selection:text-black custom-scrollbar">
@@ -78,7 +73,7 @@
       </div>
     </div>
 
-    <!-- Menu Gaveta Mobile (Slide-Over) -->
+    <!-- Menu Gaveta Mobile -->
     <div id="mobile-nav" class="hidden md:hidden border-t border-white/10 bg-darkNav p-4 space-y-3 text-xs font-bold text-neutral-300">
       <a href="#inicio" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Início</a>
       <a href="#sobre" onclick="toggleMobileNav()" class="block py-2 px-3 rounded-lg hover:bg-white/5 hover:text-gold transition">Sobre o Márcio</a>
@@ -180,50 +175,25 @@
       <p class="text-neutral-400 text-sm mt-2">Escolha o seu serviço e agende diretamente pelo sistema online</p>
     </div>
 
-    <div id="servicos-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Injetado via JS -->
-    </div>
+    <div id="servicos-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </section>
 
-  <!-- GALERIA DE FOTOS E TRABALHOS -->
+  <!-- GALERIA DE FOTOS DINÂMICA -->
   <section id="galeria" class="py-16 px-4 bg-neutral-950/60 border-t border-b border-white/5">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
-        <span class="text-gold font-extrabold text-xs uppercase tracking-widest">Portfólio de Trabalhos</span>
+        <span class="text-gold font-extrabold text-xs uppercase tracking-widest">Portfólio em Tempo Real</span>
         <h2 class="text-2xl sm:text-4xl font-black text-white mt-1">Galeria de Estilos</h2>
-        <p class="text-neutral-400 text-sm mt-2">Confira alguns dos cortes e acabamentos realizados no salão</p>
+        <p class="text-neutral-400 text-sm mt-2">Fotos e modelos atualizados pela barbearia</p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
-          <img src="/images/corte-masculino01.jpg" alt="Corte Moderno" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
-            <span class="text-xs font-bold text-gold">Corte Fade Moderno</span>
-          </div>
-        </div>
-        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
-          <img src="/images/barba01.jpg" alt="Barba Terapia" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
-            <span class="text-xs font-bold text-gold">Barba Terapia Toalha Quente</span>
-          </div>
-        </div>
-        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
-          <img src="/images/corte-masculino02.jpg" alt="Corte Degradê" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
-            <span class="text-xs font-bold text-gold">Degradê Navalhado</span>
-          </div>
-        </div>
-        <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
-          <img src="/images/corte-infantil01.jpg" alt="Corte Infantil" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
-            <span class="text-xs font-bold text-gold">Corte Infantil Especial</span>
-          </div>
-        </div>
+      <div id="galeria-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Injetado Dinamicamente da API /api/gallery -->
       </div>
     </div>
   </section>
 
-  <!-- FORMULÁRIO DE AGENDAMENTO COMPATÍVEL -->
+  <!-- FORMULÁRIO DE AGENDAMENTO -->
   <section id="agendar" class="py-16 px-4 max-w-2xl mx-auto">
     <div class="bg-darkCard p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
       <div class="text-center mb-8">
@@ -308,12 +278,10 @@
     </div>
   </section>
 
-  <!-- WIDGET FLUTUANTE DO WHATSAPP -->
   <a href="https://wa.me/5583987392265?text=Ol%C3%A1%20M%C3%A1rcio!%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-green-500 hover:bg-green-400 text-white flex items-center justify-center text-3xl shadow-2xl shadow-green-500/50 transform hover:scale-110 transition duration-300">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
-  <!-- FOOTER -->
   <footer class="border-t border-white/10 bg-black py-6 text-center text-xs text-neutral-500">
     <div class="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
       <p>© 2026 Márcio Top Barber - Desenvolvido em parceria com HelpUS E-commerce</p>
@@ -321,7 +289,6 @@
     </div>
   </footer>
 
-  <!-- SCRIPT DINÂMICO DE INTERAÇÃO -->
   <script>
     function toggleMobileNav() {
       document.getElementById('mobile-nav').classList.toggle('hidden');
@@ -329,10 +296,25 @@
 
     async function loadData() {
       try {
-        const [servicosRes, barbeirosRes] = await Promise.all([
+        const [servicosRes, barbeirosRes, galleryRes] = await Promise.all([
           fetch('/api/servicos').then(r => r.json()),
-          fetch('/api/barbeiros').then(r => r.json())
+          fetch('/api/barbeiros').then(r => r.json()),
+          fetch('/api/gallery').then(r => r.json())
         ]);
+
+        // Render Galeria Dinâmica
+        const galeriaGrid = document.getElementById('galeria-grid');
+        if (galleryRes && galleryRes.length > 0) {
+          galeriaGrid.innerHTML = galleryRes.map(g => `
+            <div class="group relative overflow-hidden rounded-2xl border border-white/10 aspect-square">
+              <img src="${g.url}" alt="${g.titulo}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+              <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-2 text-center">
+                <span class="text-xs font-bold text-gold">${g.titulo}</span>
+                <span class="text-[10px] text-neutral-300">${g.categoria}</span>
+              </div>
+            </div>
+          `).join('');
+        }
 
         const servicosGrid = document.getElementById('servicos-grid');
         const selectServico = document.getElementById('select-servico');
@@ -359,7 +341,7 @@
         selectBarbeiro.innerHTML = barbeirosRes.map(b => `<option value="${b.nome}">${b.nome}</option>`).join('');
 
       } catch (err) {
-        console.error('Erro ao carregar catálogo:', err);
+        console.error('Erro ao carregar dados:', err);
       }
     }
 

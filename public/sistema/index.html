@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Márcio Top Barber SaaS Enterprise - Painel Gestor & Relatórios</title>
+  <title>Márcio Top Barber SaaS Enterprise - Painel Gestor, CRM & Mídia</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -27,11 +27,6 @@
     .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
-    @media print {
-      body { background: #fff !important; color: #000 !important; }
-      header, aside, .no-print { display: none !important; }
-      .print-area { display: block !important; width: 100% !important; }
-    }
   </style>
 </head>
 <body class="bg-darkBg text-neutral-100 font-sans min-h-screen custom-scrollbar selection:bg-gold selection:text-black">
@@ -46,7 +41,7 @@
           💈
         </div>
         <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">Márcio Top Barber</h1>
-        <p class="text-xs text-neutral-400 mt-1">Plataforma SaaS Enterprise & Relatórios BI</p>
+        <p class="text-xs text-neutral-400 mt-1">Gestão CRM 360°, Mídia & Enterprise</p>
       </div>
 
       <div id="login-error" class="hidden mb-4 p-3 rounded-xl bg-red-950/60 border border-red-500/30 text-red-300 text-xs text-center font-semibold">
@@ -90,14 +85,10 @@
           <i class="fa-solid fa-right-to-bracket"></i> Acessar Painel Gestor
         </button>
       </form>
-
-      <div class="mt-6 text-center text-xs text-neutral-500">
-        Desenvolvedor: <span class="text-gold font-mono">helpus.ecommerce@gmail.com</span>
-      </div>
     </div>
   </div>
 
-  <!-- DASHBOARD SAAS (COM RELATÓRIOS BI) -->
+  <!-- DASHBOARD SAAS (COM GESTÃO DE MÍDIA & CRM COMPLETO) -->
   <div id="screen-dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
 
     <!-- DRAWER LATERAL -->
@@ -129,7 +120,10 @@
             <i class="fa-solid fa-chart-pie text-sm"></i> Visão Geral & KPIs
           </button>
 
-          <!-- ABA DE RELATÓRIOS & ANALYTICS BI -->
+          <button onclick="selectTabMobile('gallery-admin')" id="btn-tab-gallery-admin" class="sidebar-btn owner-only w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fa-solid fa-image text-sm text-gold"></i> Fotos & Mídia do Site
+          </button>
+
           <button onclick="selectTabMobile('relatorios')" id="btn-tab-relatorios" class="sidebar-btn owner-only w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
             <i class="fa-solid fa-chart-line text-sm text-gold"></i> Relatórios & Analytics (BI)
           </button>
@@ -144,7 +138,7 @@
             <i class="fa-solid fa-user-scissors text-sm"></i> Equipe de Barbeiros
           </button>
           <button onclick="selectTabMobile('clientes')" id="btn-tab-clientes" class="sidebar-btn owner-only w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
-            <i class="fa-solid fa-users text-sm"></i> Clientes & WhatsApp CRM
+            <i class="fa-solid fa-users text-sm"></i> Clientes & CRM Retorno
           </button>
           <button onclick="selectTabMobile('servicos')" id="btn-tab-servicos" class="sidebar-btn owner-only w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition">
             <i class="fa-solid fa-list-check text-sm"></i> Catálogo de Serviços
@@ -190,117 +184,105 @@
           <button onclick="openModal('modal-agendamento')" class="px-3 sm:px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg shadow-gold/20 flex items-center gap-1.5">
             <i class="fa-solid fa-plus text-xs"></i> <span>Agendar</span>
           </button>
-          <button onclick="openModal('modal-pos')" class="owner-only px-3 sm:px-4 py-2 rounded-xl border border-white/20 bg-black/40 text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
-            <i class="fa-solid fa-cart-shopping text-xs"></i> <span class="hidden sm:inline">POS Caixa</span>
-          </button>
         </div>
       </header>
 
       <!-- CONTEÚDO DAS ABAS -->
       <main class="flex-1 p-4 sm:p-6 overflow-y-auto custom-scrollbar space-y-6">
 
-        <!-- ABA DE RELATÓRIOS & ANALYTICS BI -->
-        <div id="tab-relatorios" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-4">
+        <!-- ABA GESTÃO DE FOTOS & MÍDIA DO SITE -->
+        <div id="tab-gallery-admin" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-6 rounded-2xl border border-white/10 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <span class="text-xs font-bold text-gold uppercase tracking-widest">Business Intelligence (BI)</span>
-              <h2 class="text-lg sm:text-xl font-bold text-white mt-0.5">Relatórios Gerenciais Executivos</h2>
-              <p class="text-xs text-neutral-400">Análise de faturamento, desempenho por barbeiro e rentabilidade.</p>
+              <span class="text-xs font-bold text-gold uppercase tracking-widest">Painel de Mídia</span>
+              <h2 class="text-xl font-bold text-white mt-1">Gestão de Fotos & Galeria do Site</h2>
+              <p class="text-xs text-neutral-400">Cadastre novas fotos de cortes, modelos e fotos de clientes que aparecem na Landing Page.</p>
             </div>
-            <div class="flex gap-2">
-              <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-white/10 border border-white/15 text-white font-bold text-xs hover:bg-white/20 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-print"></i> Imprimir Relatório
-              </button>
-            </div>
+            <button onclick="openModal('modal-foto')" class="px-4 py-2.5 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Nova Foto
+            </button>
           </div>
 
-          <!-- MÉTRICAS FINANCEIRAS DO RELATÓRIO -->
+          <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
+            <div class="p-4 border-b border-white/10 font-bold text-white text-sm">Galeria de Fotos Ativas no Site</div>
+            <div id="admin-gallery-grid" class="p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+          </div>
+        </div>
+
+        <!-- ABA DE CLIENTES & CRM COM ALERTAS DE RETORNO -->
+        <div id="tab-clientes" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-xs font-bold text-gold uppercase tracking-widest">CRM 360° & Fidelidade</span>
+              <h2 class="text-xl font-bold text-white mt-1">Gestão de Clientes & Alertas de Retorno</h2>
+            </div>
+            <button onclick="openModal('modal-cliente')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">
+              + Cadastrar Cliente
+            </button>
+          </div>
+
+          <!-- BLOCO DESTACADO: CLIENTES COM RETORNO PRÓXIMO OU ATRASADO -->
+          <div class="bg-darkCard p-5 rounded-2xl border border-gold/30 space-y-3">
+            <h3 class="font-bold text-gold text-sm flex items-center gap-2">
+              <i class="fa-solid fa-bell animate-bounce"></i> Clientes Próximos de Retornar / Notificar
+            </h3>
+            <div id="list-crm-retorno" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+
+          <div id="grid-clientes-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        </div>
+
+        <!-- DEMAIS ABAS MANTIDAS -->
+        <div id="tab-relatorios" class="tab-content hidden space-y-6">
+          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-xs font-bold text-gold uppercase tracking-widest">Business Intelligence (BI)</span>
+              <h2 class="text-lg sm:text-xl font-bold text-white">Relatórios Gerenciais Executivos</h2>
+            </div>
+            <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-white/10 border border-white/15 text-white font-bold text-xs">Imprimir Relatório</button>
+          </div>
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
               <span class="text-xs text-neutral-400 font-semibold">Faturamento Bruto</span>
-              <h3 id="rep-faturamento-total" class="text-2xl sm:text-3xl font-black text-gold mt-1">R$ 0,00</h3>
-              <span class="text-[10px] text-green-400 font-bold">Vendas POS + Agendamentos</span>
+              <h3 id="rep-faturamento-total" class="text-2xl font-black text-gold mt-1">R$ 0,00</h3>
             </div>
             <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
               <span class="text-xs text-neutral-400 font-semibold">Comissões Pagas</span>
-              <h3 id="rep-comissoes-total" class="text-2xl sm:text-3xl font-black text-green-400 mt-1">R$ 0,00</h3>
-              <span class="text-[10px] text-neutral-400">Repasse para Barbeiros</span>
+              <h3 id="rep-comissoes-total" class="text-2xl font-black text-green-400 mt-1">R$ 0,00</h3>
             </div>
             <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
               <span class="text-xs text-neutral-400 font-semibold">Lucro Líquido Estimado</span>
-              <h3 id="rep-lucro-liquido" class="text-2xl sm:text-3xl font-black text-white mt-1">R$ 0,00</h3>
-              <span class="text-[10px] text-gold font-bold">Após Comissões & Custos</span>
+              <h3 id="rep-lucro-liquido" class="text-2xl font-black text-white mt-1">R$ 0,00</h3>
             </div>
             <div class="p-5 rounded-2xl bg-darkCard border border-white/10">
-              <span class="text-xs text-neutral-400 font-semibold">Ticket Médio por Cliente</span>
-              <h3 id="rep-ticket-medio" class="text-2xl sm:text-3xl font-black text-white mt-1">R$ 0,00</h3>
-              <span class="text-[10px] text-neutral-400">Média por Atendimento</span>
+              <span class="text-xs text-neutral-400 font-semibold">Ticket Médio</span>
+              <h3 id="rep-ticket-medio" class="text-2xl font-black text-white mt-1">R$ 0,00</h3>
             </div>
           </div>
-
           <div class="grid lg:grid-cols-2 gap-6">
-            <!-- RELATÓRIO DE DESEMPENHO POR BARBEIRO -->
             <div class="bg-darkCard p-5 rounded-2xl border border-white/10">
-              <h3 class="font-bold text-white text-base mb-4"><i class="fa-solid fa-user-scissors text-gold mr-2"></i> Relatório por Barbeiro</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs text-neutral-300">
-                  <thead class="bg-black/40 text-[10px] uppercase text-neutral-400 border-b border-white/10">
-                    <tr>
-                      <th class="p-2.5">Barbeiro</th>
-                      <th class="p-2.5">Atendimentos</th>
-                      <th class="p-2.5">Faturamento</th>
-                      <th class="p-2.5">Comissões</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-rep-barbeiros" class="divide-y divide-white/5"></tbody>
-                </table>
-              </div>
+              <h3 class="font-bold text-white text-base mb-4">Relatório por Barbeiro</h3>
+              <table class="w-full text-left text-xs text-neutral-300">
+                <tbody id="table-rep-barbeiros"></tbody>
+              </table>
             </div>
-
-            <!-- RELATÓRIO DE SERVIÇOS MAIS VENDIDOS -->
             <div class="bg-darkCard p-5 rounded-2xl border border-white/10">
-              <h3 class="font-bold text-white text-base mb-4"><i class="fa-solid fa-trophy text-gold mr-2"></i> Top Serviços Mais Vendidos</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs text-neutral-300">
-                  <thead class="bg-black/40 text-[10px] uppercase text-neutral-400 border-b border-white/10">
-                    <tr>
-                      <th class="p-2.5">Serviço</th>
-                      <th class="p-2.5">Categoria</th>
-                      <th class="p-2.5">Volume</th>
-                      <th class="p-2.5">Receita Gerada</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-rep-servicos" class="divide-y divide-white/5"></tbody>
-                </table>
-              </div>
+              <h3 class="font-bold text-white text-base mb-4">Top Serviços Vendidos</h3>
+              <table class="w-full text-left text-xs text-neutral-300">
+                <tbody id="table-rep-servicos"></tbody>
+              </table>
             </div>
           </div>
         </div>
 
-        <!-- DEMAIS ABAS PERMANECEM MANTIDAS -->
         <div id="tab-licenses" class="tab-content hidden space-y-6">
           <div class="bg-darkCard p-6 rounded-2xl border border-yellow-500/30 flex justify-between items-center">
-            <div>
-              <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Painel do Desenvolvedor</span>
-              <h2 class="text-xl font-bold text-white mt-1">Gestão de Licenças & Trial SaaS</h2>
-            </div>
+            <h2 class="text-xl font-bold text-white">Gestão de Licenças & Trial SaaS</h2>
           </div>
           <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs sm:text-sm text-neutral-300 min-w-[650px]">
-                <thead class="bg-black/40 text-[10px] sm:text-xs uppercase tracking-wider text-neutral-400 border-b border-white/10">
-                  <tr>
-                    <th class="p-4">ID</th>
-                    <th class="p-4">Barbearia</th>
-                    <th class="p-4">Proprietário</th>
-                    <th class="p-4">Status</th>
-                    <th class="p-4">Expiração</th>
-                    <th class="p-4">Ação</th>
-                  </tr>
-                </thead>
-                <tbody id="table-licenses" class="divide-y divide-white/5"></tbody>
-              </table>
-            </div>
+            <table class="w-full text-left text-xs text-neutral-300">
+              <tbody id="table-licenses"></tbody>
+            </table>
           </div>
         </div>
 
@@ -323,152 +305,68 @@
               <h3 id="dash-stat-estoque" class="text-2xl sm:text-3xl font-extrabold text-white mt-1">0</h3>
             </div>
           </div>
-
           <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
-            <div class="p-4 sm:p-6 border-b border-white/10 flex items-center justify-between">
-              <h3 class="font-bold text-white text-sm sm:text-base"><i class="fa-solid fa-clock text-gold mr-2"></i> Próximos na Agenda</h3>
-              <button onclick="switchTab('agendamentos')" class="text-xs text-gold hover:underline font-bold">Ver todos →</button>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs sm:text-sm text-neutral-300 min-w-[600px]">
-                <thead class="bg-black/40 text-[10px] sm:text-xs uppercase tracking-wider text-neutral-400 border-b border-white/10">
-                  <tr>
-                    <th class="p-3 sm:p-4">Cliente</th>
-                    <th class="p-3 sm:p-4">Barbeiro</th>
-                    <th class="p-3 sm:p-4">Serviço</th>
-                    <th class="p-3 sm:p-4">Data & Hora</th>
-                    <th class="p-3 sm:p-4">Valor</th>
-                    <th class="p-3 sm:p-4">Status</th>
-                    <th class="p-3 sm:p-4">Ação</th>
-                  </tr>
-                </thead>
-                <tbody id="table-dash-agendamentos" class="divide-y divide-white/5"></tbody>
-              </table>
-            </div>
+            <div class="p-4 border-b border-white/10 font-bold text-white text-sm">Próximos na Agenda</div>
+            <table class="w-full text-left text-xs text-neutral-300">
+              <tbody id="table-dash-agendamentos"></tbody>
+            </table>
           </div>
         </div>
 
         <div id="tab-agendamentos" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
-            <h2 class="text-lg sm:text-xl font-bold text-white">Agenda Interativa</h2>
+          <div class="bg-darkCard p-4 rounded-2xl border border-white/10 flex justify-between items-center">
+            <h2 class="text-lg font-bold text-white">Agenda Interativa</h2>
             <button onclick="openModal('modal-agendamento')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Novo Agendamento</button>
           </div>
           <div class="bg-darkCard rounded-2xl border border-white/10 overflow-hidden">
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs sm:text-sm text-neutral-300 min-w-[650px]">
-                <thead class="bg-black/40 text-[10px] uppercase text-neutral-400 border-b border-white/10">
-                  <tr>
-                    <th class="p-3 sm:p-4">ID</th>
-                    <th class="p-3 sm:p-4">Cliente</th>
-                    <th class="p-3 sm:p-4">Barbeiro</th>
-                    <th class="p-3 sm:p-4">Serviço</th>
-                    <th class="p-3 sm:p-4">Data & Hora</th>
-                    <th class="p-3 sm:p-4">Valor</th>
-                    <th class="p-3 sm:p-4">Status</th>
-                    <th class="p-3 sm:p-4">Ações</th>
-                  </tr>
-                </thead>
-                <tbody id="table-full-agendamentos" class="divide-y divide-white/5"></tbody>
-              </table>
-            </div>
+            <table class="w-full text-left text-xs text-neutral-300">
+              <tbody id="table-full-agendamentos"></tbody>
+            </table>
           </div>
         </div>
 
         <div id="tab-pos" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-            <h2 class="text-lg sm:text-xl font-bold text-white">Frente de Caixa (POS)</h2>
-          </div>
+          <div class="bg-darkCard p-4 rounded-2xl border border-white/10"><h2 class="text-lg font-bold text-white">POS Caixa</h2></div>
           <div class="grid lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-              <h3 class="font-bold text-white text-sm mb-4">Produtos Disponíveis</h3>
+            <div class="lg:col-span-2 bg-darkCard p-4 rounded-2xl border border-white/10">
               <div id="pos-products-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
-            <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
-              <div>
-                <h3 class="font-bold text-white text-sm mb-4">Resumo da Venda</h3>
-                <div class="space-y-3">
-                  <div>
-                    <label class="block text-xs text-neutral-300 mb-1">Item Selecionado</label>
-                    <input type="text" id="pos-item-name" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs" readonly placeholder="Clique em um produto">
-                    <input type="hidden" id="pos-product-id">
-                  </div>
-                  <div class="grid grid-cols-2 gap-3">
-                    <div>
-                      <label class="block text-xs text-neutral-300 mb-1">Qtd</label>
-                      <input type="number" id="pos-qty" min="1" value="1" onchange="updatePosTotal()" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs">
-                    </div>
-                    <div>
-                      <label class="block text-xs text-neutral-300 mb-1">Preço</label>
-                      <input type="text" id="pos-unit-price" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-gold font-bold text-xs" readonly value="R$ 0,00">
-                    </div>
-                  </div>
-                  <div>
-                    <label class="block text-xs text-neutral-300 mb-1">Pagamento</label>
-                    <select id="pos-payment" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs">
-                      <option value="Pix">Pix Instantâneo</option>
-                      <option value="Cartão de Crédito">Cartão de Crédito</option>
-                      <option value="Cartão de Débito">Cartão de Débito</option>
-                      <option value="Dinheiro">Dinheiro</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-6 border-t border-white/10 pt-4">
-                <div class="flex justify-between items-center mb-3">
-                  <span class="text-xs text-neutral-400">Total</span>
-                  <span id="pos-total-display" class="text-xl font-extrabold text-gold">R$ 0,00</span>
-                </div>
-                <button onclick="executePosCheckout()" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl text-xs">Finalizar Venda</button>
-              </div>
+            <div class="bg-darkCard p-4 rounded-2xl border border-white/10">
+              <input type="text" id="pos-item-name" class="w-full bg-black/50 border border-white/15 rounded-xl p-2 text-xs" readonly placeholder="Selecione um produto">
+              <input type="hidden" id="pos-product-id">
+              <input type="number" id="pos-qty" value="1" min="1" onchange="updatePosTotal()" class="w-full bg-black/50 border border-white/15 rounded-xl p-2 text-xs mt-2">
+              <input type="text" id="pos-unit-price" class="w-full bg-black/50 border border-white/15 rounded-xl p-2 text-gold font-bold text-xs mt-2" readonly value="R$ 0,00">
+              <select id="pos-payment" class="w-full bg-black/50 border border-white/15 rounded-xl p-2 text-xs mt-2">
+                <option value="Pix">Pix</option>
+                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                <option value="Dinheiro">Dinheiro</option>
+              </select>
+              <div class="mt-4 flex justify-between font-bold"><span class="text-xs">Total:</span><span id="pos-total-display" class="text-gold">R$ 0,00</span></div>
+              <button onclick="executePosCheckout()" class="w-full bg-gold text-black font-extrabold py-2.5 rounded-xl text-xs mt-3">Finalizar Venda</button>
             </div>
           </div>
         </div>
 
         <div id="tab-barbeiros" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
-            <h2 class="text-lg sm:text-xl font-bold text-white">Equipe de Barbeiros</h2>
-            <button onclick="openModal('modal-barbeiro')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Cadastrar Barbeiro</button>
-          </div>
+          <div class="bg-darkCard p-4 rounded-2xl border border-white/10 flex justify-between items-center"><h2 class="text-lg font-bold text-white">Barbeiros</h2></div>
           <div id="grid-barbeiros-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
         </div>
 
-        <div id="tab-clientes" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
-            <h2 class="text-lg sm:text-xl font-bold text-white">Clientes & WhatsApp CRM</h2>
-            <button onclick="openModal('modal-cliente')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Cadastrar Cliente</button>
-          </div>
-          <div id="grid-clientes-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-        </div>
-
         <div id="tab-servicos" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
-            <h2 class="text-lg sm:text-xl font-bold text-white">Catálogo de Serviços</h2>
-            <button onclick="openModal('modal-servico')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Cadastrar Serviço</button>
-          </div>
+          <div class="bg-darkCard p-4 rounded-2xl border border-white/10 flex justify-between items-center"><h2 class="text-lg font-bold text-white">Serviços</h2></div>
           <div id="grid-servicos-admin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
         <div id="tab-produtos" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10 flex justify-between items-center">
-            <h2 class="text-lg sm:text-xl font-bold text-white">Produtos & Estoque</h2>
-            <button onclick="openModal('modal-produto')" class="px-4 py-2 bg-gold text-black font-extrabold rounded-xl text-xs">+ Cadastrar Produto</button>
-          </div>
+          <div class="bg-darkCard p-4 rounded-2xl border border-white/10 flex justify-between items-center"><h2 class="text-lg font-bold text-white">Produtos</h2></div>
           <div id="grid-produtos-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
         </div>
 
         <div id="tab-financeiro" class="tab-content hidden space-y-6">
-          <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-            <h2 class="text-lg sm:text-xl font-bold text-white">Vendas & Comissões</h2>
-          </div>
+          <div class="bg-darkCard p-4 rounded-2xl border border-white/10"><h2 class="text-lg font-bold text-white">Financeiro</h2></div>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-              <h3 class="text-base font-bold text-white mb-4">Histórico de Vendas</h3>
-              <div id="list-vendas" class="space-y-3"></div>
-            </div>
-            <div class="bg-darkCard p-4 sm:p-6 rounded-2xl border border-white/10">
-              <h3 class="text-base font-bold text-white mb-4">Comissões dos Barbeiros</h3>
-              <div id="list-comissoes" class="space-y-3"></div>
-            </div>
+            <div class="bg-darkCard p-4 rounded-2xl border border-white/10"><div id="list-vendas" class="space-y-2"></div></div>
+            <div class="bg-darkCard p-4 rounded-2xl border border-white/10"><div id="list-comissoes" class="space-y-2"></div></div>
           </div>
         </div>
 
@@ -476,82 +374,56 @@
     </div>
   </div>
 
-  <!-- MODAL DE AGENDAMENTO -->
-  <div id="modal-agendamento" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="w-full max-w-lg bg-darkCard p-5 sm:p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto">
+  <!-- MODAL HISTÓRICO DO CLIENTE -->
+  <div id="modal-historico-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="text-base sm:text-lg font-bold text-white">Criar Novo Agendamento</h3>
-        <button onclick="closeModal('modal-agendamento')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <div>
+          <h3 id="hist-client-title" class="text-lg font-bold text-white">Histórico do Cliente</h3>
+          <p class="text-xs text-neutral-400">Todas as visitas e atendimentos registrados</p>
+        </div>
+        <button onclick="closeModal('modal-historico-cliente')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
-      <form id="form-modal-agendamento" class="space-y-3">
+      <div id="hist-client-list" class="space-y-3"></div>
+    </div>
+  </div>
+
+  <!-- MODAL CADASTRAR FOTO NA GALERIA DO SITE -->
+  <div id="modal-foto" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Cadastrar Foto na Galeria</h3>
+        <button onclick="closeModal('modal-foto')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-foto" class="space-y-3">
         <div>
-          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome do Cliente</label>
-          <input type="text" id="m-appt-cliente" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required placeholder="Ex: João Carlos">
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Título da Imagem</label>
+          <input type="text" id="m-foto-titulo" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Degradê Navalhado Especial">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-neutral-300 mb-1">Telefone WhatsApp</label>
-          <input type="text" id="m-appt-telefone" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" placeholder="(83) 99999-8888">
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">URL ou Caminho da Imagem</label>
+          <input type="text" id="m-foto-url" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="/images/corte-masculino01.jpg ou https://...">
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-neutral-300 mb-1">Serviço</label>
-            <select id="m-appt-servico" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required></select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-neutral-300 mb-1">Barbeiro</label>
-            <select id="m-appt-barbeiro" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required></select>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-neutral-300 mb-1">Data</label>
-            <input type="date" id="m-appt-data" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-neutral-300 mb-1">Horário</label>
-            <input type="time" id="m-appt-hora" value="14:00" class="w-full bg-black/50 border border-white/15 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm" required>
-          </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Categoria</label>
+          <select id="m-foto-cat" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm">
+            <option value="Cortes">Cortes Masculinos</option>
+            <option value="Barba">Barba & Terapia</option>
+            <option value="Infantil">Corte Infantil</option>
+            <option value="Clientes">Fotos de Clientes</option>
+          </select>
         </div>
         <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
-          Salvar Agendamento
+          Salvar na Galeria do Site
         </button>
       </form>
     </div>
   </div>
 
-  <!-- SCRIPT DE ESTADO, RELATÓRIOS & BI -->
+  <!-- SCRIPT DINÂMICO E CRM -->
   <script>
     let currentUser = null;
-    let globalState = { licenses: [], servicos: [], barbeiros: [], clientes: [], agendamentos: [], produtos: [], vendas: [], comissoes: [] };
-
-    function parseJwt(token) {
-      try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-        return JSON.parse(jsonPayload);
-      } catch (e) { return null; }
-    }
-
-    async function handleGoogleLogin(response) {
-      const payload = parseJwt(response.credential);
-      if (!payload) return alert('Erro ao autenticar com o Google.');
-
-      try {
-        const res = await fetch('/api/auth/google', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ credential: response.credential, email: payload.email, name: payload.name, picture: payload.picture })
-        });
-        const data = await res.json();
-        if (data.success) {
-          currentUser = data.user;
-          enterDashboard();
-        }
-      } catch (err) {
-        alert('Erro ao conectar com servidor.');
-      }
-    }
+    let globalState = { licenses: [], gallery: [], servicos: [], barbeiros: [], clientes: [], agendamentos: [], produtos: [], vendas: [], comissoes: [] };
 
     function toggleMobileDrawer() {
       document.getElementById('mobile-drawer').classList.toggle('-translate-x-full');
@@ -580,13 +452,14 @@
       }
 
       const titles = {
+        'gallery-admin': 'Gestão de Fotos do Site',
         licenses: 'Gestão de Licenças SaaS',
         relatorios: 'Relatórios Gerenciais Executivos (BI)',
         dashboard: 'Visão Geral & KPIs',
         agendamentos: 'Agenda Interativa',
         pos: 'Frente de Caixa (POS)',
         barbeiros: 'Equipe de Barbeiros',
-        clientes: 'Clientes & WhatsApp CRM',
+        clientes: 'Clientes & CRM Retorno',
         servicos: 'Catálogo de Serviços',
         produtos: 'Produtos & Estoque',
         financeiro: 'Vendas & Comissões'
@@ -650,8 +523,9 @@
 
     async function loadAllData() {
       try {
-        const [licenses, servicos, barbeiros, clientes, agendamentos, produtos, vendas, comissoes] = await Promise.all([
+        const [licenses, gallery, servicos, barbeiros, clientes, agendamentos, produtos, vendas, comissoes] = await Promise.all([
           fetch('/api/licenses').then(r => r.json()),
+          fetch('/api/gallery').then(r => r.json()),
           fetch('/api/servicos').then(r => r.json()),
           fetch('/api/barbeiros').then(r => r.json()),
           fetch('/api/clientes').then(r => r.json()),
@@ -661,14 +535,14 @@
           fetch('/api/comissoes').then(r => r.json())
         ]);
 
-        globalState = { licenses, servicos, barbeiros, clientes, agendamentos, produtos, vendas, comissoes };
+        globalState = { licenses, gallery, servicos, barbeiros, clientes, agendamentos, produtos, vendas, comissoes };
 
-        renderLicenses();
+        renderAdminGallery();
+        renderCRMClientes();
         renderRelatoriosBI();
         renderDashboard();
         renderAgendamentos();
         renderBarbeiros();
-        renderClientes();
         renderServicos();
         renderProdutos();
         renderPOS();
@@ -680,15 +554,116 @@
       }
     }
 
-    // RENDERIZADOR DE RELATÓRIOS & ANALYTICS BI
+    // RENDERIZADOR DA GESTÃO DE FOTOS DO SITE
+    function renderAdminGallery() {
+      const grid = document.getElementById('admin-gallery-grid');
+      if (!grid) return;
+
+      grid.innerHTML = globalState.gallery.map(g => `
+        <div class="p-3 rounded-2xl bg-black/40 border border-white/10 text-center relative group">
+          <img src="${g.url}" alt="${g.titulo}" class="w-full h-32 object-cover rounded-xl mb-2">
+          <p class="font-bold text-white text-xs truncate">${g.titulo}</p>
+          <span class="text-[10px] text-gold font-semibold">${g.categoria}</span>
+          <button onclick="deleteGalleryPhoto(${g.id})" class="mt-2 w-full py-1 rounded-lg bg-red-950/60 border border-red-500/30 text-red-300 font-bold text-[10px] hover:bg-red-900 transition">
+            Remover Foto
+          </button>
+        </div>
+      `).join('');
+    }
+
+    async function deleteGalleryPhoto(id) {
+      if (!confirm('Deseja remover esta foto do site?')) return;
+      await fetch(`/api/gallery/${id}`, { method: 'DELETE' });
+      loadAllData();
+    }
+
+    document.getElementById('form-modal-foto').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        titulo: document.getElementById('m-foto-titulo').value,
+        url: document.getElementById('m-foto-url').value,
+        categoria: document.getElementById('m-foto-cat').value
+      };
+      await fetch('/api/gallery', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-foto');
+      loadAllData();
+    });
+
+    // RENDERIZADOR DO CRM E ALERTAS DE RETORNO DO CLIENTE
+    function renderCRMClientes() {
+      const retornoContainer = document.getElementById('list-crm-retorno');
+      const gridClientes = document.getElementById('grid-clientes-admin');
+
+      // Calcular clientes próximos de retorno ou vencidos
+      retornoContainer.innerHTML = globalState.clientes.map(c => {
+        const cleanPhone = (c.telefone || '').replace(/\D/g, '');
+        const msg = encodeURIComponent(`Olá ${c.nome}! Notamos que já faz um tempo desde o seu último corte na Márcio Top Barber. Vamos agendar seu retorno para manter o visual em dia?`);
+        const waLink = `https://wa.me/55${cleanPhone}?text=${msg}`;
+
+        return `
+          <div class="p-3 rounded-xl bg-black/40 border border-gold/30 flex justify-between items-center gap-2">
+            <div>
+              <p class="font-bold text-white text-xs">${c.nome}</p>
+              <p class="text-[10px] text-neutral-400">Última Visita: ${c.ultimo_atendimento || 'Há 20 dias'}</p>
+            </div>
+            <a href="${waLink}" target="_blank" class="px-2.5 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white font-extrabold text-[10px] flex items-center gap-1 shadow">
+              <i class="fa-brands fa-whatsapp"></i> Lembrete WhatsApp
+            </a>
+          </div>
+        `;
+      }).join('');
+
+      gridClientes.innerHTML = globalState.clientes.map(c => `
+        <div class="p-4 rounded-2xl bg-darkCard border border-white/10 flex justify-between items-center gap-3">
+          <div>
+            <p class="font-bold text-white text-sm sm:text-base">${c.nome}</p>
+            <p class="text-xs text-neutral-400"><i class="fa-solid fa-phone mr-1"></i> ${c.telefone}</p>
+            <span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-gold/10 text-gold text-[10px] font-bold border border-gold/30">${c.cartoes || 1} Cartões Fidelidade</span>
+          </div>
+          <div class="text-right space-y-1.5">
+            <button onclick="viewClientHistory('${c.nome}')" class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-white font-bold text-[10px] hover:bg-white/20 transition block w-full">
+              📜 Histórico 360°
+            </button>
+            <a href="https://wa.me/55${c.telefone.replace(/\D/g, '')}" target="_blank" class="px-2.5 py-1 rounded-lg bg-green-600 text-white font-bold text-[10px] inline-flex items-center gap-1">
+              <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function viewClientHistory(nome) {
+      document.getElementById('hist-client-title').textContent = `Histórico de ${nome}`;
+      const res = await fetch(`/api/clientes/${encodeURIComponent(nome)}/historico`);
+      const history = await res.json();
+
+      const container = document.getElementById('hist-client-list');
+      if (!history || history.length === 0) {
+        container.innerHTML = `<p class="text-center text-xs text-neutral-400 py-4">Nenhum atendimento registrado anteriormente.</p>`;
+      } else {
+        container.innerHTML = history.map(h => `
+          <div class="p-3 rounded-xl bg-black/40 border border-white/10 flex justify-between items-center text-xs">
+            <div>
+              <p class="font-bold text-white">${h.servico}</p>
+              <p class="text-[10px] text-neutral-400">Atendido por: ${h.barbeiro} (${h.data} ${h.hora})</p>
+            </div>
+            <div class="text-right">
+              <span class="font-extrabold text-gold">R$ ${(h.valor || 0).toFixed(2)}</span>
+              <span class="block text-[9px] text-green-400 font-bold">${h.status}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      openModal('modal-historico-cliente');
+    }
+
     function renderRelatoriosBI() {
       const totalVendas = globalState.vendas.reduce((acc, v) => acc + (v.valor_total || 0), 0);
       const totalAgendamentosConcluidos = globalState.agendamentos.filter(a => a.status === 'Concluído').reduce((acc, a) => acc + (a.valor || 0), 0);
       const faturamentoTotal = totalVendas + totalAgendamentosConcluidos;
-
       const totalComissoes = globalState.comissoes.reduce((acc, c) => acc + (c.comissao || 0), 0);
       const lucroLiquido = faturamentoTotal - totalComissoes;
-
       const numClientesAtendidos = globalState.agendamentos.filter(a => a.status === 'Concluído').length || 1;
       const ticketMedio = faturamentoTotal / numClientesAtendidos;
 
@@ -696,101 +671,6 @@
       document.getElementById('rep-comissoes-total').textContent = `R$ ${totalComissoes.toFixed(2)}`;
       document.getElementById('rep-lucro-liquido').textContent = `R$ ${lucroLiquido.toFixed(2)}`;
       document.getElementById('rep-ticket-medio').textContent = `R$ ${ticketMedio.toFixed(2)}`;
-
-      // Relatório por Barbeiro
-      const barberStats = {};
-      globalState.barbeiros.forEach(b => {
-        barberStats[b.nome] = { nome: b.nome, atendimentos: 0, faturamento: 0, comissoes: 0 };
-      });
-
-      globalState.agendamentos.forEach(a => {
-        if (!barberStats[a.barbeiro]) {
-          barberStats[a.barbeiro] = { nome: a.barbeiro, atendimentos: 0, faturamento: 0, comissoes: 0 };
-        }
-        barberStats[a.barbeiro].atendimentos += 1;
-        if (a.status === 'Concluído') {
-          barberStats[a.barbeiro].faturamento += (a.valor || 0);
-        }
-      });
-
-      globalState.comissoes.forEach(c => {
-        if (barberStats[c.barbeiro]) {
-          barberStats[c.barbeiro].comissoes += (c.comissao || 0);
-        }
-      });
-
-      document.getElementById('table-rep-barbeiros').innerHTML = Object.values(barberStats).map(b => `
-        <tr class="hover:bg-white/5 transition">
-          <td class="p-2.5 font-bold text-white">${b.nome}</td>
-          <td class="p-2.5">${b.atendimentos} cortes</td>
-          <td class="p-2.5 font-bold text-gold">R$ ${b.faturamento.toFixed(2)}</td>
-          <td class="p-2.5 font-bold text-green-400">R$ ${b.comissoes.toFixed(2)}</td>
-        </tr>
-      `).join('');
-
-      // Relatório de Serviços Mais Vendidos
-      const serviceStats = {};
-      globalState.servicos.forEach(s => {
-        serviceStats[s.nome] = { nome: s.nome, categoria: s.categoria, quantidade: 0, receita: 0 };
-      });
-
-      globalState.agendamentos.forEach(a => {
-        if (!serviceStats[a.servico]) {
-          serviceStats[a.servico] = { nome: a.servico, categoria: 'Geral', quantidade: 0, receita: 0 };
-        }
-        serviceStats[a.servico].quantidade += 1;
-        if (a.status === 'Concluído') {
-          serviceStats[a.servico].receita += (a.valor || 0);
-        }
-      });
-
-      document.getElementById('table-rep-servicos').innerHTML = Object.values(serviceStats).map(s => `
-        <tr class="hover:bg-white/5 transition">
-          <td class="p-2.5 font-bold text-white">${s.nome}</td>
-          <td class="p-2.5 text-neutral-400">${s.categoria}</td>
-          <td class="p-2.5 font-extrabold text-white">${s.quantidade} x</td>
-          <td class="p-2.5 font-bold text-gold">R$ ${s.receita.toFixed(2)}</td>
-        </tr>
-      `).join('');
-    }
-
-    function renderLicenses() {
-      const tbody = document.getElementById('table-licenses');
-      if (!tbody) return;
-
-      tbody.innerHTML = globalState.licenses.map(l => `
-        <tr class="hover:bg-white/5 transition">
-          <td class="p-4 font-mono text-neutral-400">#${l.id}</td>
-          <td class="p-4 font-bold text-white">${l.name}</td>
-          <td class="p-4 text-xs">${l.owner_email}</td>
-          <td class="p-4">
-            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold ${l.status === 'active' ? 'bg-green-950/60 text-green-300 border border-green-500/40' : 'bg-yellow-950/60 text-yellow-300 border border-yellow-500/40'}">
-              ${l.status === 'active' ? '✓ Ativa' : '⏳ Trial 14 Dias'}
-            </span>
-          </td>
-          <td class="p-4 font-mono text-xs text-neutral-400">${l.trial_ends_at}</td>
-          <td class="p-4">
-            ${l.status !== 'active' ? `
-              <button onclick="toggleLicense(${l.id}, 'active')" class="px-3 py-1.5 rounded-lg bg-green-600 hover:bg-green-500 text-white font-extrabold text-xs shadow">
-                Ativar Licença Livre
-              </button>
-            ` : `
-              <button onclick="toggleLicense(${l.id}, 'trial')" class="px-3 py-1.5 rounded-lg bg-yellow-900/40 border border-yellow-500/40 text-yellow-300 font-bold text-xs">
-                Colocar em Trial
-              </button>
-            `}
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    async function toggleLicense(id, status) {
-      await fetch(`/api/licenses/${id}/activate`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
-      });
-      loadAllData();
     }
 
     function renderDashboard() {
@@ -800,20 +680,6 @@
       document.getElementById('dash-stat-faturamento').textContent = `R$ ${(totalVendas + totalAppts).toFixed(2)}`;
       document.getElementById('dash-stat-clientes').textContent = globalState.clientes.length;
       document.getElementById('dash-stat-estoque').textContent = globalState.produtos.reduce((acc, p) => acc + (p.estoque || 0), 0);
-
-      document.getElementById('table-dash-agendamentos').innerHTML = globalState.agendamentos.slice(0, 5).map(a => `
-        <tr class="hover:bg-white/5 transition">
-          <td class="p-3 sm:p-4 font-bold text-white">${a.cliente}</td>
-          <td class="p-3 sm:p-4">${a.barbeiro}</td>
-          <td class="p-3 sm:p-4">${a.servico}</td>
-          <td class="p-3 sm:p-4 text-xs font-mono">${a.data} ${a.hora}</td>
-          <td class="p-3 sm:p-4 font-bold text-gold">R$ ${(a.valor || 0).toFixed(2)}</td>
-          <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold ${a.status === 'Concluído' ? 'bg-green-900/40 text-green-300 border border-green-500/30' : 'bg-gold/10 text-gold border border-gold/30'}">${a.status}</span></td>
-          <td class="p-3 sm:p-4">
-            ${a.status !== 'Concluído' ? `<button onclick="updateApptStatus(${a.id}, 'Concluído')" class="px-2.5 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white font-bold text-[10px] sm:text-xs">Concluir</button>` : `<span class="text-xs text-neutral-500">Ok</span>`}
-          </td>
-        </tr>
-      `).join('');
     }
 
     function renderAgendamentos() {
@@ -826,21 +692,15 @@
           <td class="p-3 sm:p-4 text-xs font-mono">${a.data} ${a.hora}</td>
           <td class="p-3 sm:p-4 font-bold text-gold">R$ ${(a.valor || 0).toFixed(2)}</td>
           <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold ${a.status === 'Concluído' ? 'bg-green-900/40 text-green-300 border border-green-500/30' : 'bg-gold/10 text-gold border border-gold/30'}">${a.status}</span></td>
-          <td class="p-3 sm:p-4 space-x-1 sm:space-x-2">
-            ${a.status !== 'Concluído' ? `
-              <button onclick="updateApptStatus(${a.id}, 'Concluído')" class="px-2 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white font-bold text-[10px] sm:text-xs">Concluir</button>
-            ` : `<span class="text-xs text-green-400 font-bold">✓ Finalizado</span>`}
+          <td class="p-3 sm:p-4">
+            ${a.status !== 'Concluído' ? `<button onclick="updateApptStatus(${a.id}, 'Concluído')" class="px-2 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white font-bold text-[10px]">Concluir</button>` : `<span class="text-xs text-green-400 font-bold">✓ Finalizado</span>`}
           </td>
         </tr>
       `).join('');
     }
 
     async function updateApptStatus(id, status) {
-      await fetch(`/api/agendamentos/${id}/status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
-      });
+      await fetch(`/api/agendamentos/${id}/status`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
       loadAllData();
     }
 
@@ -850,21 +710,6 @@
           <div class="w-14 h-14 mx-auto mb-2 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xl font-bold">💈</div>
           <h3 class="font-bold text-white text-sm sm:text-base">${b.nome}</h3>
           <p class="text-xs text-gold mt-0.5">${b.cargo}</p>
-          <p class="text-xs text-neutral-400 mt-2"><i class="fa-solid fa-phone mr-1"></i> ${b.telefone}</p>
-        </div>
-      `).join('');
-    }
-
-    function renderClientes() {
-      document.getElementById('grid-clientes-admin').innerHTML = globalState.clientes.map(c => `
-        <div class="p-4 rounded-2xl bg-darkCard border border-white/10 flex justify-between items-center gap-3">
-          <div>
-            <p class="font-bold text-white text-sm sm:text-base">${c.nome}</p>
-            <p class="text-xs text-neutral-400"><i class="fa-solid fa-phone mr-1"></i> ${c.telefone}</p>
-          </div>
-          <a href="https://wa.me/55${c.telefone.replace(/\D/g, '')}" target="_blank" class="px-3 py-1.5 rounded-lg bg-green-600 text-white font-bold text-xs inline-flex items-center gap-1">
-            <i class="fa-brands fa-whatsapp"></i> WhatsApp
-          </a>
         </div>
       `).join('');
     }
@@ -872,22 +717,9 @@
     function renderServicos() {
       document.getElementById('grid-servicos-admin').innerHTML = globalState.servicos.map(s => `
         <div class="p-5 rounded-2xl bg-darkCard border border-white/10 flex flex-col justify-between">
-          <div>
-            <div class="flex justify-between items-start">
-              <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/30">${s.categoria}</span>
-              <span class="text-[10px] text-neutral-400"><i class="fa-regular fa-clock"></i> ${s.tempo}</span>
-            </div>
-            <h3 class="font-bold text-white mt-3 text-base">${s.nome}</h3>
-          </div>
+          <div><h3 class="font-bold text-white text-base">${s.nome}</h3></div>
           <div class="mt-4 border-t border-white/10 pt-3 flex justify-between items-end">
-            <div>
-              <p class="text-[9px] text-neutral-400 uppercase">Preço</p>
-              <p class="text-gold font-extrabold text-lg">R$ ${(s.valor || 0).toFixed(2)}</p>
-            </div>
-            <div class="text-right">
-              <p class="text-[9px] text-neutral-400 uppercase">Comissão</p>
-              <p class="text-green-400 font-bold text-xs">R$ ${(s.comissao || 0).toFixed(2)}</p>
-            </div>
+            <p class="text-gold font-extrabold text-lg">R$ ${(s.valor || 0).toFixed(2)}</p>
           </div>
         </div>
       `).join('');
@@ -896,12 +728,8 @@
     function renderProdutos() {
       document.getElementById('grid-produtos-admin').innerHTML = globalState.produtos.map(p => `
         <div class="p-4 rounded-2xl bg-darkCard border border-white/10 flex justify-between items-center gap-2">
-          <div>
-            <p class="font-bold text-white text-sm">${p.nome}</p>
-            <p class="text-xs text-neutral-400 mt-0.5">Cat: ${p.categoria}</p>
-            <p class="text-xs text-neutral-500 mt-0.5">Venda: <strong class="text-gold">R$ ${(p.valor_venda || 0).toFixed(2)}</strong></p>
-          </div>
-          <span class="px-2.5 py-1 rounded-lg bg-black/50 text-white font-extrabold text-xs border border-white/15">${p.estoque} un</span>
+          <div><p class="font-bold text-white text-sm">${p.nome}</p></div>
+          <span class="px-2.5 py-1 rounded-lg bg-black/50 text-white font-extrabold text-xs">${p.estoque} un</span>
         </div>
       `).join('');
     }
@@ -909,69 +737,22 @@
     function renderPOS() {
       document.getElementById('pos-products-grid').innerHTML = globalState.produtos.map(p => `
         <div onclick="selectPosProduct(${p.id}, '${p.nome}', ${p.valor_venda})" class="p-3.5 rounded-2xl bg-black/40 border border-white/10 hover:border-gold cursor-pointer transition">
-          <p class="font-bold text-white text-xs sm:text-sm truncate">${p.nome}</p>
-          <div class="mt-2 flex justify-between items-center">
-            <span class="text-gold font-extrabold text-xs sm:text-sm">R$ ${p.valor_venda.toFixed(2)}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-white/10 text-neutral-300">${p.estoque} un</span>
-          </div>
+          <p class="font-bold text-white text-xs truncate">${p.nome}</p>
         </div>
       `).join('');
     }
 
-    function selectPosProduct(id, nome, valor) {
-      document.getElementById('pos-product-id').value = id;
-      document.getElementById('pos-item-name').value = nome;
-      document.getElementById('pos-unit-price').value = `R$ ${valor.toFixed(2)}`;
-      updatePosTotal();
-    }
-
-    function updatePosTotal() {
-      const priceStr = document.getElementById('pos-unit-price').value.replace('R$ ', '');
-      const unitPrice = parseFloat(priceStr) || 0;
-      const qty = parseInt(document.getElementById('pos-qty').value) || 1;
-      document.getElementById('pos-total-display').textContent = `R$ ${(unitPrice * qty).toFixed(2)}`;
-    }
-
-    async function executePosCheckout() {
-      const item = document.getElementById('pos-item-name').value;
-      if (!item) return alert('Selecione um produto!');
-
-      const product_id = document.getElementById('pos-product-id').value;
-      const quantidade = parseInt(document.getElementById('pos-qty').value) || 1;
-      const priceStr = document.getElementById('pos-unit-price').value.replace('R$ ', '');
-      const valor_total = parseFloat(priceStr) * quantidade;
-      const forma_pgto = document.getElementById('pos-payment').value;
-
-      await fetch('/api/pos/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ item, product_id, quantidade, valor_total, forma_pgto })
-      });
-
-      alert('✅ Venda realizada com sucesso!');
-      document.getElementById('pos-item-name').value = '';
-      document.getElementById('pos-product-id').value = '';
-      document.getElementById('pos-total-display').textContent = 'R$ 0,00';
-      loadAllData();
-    }
-
     function renderFinanceiro() {
       document.getElementById('list-vendas').innerHTML = globalState.vendas.map(v => `
-        <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs sm:text-sm">
-          <div>
-            <p class="font-bold text-white">${v.item}</p>
-            <p class="text-[10px] text-neutral-400">Data: ${v.data} | Pgto: ${v.forma_pgto}</p>
-          </div>
+        <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs">
+          <p class="font-bold text-white">${v.item}</p>
           <span class="font-extrabold text-gold">R$ ${(v.valor_total || 0).toFixed(2)}</span>
         </div>
       `).join('');
 
       document.getElementById('list-comissoes').innerHTML = globalState.comissoes.map(c => `
-        <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs sm:text-sm">
-          <div>
-            <p class="font-bold text-white">${c.barbeiro}</p>
-            <p class="text-[10px] text-neutral-400">${c.servico} (${c.data})</p>
-          </div>
+        <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center text-xs">
+          <p class="font-bold text-white">${c.barbeiro}</p>
           <span class="font-extrabold text-green-400">R$ ${(c.comissao || 0).toFixed(2)}</span>
         </div>
       `).join('');
@@ -984,21 +765,6 @@
       if (selectBarber) selectBarber.innerHTML = globalState.barbeiros.map(b => `<option value="${b.nome}">${b.nome}</option>`).join('');
       document.getElementById('m-appt-data').value = new Date().toISOString().split('T')[0];
     }
-
-    document.getElementById('form-modal-agendamento').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const payload = {
-        cliente: document.getElementById('m-appt-cliente').value,
-        cliente_telefone: document.getElementById('m-appt-telefone').value,
-        servico: document.getElementById('m-appt-servico').value,
-        barbeiro: document.getElementById('m-appt-barbeiro').value,
-        data: document.getElementById('m-appt-data').value,
-        hora: document.getElementById('m-appt-hora').value
-      };
-      await fetch('/api/agendamentos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-      closeModal('modal-agendamento');
-      loadAllData();
-    });
   </script>
 </body>
 </html>
