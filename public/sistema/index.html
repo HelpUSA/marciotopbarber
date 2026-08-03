@@ -16,7 +16,8 @@
             goldHover: '#CA8A04',
             darkBg: '#09090b',
             darkCard: '#141417',
-            darkNav: '#0d0d10'
+            darkNav: '#0d0d10',
+            darkSidebar: '#101014'
           }
         }
       }
@@ -26,349 +27,478 @@
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #eab308; border-radius: 9999px; }
+    .tooltip-box {
+      display: none;
+      position: absolute;
+      z-index: 50;
+      width: 240px;
+      padding: 8px 12px;
+      font-size: 11px;
+      line-height: 1.4;
+      color: #f3f4f6;
+      background: #1f1f23;
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .has-tooltip:hover .tooltip-box { display: block; }
   </style>
 </head>
-<body class="bg-darkBg text-neutral-100 font-sans min-h-screen flex flex-col selection:bg-gold selection:text-black custom-scrollbar">
+<body class="bg-darkBg text-neutral-100 font-sans min-h-screen flex flex-col md:flex-row selection:bg-gold selection:text-black custom-scrollbar">
 
-  <!-- TOPBAR HEADER GESTOR -->
-  <header class="border-b border-white/10 bg-darkNav sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+  <!-- SIDEBAR NAVEGAÇÃO ELEGANTE E MODERNA -->
+  <aside id="sidebar-menu" class="w-full md:w-64 bg-darkSidebar border-b md:border-b-0 md:border-r border-white/10 flex flex-col shrink-0">
+    
+    <!-- BRANDING LOGO HEADER -->
+    <div class="p-5 border-b border-white/10 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center border border-gold/40 text-gold font-bold text-lg">
+        <div class="w-10 h-10 rounded-2xl bg-gold/20 flex items-center justify-center border border-gold/40 text-gold font-bold text-xl shadow-lg shadow-gold/10">
           💈
         </div>
         <div>
-          <span class="text-sm sm:text-base font-black text-white block leading-tight">Márcio Top Barber</span>
-          <span class="text-[10px] text-gold uppercase font-extrabold tracking-widest block">Sistema de Gestão & CRM</span>
+          <span class="text-base font-black text-white block tracking-tight leading-tight">Márcio Top Barber</span>
+          <span class="text-[10px] text-gold uppercase font-extrabold tracking-widest block">Gestão SaaS Enterprise</span>
         </div>
       </div>
+      
+      <!-- BOTÃO MOBILE DE NAVEGAÇÃO -->
+      <button onclick="toggleSidebarMobile()" class="md:hidden p-2 rounded-xl border border-white/10 text-neutral-300 hover:text-gold">
+        <i class="fa-solid fa-bars text-base"></i>
+      </button>
+    </div>
 
+    <!-- MENU DE SEÇÕES ORGANIZADAS -->
+    <nav id="nav-sections" class="p-4 space-y-6 flex-1 overflow-y-auto custom-scrollbar text-xs font-bold text-neutral-400">
+      
+      <!-- GRUPO 1: OPERAÇÃO -->
+      <div class="space-y-1">
+        <span class="px-3 text-[10px] uppercase font-extrabold text-neutral-500 tracking-wider block mb-2">📌 Operação & Atendimento</span>
+        
+        <button onclick="switchTab('agendamentos')" id="nav-btn-agendamentos" class="nav-item active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-gold bg-gold/10 text-gold transition text-left">
+          <i class="fa-solid fa-calendar-days text-sm w-4 text-center"></i>
+          <span>Agendamentos</span>
+        </button>
+
+        <button onclick="switchTab('clientes')" id="nav-btn-clientes" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
+          <i class="fa-solid fa-users text-sm w-4 text-center"></i>
+          <span>Clientes & Fotos</span>
+        </button>
+      </div>
+
+      <!-- GRUPO 2: SERVIÇOS & VISAGISMO -->
+      <div class="space-y-1">
+        <span class="px-3 text-[10px] uppercase font-extrabold text-neutral-500 tracking-wider block mb-2">✂️ Visagismo & Serviços</span>
+        
+        <button onclick="switchTab('tipos-cortes')" id="nav-btn-tipos-cortes" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
+          <i class="fa-solid fa-scissors text-sm w-4 text-center"></i>
+          <span>Tipos de Cortes</span>
+        </button>
+
+        <button onclick="switchTab('servicos')" id="nav-btn-servicos" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
+          <i class="fa-solid fa-list-check text-sm w-4 text-center"></i>
+          <span>Catálogo de Serviços</span>
+        </button>
+      </div>
+
+      <!-- GRUPO 3: EQUIPE & ESTOQUE -->
+      <div class="space-y-1">
+        <span class="px-3 text-[10px] uppercase font-extrabold text-neutral-500 tracking-wider block mb-2">💼 Equipe & Produtos</span>
+        
+        <button onclick="switchTab('barbeiros')" id="nav-btn-barbeiros" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
+          <i class="fa-solid fa-user-gear text-sm w-4 text-center"></i>
+          <span>Equipe de Barbeiros</span>
+        </button>
+
+        <button onclick="switchTab('produtos')" id="nav-btn-produtos" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
+          <i class="fa-solid fa-box text-sm w-4 text-center"></i>
+          <span>Estoque de Produtos</span>
+        </button>
+      </div>
+
+      <!-- GRUPO 4: FINANÇAS & MÍDIA -->
+      <div class="space-y-1">
+        <span class="px-3 text-[10px] uppercase font-extrabold text-neutral-500 tracking-wider block mb-2">💰 Finanças & Site</span>
+        
+        <button onclick="switchTab('financeiro')" id="nav-btn-financeiro" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
+          <i class="fa-solid fa-wallet text-sm w-4 text-center"></i>
+          <span>Vendas & Comissões</span>
+        </button>
+
+        <button onclick="switchTab('galeria')" id="nav-btn-galeria" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
+          <i class="fa-solid fa-images text-sm w-4 text-center"></i>
+          <span>Fotos do Site</span>
+        </button>
+      </div>
+
+      <!-- GRUPO 5: SISTEMA & SEGURANÇA -->
+      <div class="space-y-1">
+        <span class="px-3 text-[10px] uppercase font-extrabold text-neutral-500 tracking-wider block mb-2">⚙️ Sistema</span>
+        
+        <button onclick="switchTab('usuarios')" id="nav-btn-usuarios" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
+          <i class="fa-solid fa-user-shield text-sm w-4 text-center"></i>
+          <span>Usuários & Níveis</span>
+        </button>
+      </div>
+
+    </nav>
+
+    <!-- FOOTER DA SIDEBAR -->
+    <div class="p-4 border-t border-white/10 space-y-3">
+      <a href="/" target="_blank" class="w-full py-2.5 px-3 rounded-xl border border-gold/40 bg-gold/10 text-gold font-extrabold text-xs hover:bg-gold/20 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-globe"></i> Ver Site Principal
+      </a>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL (WORKSPACE) -->
+  <div class="flex-1 flex flex-col min-w-0">
+
+    <!-- TOPBAR HEADER WORKSPACE -->
+    <header class="border-b border-white/10 bg-darkNav p-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30">
       <div class="flex items-center gap-3">
-        <a href="/" target="_blank" class="px-3 py-1.5 rounded-xl border border-gold/40 bg-gold/10 text-gold font-extrabold text-xs hover:bg-gold/20 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-globe"></i> Ver Site Principal
-        </a>
-        <div id="user-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-xs">
-          <span class="w-2 h-2 rounded-full bg-green-500"></span>
-          <span id="user-email-display" class="font-semibold text-neutral-300">helpus.ecommerce@gmail.com</span>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- CONTAINER PRINCIPAL -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
-
-    <!-- KPI DASHBOARD CARDS -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-darkCard p-4 rounded-2xl border border-white/10 shadow-lg">
-        <span class="text-[10px] uppercase font-bold text-neutral-400">Total de Agendamentos</span>
-        <h3 id="stat-total-app" class="text-2xl font-black text-white mt-1">0</h3>
-      </div>
-      <div class="bg-darkCard p-4 rounded-2xl border border-white/10 shadow-lg">
-        <span class="text-[10px] uppercase font-bold text-neutral-400">Clientes Cadastrados</span>
-        <h3 id="stat-total-cli" class="text-2xl font-black text-gold mt-1">0</h3>
-      </div>
-      <div class="bg-darkCard p-4 rounded-2xl border border-white/10 shadow-lg">
-        <span class="text-[10px] uppercase font-bold text-neutral-400">Usuários no Sistema</span>
-        <h3 id="stat-total-users" class="text-2xl font-black text-white mt-1">4</h3>
-      </div>
-      <div class="bg-darkCard p-4 rounded-2xl border border-white/10 shadow-lg">
-        <span class="text-[10px] uppercase font-bold text-neutral-400">Faturamento do Mês</span>
-        <h3 id="stat-fat-mes" class="text-2xl font-black text-green-400 mt-1">R$ 0,00</h3>
-      </div>
-    </div>
-
-    <!-- BOTÕES DE AÇÕES RÁPIDAS / CADASTRAR -->
-    <div class="flex flex-wrap gap-2 pt-2 border-b border-white/10 pb-4">
-      <button onclick="openModal('modal-usuario')" class="px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg flex items-center gap-1.5">
-        <i class="fa-solid fa-user-shield"></i> + Cadastrar Usuário
-      </button>
-      <button onclick="openModal('modal-cliente')" class="px-3.5 py-2 rounded-xl border border-white/20 bg-darkCard text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
-        <i class="fa-solid fa-user-plus"></i> + Cadastrar Cliente
-      </button>
-      <button onclick="openModal('modal-barbeiro')" class="px-3.5 py-2 rounded-xl border border-white/20 bg-darkCard text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
-        <i class="fa-solid fa-scissors"></i> + Cadastrar Barbeiro
-      </button>
-      <button onclick="openModal('modal-servico')" class="px-3.5 py-2 rounded-xl border border-white/20 bg-darkCard text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
-        <i class="fa-solid fa-list-check"></i> + Cadastrar Serviço
-      </button>
-      <button onclick="openModal('modal-tipo-corte')" class="px-3.5 py-2 rounded-xl border border-gold/40 bg-gold/10 text-gold font-bold text-xs hover:bg-gold/20 transition flex items-center gap-1.5">
-        <i class="fa-solid fa-graduation-cap"></i> + Cadastrar Tipo de Corte
-      </button>
-      <button onclick="openModal('modal-produto')" class="px-3.5 py-2 rounded-xl border border-white/20 bg-darkCard text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
-        <i class="fa-solid fa-box font-bold"></i> + Cadastrar Produto
-      </button>
-      <button onclick="openModal('modal-galeria')" class="px-3.5 py-2 rounded-xl border border-white/20 bg-darkCard text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
-        <i class="fa-solid fa-image"></i> + Cadastrar Foto do Site
-      </button>
-    </div>
-
-    <!-- NAVEGAÇÃO DE TABS -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-2 text-xs font-extrabold text-neutral-400">
-      <button onclick="switchTab('agendamentos')" id="tab-btn-agendamentos" class="tab-btn active px-4 py-2.5 rounded-xl border border-gold bg-gold/10 text-gold whitespace-nowrap">
-        📅 Agendamentos
-      </button>
-      <button onclick="switchTab('usuarios')" id="tab-btn-usuarios" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
-        🔑 Usuários & Permissões
-      </button>
-      <button onclick="switchTab('clientes')" id="tab-btn-clientes" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
-        👥 Clientes & Fotos
-      </button>
-      <button onclick="switchTab('tipos-cortes')" id="tab-btn-tipos-cortes" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
-        ✂️ Tipos de Cortes (Catálogo)
-      </button>
-      <button onclick="switchTab('barbeiros')" id="tab-btn-barbeiros" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
-        💈 Barbeiros
-      </button>
-      <button onclick="switchTab('servicos')" id="tab-btn-servicos" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
-        📋 Catálogo Serviços
-      </button>
-      <button onclick="switchTab('produtos')" id="tab-btn-produtos" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
-        📦 Estoque Produtos
-      </button>
-      <button onclick="switchTab('financeiro')" id="tab-btn-financeiro" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
-        💰 Vendas & Financeiro
-      </button>
-      <button onclick="switchTab('galeria')" id="tab-btn-galeria" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
-        📸 Mídias do Site
-      </button>
-    </div>
-
-    <!-- TAB 1: AGENDAMENTOS -->
-    <div id="tab-agendamentos" class="tab-content space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-base font-bold text-white"><i class="fa-solid fa-calendar-days text-gold mr-2"></i> Agendamentos Cadastrados</h3>
-          <span class="text-xs text-neutral-400 font-semibold">Atualização em Tempo Real</span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-neutral-300">
-            <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
-              <tr>
-                <th class="p-3">Data / Hora</th>
-                <th class="p-3">Cliente</th>
-                <th class="p-3">Telefone</th>
-                <th class="p-3">Barbeiro</th>
-                <th class="p-3">Serviço</th>
-                <th class="p-3">Tipo de Corte Utilizado</th>
-                <th class="p-3">Status</th>
-                <th class="p-3 text-right">Ação</th>
-              </tr>
-            </thead>
-            <tbody id="table-agendamentos" class="divide-y divide-white/5">
-              <!-- Renderizado via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB DE GESTÃO DE USUÁRIOS & PERMISSÕES -->
-    <div id="tab-usuarios" class="tab-content hidden space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-          <div>
-            <h3 class="text-base font-bold text-white"><i class="fa-solid fa-user-shield text-gold mr-2"></i> Gestão de Usuários, Logins & Níveis de Acesso</h3>
-            <p class="text-xs text-neutral-400 mt-0.5">Gerencie os acessos de Desenvolvedores, Proprietários, Barbeiros (Funcionários) e Clientes</p>
+        <h1 id="page-current-title" class="text-lg font-black text-white flex items-center gap-2">
+          📅 Agendamentos
+        </h1>
+        <div class="relative has-tooltip cursor-pointer">
+          <span class="w-5 h-5 rounded-full bg-white/10 text-gold text-xs font-black flex items-center justify-center border border-gold/40">?</span>
+          <div class="tooltip-box top-7 left-0">
+            Painel principal de gestão da barbearia. Utilize os menus laterais para navegar rapidamente entre agendamentos, clientes, estoque e finanças!
           </div>
-          <button onclick="openModal('modal-usuario')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
-            + Cadastrar Novo Usuário
-          </button>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-neutral-300">
-            <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
-              <tr>
-                <th class="p-3">Usuário / Nome</th>
-                <th class="p-3">E-mail / Login</th>
-                <th class="p-3">Autenticação</th>
-                <th class="p-3">Nível de Acesso (Papel)</th>
-                <th class="p-3 text-right">Ação</th>
-              </tr>
-            </thead>
-            <tbody id="table-usuarios" class="divide-y divide-white/5">
-              <!-- Renderizado via JS -->
-            </tbody>
-          </table>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 2: CLIENTES CRM COM GALERIA DE FOTOS E HISTÓRICO DE CORTES -->
-    <div id="tab-clientes" class="tab-content hidden space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-          <div>
-            <h3 class="text-base font-bold text-white"><i class="fa-solid fa-users text-gold mr-2"></i> Cadastro de Clientes, Galeria de Fotos & Histórico de Cortes</h3>
-            <p class="text-xs text-neutral-400 mt-0.5">Clique em "📸 Fotos & Histórico" em qualquer cliente para adicionar fotos e ver atendimentos anteriores</p>
+      <!-- BOTÃO UNIFICADO + NOVO CADASTRO (DROPDOWN MODERNO) -->
+      <div class="relative">
+        <button onclick="toggleNewCadastroDropdown()" class="px-4 py-2.5 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg flex items-center gap-2">
+          <i class="fa-solid fa-plus-circle text-sm"></i> + Criar Novo <i class="fa-solid fa-chevron-down text-[10px]"></i>
+        </button>
+
+        <div id="dropdown-novo-menu" class="hidden absolute right-0 mt-2 w-56 bg-darkCard border border-gold/40 rounded-2xl shadow-2xl p-2 z-50 space-y-1 text-xs font-bold">
+          <button onclick="openModal('modal-cliente'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+            <i class="fa-solid fa-user-plus text-gold"></i> Novo Cliente
+          </button>
+          <button onclick="openModal('modal-barbeiro'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+            <i class="fa-solid fa-scissors text-gold"></i> Novo Barbeiro
+          </button>
+          <button onclick="openModal('modal-tipo-corte'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap text-gold"></i> Novo Tipo de Corte
+          </button>
+          <button onclick="openModal('modal-servico'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-gold"></i> Novo Serviço
+          </button>
+          <button onclick="openModal('modal-produto'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+            <i class="fa-solid fa-box text-gold"></i> Novo Produto
+          </button>
+          <button onclick="openModal('modal-usuario'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+            <i class="fa-solid fa-user-shield text-gold"></i> Novo Usuário
+          </button>
+          <button onclick="openModal('modal-galeria'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+            <i class="fa-solid fa-image text-gold"></i> Nova Foto do Site
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- AREA DE CONTEÚDO PRINCIPAL (DASHBOARD WORKSPACE) -->
+    <main class="p-4 sm:p-6 space-y-6 flex-1">
+
+      <!-- CARDS DE METRICAS KPI COM AJUDA CONTEXTUAL ? -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        
+        <!-- CARD 1 -->
+        <div class="bg-darkCard p-4.5 rounded-2xl border border-white/10 shadow-lg relative group">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] uppercase font-bold text-neutral-400">Total Agendamentos</span>
+            <div class="relative has-tooltip">
+              <span class="w-4 h-4 rounded-full bg-white/10 text-gold text-[10px] font-bold flex items-center justify-center cursor-pointer">?</span>
+              <div class="tooltip-box top-6 right-0">Quantidade total de horários agendados e atendimentos registrados.</div>
+            </div>
           </div>
-          <button onclick="openModal('modal-cliente')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
-            + Novo Cliente
-          </button>
+          <h3 id="stat-total-app" class="text-2xl font-black text-white mt-1">0</h3>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-neutral-300">
-            <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
-              <tr>
-                <th class="p-3">Cliente</th>
-                <th class="p-3">Telefone WhatsApp</th>
-                <th class="p-3">Cartões / Atendimentos</th>
-                <th class="p-3">Último Corte</th>
-                <th class="p-3">Retorno Previsto</th>
-                <th class="p-3 text-right">Gestão de Fotos & Atendimentos</th>
-              </tr>
-            </thead>
-            <tbody id="table-clientes" class="divide-y divide-white/5">
-              <!-- Renderizado via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
 
-    <!-- TAB 3: TABELA / CATÁLOGO DE TIPOS DE CORTES (CORTES DA INTERNET) -->
-    <div id="tab-tipos-cortes" class="tab-content hidden space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-          <div>
-            <h3 class="text-base font-bold text-white"><i class="fa-solid fa-graduation-cap text-gold mr-2"></i> Catálogo de Tipos de Cortes (Preenchido com a Internet)</h3>
-            <p class="text-xs text-neutral-400 mt-0.5">Cadastre os modelos de cortes oferecidos na barbearia para vincular aos agendamentos dos clientes</p>
+        <!-- CARD 2 -->
+        <div class="bg-darkCard p-4.5 rounded-2xl border border-white/10 shadow-lg relative group">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] uppercase font-bold text-neutral-400">Clientes Cadastrados</span>
+            <div class="relative has-tooltip">
+              <span class="w-4 h-4 rounded-full bg-white/10 text-gold text-[10px] font-bold flex items-center justify-center cursor-pointer">?</span>
+              <div class="tooltip-box top-6 right-0">Base de clientes cadastrados no CRM com histórico de cortes e fotos.</div>
+            </div>
           </div>
-          <button onclick="openModal('modal-tipo-corte')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
-            + Cadastrar Novo Tipo de Corte
-          </button>
+          <h3 id="stat-total-cli" class="text-2xl font-black text-gold mt-1">0</h3>
         </div>
-        <div id="grid-tipos-cortes" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Renderizado via JS -->
+
+        <!-- CARD 3 -->
+        <div class="bg-darkCard p-4.5 rounded-2xl border border-white/10 shadow-lg relative group">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] uppercase font-bold text-neutral-400">Usuários no Sistema</span>
+            <div class="relative has-tooltip">
+              <span class="w-4 h-4 rounded-full bg-white/10 text-gold text-[10px] font-bold flex items-center justify-center cursor-pointer">?</span>
+              <div class="tooltip-box top-6 right-0">Total de logins cadastrados com permissões de acesso.</div>
+            </div>
+          </div>
+          <h3 id="stat-total-users" class="text-2xl font-black text-white mt-1">4</h3>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="bg-darkCard p-4.5 rounded-2xl border border-white/10 shadow-lg relative group">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] uppercase font-bold text-neutral-400">Faturamento Mês</span>
+            <div class="relative has-tooltip">
+              <span class="w-4 h-4 rounded-full bg-white/10 text-gold text-[10px] font-bold flex items-center justify-center cursor-pointer">?</span>
+              <div class="tooltip-box top-6 right-0">Soma acumulada de vendas de produtos e serviços no caixa da barbearia.</div>
+            </div>
+          </div>
+          <h3 id="stat-fat-mes" class="text-2xl font-black text-green-400 mt-1">R$ 0,00</h3>
+        </div>
+
+      </div>
+
+      <!-- TAB 1: AGENDAMENTOS -->
+      <div id="tab-agendamentos" class="tab-content space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-calendar-days text-gold"></i> Agendamentos da Barbearia
+            </h3>
+            <span class="text-xs text-neutral-400 font-semibold">Atualização em Tempo Real</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-neutral-300">
+              <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
+                <tr>
+                  <th class="p-3">Data / Hora</th>
+                  <th class="p-3">Cliente</th>
+                  <th class="p-3">Telefone</th>
+                  <th class="p-3">Barbeiro</th>
+                  <th class="p-3">Serviço</th>
+                  <th class="p-3">Tipo de Corte Utilizado</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-right">Ação</th>
+                </tr>
+              </thead>
+              <tbody id="table-agendamentos" class="divide-y divide-white/5">
+                <!-- Renderizado via JS -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 4: BARBEIROS -->
-    <div id="tab-barbeiros" class="tab-content hidden space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-base font-bold text-white"><i class="fa-solid fa-scissors text-gold mr-2"></i> Equipe de Barbeiros</h3>
-          <button onclick="openModal('modal-barbeiro')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
-            + Cadastrar Barbeiro
-          </button>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-neutral-300">
-            <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
-              <tr>
-                <th class="p-3">Barbeiro</th>
-                <th class="p-3">Cargo</th>
-                <th class="p-3">Telefone</th>
-                <th class="p-3">Chave PIX</th>
-                <th class="p-3">Status</th>
-              </tr>
-            </thead>
-            <tbody id="table-barbeiros" class="divide-y divide-white/5">
-              <!-- Renderizado via JS -->
-            </tbody>
-          </table>
+      <!-- TAB 2: USUÁRIOS & PERMISSÕES -->
+      <div id="tab-usuarios" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-user-shield text-gold"></i> Gestão de Usuários, Logins & Níveis de Acesso
+              </h3>
+              <p class="text-xs text-neutral-400 mt-0.5">Gerencie os acessos de Desenvolvedores, Proprietários, Barbeiros (Funcionários) e Clientes</p>
+            </div>
+            <button onclick="openModal('modal-usuario')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
+              + Cadastrar Usuário
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-neutral-300">
+              <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
+                <tr>
+                  <th class="p-3">Usuário / Nome</th>
+                  <th class="p-3">E-mail / Login</th>
+                  <th class="p-3">Autenticação</th>
+                  <th class="p-3">Nível de Acesso (Papel)</th>
+                  <th class="p-3 text-right">Ação</th>
+                </tr>
+              </thead>
+              <tbody id="table-usuarios" class="divide-y divide-white/5">
+                <!-- Renderizado via JS -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 5: SERVIÇOS -->
-    <div id="tab-servicos" class="tab-content hidden space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-base font-bold text-white"><i class="fa-solid fa-list-check text-gold mr-2"></i> Serviços Disponíveis</h3>
-          <button onclick="openModal('modal-servico')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
-            + Cadastrar Serviço
-          </button>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-neutral-300">
-            <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
-              <tr>
-                <th class="p-3">Serviço</th>
-                <th class="p-3">Categoria</th>
-                <th class="p-3">Duração</th>
-                <th class="p-3">Valor (R$)</th>
-                <th class="p-3">Comissão (R$)</th>
-              </tr>
-            </thead>
-            <tbody id="table-servicos" class="divide-y divide-white/5">
-              <!-- Renderizado via JS -->
-            </tbody>
-          </table>
+      <!-- TAB 3: CLIENTES CRM COM GALERIA DE FOTOS E HISTÓRICO DE CORTES -->
+      <div id="tab-clientes" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-users text-gold"></i> Cadastro de Clientes, Galeria de Fotos & Histórico de Cortes
+              </h3>
+              <p class="text-xs text-neutral-400 mt-0.5">Clique em "📸 Fotos & Histórico" em qualquer cliente para adicionar fotos e ver atendimentos anteriores</p>
+            </div>
+            <button onclick="openModal('modal-cliente')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
+              + Novo Cliente
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-neutral-300">
+              <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
+                <tr>
+                  <th class="p-3">Cliente</th>
+                  <th class="p-3">Telefone WhatsApp</th>
+                  <th class="p-3">Cartões / Atendimentos</th>
+                  <th class="p-3">Último Corte</th>
+                  <th class="p-3">Retorno Previsto</th>
+                  <th class="p-3 text-right">Gestão de Fotos & Atendimentos</th>
+                </tr>
+              </thead>
+              <tbody id="table-clientes" class="divide-y divide-white/5">
+                <!-- Renderizado via JS -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 6: PRODUTOS -->
-    <div id="tab-produtos" class="tab-content hidden space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-base font-bold text-white"><i class="fa-solid fa-box text-gold mr-2"></i> Produtos em Estoque</h3>
-          <button onclick="openModal('modal-produto')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
-            + Cadastrar Produto
-          </button>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-neutral-300">
-            <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
-              <tr>
-                <th class="p-3">Produto</th>
-                <th class="p-3">Categoria</th>
-                <th class="p-3">Estoque</th>
-                <th class="p-3">Custo (R$)</th>
-                <th class="p-3">Venda (R$)</th>
-              </tr>
-            </thead>
-            <tbody id="table-produtos" class="divide-y divide-white/5">
-              <!-- Renderizado via JS -->
-            </tbody>
-          </table>
+      <!-- TAB 4: TABELA / CATÁLOGO DE TIPOS DE CORTES (CORTES DA INTERNET) -->
+      <div id="tab-tipos-cortes" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-scissors text-gold"></i> Catálogo de Tipos de Cortes (Preenchido com a Internet)
+              </h3>
+              <p class="text-xs text-neutral-400 mt-0.5">Cadastre os modelos de cortes oferecidos na barbearia para vincular aos agendamentos dos clientes</p>
+            </div>
+            <button onclick="openModal('modal-tipo-corte')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
+              + Cadastrar Novo Tipo de Corte
+            </button>
+          </div>
+          <div id="grid-tipos-cortes" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Renderizado via JS -->
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 7: FINANCEIRO -->
-    <div id="tab-financeiro" class="tab-content hidden space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl">
-        <h3 class="text-base font-bold text-white mb-4"><i class="fa-solid fa-wallet text-gold mr-2"></i> Relatório de Vendas & Comissões</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-neutral-300">
-            <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
-              <tr>
-                <th class="p-3">Data</th>
-                <th class="p-3">Item / Serviço</th>
-                <th class="p-3">Tipo</th>
-                <th class="p-3">Forma de Pagamento</th>
-                <th class="p-3 text-right">Valor Total</th>
-              </tr>
-            </thead>
-            <tbody id="table-vendas" class="divide-y divide-white/5">
-              <!-- Renderizado via JS -->
-            </tbody>
-          </table>
+      <!-- TAB 5: BARBEIROS -->
+      <div id="tab-barbeiros" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-user-gear text-gold"></i> Equipe de Barbeiros</h3>
+            <button onclick="openModal('modal-barbeiro')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
+              + Cadastrar Barbeiro
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-neutral-300">
+              <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
+                <tr>
+                  <th class="p-3">Barbeiro</th>
+                  <th class="p-3">Cargo</th>
+                  <th class="p-3">Telefone</th>
+                  <th class="p-3">Chave PIX</th>
+                  <th class="p-3">Status</th>
+                </tr>
+              </thead>
+              <tbody id="table-barbeiros" class="divide-y divide-white/5">
+                <!-- Renderizado via JS -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 8: MIDIAS DO SITE -->
-    <div id="tab-galeria" class="tab-content hidden space-y-4">
-      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-base font-bold text-white"><i class="fa-solid fa-image text-gold mr-2"></i> Fotos da Galeria do Site</h3>
-          <button onclick="openModal('modal-galeria')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
-            + Cadastrar Nova Foto
-          </button>
-        </div>
-        <div id="grid-galeria-admin" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <!-- Renderizado via JS -->
+      <!-- TAB 6: SERVIÇOS -->
+      <div id="tab-servicos" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-list-check text-gold"></i> Serviços Disponíveis</h3>
+            <button onclick="openModal('modal-servico')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
+              + Cadastrar Serviço
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-neutral-300">
+              <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
+                <tr>
+                  <th class="p-3">Serviço</th>
+                  <th class="p-3">Categoria</th>
+                  <th class="p-3">Duração</th>
+                  <th class="p-3">Valor (R$)</th>
+                  <th class="p-3">Comissão (R$)</th>
+                </tr>
+              </thead>
+              <tbody id="table-servicos" class="divide-y divide-white/5">
+                <!-- Renderizado via JS -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
 
-  </main>
+      <!-- TAB 7: PRODUTOS -->
+      <div id="tab-produtos" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-box text-gold"></i> Produtos em Estoque</h3>
+            <button onclick="openModal('modal-produto')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
+              + Cadastrar Produto
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-neutral-300">
+              <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
+                <tr>
+                  <th class="p-3">Produto</th>
+                  <th class="p-3">Categoria</th>
+                  <th class="p-3">Estoque</th>
+                  <th class="p-3">Custo (R$)</th>
+                  <th class="p-3">Venda (R$)</th>
+                </tr>
+              </thead>
+              <tbody id="table-produtos" class="divide-y divide-white/5">
+                <!-- Renderizado via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
-  <!-- MODAL: CADASTRAR NOVO USUÁRIO (DESENVOLVEDOR, PROPRIETÁRIO, BARBEIRO, CLIENTE) -->
+      <!-- TAB 8: FINANCEIRO -->
+      <div id="tab-financeiro" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl">
+          <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-wallet text-gold"></i> Relatório de Vendas & Comissões</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-neutral-300">
+              <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
+                <tr>
+                  <th class="p-3">Data</th>
+                  <th class="p-3">Item / Serviço</th>
+                  <th class="p-3">Tipo</th>
+                  <th class="p-3">Forma de Pagamento</th>
+                  <th class="p-3 text-right">Valor Total</th>
+                </tr>
+              </thead>
+              <tbody id="table-vendas" class="divide-y divide-white/5">
+                <!-- Renderizado via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 9: MIDIAS DO SITE -->
+      <div id="tab-galeria" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-images text-gold"></i> Fotos da Galeria do Site</h3>
+            <button onclick="openModal('modal-galeria')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition">
+              + Cadastrar Nova Foto
+            </button>
+          </div>
+          <div id="grid-galeria-admin" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <!-- Renderizado via JS -->
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL: CADASTRAR NOVO USUÁRIO -->
   <div id="modal-usuario" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -658,19 +788,41 @@
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
+    function toggleNewCadastroDropdown() {
+      document.getElementById('dropdown-novo-menu').classList.toggle('hidden');
+    }
+
+    function toggleSidebarMobile() {
+      document.getElementById('nav-sections').classList.toggle('hidden');
+    }
+
+    const tabTitles = {
+      agendamentos: '📅 Agendamentos & Agenda',
+      usuarios: '🔑 Usuários & Permissões (RBAC)',
+      clientes: '👥 Gestão de Clientes & CRM (com Fotos)',
+      'tipos-cortes': '✂️ Tipos de Cortes (Catálogo Visagista)',
+      barbeiros: '💈 Equipe de Barbeiros',
+      servicos: '📋 Catálogo de Serviços',
+      produtos: '📦 Estoque de Produtos',
+      financeiro: '💰 Vendas & Comissões',
+      galeria: '📸 Fotos da Galeria do Site'
+    };
+
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.tab-btn').forEach(el => {
+      document.querySelectorAll('.nav-item').forEach(el => {
         el.classList.remove('active', 'border-gold', 'bg-gold/10', 'text-gold');
-        el.classList.add('border-white/10', 'bg-darkCard');
+        el.classList.add('hover:bg-white/5', 'hover:text-white');
       });
 
       document.getElementById('tab-' + tabId).classList.remove('hidden');
-      const btn = document.getElementById('tab-btn-' + tabId);
+      const btn = document.getElementById('nav-btn-' + tabId);
       if (btn) {
         btn.classList.add('active', 'border-gold', 'bg-gold/10', 'text-gold');
-        btn.classList.remove('border-white/10', 'bg-darkCard');
+        btn.classList.remove('hover:bg-white/5', 'hover:text-white');
       }
+
+      document.getElementById('page-current-title').innerHTML = tabTitles[tabId] || 'Painel Gestor';
     }
 
     let globalTiposCortes = [];
@@ -700,13 +852,6 @@
         document.getElementById('stat-fat-mes').textContent = `R$ ${fatTotal.toFixed(2)}`;
 
         // USUÁRIOS
-        const roleBadges = {
-          developer: '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-purple-950 text-purple-300 border border-purple-500/40">👑 Desenvolvedor</span>',
-          owner: '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gold/20 text-gold border border-gold/40">💼 Proprietário (Dono)</span>',
-          barber: '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-950 text-blue-300 border border-blue-500/40">💈 Barbeiro (Funcionário)</span>',
-          client: '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-neutral-800 text-neutral-300 border border-white/10">👤 Cliente</span>'
-        };
-
         document.getElementById('table-usuarios').innerHTML = (usrRes || []).map(u => `
           <tr>
             <td class="p-3 font-bold text-white flex items-center gap-2">
@@ -893,7 +1038,7 @@
             </tr>
           `).join('');
         } else {
-          histTable.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-neutral-400">Nenhum agendamento prévio registrado.</td></tr>`;
+          histTable.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-neutral-400">Nenhum agendamento prévio registrado.</td>td></tr>`;
         }
 
       } catch (err) {
