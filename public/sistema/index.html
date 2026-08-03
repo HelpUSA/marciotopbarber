@@ -6,6 +6,8 @@
   <title>Painel Gestor Barbearia SaaS Enterprise | Márcio Top Barber</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- GOOGLE IDENTITY SERVICES SDK (OFFICIAL GOOGLE AUTH) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -142,18 +144,23 @@
 
     </nav>
 
-    <!-- FOOTER DA SIDEBAR -->
+    <!-- FOOTER DA SIDEBAR COM PERFIL & BOTÃO DE SAIR DA CONTA -->
     <div class="p-4 border-t border-white/10 space-y-3">
       <a href="/" target="_blank" class="w-full py-2.5 px-3 rounded-xl border border-gold/40 bg-gold/10 text-gold font-extrabold text-xs hover:bg-gold/20 transition flex items-center justify-center gap-2">
         <i class="fa-solid fa-globe"></i> Ver Site Principal
       </a>
+
+      <!-- BOTÃO DIRETO DE SAIR DA CONTA / LOGOUT -->
+      <button onclick="logoutAccount()" class="w-full py-2 px-3 rounded-xl border border-red-500/40 bg-red-950/40 text-red-400 font-extrabold text-xs hover:bg-red-900/60 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-right-from-bracket"></i> 🚪 Sair da Conta (Logout)
+      </button>
     </div>
   </aside>
 
   <!-- CONTEÚDO PRINCIPAL (WORKSPACE) -->
   <div class="flex-1 flex flex-col min-w-0">
 
-    <!-- TOPBAR HEADER WORKSPACE -->
+    <!-- TOPBAR HEADER WORKSPACE COM USER BADGE E TROCA DE CONTA -->
     <header class="border-b border-white/10 bg-darkNav p-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30">
       <div class="flex items-center gap-3">
         <h1 id="page-current-title" class="text-lg font-black text-white flex items-center gap-2">
@@ -167,35 +174,83 @@
         </div>
       </div>
 
-      <!-- BOTÃO UNIFICADO + NOVO CADASTRO (DROPDOWN MODERNO) -->
-      <div class="relative">
-        <button onclick="toggleNewCadastroDropdown()" class="px-4 py-2.5 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg flex items-center gap-2">
-          <i class="fa-solid fa-plus-circle text-sm"></i> + Criar Novo <i class="fa-solid fa-chevron-down text-[10px]"></i>
-        </button>
+      <div class="flex items-center gap-3">
+        
+        <!-- USER PERFIL BADGE COM DROPDOWN DE CONTA E LOGOUT -->
+        <div class="relative">
+          <button onclick="toggleUserDropdown()" class="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-black/60 border border-white/15 hover:border-gold/50 transition">
+            <div id="header-user-avatar" class="w-7 h-7 rounded-full bg-gold/20 flex items-center justify-center text-gold text-xs font-bold border border-gold/40">
+              👑
+            </div>
+            <div class="text-left">
+              <span id="header-user-name" class="text-xs font-extrabold text-white block leading-tight">Márcio Top Barber</span>
+              <span id="header-user-role" class="text-[9px] text-gold font-bold uppercase tracking-wider block">👑 Desenvolvedor</span>
+            </div>
+            <i class="fa-solid fa-chevron-down text-[10px] text-neutral-400 ml-1"></i>
+          </button>
 
-        <div id="dropdown-novo-menu" class="hidden absolute right-0 mt-2 w-56 bg-darkCard border border-gold/40 rounded-2xl shadow-2xl p-2 z-50 space-y-1 text-xs font-bold">
-          <button onclick="openModal('modal-cliente'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
-            <i class="fa-solid fa-user-plus text-gold"></i> Novo Cliente
-          </button>
-          <button onclick="openModal('modal-barbeiro'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
-            <i class="fa-solid fa-scissors text-gold"></i> Novo Barbeiro
-          </button>
-          <button onclick="openModal('modal-tipo-corte'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
-            <i class="fa-solid fa-graduation-cap text-gold"></i> Novo Tipo de Corte
-          </button>
-          <button onclick="openModal('modal-servico'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
-            <i class="fa-solid fa-list-check text-gold"></i> Novo Serviço
-          </button>
-          <button onclick="openModal('modal-produto'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
-            <i class="fa-solid fa-box text-gold"></i> Novo Produto
-          </button>
-          <button onclick="openModal('modal-usuario'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
-            <i class="fa-solid fa-user-shield text-gold"></i> Novo Usuário
-          </button>
-          <button onclick="openModal('modal-galeria'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
-            <i class="fa-solid fa-image text-gold"></i> Nova Foto do Site
-          </button>
+          <!-- DROPDOWN PERFIL & REALTERNAÇÃO RÁPIDA DE CONTAS -->
+          <div id="dropdown-user-menu" class="hidden absolute right-0 mt-2 w-72 bg-darkCard border border-gold/40 rounded-2xl shadow-2xl p-3 z-50 space-y-2 text-xs">
+            <div class="pb-2 border-b border-white/10">
+              <span class="text-[10px] uppercase font-bold text-neutral-400 block">Conta Logada</span>
+              <span id="drop-user-email" class="font-mono text-gold font-bold block truncate">helpus.ecommerce@gmail.com</span>
+            </div>
+
+            <span class="text-[10px] uppercase font-bold text-neutral-400 block pt-1">⚡ Troca Rápida de Conta (Testes)</span>
+            <div class="space-y-1">
+              <button onclick="switchAccount('developer')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
+                <span>👑</span> <span>Desenvolvedor Master</span>
+              </button>
+              <button onclick="switchAccount('owner')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
+                <span>💼</span> <span>Dono / Proprietário</span>
+              </button>
+              <button onclick="switchAccount('barber')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
+                <span>💈</span> <span>Barbeiro (Hugo Freitas)</span>
+              </button>
+              <button onclick="switchAccount('client')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
+                <span>👤</span> <span>Cliente (Cliente Vip 1)</span>
+              </button>
+            </div>
+
+            <div class="pt-2 border-t border-white/10">
+              <button onclick="logoutAccount()" class="w-full text-left p-2 rounded-xl bg-red-950/60 text-red-400 font-bold hover:bg-red-900 transition flex items-center gap-2">
+                <i class="fa-solid fa-right-from-bracket"></i> 🚪 Sair da Conta (Logout)
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- BOTÃO UNIFICADO + NOVO CADASTRO -->
+        <div class="relative">
+          <button onclick="toggleNewCadastroDropdown()" class="px-4 py-2.5 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg flex items-center gap-2">
+            <i class="fa-solid fa-plus-circle text-sm"></i> + Criar Novo <i class="fa-solid fa-chevron-down text-[10px]"></i>
+          </button>
+
+          <div id="dropdown-novo-menu" class="hidden absolute right-0 mt-2 w-56 bg-darkCard border border-gold/40 rounded-2xl shadow-2xl p-2 z-50 space-y-1 text-xs font-bold">
+            <button onclick="openModal('modal-cliente'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+              <i class="fa-solid fa-user-plus text-gold"></i> Novo Cliente
+            </button>
+            <button onclick="openModal('modal-barbeiro'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+              <i class="fa-solid fa-scissors text-gold"></i> Novo Barbeiro
+            </button>
+            <button onclick="openModal('modal-tipo-corte'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+              <i class="fa-solid fa-graduation-cap text-gold"></i> Novo Tipo de Corte
+            </button>
+            <button onclick="openModal('modal-servico'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-gold"></i> Novo Serviço
+            </button>
+            <button onclick="openModal('modal-produto'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+              <i class="fa-solid fa-box text-gold"></i> Novo Produto
+            </button>
+            <button onclick="openModal('modal-usuario'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+              <i class="fa-solid fa-user-shield text-gold"></i> Novo Usuário
+            </button>
+            <button onclick="openModal('modal-galeria'); toggleNewCadastroDropdown();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-gold/10 hover:text-gold transition flex items-center gap-2">
+              <i class="fa-solid fa-image text-gold"></i> Nova Foto do Site
+            </button>
+          </div>
+        </div>
+
       </div>
     </header>
 
@@ -353,7 +408,7 @@
         </div>
       </div>
 
-      <!-- TAB 4: TABELA / CATÁLOGO DE TIPOS DE CORTES (CORTES DA INTERNET) -->
+      <!-- TAB 4: TABELA / CATÁLOGO DE TIPOS DE CORTES -->
       <div id="tab-tipos-cortes" class="tab-content hidden space-y-4">
         <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
@@ -498,7 +553,70 @@
     </main>
   </div>
 
-  <!-- MODAL: CADASTRAR NOVO USUÁRIO -->
+  <!-- MODAL: LOGIN / TROCAR DE CONTA & GOOGLE AUTH -->
+  <div id="modal-login" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3 class="text-lg font-black text-white flex items-center gap-2">🔐 Login & Acesso ao Sistema</h3>
+          <p class="text-xs text-neutral-400">Escolha como deseja entrar ou testar o painel</p>
+        </div>
+        <button onclick="closeModal('modal-login')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <!-- BOTÃO OFICIAL GOOGLE SIGN-IN -->
+      <div class="mb-5 p-4 rounded-2xl bg-black/40 border border-white/10 text-center space-y-3">
+        <span class="text-xs font-bold text-neutral-300 block">Entrar com a sua Conta Google</span>
+        
+        <div id="g_id_onload"
+             data-client_id="812202824664-marciotopbarber.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleGoogleLoginResponse"
+             data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin flex justify-center"
+             data-type="standard"
+             data-shape="pill"
+             data-theme="filled_black"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
+      </div>
+
+      <!-- OU DIVISOR -->
+      <div class="relative flex py-2 items-center">
+        <div class="flex-grow border-t border-white/10"></div>
+        <span class="flex-shrink mx-3 text-[10px] text-neutral-500 font-extrabold uppercase">Ou Escolha uma Conta de Teste</span>
+        <div class="flex-grow border-t border-white/10"></div>
+      </div>
+
+      <!-- TROCA RÁPIDA DE CONTAS DE TESTE -->
+      <div class="grid grid-cols-2 gap-2 mt-3">
+        <button onclick="switchAccount('developer')" class="p-3 rounded-2xl border border-purple-500/40 bg-purple-950/20 text-purple-300 font-bold text-xs hover:bg-purple-900/40 transition text-left flex flex-col justify-between">
+          <span class="text-base">👑</span>
+          <span class="mt-2 block">Desenvolvedor</span>
+        </button>
+        <button onclick="switchAccount('owner')" class="p-3 rounded-2xl border border-gold/40 bg-gold/10 text-gold font-bold text-xs hover:bg-gold/20 transition text-left flex flex-col justify-between">
+          <span class="text-base">💼</span>
+          <span class="mt-2 block">Proprietário (Dono)</span>
+        </button>
+        <button onclick="switchAccount('barber')" class="p-3 rounded-2xl border border-blue-500/40 bg-blue-950/20 text-blue-300 font-bold text-xs hover:bg-blue-900/40 transition text-left flex flex-col justify-between">
+          <span class="text-base">💈</span>
+          <span class="mt-2 block">Barbeiro (Hugo)</span>
+        </button>
+        <button onclick="switchAccount('client')" class="p-3 rounded-2xl border border-white/20 bg-white/5 text-neutral-300 font-bold text-xs hover:bg-white/10 transition text-left flex flex-col justify-between">
+          <span class="text-base">👤</span>
+          <span class="mt-2 block">Cliente Vip</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DEMIAS MODAIS DA APLICAÇÃO -->
   <div id="modal-usuario" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -534,7 +652,6 @@
     </div>
   </div>
 
-  <!-- MODAL: GESTÃO DE FOTOS & HISTÓRICO DE ATENDIMENTOS DO CLIENTE -->
   <div id="modal-detalhes-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-3xl bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
       <div class="flex justify-between items-center mb-4 border-b border-white/10 pb-3">
@@ -545,7 +662,6 @@
         <button onclick="closeModal('modal-detalhes-cliente')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-xl"></i></button>
       </div>
 
-      <!-- SEÇÃO 1: ADICIONAR FOTO DO CLIENTE -->
       <div class="bg-black/50 p-4 rounded-2xl border border-white/10 mb-6">
         <h4 class="text-xs font-extrabold text-gold uppercase tracking-wider mb-3"><i class="fa-solid fa-camera mr-1"></i> Adicionar Foto do Corte / Atendimento</h4>
         <form id="form-add-foto-cliente" class="grid sm:grid-cols-3 gap-3 items-end">
@@ -564,7 +680,6 @@
         </form>
       </div>
 
-      <!-- SEÇÃO 2: GALERIA DE FOTOS DO CLIENTE -->
       <div class="mb-6">
         <h4 class="text-xs font-extrabold text-white uppercase tracking-wider mb-3"><i class="fa-solid fa-images text-gold mr-1"></i> Galeria de Fotos Registradas</h4>
         <div id="grid-fotos-cliente" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -572,7 +687,6 @@
         </div>
       </div>
 
-      <!-- SEÇÃO 3: HISTÓRICO DE ATENDIMENTOS E TIPOS DE CORTES -->
       <div>
         <h4 class="text-xs font-extrabold text-white uppercase tracking-wider mb-3"><i class="fa-solid fa-history text-gold mr-1"></i> Histórico de Agendamentos & Cortes Utilizados</h4>
         <div class="overflow-x-auto">
@@ -596,7 +710,6 @@
     </div>
   </div>
 
-  <!-- MODAL: CADASTRAR TIPO DE CORTE DA INTERNET -->
   <div id="modal-tipo-corte" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -629,7 +742,6 @@
     </div>
   </div>
 
-  <!-- DEMAIS MODAIS EXISTENTES -->
   <div id="modal-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-white/10 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -792,8 +904,105 @@
       document.getElementById('dropdown-novo-menu').classList.toggle('hidden');
     }
 
+    function toggleUserDropdown() {
+      document.getElementById('dropdown-user-menu').classList.toggle('hidden');
+    }
+
     function toggleSidebarMobile() {
       document.getElementById('nav-sections').classList.toggle('hidden');
+    }
+
+    // GESTÃO DE CONTA LOGADA & SESSÃO
+    let currentUser = JSON.parse(localStorage.getItem('marcio_user')) || {
+      id: 1,
+      name: 'Márcio Top Barber (HelpUS)',
+      email: 'helpus.ecommerce@gmail.com',
+      role: 'developer',
+      avatar: '/images/marcio.jpg'
+    };
+
+    function updateHeaderUserUI() {
+      const rolesLabels = {
+        developer: '👑 Desenvolvedor Master',
+        owner: '💼 Dono da Empresa',
+        barber: '💈 Barbeiro Specialist',
+        client: '👤 Cliente'
+      };
+
+      document.getElementById('header-user-name').textContent = currentUser.name;
+      document.getElementById('header-user-role').textContent = rolesLabels[currentUser.role] || currentUser.role;
+      document.getElementById('drop-user-email').textContent = currentUser.email;
+
+      const avatarEl = document.getElementById('header-user-avatar');
+      if (currentUser.avatar && currentUser.avatar.startsWith('http')) {
+        avatarEl.innerHTML = `<img src="${currentUser.avatar}" class="w-full h-full rounded-full object-cover">`;
+      } else {
+        avatarEl.textContent = (currentUser.name || 'U').charAt(0).toUpperCase();
+      }
+    }
+
+    const testAccounts = {
+      developer: { id: 1, name: 'Márcio Top Barber (HelpUS)', email: 'helpus.ecommerce@gmail.com', role: 'developer', avatar: '/images/marcio.jpg' },
+      owner: { id: 2, name: 'Administrador Proprietário', email: 'marcio@marciotopbarber.com', role: 'owner', avatar: '/images/marcio.jpg' },
+      barber: { id: 3, name: 'Hugo Freitas', email: 'hugo@barber.com', role: 'barber', avatar: '' },
+      client: { id: 4, name: 'Cliente Vip 1', email: 'clientevip1@gmail.com', role: 'client', avatar: '' }
+    };
+
+    function switchAccount(role) {
+      if (testAccounts[role]) {
+        currentUser = testAccounts[role];
+        localStorage.setItem('marcio_user', JSON.stringify(currentUser));
+        updateHeaderUserUI();
+        document.getElementById('dropdown-user-menu').classList.add('hidden');
+        closeModal('modal-login');
+        alert(`Conta alterada com sucesso para: ${currentUser.name} (${currentUser.role.toUpperCase()})`);
+      }
+    }
+
+    function logoutAccount() {
+      localStorage.removeItem('marcio_user');
+      currentUser = { name: 'Visitante Deslogado', email: 'Não autenticado', role: 'guest', avatar: '' };
+      updateHeaderUserUI();
+      document.getElementById('dropdown-user-menu').classList.add('hidden');
+      openModal('modal-login');
+    }
+
+    // GOOGLE AUTH CALLBACK HANDLER
+    async function handleGoogleLoginResponse(response) {
+      try {
+        const payload = parseJwt(response.credential);
+        const res = await fetch('/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            credential: response.credential,
+            email: payload.email,
+            name: payload.name,
+            picture: payload.picture,
+            google_id: payload.sub
+          })
+        }).then(r => r.json());
+
+        if (res.user) {
+          currentUser = res.user;
+          localStorage.setItem('marcio_user', JSON.stringify(currentUser));
+          updateHeaderUserUI();
+          closeModal('modal-login');
+          alert(`✅ Autenticado com sucesso via Google como: ${currentUser.name}`);
+        }
+      } catch (err) {
+        console.error('Erro no Google Login:', err);
+        alert('Erro ao autenticar com a conta do Google.');
+      }
+    }
+
+    function parseJwt(token) {
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
     }
 
     const tabTitles = {
@@ -1038,7 +1247,7 @@
             </tr>
           `).join('');
         } else {
-          histTable.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-neutral-400">Nenhum agendamento prévio registrado.</td>td></tr>`;
+          histTable.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-neutral-400">Nenhum agendamento prévio registrado.</td></tr>`;
         }
 
       } catch (err) {
@@ -1186,6 +1395,7 @@
       loadAllData();
     });
 
+    updateHeaderUserUI();
     loadAllData();
   </script>
 </body>

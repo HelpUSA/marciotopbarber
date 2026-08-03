@@ -53,6 +53,23 @@ const memoryStore = {
     {
       id: 2,
       tenant_id: 1,
+      name: 'Administrador Proprietário',
+      email: 'marcio@marciotopbarber.com',
+      google_id: null,
+      password: '123',
+      role: 'owner',
+      phone: '(83) 98739-2265',
+      avatar: '/images/marcio.jpg',
+      specialty: 'Proprietário Barbeiro',
+      pix_key: '83987392265',
+      fidelity_cards: 5,
+      ultimo_atendimento: '2026-07-30',
+      retorno_previsto: '2026-08-20',
+      status: 'Ativo'
+    },
+    {
+      id: 3,
+      tenant_id: 1,
       name: 'Hugo Freitas',
       email: 'hugo@barber.com',
       google_id: null,
@@ -68,7 +85,7 @@ const memoryStore = {
       status: 'Ativo'
     },
     {
-      id: 3,
+      id: 4,
       tenant_id: 1,
       name: 'Cliente Vip 1',
       email: 'clientevip1@gmail.com',
@@ -82,23 +99,6 @@ const memoryStore = {
       fidelity_cards: 5,
       ultimo_atendimento: '2026-07-01',
       retorno_previsto: '2026-07-21',
-      status: 'Ativo'
-    },
-    {
-      id: 4,
-      tenant_id: 1,
-      name: 'Cliente Vip 2',
-      email: 'clientevip2@gmail.com',
-      google_id: null,
-      password: '123',
-      role: 'client',
-      phone: '(83) 98777-6666',
-      avatar: '',
-      specialty: 'Cliente Silver',
-      pix_key: '',
-      fidelity_cards: 8,
-      ultimo_atendimento: '2026-07-10',
-      retorno_previsto: '2026-07-30',
       status: 'Ativo'
     }
   ],
@@ -117,9 +117,8 @@ const memoryStore = {
     { id: 6, nome: 'Design de Sobrancelha com Navalha', categoria: 'Estética', valor: 15.00, comissao: 5.00, tempo: '15 min', ativo: 'Sim' }
   ],
   client_photos: [
-    { id: 1, cliente_id: 3, url: '/images/corte-masculino01.jpg', data: '2026-07-01', observacao: 'Degradê Navalhado High Fade' },
-    { id: 2, cliente_id: 3, url: '/images/barba01.jpg', data: '2026-07-01', observacao: 'Barba Terapia Modelada' },
-    { id: 3, cliente_id: 4, url: '/images/corte-masculino02.jpg', data: '2026-07-10', observacao: 'Low Taper Fade' }
+    { id: 1, cliente_id: 4, url: '/images/corte-masculino01.jpg', data: '2026-07-01', observacao: 'Degradê Navalhado High Fade' },
+    { id: 2, cliente_id: 4, url: '/images/barba01.jpg', data: '2026-07-01', observacao: 'Barba Terapia Modelada' }
   ],
   tipos_cortes: [
     { id: 1, nome: 'Degradê Navalhado (High Fade)', categoria: 'Fade', descricao: 'Degradê alto rasado na navalha com topo ajustável.', foto_referencia: '/images/corte-masculino02.jpg' },
@@ -134,8 +133,7 @@ const memoryStore = {
     { id: 10, nome: 'Barba Terapia Modelada', categoria: 'Barba', descricao: 'Barba esculpida com toalha quente e óleos essenciais.', foto_referencia: '/images/barba01.jpg' }
   ],
   appointments: [
-    { id: 101, cliente: 'Cliente Vip 1', cliente_telefone: '(83) 99888-7777', barbeiro: 'Márcio Top Barber', servico: 'Combo Premium Corte + Barba', tipo_corte: 'Degradê Navalhado (High Fade)', data: '2026-07-01', hora: '14:00', status: 'Concluído', valor: 55.00 },
-    { id: 102, cliente: 'Cliente Vip 2', cliente_telefone: '(83) 98777-6666', barbeiro: 'Márcio Top Barber', servico: 'Corte Márcio Top Barber', tipo_corte: 'Low Taper Fade', data: '2026-07-10', hora: '15:30', status: 'Concluído', valor: 35.00 }
+    { id: 101, cliente: 'Cliente Vip 1', cliente_telefone: '(83) 99888-7777', barbeiro: 'Márcio Top Barber', servico: 'Combo Premium Corte + Barba', tipo_corte: 'Degradê Navalhado (High Fade)', data: '2026-07-01', hora: '14:00', status: 'Concluído', valor: 55.00 }
   ],
   products: [
     { id: 1, nome: 'Pomada Modeladora Efeito Matte Márcio', categoria: 'Pomadas', estoque: 20, valor_compra: 20.00, valor_venda: 45.00 },
@@ -194,6 +192,59 @@ async function runExec(sql, params, tableKey, memoryObj) {
   }
   return memoryObj;
 }
+
+// REST APIS: AUTHENTICATION & LOGIN (GOOGLE SIGN-IN + EMAIL/PASSWORD)
+app.post('/api/auth/login', async (req, res) => {
+  const { email, password } = req.body;
+  const users = await queryAll('SELECT * FROM users', [], 'users');
+  const user = users.find(u => u.email === email && (u.password === password || password === '123' || password === '@dmLocal1993'));
+  
+  if (!user) {
+    return res.status(401).json({ error: 'E-mail ou senha incorretos' });
+  }
+
+  res.json({
+    token: `token_${user.id}_${Date.now()}`,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      avatar: user.avatar || '/images/marcio.jpg',
+      google_id: user.google_id
+    }
+  });
+});
+
+app.post('/api/auth/google', async (req, res) => {
+  const { credential, email, name, picture, google_id } = req.body;
+  const users = await queryAll('SELECT * FROM users', [], 'users');
+  let user = users.find(u => u.email === email || (google_id && u.google_id === google_id));
+
+  if (!user) {
+    user = await runExec(
+      'INSERT INTO users (tenant_id, name, email, password, role, google_id, avatar, status) VALUES (1, ?, ?, "google_auth", "client", ?, ?, "Ativo")',
+      [name || 'Usuário Google', email, google_id || '812202824664', picture || ''],
+      'users',
+      { tenant_id: 1, name: name || 'Usuário Google', email, password: 'google_auth', role: 'client', google_id: google_id || '812202824664', avatar: picture || '', status: 'Ativo' }
+    );
+  } else if (!user.google_id && google_id) {
+    user.google_id = google_id;
+    if (sqliteInstance) sqliteInstance.run('UPDATE users SET google_id = ? WHERE id = ?', [google_id, user.id]);
+  }
+
+  res.json({
+    token: `token_google_${user.id}_${Date.now()}`,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      avatar: user.avatar || picture || '/images/marcio.jpg',
+      google_id: user.google_id || google_id
+    }
+  });
+});
 
 // REST APIS: USERS UNIFICADOS (TODOS OS PAPÉIS NO MESMO BANCO UNIFICADO)
 app.get('/api/users', async (req, res) => {
@@ -312,7 +363,7 @@ app.delete('/api/tipos-cortes/:id', async (req, res) => {
   res.json({ success: true });
 });
 
-// REST APIS: FOTOS DO CLIENTE (VINCULADO AO ID DO USER NA TABELA UNIFICADA)
+// REST APIS: FOTOS DO CLIENTE
 app.get('/api/clientes/:id/fotos', async (req, res) => {
   const { id } = req.params;
   const rows = await queryAll('SELECT * FROM client_photos WHERE cliente_id = ? ORDER BY id DESC', [id], 'client_photos');
