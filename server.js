@@ -33,10 +33,74 @@ const memoryStore = {
     { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31', created_at: '2026-07-30' }
   ],
   users: [
-    { id: 1, name: 'Márcio Top Barber (HelpUS)', email: 'helpus.ecommerce@gmail.com', google_id: '812202824664', password: '@dmLocal1993', role: 'developer', tenant_id: 1, avatar: '/images/marcio.jpg' },
-    { id: 2, name: 'Administrador Proprietário', email: 'marcio@marciotopbarber.com', google_id: null, password: '123', role: 'owner', tenant_id: 1, avatar: '' },
-    { id: 3, name: 'Hugo Freitas', email: 'hugo@barber.com', google_id: null, password: '123', role: 'barber', tenant_id: 1, avatar: '' },
-    { id: 4, name: 'Cliente Vip Exemplo', email: 'cliente@vip.com', google_id: null, password: '123', role: 'client', tenant_id: 1, avatar: '' }
+    {
+      id: 1,
+      tenant_id: 1,
+      name: 'Márcio Top Barber (HelpUS)',
+      email: 'helpus.ecommerce@gmail.com',
+      google_id: '812202824664',
+      password: '@dmLocal1993',
+      role: 'developer',
+      phone: '(83) 98739-2265',
+      avatar: '/images/marcio.jpg',
+      specialty: 'Proprietário & Barber Master',
+      pix_key: '83987392265',
+      fidelity_cards: 10,
+      ultimo_atendimento: '2026-07-30',
+      retorno_previsto: '2026-08-20',
+      status: 'Ativo'
+    },
+    {
+      id: 2,
+      tenant_id: 1,
+      name: 'Hugo Freitas',
+      email: 'hugo@barber.com',
+      google_id: null,
+      password: '123',
+      role: 'barber',
+      phone: '(31) 97527-5084',
+      avatar: '',
+      specialty: 'Barbeiro Specialist',
+      pix_key: '31975275084',
+      fidelity_cards: 2,
+      ultimo_atendimento: '2026-07-25',
+      retorno_previsto: '2026-08-14',
+      status: 'Ativo'
+    },
+    {
+      id: 3,
+      tenant_id: 1,
+      name: 'Cliente Vip 1',
+      email: 'clientevip1@gmail.com',
+      google_id: null,
+      password: '123',
+      role: 'client',
+      phone: '(83) 99888-7777',
+      avatar: '',
+      specialty: 'Cliente Gold',
+      pix_key: '',
+      fidelity_cards: 5,
+      ultimo_atendimento: '2026-07-01',
+      retorno_previsto: '2026-07-21',
+      status: 'Ativo'
+    },
+    {
+      id: 4,
+      tenant_id: 1,
+      name: 'Cliente Vip 2',
+      email: 'clientevip2@gmail.com',
+      google_id: null,
+      password: '123',
+      role: 'client',
+      phone: '(83) 98777-6666',
+      avatar: '',
+      specialty: 'Cliente Silver',
+      pix_key: '',
+      fidelity_cards: 8,
+      ultimo_atendimento: '2026-07-10',
+      retorno_previsto: '2026-07-30',
+      status: 'Ativo'
+    }
   ],
   gallery: [
     { id: 1, titulo: 'Corte Fade Moderno', url: '/images/corte-masculino01.jpg', categoria: 'Cortes' },
@@ -52,20 +116,10 @@ const memoryStore = {
     { id: 5, nome: 'Progressiva & Realinhamento Capilar', categoria: 'Química', valor: 80.00, comissao: 30.00, tempo: '80 min', ativo: 'Sim' },
     { id: 6, nome: 'Design de Sobrancelha com Navalha', categoria: 'Estética', valor: 15.00, comissao: 5.00, tempo: '15 min', ativo: 'Sim' }
   ],
-  barbers: [
-    { id: 1, nome: 'Márcio Top Barber', cargo: 'Proprietário & Barber Master', telefone: '(83) 98739-2265', chave_pix: '83987392265', ativo: 'Sim' },
-    { id: 2, nome: 'Hugo Freitas', cargo: 'Barbeiro Specialist', telefone: '(31) 97527-5084', chave_pix: '31975275084', ativo: 'Sim' },
-    { id: 3, nome: 'Marcos Silva', cargo: 'Barbeiro Visagista', telefone: '(31) 98888-1111', chave_pix: '31988881111', ativo: 'Sim' }
-  ],
-  clients: [
-    { id: 1, nome: 'Cliente Vip 1', telefone: '(83) 99888-7777', cartoes: 5, ultimo_atendimento: '2026-07-01', retorno_previsto: '2026-07-21' },
-    { id: 2, nome: 'Cliente Vip 2', telefone: '(83) 98777-6666', cartoes: 8, ultimo_atendimento: '2026-07-10', retorno_previsto: '2026-07-30' },
-    { id: 3, nome: 'Hugo Freitas', telefone: '(31) 97527-5084', cartoes: 2, ultimo_atendimento: '2026-07-25', retorno_previsto: '2026-08-14' }
-  ],
   client_photos: [
-    { id: 1, cliente_id: 1, url: '/images/corte-masculino01.jpg', data: '2026-07-01', observacao: 'Degradê Navalhado High Fade' },
-    { id: 2, cliente_id: 1, url: '/images/barba01.jpg', data: '2026-07-01', observacao: 'Barba Terapia Modelada' },
-    { id: 3, cliente_id: 2, url: '/images/corte-masculino02.jpg', data: '2026-07-10', observacao: 'Low Taper Fade' }
+    { id: 1, cliente_id: 3, url: '/images/corte-masculino01.jpg', data: '2026-07-01', observacao: 'Degradê Navalhado High Fade' },
+    { id: 2, cliente_id: 3, url: '/images/barba01.jpg', data: '2026-07-01', observacao: 'Barba Terapia Modelada' },
+    { id: 3, cliente_id: 4, url: '/images/corte-masculino02.jpg', data: '2026-07-10', observacao: 'Low Taper Fade' }
   ],
   tipos_cortes: [
     { id: 1, nome: 'Degradê Navalhado (High Fade)', categoria: 'Fade', descricao: 'Degradê alto rasado na navalha com topo ajustável.', foto_referencia: '/images/corte-masculino02.jpg' },
@@ -103,11 +157,9 @@ if (sqlite3) {
     sqliteInstance = new sqlite3.Database(isVercel ? ':memory:' : dbPath);
     sqliteInstance.serialize(() => {
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS licenses (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, owner_email TEXT, status TEXT, trial_ends_at TEXT, created_at TEXT)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT UNIQUE, google_id TEXT, password TEXT, role TEXT, tenant_id INTEGER, avatar TEXT)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, tenant_id INTEGER, name TEXT, email TEXT UNIQUE, google_id TEXT, password TEXT, role TEXT, phone TEXT, avatar TEXT, specialty TEXT, pix_key TEXT, fidelity_cards INTEGER, ultimo_atendimento TEXT, retorno_previsto TEXT, status TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS gallery (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT, url TEXT, categoria TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, valor REAL, comissao REAL, tempo TEXT, ativo TEXT)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS barbers (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, cargo TEXT, telefone TEXT, chave_pix TEXT, ativo TEXT)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, telefone TEXT, cartoes INTEGER, ultimo_atendimento TEXT, retorno_previsto TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS client_photos (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente_id INTEGER, url TEXT, data TEXT, observacao TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS tipos_cortes (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, descricao TEXT, foto_referencia TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS appointments (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT, cliente_telefone TEXT, barbeiro TEXT, servico TEXT, tipo_corte TEXT, data TEXT, hora TEXT, status TEXT, valor REAL)`);
@@ -143,19 +195,24 @@ async function runExec(sql, params, tableKey, memoryObj) {
   return memoryObj;
 }
 
-// REST APIS: USERS & ROLES (DEVELOPER, OWNER, BARBER, CLIENT)
+// REST APIS: USERS UNIFICADOS (TODOS OS PAPÉIS NO MESMO BANCO UNIFICADO)
 app.get('/api/users', async (req, res) => {
-  const rows = await queryAll('SELECT id, name, email, google_id, role, tenant_id, avatar FROM users ORDER BY id ASC', [], 'users');
-  res.json(rows);
+  const { role } = req.query;
+  const rows = await queryAll('SELECT * FROM users ORDER BY id ASC', [], 'users');
+  const list = rows.length ? rows : memoryStore.users;
+  if (role) {
+    return res.json(list.filter(u => u.role === role));
+  }
+  res.json(list);
 });
 
 app.post('/api/users', async (req, res) => {
-  const { name, email, password, role, google_id } = req.body;
+  const { name, email, password, role, phone, specialty, pix_key, google_id } = req.body;
   const created = await runExec(
-    'INSERT INTO users (name, email, password, role, google_id, tenant_id, avatar) VALUES (?, ?, ?, ?, ?, 1, "")',
-    [name, email, password || '123', role || 'client', google_id || null],
+    'INSERT INTO users (tenant_id, name, email, password, role, phone, avatar, specialty, pix_key, fidelity_cards, status, google_id) VALUES (1, ?, ?, ?, ?, ?, "", ?, ?, 1, "Ativo", ?)',
+    [name, email, password || '123', role || 'client', phone || '', specialty || '', pix_key || '', google_id || null],
     'users',
-    { name, email, password: password || '123', role: role || 'client', google_id: google_id || null, tenant_id: 1, avatar: '' }
+    { tenant_id: 1, name, email, password: password || '123', role: role || 'client', phone: phone || '', avatar: '', specialty: specialty || '', pix_key: pix_key || '', fidelity_cards: 1, status: 'Ativo', google_id: google_id || null }
   );
   res.status(201).json(created);
 });
@@ -176,7 +233,62 @@ app.delete('/api/users/:id', async (req, res) => {
   res.json({ success: true });
 });
 
-// REST APIS: TIPOS DE CORTES (CATÁLOGO DE CORTES DA INTERNET)
+// COMPATIBILIDADE DE ENDPOINTS: BARBEIROS E CLIENTES DERIVADOS DO BANCO UNIFICADO DE USERS
+app.get('/api/barbeiros', async (req, res) => {
+  const users = await queryAll('SELECT * FROM users', [], 'users');
+  const barbers = users.filter(u => u.role === 'barber' || u.role === 'owner' || u.role === 'developer').map(b => ({
+    id: b.id,
+    nome: b.name,
+    cargo: b.specialty || (b.role === 'developer' ? 'Desenvolvedor' : 'Barbeiro Master'),
+    telefone: b.phone || '(83) 98739-2265',
+    chave_pix: b.pix_key || '83987392265',
+    ativo: 'Sim'
+  }));
+  res.json(barbers);
+});
+
+app.post('/api/barbeiros', async (req, res) => {
+  const { nome, cargo, telefone, chave_pix } = req.body;
+  const emailGen = `barbeiro_${Date.now()}@marciotopbarber.com`;
+  const created = await runExec(
+    'INSERT INTO users (tenant_id, name, email, password, role, phone, specialty, pix_key, status) VALUES (1, ?, ?, "123", "barber", ?, ?, ?, "Ativo")',
+    [nome, emailGen, telefone, cargo, chave_pix],
+    'users',
+    { tenant_id: 1, name: nome, email: emailGen, password: '123', role: 'barber', phone: telefone, specialty: cargo, pix_key: chave_pix, status: 'Ativo' }
+  );
+  res.status(201).json(created);
+});
+
+app.get('/api/clientes', async (req, res) => {
+  const users = await queryAll('SELECT * FROM users', [], 'users');
+  const clients = users.filter(u => u.role === 'client' || u.phone).map(c => ({
+    id: c.id,
+    nome: c.name,
+    telefone: c.phone || '(83) 99999-0000',
+    cartoes: c.fidelity_cards || 1,
+    ultimo_atendimento: c.ultimo_atendimento || 'Recente',
+    retorno_previsto: c.retorno_previsto || 'A agendar'
+  }));
+  res.json(clients);
+});
+
+app.post('/api/clientes', async (req, res) => {
+  const { nome, telefone } = req.body;
+  const emailGen = `cliente_${Date.now()}@cliente.com`;
+  const dataHoje = new Date().toISOString().split('T')[0];
+  const dRetorno = new Date();
+  dRetorno.setDate(dRetorno.getDate() + 20);
+
+  const created = await runExec(
+    'INSERT INTO users (tenant_id, name, email, password, role, phone, fidelity_cards, ultimo_atendimento, retorno_previsto, status) VALUES (1, ?, ?, "123", "client", ?, 1, ?, ?, "Ativo")',
+    [nome, emailGen, telefone, dataHoje, dRetorno.toISOString().split('T')[0]],
+    'users',
+    { tenant_id: 1, name: nome, email: emailGen, password: '123', role: 'client', phone: telefone, fidelity_cards: 1, ultimo_atendimento: dataHoje, retorno_previsto: dRetorno.toISOString().split('T')[0], status: 'Ativo' }
+  );
+  res.status(201).json(created);
+});
+
+// REST APIS: TIPOS DE CORTES
 app.get('/api/tipos-cortes', async (req, res) => {
   const rows = await queryAll('SELECT * FROM tipos_cortes ORDER BY id DESC', [], 'tipos_cortes');
   res.json(rows);
@@ -200,7 +312,7 @@ app.delete('/api/tipos-cortes/:id', async (req, res) => {
   res.json({ success: true });
 });
 
-// REST APIS: FOTOS DO CLIENTE
+// REST APIS: FOTOS DO CLIENTE (VINCULADO AO ID DO USER NA TABELA UNIFICADA)
 app.get('/api/clientes/:id/fotos', async (req, res) => {
   const { id } = req.params;
   const rows = await queryAll('SELECT * FROM client_photos WHERE cliente_id = ? ORDER BY id DESC', [id], 'client_photos');
@@ -228,17 +340,17 @@ app.delete('/api/clientes/:id/fotos/:fotoId', async (req, res) => {
   res.json({ success: true });
 });
 
-// REST APIS: HISTÓRICO INTEGRADO DO CLIENTE (AGENDAMENTOS + CORTES + FOTOS)
+// REST APIS: HISTÓRICO INTEGRADO DO CLIENTE
 app.get('/api/clientes/:id/historico', async (req, res) => {
   const { id } = req.params;
-  const client = memoryStore.clients.find(c => c.id == id);
-  if (!client) return res.status(404).json({ error: 'Cliente não encontrado' });
+  const clientUser = memoryStore.users.find(u => u.id == id);
+  if (!clientUser) return res.status(404).json({ error: 'Cliente não encontrado' });
 
-  const clientAppointments = memoryStore.appointments.filter(a => a.cliente === client.nome || a.cliente_telefone === client.telefone);
+  const clientAppointments = memoryStore.appointments.filter(a => a.cliente === clientUser.name || a.cliente_telefone === clientUser.phone);
   const clientPhotos = memoryStore.client_photos.filter(p => p.cliente_id == id);
 
   res.json({
-    cliente: client,
+    cliente: { id: clientUser.id, nome: clientUser.name, telefone: clientUser.phone },
     agendamentos: clientAppointments,
     fotos: clientPhotos
   });
@@ -294,42 +406,6 @@ app.post('/api/servicos', async (req, res) => {
     [nome, categoria, parseFloat(valor), parseFloat(comissao), tempo],
     'services',
     { nome, categoria, valor: parseFloat(valor), comissao: parseFloat(comissao), tempo, ativo: 'Sim' }
-  );
-  res.status(201).json(created);
-});
-
-app.get('/api/barbeiros', async (req, res) => {
-  const rows = await queryAll('SELECT * FROM barbers', [], 'barbers');
-  res.json(rows);
-});
-
-app.post('/api/barbeiros', async (req, res) => {
-  const { nome, cargo, telefone, chave_pix } = req.body;
-  const created = await runExec(
-    'INSERT INTO barbers (nome, cargo, telefone, chave_pix, ativo) VALUES (?, ?, ?, ?, "Sim")',
-    [nome, cargo, telefone, chave_pix],
-    'barbers',
-    { nome, cargo, telefone, chave_pix, ativo: 'Sim' }
-  );
-  res.status(201).json(created);
-});
-
-app.get('/api/clientes', async (req, res) => {
-  const rows = await queryAll('SELECT * FROM clients', [], 'clients');
-  res.json(rows);
-});
-
-app.post('/api/clientes', async (req, res) => {
-  const { nome, telefone } = req.body;
-  const dataHoje = new Date().toISOString().split('T')[0];
-  const dRetorno = new Date();
-  dRetorno.setDate(dRetorno.getDate() + 20);
-
-  const created = await runExec(
-    'INSERT INTO clients (nome, telefone, cartoes, ultimo_atendimento, retorno_previsto) VALUES (?, ?, 1, ?, ?)',
-    [nome, telefone, dataHoje, dRetorno.toISOString().split('T')[0]],
-    'clients',
-    { nome, telefone, cartoes: 1, ultimo_atendimento: dataHoje, retorno_previsto: dRetorno.toISOString().split('T')[0] }
   );
   res.status(201).json(created);
 });

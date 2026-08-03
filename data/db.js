@@ -22,15 +22,80 @@ if (!fs.existsSync(dataDir)) {
   } catch (e) {}
 }
 
-// Memory Store Exclusivo do Márcio Top Barber
+// Memory Store Unificado do Márcio Top Barber
 const memoryStore = {
   licenses: [
     { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31', created_at: '2026-07-30' }
   ],
   users: [
-    { id: 1, name: 'Márcio Top Barber', email: 'helpus.ecommerce@gmail.com', google_id: '812202824664', password: '@dmLocal1993', role: 'developer', tenant_id: 1, avatar: '/images/marcio.jpg' },
-    { id: 2, name: 'Administrador Local', email: 'admin@admin', google_id: null, password: '123', role: 'owner', tenant_id: 1, avatar: '' },
-    { id: 3, name: 'Hugo Freitas', email: 'hugo@barber.com', google_id: null, password: '123', role: 'barber', tenant_id: 1, avatar: '' }
+    {
+      id: 1,
+      tenant_id: 1,
+      name: 'Márcio Top Barber (HelpUS)',
+      email: 'helpus.ecommerce@gmail.com',
+      google_id: '812202824664',
+      password: '@dmLocal1993',
+      role: 'developer',
+      phone: '(83) 98739-2265',
+      avatar: '/images/marcio.jpg',
+      specialty: 'Proprietário & Barber Master',
+      pix_key: '83987392265',
+      fidelity_cards: 10,
+      ultimo_atendimento: '2026-07-30',
+      retorno_previsto: '2026-08-20',
+      status: 'Ativo'
+    },
+    {
+      id: 2,
+      tenant_id: 1,
+      name: 'Hugo Freitas',
+      email: 'hugo@barber.com',
+      google_id: null,
+      password: '123',
+      role: 'barber',
+      phone: '(31) 97527-5084',
+      avatar: '',
+      specialty: 'Barbeiro Specialist',
+      pix_key: '31975275084',
+      fidelity_cards: 2,
+      ultimo_atendimento: '2026-07-25',
+      retorno_previsto: '2026-08-14',
+      status: 'Ativo'
+    },
+    {
+      id: 3,
+      tenant_id: 1,
+      name: 'Cliente Vip 1',
+      email: 'clientevip1@gmail.com',
+      google_id: null,
+      password: '123',
+      role: 'client',
+      phone: '(83) 99888-7777',
+      avatar: '',
+      specialty: 'Cliente Gold',
+      pix_key: '',
+      fidelity_cards: 5,
+      ultimo_atendimento: '2026-07-01',
+      retorno_previsto: '2026-07-21',
+      status: 'Ativo'
+    },
+    {
+      id: 4,
+      tenant_id: 1,
+      name: 'Cliente Vip 2',
+      email: 'clientevip2@gmail.com',
+      google_id: null,
+      password: '123',
+      role: 'client',
+      phone: '(83) 98777-6666',
+      avatar: '',
+      specialty: 'Cliente Silver',
+      pix_key: '',
+      fidelity_cards: 8,
+      ultimo_atendimento: '2026-07-10',
+      retorno_previsto: '2026-07-30',
+      status: 'Ativo'
+    }
   ],
   gallery: [
     { id: 1, titulo: 'Corte Fade Moderno', url: '/images/corte-masculino01.jpg', categoria: 'Cortes' },
@@ -46,20 +111,10 @@ const memoryStore = {
     { id: 5, nome: 'Progressiva & Realinhamento Capilar', categoria: 'Química', valor: 80.00, comissao: 30.00, tempo: '80 min', ativo: 'Sim' },
     { id: 6, nome: 'Design de Sobrancelha com Navalha', categoria: 'Estética', valor: 15.00, comissao: 5.00, tempo: '15 min', ativo: 'Sim' }
   ],
-  barbers: [
-    { id: 1, nome: 'Márcio Top Barber', cargo: 'Proprietário & Barber Master', telefone: '(83) 98739-2265', chave_pix: '83987392265', ativo: 'Sim' },
-    { id: 2, nome: 'Hugo Freitas', cargo: 'Barbeiro Specialist', telefone: '(31) 97527-5084', chave_pix: '31975275084', ativo: 'Sim' },
-    { id: 3, nome: 'Marcos Silva', cargo: 'Barbeiro Visagista', telefone: '(31) 98888-1111', chave_pix: '31988881111', ativo: 'Sim' }
-  ],
-  clients: [
-    { id: 1, nome: 'Cliente Vip 1', telefone: '(83) 99888-7777', cartoes: 5, ultimo_atendimento: '2026-07-01', retorno_previsto: '2026-07-21' },
-    { id: 2, nome: 'Cliente Vip 2', telefone: '(83) 98777-6666', cartoes: 8, ultimo_atendimento: '2026-07-10', retorno_previsto: '2026-07-30' },
-    { id: 3, nome: 'Hugo Freitas', telefone: '(31) 97527-5084', cartoes: 2, ultimo_atendimento: '2026-07-25', retorno_previsto: '2026-08-14' }
-  ],
   client_photos: [
-    { id: 1, cliente_id: 1, url: '/images/corte-masculino01.jpg', data: '2026-07-01', observacao: 'Degradê Navalhado High Fade' },
-    { id: 2, cliente_id: 1, url: '/images/barba01.jpg', data: '2026-07-01', observacao: 'Barba Terapia Modelada' },
-    { id: 3, cliente_id: 2, url: '/images/corte-masculino02.jpg', data: '2026-07-10', observacao: 'Low Taper Fade' }
+    { id: 1, cliente_id: 3, url: '/images/corte-masculino01.jpg', data: '2026-07-01', observacao: 'Degradê Navalhado High Fade' },
+    { id: 2, cliente_id: 3, url: '/images/barba01.jpg', data: '2026-07-01', observacao: 'Barba Terapia Modelada' },
+    { id: 3, cliente_id: 4, url: '/images/corte-masculino02.jpg', data: '2026-07-10', observacao: 'Low Taper Fade' }
   ],
   tipos_cortes: [
     { id: 1, nome: 'Degradê Navalhado (High Fade)', categoria: 'Fade', descricao: 'Degradê alto rasado na navalha com topo ajustável.', foto_referencia: '/images/corte-masculino02.jpg' },
@@ -95,26 +150,17 @@ if (sqlite3) {
   try {
     const dbPath = path.join(dataDir, 'marciotopbarber.sqlite');
     sqliteInstance = new sqlite3.Database(isVercel ? ':memory:' : dbPath);
-
     sqliteInstance.serialize(() => {
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS licenses (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, owner_email TEXT, status TEXT, trial_ends_at TEXT, created_at TEXT)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT UNIQUE, google_id TEXT, password TEXT, role TEXT, tenant_id INTEGER, avatar TEXT)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, tenant_id INTEGER, name TEXT, email TEXT UNIQUE, google_id TEXT, password TEXT, role TEXT, phone TEXT, avatar TEXT, specialty TEXT, pix_key TEXT, fidelity_cards INTEGER, ultimo_atendimento TEXT, retorno_previsto TEXT, status TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS gallery (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT, url TEXT, categoria TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, valor REAL, comissao REAL, tempo TEXT, ativo TEXT)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS barbers (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, cargo TEXT, telefone TEXT, chave_pix TEXT, ativo TEXT)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, telefone TEXT, cartoes INTEGER, ultimo_atendimento TEXT, retorno_previsto TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS client_photos (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente_id INTEGER, url TEXT, data TEXT, observacao TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS tipos_cortes (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, descricao TEXT, foto_referencia TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS appointments (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT, cliente_telefone TEXT, barbeiro TEXT, servico TEXT, tipo_corte TEXT, data TEXT, hora TEXT, status TEXT, valor REAL)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, estoque INTEGER, valor_compra REAL, valor_venda REAL)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS sales (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT, tipo TEXT, quantidade INTEGER, valor_total REAL, forma_pgto TEXT, data TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS commissions (id INTEGER PRIMARY KEY AUTOINCREMENT, barbeiro TEXT, servico TEXT, comissao REAL, data TEXT, pago TEXT)`);
-
-      sqliteInstance.get('SELECT COUNT(*) as count FROM licenses', (err, row) => {
-        if (row && row.count === 0) {
-          sqliteInstance.run(`INSERT INTO licenses (name, owner_email, status, trial_ends_at, created_at) VALUES ('Márcio Top Barber', 'helpus.ecommerce@gmail.com', 'active', '2026-12-31', '2026-07-30')`);
-        }
-      });
     });
   } catch (e) {
     console.error('Erro ao inicializar SQLite:', e);
@@ -129,10 +175,8 @@ export const db = {
   addGalleryItem: async (item) => { item.id = Date.now(); memoryStore.gallery.push(item); return item; },
   getServices: async () => memoryStore.services,
   addService: async (service) => { service.id = Date.now(); memoryStore.services.push(service); return service; },
-  getBarbers: async () => memoryStore.barbers,
-  addBarber: async (barber) => { barber.id = Date.now(); memoryStore.barbers.push(barber); return barber; },
-  getClients: async () => memoryStore.clients,
-  addClient: async (client) => { client.id = Date.now(); memoryStore.clients.push(client); return client; },
+  getBarbers: async () => memoryStore.users.filter(u => u.role === 'barber' || u.role === 'owner' || u.role === 'developer'),
+  getClients: async () => memoryStore.users.filter(u => u.role === 'client' || u.phone),
   
   // Fotos do Cliente
   getClientPhotos: async (clienteId) => {
