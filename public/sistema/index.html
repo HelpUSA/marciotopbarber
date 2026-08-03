@@ -69,8 +69,8 @@
         <h3 id="stat-total-cli" class="text-2xl font-black text-gold mt-1">0</h3>
       </div>
       <div class="bg-darkCard p-4 rounded-2xl border border-white/10 shadow-lg">
-        <span class="text-[10px] uppercase font-bold text-neutral-400">Tipos de Cortes</span>
-        <h3 id="stat-total-cortes" class="text-2xl font-black text-white mt-1">10</h3>
+        <span class="text-[10px] uppercase font-bold text-neutral-400">Usuários no Sistema</span>
+        <h3 id="stat-total-users" class="text-2xl font-black text-white mt-1">4</h3>
       </div>
       <div class="bg-darkCard p-4 rounded-2xl border border-white/10 shadow-lg">
         <span class="text-[10px] uppercase font-bold text-neutral-400">Faturamento do Mês</span>
@@ -80,7 +80,10 @@
 
     <!-- BOTÕES DE AÇÕES RÁPIDAS / CADASTRAR -->
     <div class="flex flex-wrap gap-2 pt-2 border-b border-white/10 pb-4">
-      <button onclick="openModal('modal-cliente')" class="px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg flex items-center gap-1.5">
+      <button onclick="openModal('modal-usuario')" class="px-4 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow-lg flex items-center gap-1.5">
+        <i class="fa-solid fa-user-shield"></i> + Cadastrar Usuário
+      </button>
+      <button onclick="openModal('modal-cliente')" class="px-3.5 py-2 rounded-xl border border-white/20 bg-darkCard text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
         <i class="fa-solid fa-user-plus"></i> + Cadastrar Cliente
       </button>
       <button onclick="openModal('modal-barbeiro')" class="px-3.5 py-2 rounded-xl border border-white/20 bg-darkCard text-white font-bold text-xs hover:border-gold hover:text-gold transition flex items-center gap-1.5">
@@ -104,6 +107,9 @@
     <div class="flex items-center gap-2 overflow-x-auto pb-2 text-xs font-extrabold text-neutral-400">
       <button onclick="switchTab('agendamentos')" id="tab-btn-agendamentos" class="tab-btn active px-4 py-2.5 rounded-xl border border-gold bg-gold/10 text-gold whitespace-nowrap">
         📅 Agendamentos
+      </button>
+      <button onclick="switchTab('usuarios')" id="tab-btn-usuarios" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
+        🔑 Usuários & Permissões
       </button>
       <button onclick="switchTab('clientes')" id="tab-btn-clientes" class="tab-btn px-4 py-2.5 rounded-xl border border-white/10 bg-darkCard whitespace-nowrap hover:text-white">
         👥 Clientes & Fotos
@@ -150,6 +156,37 @@
               </tr>
             </thead>
             <tbody id="table-agendamentos" class="divide-y divide-white/5">
+              <!-- Renderizado via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB DE GESTÃO DE USUÁRIOS & PERMISSÕES -->
+    <div id="tab-usuarios" class="tab-content hidden space-y-4">
+      <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl overflow-hidden">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-base font-bold text-white"><i class="fa-solid fa-user-shield text-gold mr-2"></i> Gestão de Usuários, Logins & Níveis de Acesso</h3>
+            <p class="text-xs text-neutral-400 mt-0.5">Gerencie os acessos de Desenvolvedores, Proprietários, Barbeiros (Funcionários) e Clientes</p>
+          </div>
+          <button onclick="openModal('modal-usuario')" class="px-3.5 py-2 rounded-xl bg-gold text-black font-extrabold text-xs hover:bg-goldHover transition shadow">
+            + Cadastrar Novo Usuário
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-neutral-300">
+            <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
+              <tr>
+                <th class="p-3">Usuário / Nome</th>
+                <th class="p-3">E-mail / Login</th>
+                <th class="p-3">Autenticação</th>
+                <th class="p-3">Nível de Acesso (Papel)</th>
+                <th class="p-3 text-right">Ação</th>
+              </tr>
+            </thead>
+            <tbody id="table-usuarios" class="divide-y divide-white/5">
               <!-- Renderizado via JS -->
             </tbody>
           </table>
@@ -330,6 +367,42 @@
     </div>
 
   </main>
+
+  <!-- MODAL: CADASTRAR NOVO USUÁRIO (DESENVOLVEDOR, PROPRIETÁRIO, BARBEIRO, CLIENTE) -->
+  <div id="modal-usuario" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Cadastrar Novo Usuário</h3>
+        <button onclick="closeModal('modal-usuario')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="form-modal-usuario" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nome Completo</label>
+          <input type="text" id="m-user-nome" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="Ex: Carlos Silva">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">E-mail de Acesso</label>
+          <input type="email" id="m-user-email" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="exemplo@barbearia.com">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Senha de Acesso</label>
+          <input type="password" id="m-user-pass" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required placeholder="••••••••">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Nível de Acesso (Papel)</label>
+          <select id="m-user-role" class="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-white text-xs sm:text-sm" required>
+            <option value="owner">💼 Dono da Empresa (Proprietário)</option>
+            <option value="barber">💈 Barbeiro / Funcionário</option>
+            <option value="client">👤 Cliente</option>
+            <option value="developer">👑 Desenvolvedor (Master Superadmin)</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-extrabold py-3 rounded-xl hover:bg-goldHover transition text-xs sm:text-sm mt-3">
+          Salvar Usuário
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- MODAL: GESTÃO DE FOTOS & HISTÓRICO DE ATENDIMENTOS DO CLIENTE -->
   <div id="modal-detalhes-cliente" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -604,7 +677,7 @@
 
     async function loadAllData() {
       try {
-        const [appRes, cliRes, barRes, srvRes, prdRes, finRes, galRes, corRes] = await Promise.all([
+        const [appRes, cliRes, barRes, srvRes, prdRes, finRes, galRes, corRes, usrRes] = await Promise.all([
           fetch('/api/agendamentos').then(r => r.json()),
           fetch('/api/clientes').then(r => r.json()),
           fetch('/api/barbeiros').then(r => r.json()),
@@ -612,7 +685,8 @@
           fetch('/api/produtos').then(r => r.json()),
           fetch('/api/financeiro').then(r => r.json()),
           fetch('/api/gallery').then(r => r.json()),
-          fetch('/api/tipos-cortes').then(r => r.json())
+          fetch('/api/tipos-cortes').then(r => r.json()),
+          fetch('/api/users').then(r => r.json())
         ]);
 
         globalTiposCortes = corRes || [];
@@ -620,10 +694,42 @@
         // KPI
         document.getElementById('stat-total-app').textContent = appRes.length;
         document.getElementById('stat-total-cli').textContent = cliRes.length;
-        document.getElementById('stat-total-cortes').textContent = globalTiposCortes.length;
+        document.getElementById('stat-total-users').textContent = (usrRes || []).length;
 
         const fatTotal = finRes.sales ? finRes.sales.reduce((acc, s) => acc + (s.valor_total || 0), 0) : 0;
         document.getElementById('stat-fat-mes').textContent = `R$ ${fatTotal.toFixed(2)}`;
+
+        // USUÁRIOS
+        const roleBadges = {
+          developer: '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-purple-950 text-purple-300 border border-purple-500/40">👑 Desenvolvedor</span>',
+          owner: '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gold/20 text-gold border border-gold/40">💼 Proprietário (Dono)</span>',
+          barber: '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-950 text-blue-300 border border-blue-500/40">💈 Barbeiro (Funcionário)</span>',
+          client: '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-neutral-800 text-neutral-300 border border-white/10">👤 Cliente</span>'
+        };
+
+        document.getElementById('table-usuarios').innerHTML = (usrRes || []).map(u => `
+          <tr>
+            <td class="p-3 font-bold text-white flex items-center gap-2">
+              <div class="w-7 h-7 rounded-full bg-gold/20 flex items-center justify-center text-gold text-xs font-bold border border-gold/30">
+                ${(u.name || 'U').charAt(0).toUpperCase()}
+              </div>
+              ${u.name}
+            </td>
+            <td class="p-3 font-mono text-gold">${u.email}</td>
+            <td class="p-3">${u.google_id ? '<span class="text-green-400 font-bold"><i class="fa-brands fa-google mr-1"></i> Google Auth</span>' : '<span class="text-neutral-400">Senha Nativa</span>'}</td>
+            <td class="p-3">
+              <select onchange="updateUserRole(${u.id}, this.value)" class="bg-black/60 border border-white/20 rounded-lg px-2 py-1 text-xs font-bold text-white">
+                <option value="owner" ${u.role === 'owner' ? 'selected' : ''}>💼 Dono da Empresa</option>
+                <option value="barber" ${u.role === 'barber' ? 'selected' : ''}>💈 Barbeiro / Funcionário</option>
+                <option value="client" ${u.role === 'client' ? 'selected' : ''}>👤 Cliente</option>
+                <option value="developer" ${u.role === 'developer' ? 'selected' : ''}>👑 Desenvolvedor</option>
+              </select>
+            </td>
+            <td class="p-3 text-right">
+              <button onclick="deleteUser(${u.id})" class="px-2.5 py-1 rounded-lg bg-red-950 text-red-400 border border-red-500/30 font-bold text-[10px] hover:bg-red-900 transition">Excluir</button>
+            </td>
+          </tr>
+        `).join('');
 
         // AGENDAMENTOS
         document.getElementById('table-agendamentos').innerHTML = appRes.map(a => `
@@ -734,6 +840,22 @@
       }
     }
 
+    async function updateUserRole(userId, newRole) {
+      await fetch(`/api/users/${userId}/role`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: newRole })
+      });
+      loadAllData();
+    }
+
+    async function deleteUser(userId) {
+      if (confirm('Deseja realmente excluir este usuário do sistema?')) {
+        await fetch(`/api/users/${userId}`, { method: 'DELETE' });
+        loadAllData();
+      }
+    }
+
     async function openClientDetails(id, nome, telefone) {
       document.getElementById('foto-cliente-id').value = id;
       document.getElementById('detalhe-cliente-nome').textContent = `Fotos & Histórico: ${nome}`;
@@ -744,7 +866,6 @@
       try {
         const res = await fetch(`/api/clientes/${id}/historico`).then(r => r.json());
         
-        // FOTOS DO CLIENTE
         const fotosGrid = document.getElementById('grid-fotos-cliente');
         if (res.fotos && res.fotos.length > 0) {
           fotosGrid.innerHTML = res.fotos.map(f => `
@@ -760,7 +881,6 @@
           fotosGrid.innerHTML = `<p class="text-xs text-neutral-400 col-span-3 py-4 text-center border border-dashed border-white/10 rounded-2xl">Nenhuma foto salva para este cliente ainda. Use o campo acima para adicionar fotos!</p>`;
         }
 
-        // HISTÓRICO DE ATENDIMENTOS
         const histTable = document.getElementById('table-historico-cliente');
         if (res.agendamentos && res.agendamentos.length > 0) {
           histTable.innerHTML = res.agendamentos.map(a => `
@@ -831,6 +951,19 @@
     }
 
     // HANDLERS DOS FORMULÁRIOS DE MODAIS
+    document.getElementById('form-modal-usuario').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('m-user-nome').value,
+        email: document.getElementById('m-user-email').value,
+        password: document.getElementById('m-user-pass').value,
+        role: document.getElementById('m-user-role').value
+      };
+      await fetch('/api/users', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      closeModal('modal-usuario');
+      loadAllData();
+    });
+
     document.getElementById('form-modal-cliente').addEventListener('submit', async (e) => {
       e.preventDefault();
       const payload = {

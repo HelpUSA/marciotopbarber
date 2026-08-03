@@ -33,9 +33,10 @@ const memoryStore = {
     { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31', created_at: '2026-07-30' }
   ],
   users: [
-    { id: 1, name: 'Márcio Top Barber', email: 'helpus.ecommerce@gmail.com', google_id: '812202824664', password: '@dmLocal1993', role: 'developer', tenant_id: 1, avatar: '/images/marcio.jpg' },
-    { id: 2, name: 'Administrador Local', email: 'admin@admin', google_id: null, password: '123', role: 'owner', tenant_id: 1, avatar: '' },
-    { id: 3, name: 'Hugo Freitas', email: 'hugo@barber.com', google_id: null, password: '123', role: 'barber', tenant_id: 1, avatar: '' }
+    { id: 1, name: 'Márcio Top Barber (HelpUS)', email: 'helpus.ecommerce@gmail.com', google_id: '812202824664', password: '@dmLocal1993', role: 'developer', tenant_id: 1, avatar: '/images/marcio.jpg' },
+    { id: 2, name: 'Administrador Proprietário', email: 'marcio@marciotopbarber.com', google_id: null, password: '123', role: 'owner', tenant_id: 1, avatar: '' },
+    { id: 3, name: 'Hugo Freitas', email: 'hugo@barber.com', google_id: null, password: '123', role: 'barber', tenant_id: 1, avatar: '' },
+    { id: 4, name: 'Cliente Vip Exemplo', email: 'cliente@vip.com', google_id: null, password: '123', role: 'client', tenant_id: 1, avatar: '' }
   ],
   gallery: [
     { id: 1, titulo: 'Corte Fade Moderno', url: '/images/corte-masculino01.jpg', categoria: 'Cortes' },
@@ -141,6 +142,39 @@ async function runExec(sql, params, tableKey, memoryObj) {
   }
   return memoryObj;
 }
+
+// REST APIS: USERS & ROLES (DEVELOPER, OWNER, BARBER, CLIENT)
+app.get('/api/users', async (req, res) => {
+  const rows = await queryAll('SELECT id, name, email, google_id, role, tenant_id, avatar FROM users ORDER BY id ASC', [], 'users');
+  res.json(rows);
+});
+
+app.post('/api/users', async (req, res) => {
+  const { name, email, password, role, google_id } = req.body;
+  const created = await runExec(
+    'INSERT INTO users (name, email, password, role, google_id, tenant_id, avatar) VALUES (?, ?, ?, ?, ?, 1, "")',
+    [name, email, password || '123', role || 'client', google_id || null],
+    'users',
+    { name, email, password: password || '123', role: role || 'client', google_id: google_id || null, tenant_id: 1, avatar: '' }
+  );
+  res.status(201).json(created);
+});
+
+app.patch('/api/users/:id/role', async (req, res) => {
+  const { id } = req.params;
+  const { role } = req.body;
+  const u = memoryStore.users.find(x => x.id == id);
+  if (u) u.role = role;
+  if (sqliteInstance) sqliteInstance.run('UPDATE users SET role = ? WHERE id = ?', [role, id]);
+  res.json({ success: true, role });
+});
+
+app.delete('/api/users/:id', async (req, res) => {
+  const { id } = req.params;
+  if (sqliteInstance) sqliteInstance.run('DELETE FROM users WHERE id = ?', [id]);
+  memoryStore.users = memoryStore.users.filter(u => u.id != id);
+  res.json({ success: true });
+});
 
 // REST APIS: TIPOS DE CORTES (CATÁLOGO DE CORTES DA INTERNET)
 app.get('/api/tipos-cortes', async (req, res) => {
