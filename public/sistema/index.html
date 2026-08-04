@@ -142,13 +142,19 @@
         </button>
       </div>
 
-      <!-- GRUPO 5: SISTEMA & SEGURANÇA -->
+      <!-- GRUPO 5: SISTEMA & SEGURANÇA (EXCLUSIVO COM ROYALTIES DEV) -->
       <div class="space-y-1">
-        <span class="px-3 text-[10px] uppercase font-extrabold text-neutral-500 tracking-wider block mb-2">⚙️ Sistema</span>
+        <span class="px-3 text-[10px] uppercase font-extrabold text-neutral-500 tracking-wider block mb-2">⚙️ Sistema & Gestão</span>
         
         <button onclick="switchTab('usuarios')" id="nav-btn-usuarios" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left">
           <i class="fa-solid fa-user-shield text-sm w-4 text-center"></i>
           <span>Usuários & Níveis</span>
+        </button>
+
+        <!-- GUIA EXCLUSIVA DO DESENVOLVEDOR: ROYALTIES & COMISSÃO SAAS -->
+        <button onclick="switchTab('royalties-dev')" id="nav-btn-royalties-dev" class="nav-item dev-only-tab w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left border border-gold/30 bg-gold/5">
+          <i class="fa-solid fa-crown text-sm w-4 text-center text-gold"></i>
+          <span class="text-gold font-extrabold">👑 Royalties Dev (% SaaS)</span>
         </button>
       </div>
 
@@ -156,7 +162,6 @@
 
     <!-- FOOTER DA SIDEBAR COM INDICAÇÃO DE AMBIENTE & BOTÃO DE SAIR DA CONTA -->
     <div class="p-4 border-t border-white/10 space-y-3">
-      <!-- BADGE DE AMBIENTE DE DESENVOLVIMENTO / PRODUÇÃO -->
       <div id="env-badge-container" class="px-3 py-1.5 rounded-xl bg-gold/10 border border-gold/40 text-gold text-[10px] font-extrabold uppercase text-center tracking-wider flex items-center justify-center gap-1.5">
         <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
         <span id="env-badge-text">🧪 DEV - AMBIENTE DE TESTES</span>
@@ -569,10 +574,75 @@
         </div>
       </div>
 
+      <!-- TAB 10: ROYALTIES & FATURAMENTO DESENVOLVEDOR (EXCLUSIVO DEVELOPER) -->
+      <div id="tab-royalties-dev" class="tab-content hidden space-y-4">
+        <div class="bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-xl space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <h3 class="text-base font-black text-white flex items-center gap-2">
+                <i class="fa-solid fa-crown text-gold"></i> Relatório de Royalties & Faturamento do Desenvolvedor (SaaS)
+              </h3>
+              <p class="text-xs text-neutral-400 mt-0.5">Visão exclusiva do Desenvolvedor Master para controle de comissão da plataforma sobre os serviços e vendas da barbearia</p>
+            </div>
+
+            <!-- CONTROLE DA PORCENTAGEM DE ROYALTY DO DESENVOLVEDOR -->
+            <div class="flex items-center gap-2 bg-black/60 p-2.5 rounded-2xl border border-gold/40">
+              <span class="text-xs font-bold text-neutral-300">Porcentagem Dev:</span>
+              <input type="number" id="input-dev-royalty-rate" value="10" step="0.5" min="0" max="100" class="w-16 bg-darkCard border border-gold/40 rounded-xl px-2 py-1 text-gold font-bold text-center text-xs">
+              <span class="text-xs font-bold text-gold">%</span>
+              <button onclick="updateDevRoyaltyRate()" class="px-3 py-1 bg-gold text-black font-extrabold rounded-xl text-xs hover:bg-goldHover transition">Atualizar %</button>
+            </div>
+          </div>
+
+          <!-- CARDS DE METRICAS ROYALTIES DEV -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-black/50 p-4 rounded-2xl border border-white/10">
+              <span class="text-[10px] uppercase font-bold text-neutral-400">Faturamento Bruto Total</span>
+              <h3 id="dev-stat-total-bruto" class="text-xl font-black text-white mt-1">R$ 0,00</h3>
+            </div>
+            <div class="bg-black/50 p-4 rounded-2xl border border-white/10">
+              <span class="text-[10px] uppercase font-bold text-neutral-400">Vendas de Serviços</span>
+              <h3 id="dev-stat-servicos" class="text-xl font-black text-gold mt-1">R$ 0,00</h3>
+            </div>
+            <div class="bg-black/50 p-4 rounded-2xl border border-white/10">
+              <span class="text-[10px] uppercase font-bold text-neutral-400">Vendas de Produtos</span>
+              <h3 id="dev-stat-produtos" class="text-xl font-black text-blue-400 mt-1">R$ 0,00</h3>
+            </div>
+            <div class="bg-black/60 p-4 rounded-2xl border border-gold/50 bg-gold/5">
+              <span class="text-[10px] uppercase font-extrabold text-gold">👑 Sua Comissão Dev (<span id="dev-rate-badge">10%</span>)</span>
+              <h3 id="dev-stat-comissao" class="text-2xl font-black text-green-400 mt-1">R$ 0,00</h3>
+            </div>
+          </div>
+
+          <!-- EXTRATO DE MOVIMENTAÇÃO FINANCEIRA DEV -->
+          <div>
+            <h4 class="text-xs font-extrabold text-white uppercase tracking-wider mb-3"><i class="fa-solid fa-list-numeric text-gold mr-1"></i> Extrato de Movimentação & Royalties Calculados</h4>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs text-neutral-300">
+                <thead class="bg-black/60 text-gold uppercase text-[10px] font-extrabold">
+                  <tr>
+                    <th class="p-3">Data</th>
+                    <th class="p-3">Item / Serviço</th>
+                    <th class="p-3">Tipo</th>
+                    <th class="p-3">Pagamento</th>
+                    <th class="p-3">Valor Total</th>
+                    <th class="p-3 text-right text-green-400">Comissão Dev (<span class="dev-rate-col">10%</span>)</th>
+                  </tr>
+                </thead>
+                <tbody id="table-royalties-dev" class="divide-y divide-white/5">
+                  <!-- Renderizado via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </main>
   </div>
 
-  <!-- MODAL: LOGIN / TROCAR DE CONTA & GOOGLE AUTH (SEM NENHUM E-MAIL POR PADRÃO, SELEÇÃO LIVRE PELO USUÁRIO) -->
+  <!-- MODAL: LOGIN / TROCAR DE CONTA & GOOGLE AUTH -->
   <div id="modal-login" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -583,7 +653,7 @@
         <button onclick="closeModal('modal-login')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
-      <!-- SEÇÃO GOOGLE AUTH OFICIAL (QUALQUER CONTA PODE SER ESCOLHIDA) -->
+      <!-- SEÇÃO GOOGLE AUTH OFICIAL -->
       <div class="mb-5 p-4 rounded-2xl bg-black/50 border border-gold/30 text-center space-y-3">
         <div class="flex items-center justify-center gap-2 text-gold font-extrabold text-xs uppercase tracking-wider">
           <i class="fa-brands fa-google text-sm"></i> Login com Conta do Google
@@ -970,6 +1040,16 @@
           avatarEl.textContent = (currentUser.name || 'U').charAt(0).toUpperCase();
         }
       }
+
+      // EXIBIR OU OCULTAR GUIA EXCLUSIVA DO DEVELOPER DE ROYALTIES SAAS
+      const devTabs = document.querySelectorAll('.dev-only-tab');
+      devTabs.forEach(el => {
+        if (currentUser && currentUser.role === 'developer') {
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
     }
 
     const testAccounts = {
@@ -1045,7 +1125,8 @@
       servicos: '📋 Catálogo de Serviços',
       produtos: '📦 Estoque de Produtos',
       financeiro: '💰 Vendas & Comissões',
-      galeria: '📸 Fotos da Galeria do Site'
+      galeria: '📸 Fotos da Galeria do Site',
+      'royalties-dev': '👑 Royalties & Faturamento do Desenvolvedor (SaaS)'
     };
 
     function switchTab(tabId) {
@@ -1063,9 +1144,51 @@
       }
 
       document.getElementById('page-current-title').innerHTML = tabTitles[tabId] || 'Painel Gestor';
+
+      if (tabId === 'royalties-dev') {
+        loadDevFinancials();
+      }
     }
 
     let globalTiposCortes = [];
+
+    async function loadDevFinancials() {
+      try {
+        const res = await fetch('/api/developer/financials').then(r => r.json());
+        document.getElementById('dev-stat-total-bruto').textContent = `R$ ${(res.total_bruto || 0).toFixed(2)}`;
+        document.getElementById('dev-stat-servicos').textContent = `R$ ${(res.servicos_total || 0).toFixed(2)}`;
+        document.getElementById('dev-stat-produtos').textContent = `R$ ${(res.produtos_total || 0).toFixed(2)}`;
+        document.getElementById('dev-stat-comissao').textContent = `R$ ${(res.desenvolvedor_comissao_total || 0).toFixed(2)}`;
+        
+        document.getElementById('dev-rate-badge').textContent = `${res.royalty_rate_percent}%`;
+        document.querySelectorAll('.dev-rate-col').forEach(el => el.textContent = `${res.royalty_rate_percent}%`);
+        document.getElementById('input-dev-royalty-rate').value = res.royalty_rate_percent;
+
+        document.getElementById('table-royalties-dev').innerHTML = (res.transacoes || []).map(t => `
+          <tr>
+            <td class="p-3 font-mono">${t.data}</td>
+            <td class="p-3 font-bold text-white">${t.item}</td>
+            <td class="p-3 uppercase text-[10px] font-bold text-gold">${t.tipo}</td>
+            <td class="p-3">${t.forma_pgto}</td>
+            <td class="p-3 font-bold text-white">R$ ${(t.valor_total || 0).toFixed(2)}</td>
+            <td class="p-3 text-right font-black text-green-400">R$ ${(t.dev_fee || 0).toFixed(2)}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Erro ao carregar comissões do desenvolvedor:', err);
+      }
+    }
+
+    async function updateDevRoyaltyRate() {
+      const val = document.getElementById('input-dev-royalty-rate').value;
+      await fetch('/api/developer/commission-rate', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rate: val })
+      });
+      loadDevFinancials();
+      alert(`Porcentagem de comissão do Desenvolvedor atualizada para ${val}%!`);
+    }
 
     async function loadAllData() {
       try {

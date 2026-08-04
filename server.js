@@ -30,7 +30,7 @@ if (!fs.existsSync(dataDir)) {
 
 const memoryStore = {
   licenses: [
-    { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', trial_ends_at: '2026-12-31', created_at: '2026-07-30' }
+    { id: 1, name: 'Márcio Top Barber', owner_email: 'helpus.ecommerce@gmail.com', status: 'active', dev_royalty_rate: 10.0, trial_ends_at: '2026-12-31', created_at: '2026-07-30' }
   ],
   users: [
     {
@@ -133,7 +133,8 @@ const memoryStore = {
     { id: 10, nome: 'Barba Terapia Modelada', categoria: 'Barba', descricao: 'Barba esculpida com toalha quente e óleos essenciais.', foto_referencia: '/images/barba01.jpg' }
   ],
   appointments: [
-    { id: 101, cliente: 'Cliente Vip 1', cliente_telefone: '(83) 99888-7777', barbeiro: 'Márcio Top Barber', servico: 'Combo Premium Corte + Barba', tipo_corte: 'Degradê Navalhado (High Fade)', data: '2026-07-01', hora: '14:00', status: 'Concluído', valor: 55.00 }
+    { id: 101, cliente: 'Cliente Vip 1', cliente_telefone: '(83) 99888-7777', barbeiro: 'Márcio Top Barber', servico: 'Combo Premium Corte + Barba', tipo_corte: 'Degradê Navalhado (High Fade)', data: '2026-07-01', hora: '14:00', status: 'Concluído', valor: 55.00 },
+    { id: 102, cliente: 'Cliente Vip 2', cliente_telefone: '(83) 98777-6666', barbeiro: 'Hugo Freitas', servico: 'Corte Márcio Top Barber', tipo_corte: 'Low Taper Fade', data: '2026-07-15', hora: '16:00', status: 'Concluído', valor: 35.00 }
   ],
   products: [
     { id: 1, nome: 'Pomada Modeladora Efeito Matte Márcio', categoria: 'Pomadas', estoque: 20, valor_compra: 20.00, valor_venda: 45.00 },
@@ -141,7 +142,9 @@ const memoryStore = {
     { id: 3, nome: 'Shampoo Fortificante Barber', categoria: 'Cremes', estoque: 15, valor_compra: 25.00, valor_venda: 50.00 }
   ],
   sales: [
-    { id: 1, item: 'Pomada Modeladora Efeito Matte Márcio', tipo: 'produto', quantidade: 1, valor_total: 45.00, forma_pgto: 'Pix', data: '2026-07-30' }
+    { id: 1, item: 'Combo Premium Corte + Barba', tipo: 'servico', quantidade: 1, valor_total: 55.00, forma_pgto: 'Pix', data: '2026-07-01' },
+    { id: 2, item: 'Pomada Modeladora Efeito Matte Márcio', tipo: 'produto', quantidade: 1, valor_total: 45.00, forma_pgto: 'Pix', data: '2026-07-30' },
+    { id: 3, item: 'Corte Márcio Top Barber', tipo: 'servico', quantidade: 1, valor_total: 35.00, forma_pgto: 'Cartão de Crédito', data: '2026-08-01' }
   ],
   commissions: [
     { id: 1, barbeiro: 'Márcio Top Barber', servico: 'Combo Premium', comissao: 25.00, data: '2026-07-01', pago: 'Sim' }
@@ -154,7 +157,7 @@ if (sqlite3) {
     const dbPath = path.join(dataDir, 'marciotopbarber.sqlite');
     sqliteInstance = new sqlite3.Database(isVercel ? ':memory:' : dbPath);
     sqliteInstance.serialize(() => {
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS licenses (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, owner_email TEXT, status TEXT, trial_ends_at TEXT, created_at TEXT)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS licenses (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, owner_email TEXT, status TEXT, dev_royalty_rate REAL, trial_ends_at TEXT, created_at TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, tenant_id INTEGER, name TEXT, email TEXT UNIQUE, google_id TEXT, password TEXT, role TEXT, phone TEXT, avatar TEXT, specialty TEXT, pix_key TEXT, fidelity_cards INTEGER, ultimo_atendimento TEXT, retorno_previsto TEXT, status TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS gallery (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT, url TEXT, categoria TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, valor REAL, comissao REAL, tempo TEXT, ativo TEXT)`);
@@ -203,7 +206,6 @@ function deduplicateAndFixUsers() {
     masterUser.name = 'Márcio Top Barber (HelpUS)';
   }
 
-  // Filtrar duplicatas por e-mail case-insensitive
   const seenEmails = new Set();
   const cleanUsers = [];
   for (const u of memoryStore.users) {
@@ -233,7 +235,6 @@ app.post('/api/auth/login', async (req, res) => {
     return res.status(401).json({ error: 'E-mail ou senha incorretos' });
   }
 
-  // Forçar desenvolvedor para helpus
   if ((user.email || '').toLowerCase().trim() === 'helpus.ecommerce@gmail.com') {
     user.role = 'developer';
   }
@@ -261,7 +262,6 @@ app.post('/api/auth/google', async (req, res) => {
   let user = users.find(u => (u.email || '').toLowerCase().trim() === cleanEmail || (google_id && u.google_id === google_id));
 
   if (!user) {
-    // Se não existir, cria o usuário com papel de 'developer' para master, ou 'client' para outros
     user = await runExec(
       'INSERT INTO users (tenant_id, name, email, password, role, google_id, avatar, status) VALUES (1, ?, ?, "google_auth", ?, ?, ?, "Ativo")',
       [name || 'Usuário Google', cleanEmail, isMaster ? 'developer' : 'client', google_id || null, picture || ''],
@@ -269,10 +269,9 @@ app.post('/api/auth/google', async (req, res) => {
       { tenant_id: 1, name: name || 'Usuário Google', email: cleanEmail, password: 'google_auth', role: isMaster ? 'developer' : 'client', google_id: google_id || null, avatar: picture || '', status: 'Ativo' }
     );
   } else {
-    // Se já existir, apenas atualiza foto e vincula google_id sem duplicar o usuário!
     if (google_id) user.google_id = google_id;
     if (picture) user.avatar = picture;
-    if (isMaster) user.role = 'developer'; // REGRA DE OURO: helpus.ecommerce@gmail.com é sempre Desenvolvedor Master!
+    if (isMaster) user.role = 'developer';
     
     if (sqliteInstance) {
       sqliteInstance.run('UPDATE users SET google_id = ?, avatar = ?, role = ? WHERE id = ?', [user.google_id, user.avatar, user.role, user.id]);
@@ -290,6 +289,50 @@ app.post('/api/auth/google', async (req, res) => {
       google_id: user.google_id || google_id
     }
   });
+});
+
+// REST API EXCLUSIVA DO DESENVOLVEDOR: REVENUE SHARE / ROYALTIES SAAS PLATAFORMA
+app.get('/api/developer/financials', async (req, res) => {
+  const sales = await queryAll('SELECT * FROM sales', [], 'sales');
+  const appointments = await queryAll('SELECT * FROM appointments WHERE status = "Concluído"', [], 'appointments');
+  
+  const totalSales = (sales || []).reduce((acc, s) => acc + (s.valor_total || 0), 0);
+  const totalServicesSales = (sales || []).filter(s => s.tipo === 'servico').reduce((acc, s) => acc + (s.valor_total || 0), 0);
+  const totalProductsSales = (sales || []).filter(s => s.tipo === 'produto').reduce((acc, s) => acc + (s.valor_total || 0), 0);
+
+  const rate = memoryStore.licenses[0]?.dev_royalty_rate || 10.0; // 10% padrão
+  const devEarnings = (totalSales * rate) / 100;
+
+  const itemizedLedger = (sales || []).map(s => ({
+    id: s.id,
+    data: s.data,
+    item: s.item,
+    tipo: s.tipo,
+    forma_pgto: s.forma_pgto,
+    valor_total: s.valor_total,
+    dev_fee: (s.valor_total * rate) / 100
+  }));
+
+  res.json({
+    total_bruto: totalSales,
+    servicos_total: totalServicesSales,
+    produtos_total: totalProductsSales,
+    royalty_rate_percent: rate,
+    desenvolvedor_comissao_total: devEarnings,
+    transacoes: itemizedLedger
+  });
+});
+
+app.patch('/api/developer/commission-rate', async (req, res) => {
+  const { rate } = req.body;
+  const numRate = parseFloat(rate) || 10.0;
+  if (memoryStore.licenses[0]) {
+    memoryStore.licenses[0].dev_royalty_rate = numRate;
+  }
+  if (sqliteInstance) {
+    sqliteInstance.run('UPDATE licenses SET dev_royalty_rate = ? WHERE id = 1', [numRate]);
+  }
+  res.json({ success: true, rate: numRate });
 });
 
 // REST APIS: USERS UNIFICADOS (TODOS OS PAPÉIS NO MESMO BANCO UNIFICADO)
@@ -311,7 +354,6 @@ app.post('/api/users', async (req, res) => {
 
   const existing = memoryStore.users.find(u => (u.email || '').toLowerCase().trim() === cleanEmail);
   if (existing) {
-    // Se o usuário já existir, apenas atualiza seus atributos ao invés de duplicar!
     existing.name = name || existing.name;
     existing.role = role || existing.role;
     existing.phone = phone || existing.phone;
