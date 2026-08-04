@@ -48,6 +48,15 @@
 </head>
 <body class="bg-darkBg text-neutral-100 font-sans min-h-screen flex flex-col md:flex-row selection:bg-gold selection:text-black custom-scrollbar">
 
+  <!-- GOOGLE AUTH CLIENT ID CONFIGURAÇÃO DIRETA -->
+  <div id="g_id_onload"
+       data-client_id="812202824664-cnh072h6rkto1je3ouspq08qo73c674n.apps.googleusercontent.com"
+       data-context="signin"
+       data-ux_mode="popup"
+       data-callback="handleGoogleLoginResponse"
+       data-auto_prompt="false">
+  </div>
+
   <!-- SIDEBAR NAVEGAÇÃO ELEGANTE E MODERNA -->
   <aside id="sidebar-menu" class="w-full md:w-64 bg-darkSidebar border-b md:border-b-0 md:border-r border-white/10 flex flex-col shrink-0">
     
@@ -564,23 +573,19 @@
         <button onclick="closeModal('modal-login')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
-      <!-- SEÇÃO GUIA DE CONFIGURAÇÃO GOOGLE OAUTH E BOTÃO -->
+      <!-- SEÇÃO GOOGLE AUTH OFICIAL COM CLIENT ID DO HELPUS -->
       <div class="mb-5 p-4 rounded-2xl bg-black/50 border border-gold/30 text-center space-y-3">
         <div class="flex items-center justify-center gap-2 text-gold font-extrabold text-xs uppercase tracking-wider">
           <i class="fa-brands fa-google text-sm"></i> Login com Conta do Google
         </div>
-        
-        <p class="text-[11px] text-neutral-300 leading-relaxed text-left bg-darkCard p-3 rounded-xl border border-white/10">
-          <strong>💡 Como ativar no seu Google Console:</strong><br>
-          Para o Google aprovar o login no seu domínio, basta adicionar os domínios abaixo no <a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="text-gold underline font-bold">Google Cloud Console</a> como <em>"Origens JavaScript autorizadas"</em>:
-          <span class="block mt-1 font-mono text-[10px] text-gold select-all bg-black/60 p-1.5 rounded">https://marciotopbarber.helpusbr.com</span>
-        </p>
 
-        <!-- BOTÃO GOOGLE AUTH -->
-        <div class="flex justify-center pt-1">
-          <button onclick="tryGoogleLoginPrompt()" class="w-full py-2.5 px-4 rounded-xl bg-white text-black font-extrabold text-xs hover:bg-neutral-200 transition shadow flex items-center justify-center gap-2">
-            <i class="fa-brands fa-google text-red-500 text-sm"></i> Entrar com a sua Conta Google
-          </button>
+        <div class="g_id_signin flex justify-center pt-1"
+             data-type="standard"
+             data-shape="pill"
+             data-theme="filled_black"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
         </div>
       </div>
 
@@ -963,14 +968,6 @@
       updateHeaderUserUI();
       document.getElementById('dropdown-user-menu').classList.add('hidden');
       openModal('modal-login');
-    }
-
-    function tryGoogleLoginPrompt() {
-      if (window.google && google.accounts && google.accounts.id) {
-        google.accounts.id.prompt();
-      } else {
-        alert('O SDK do Google Login está pronto! Adicione a URL https://marciotopbarber.helpusbr.com nas Origens Autorizadas do seu Google Cloud Console.');
-      }
     }
 
     // GOOGLE AUTH CALLBACK HANDLER
