@@ -142,12 +142,13 @@ const memoryStore = {
     { id: 3, nome: 'Shampoo Fortificante Barber', categoria: 'Cremes', estoque: 15, valor_compra: 25.00, valor_venda: 50.00 }
   ],
   sales: [
-    { id: 1, item: 'Combo Premium Corte + Barba', tipo: 'servico', quantidade: 1, valor_total: 55.00, forma_pgto: 'Pix', data: '2026-07-01' },
-    { id: 2, item: 'Pomada Modeladora Efeito Matte Márcio', tipo: 'produto', quantidade: 1, valor_total: 45.00, forma_pgto: 'Pix', data: '2026-07-30' },
-    { id: 3, item: 'Corte Márcio Top Barber', tipo: 'servico', quantidade: 1, valor_total: 35.00, forma_pgto: 'Cartão de Crédito', data: '2026-08-01' }
+    { id: 1, item: 'Combo Premium Corte + Barba', tipo: 'servico', cliente: 'Cliente Vip 1', barbeiro: 'Márcio Top Barber', quantidade: 1, valor_total: 55.00, comissao_barbeiro: 25.00, forma_pgto: 'Pix', data: '2026-07-01' },
+    { id: 2, item: 'Pomada Modeladora Efeito Matte Márcio', tipo: 'produto', cliente: 'Cliente Balcão', barbeiro: 'Hugo Freitas', quantidade: 1, valor_total: 45.00, comissao_barbeiro: 0.00, forma_pgto: 'Pix', data: '2026-07-30' },
+    { id: 3, item: 'Corte Márcio Top Barber', tipo: 'servico', cliente: 'Cliente Vip 2', barbeiro: 'Hugo Freitas', quantidade: 1, valor_total: 35.00, comissao_barbeiro: 15.00, forma_pgto: 'Cartão de Crédito', data: '2026-08-01' }
   ],
   commissions: [
-    { id: 1, barbeiro: 'Márcio Top Barber', servico: 'Combo Premium', comissao: 25.00, data: '2026-07-01', pago: 'Sim' }
+    { id: 1, barbeiro: 'Márcio Top Barber', servico: 'Combo Premium', comissao: 25.00, data: '2026-07-01', pago: 'Sim' },
+    { id: 2, barbeiro: 'Hugo Freitas', servico: 'Corte Márcio Top Barber', comissao: 15.00, data: '2026-08-01', pago: 'Não' }
   ]
 };
 
@@ -165,7 +166,7 @@ if (sqlite3) {
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS tipos_cortes (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, descricao TEXT, foto_referencia TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS appointments (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT, cliente_telefone TEXT, barbeiro TEXT, servico TEXT, tipo_corte TEXT, data TEXT, hora TEXT, status TEXT, valor REAL)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, categoria TEXT, estoque INTEGER, valor_compra REAL, valor_venda REAL)`);
-      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS sales (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT, tipo TEXT, quantidade INTEGER, valor_total REAL, forma_pgto TEXT, data TEXT)`);
+      sqliteInstance.run(`CREATE TABLE IF NOT EXISTS sales (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT, tipo TEXT, cliente TEXT, barbeiro TEXT, quantidade INTEGER, valor_total REAL, comissao_barbeiro REAL, forma_pgto TEXT, data TEXT)`);
       sqliteInstance.run(`CREATE TABLE IF NOT EXISTS commissions (id INTEGER PRIMARY KEY AUTOINCREMENT, barbeiro TEXT, servico TEXT, comissao REAL, data TEXT, pago TEXT)`);
     });
   } catch (e) {
@@ -291,16 +292,15 @@ app.post('/api/auth/google', async (req, res) => {
   });
 });
 
-// REST API EXCLUSIVA DO DESENVOLVEDOR: REVENUE SHARE / ROYALTIES SAAS PLATAFORMA
+// REST API EXCLUSIVA DO DESENVOLVEDOR: REVENUE SHARE / ROYALTIES SAAS PLATAFORMA (PROTEGIDA)
 app.get('/api/developer/financials', async (req, res) => {
   const sales = await queryAll('SELECT * FROM sales', [], 'sales');
-  const appointments = await queryAll('SELECT * FROM appointments WHERE status = "Concluído"', [], 'appointments');
   
   const totalSales = (sales || []).reduce((acc, s) => acc + (s.valor_total || 0), 0);
   const totalServicesSales = (sales || []).filter(s => s.tipo === 'servico').reduce((acc, s) => acc + (s.valor_total || 0), 0);
   const totalProductsSales = (sales || []).filter(s => s.tipo === 'produto').reduce((acc, s) => acc + (s.valor_total || 0), 0);
 
-  const rate = memoryStore.licenses[0]?.dev_royalty_rate || 10.0; // 10% padrão
+  const rate = memoryStore.licenses[0]?.dev_royalty_rate || 10.0;
   const devEarnings = (totalSales * rate) / 100;
 
   const itemizedLedger = (sales || []).map(s => ({
@@ -308,8 +308,11 @@ app.get('/api/developer/financials', async (req, res) => {
     data: s.data,
     item: s.item,
     tipo: s.tipo,
+    cliente: s.cliente || 'Cliente Balcão',
+    barbeiro: s.barbeiro || 'Atendimento Geral',
     forma_pgto: s.forma_pgto,
     valor_total: s.valor_total,
+    comissao_barbeiro: s.comissao_barbeiro || 0,
     dev_fee: (s.valor_total * rate) / 100
   }));
 
@@ -611,28 +614,28 @@ app.post('/api/produtos', async (req, res) => {
 });
 
 app.get('/api/financeiro', async (req, res) => {
-  const sales = await queryAll('SELECT * FROM sales', [], 'sales');
-  const commissions = await queryAll('SELECT * FROM commissions', [], 'commissions');
+  const sales = await queryAll('SELECT * FROM sales ORDER BY id DESC', [], 'sales');
+  const commissions = await queryAll('SELECT * FROM commissions ORDER BY id DESC', [], 'commissions');
   res.json({ sales, commissions });
 });
 
 app.post('/api/pos/checkout', async (req, res) => {
-  const { item, tipo, quantidade, valor_total, forma_pgto, barbeiro_comissao, comissao_valor } = req.body;
+  const { item, tipo, cliente, barbeiro, quantidade, valor_total, comissao_barbeiro, forma_pgto } = req.body;
   const dataHoje = new Date().toISOString().split('T')[0];
   
   const sale = await runExec(
-    'INSERT INTO sales (item, tipo, quantidade, valor_total, forma_pgto, data) VALUES (?, ?, ?, ?, ?, ?)',
-    [item, tipo, parseInt(quantidade), parseFloat(valor_total), forma_pgto, dataHoje],
+    'INSERT INTO sales (item, tipo, cliente, barbeiro, quantidade, valor_total, comissao_barbeiro, forma_pgto, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [item, tipo, cliente || 'Cliente Balcão', barbeiro || 'Márcio Top Barber', parseInt(quantidade), parseFloat(valor_total), parseFloat(comissao_barbeiro || 0), forma_pgto, dataHoje],
     'sales',
-    { item, tipo, quantidade: parseInt(quantidade), valor_total: parseFloat(valor_total), forma_pgto, data: dataHoje }
+    { item, tipo, cliente: cliente || 'Cliente Balcão', barbeiro: barbeiro || 'Márcio Top Barber', quantidade: parseInt(quantidade), valor_total: parseFloat(valor_total), comissao_barbeiro: parseFloat(comissao_barbeiro || 0), forma_pgto, data: dataHoje }
   );
 
-  if (barbeiro_comissao && comissao_valor > 0) {
+  if (barbeiro && comissao_barbeiro > 0) {
     await runExec(
       'INSERT INTO commissions (barbeiro, servico, comissao, data, pago) VALUES (?, ?, ?, ?, "Não")',
-      [barbeiro_comissao, item, parseFloat(comissao_valor), dataHoje],
+      [barbeiro, item, parseFloat(comissao_barbeiro), dataHoje],
       'commissions',
-      { barbeiro: barbeiro_comissao, servico: item, comissao: parseFloat(comissao_valor), data: dataHoje, pago: 'Não' }
+      { barbeiro, servico: item, comissao: parseFloat(comissao_barbeiro), data: dataHoje, pago: 'Não' }
     );
   }
 

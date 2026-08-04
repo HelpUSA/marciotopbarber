@@ -151,8 +151,8 @@
           <span>Usuários & Níveis</span>
         </button>
 
-        <!-- GUIA EXCLUSIVA DO DESENVOLVEDOR: ROYALTIES & COMISSÃO SAAS -->
-        <button onclick="switchTab('royalties-dev')" id="nav-btn-royalties-dev" class="nav-item dev-only-tab w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left border border-gold/30 bg-gold/5">
+        <!-- GUIA EXCLUSIVA DO DESENVOLVEDOR: ROYALTIES & COMISSÃO SAAS (VISÍVEL SOMENTE PARA DEVELOPER) -->
+        <button onclick="switchTab('royalties-dev')" id="nav-btn-royalties-dev" class="nav-item dev-only-tab hidden w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/5 hover:text-white transition text-left border border-gold/30 bg-gold/5">
           <i class="fa-solid fa-crown text-sm w-4 text-center text-gold"></i>
           <span class="text-gold font-extrabold">👑 Royalties Dev (% SaaS)</span>
         </button>
@@ -171,7 +171,7 @@
         <i class="fa-solid fa-globe"></i> Ver Site Principal
       </a>
 
-      <!-- BOTÃO DIRETO DE SAIR DA CONTA / LOGOUT -->
+      <!-- BOTÃO DIRETO DE SAIR DA CONTA / LOGOUT (SEGURANÇA EXIGIDA) -->
       <button onclick="logoutAccount()" class="w-full py-2 px-3 rounded-xl border border-red-500/40 bg-red-950/40 text-red-400 font-extrabold text-xs hover:bg-red-900/60 transition flex items-center justify-center gap-2">
         <i class="fa-solid fa-right-from-bracket"></i> 🚪 Sair da Conta (Logout)
       </button>
@@ -181,7 +181,7 @@
   <!-- CONTEÚDO PRINCIPAL (WORKSPACE) -->
   <div class="flex-1 flex flex-col min-w-0">
 
-    <!-- TOPBAR HEADER WORKSPACE COM USER BADGE E TROCA DE CONTA -->
+    <!-- TOPBAR HEADER WORKSPACE COM USER BADGE SEGURO -->
     <header class="border-b border-white/10 bg-darkNav p-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30">
       <div class="flex items-center gap-3">
         <h1 id="page-current-title" class="text-lg font-black text-white flex items-center gap-2">
@@ -197,7 +197,7 @@
 
       <div class="flex items-center gap-3">
         
-        <!-- USER PERFIL BADGE COM DROPDOWN DE CONTA E LOGOUT -->
+        <!-- USER PERFIL BADGE COM DROPDOWN SEGURO (SEM BOTÕES DE TROCA RÁPIDA) -->
         <div class="relative">
           <button onclick="toggleUserDropdown()" class="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-black/60 border border-white/15 hover:border-gold/50 transition">
             <div id="header-user-avatar" class="w-7 h-7 rounded-full bg-gold/20 flex items-center justify-center text-gold text-xs font-bold border border-gold/40">
@@ -210,35 +210,19 @@
             <i class="fa-solid fa-chevron-down text-[10px] text-neutral-400 ml-1"></i>
           </button>
 
-          <!-- DROPDOWN PERFIL & REALTERNAÇÃO RÁPIDA DE CONTAS -->
-          <div id="dropdown-user-menu" class="hidden absolute right-0 mt-2 w-72 bg-darkCard border border-gold/40 rounded-2xl shadow-2xl p-3 z-50 space-y-2 text-xs">
+          <!-- DROPDOWN PERFIL SEGURO DE LOGOUT -->
+          <div id="dropdown-user-menu" class="hidden absolute right-0 mt-2 w-72 bg-darkCard border border-gold/40 rounded-2xl shadow-2xl p-3 z-50 space-y-3 text-xs">
             <div class="pb-2 border-b border-white/10">
-              <span class="text-[10px] uppercase font-bold text-neutral-400 block">Conta Ativa</span>
+              <span class="text-[10px] uppercase font-bold text-neutral-400 block">Conta Logada</span>
               <span id="drop-user-email" class="font-mono text-gold font-bold block truncate">Clique abaixo para entrar com Google ou Senha</span>
             </div>
 
-            <span class="text-[10px] uppercase font-bold text-neutral-400 block pt-1">⚡ Alternar Perfil de Teste (1 Clique)</span>
-            <div class="space-y-1">
-              <button onclick="switchAccount('developer')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
-                <span>👑</span> <span>Desenvolvedor Master</span>
-              </button>
-              <button onclick="switchAccount('owner')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
-                <span>💼</span> <span>Dono / Proprietário</span>
-              </button>
-              <button onclick="switchAccount('barber')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
-                <span>💈</span> <span>Barbeiro (Hugo Freitas)</span>
-              </button>
-              <button onclick="switchAccount('client')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
-                <span>👤</span> <span>Cliente (Cliente Vip 1)</span>
-              </button>
-            </div>
-
-            <div class="pt-2 border-t border-white/10 flex gap-2">
-              <button onclick="openModal('modal-login'); document.getElementById('dropdown-user-menu').classList.add('hidden');" class="flex-1 text-center p-2 rounded-xl bg-gold text-black font-extrabold hover:bg-goldHover transition">
+            <div class="pt-1 flex flex-col gap-2">
+              <button onclick="openModal('modal-login'); document.getElementById('dropdown-user-menu').classList.add('hidden');" class="w-full text-center p-2.5 rounded-xl bg-gold text-black font-extrabold hover:bg-goldHover transition">
                 🔐 Login / Google
               </button>
-              <button onclick="logoutAccount()" class="text-center p-2 rounded-xl bg-red-950/60 text-red-400 font-bold hover:bg-red-900 transition">
-                🚪 Sair
+              <button onclick="logoutAccount()" class="w-full text-center p-2.5 rounded-xl bg-red-950/80 text-red-400 font-bold border border-red-500/40 hover:bg-red-900 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-right-from-bracket"></i> 🚪 Sair da Conta (Logout)
               </button>
             </div>
           </div>
@@ -536,23 +520,31 @@
         </div>
       </div>
 
-      <!-- TAB 8: FINANCEIRO -->
+      <!-- TAB 8: FINANCEIRO DA EMPRESA (COM DETALHAMENTO DE SERVIÇOS E COMISSÕES) -->
       <div id="tab-financeiro" class="tab-content hidden space-y-4">
-        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl">
-          <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-wallet text-gold"></i> Relatório de Vendas & Comissões</h3>
+        <div class="bg-darkCard p-6 rounded-3xl border border-white/10 shadow-xl space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-wallet text-gold"></i> Relatório de Vendas, Serviços & Comissões</h3>
+              <p class="text-xs text-neutral-400 mt-0.5">Visão gerencial da barbearia com detalhamento de cada atendimento, barbeiro responsável e comissões</p>
+            </div>
+          </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-neutral-300">
               <thead class="bg-black/50 text-gold uppercase text-[10px] font-extrabold">
                 <tr>
                   <th class="p-3">Data</th>
-                  <th class="p-3">Item / Serviço</th>
+                  <th class="p-3">Cliente</th>
+                  <th class="p-3">Barbeiro</th>
+                  <th class="p-3">Item / Serviço Realizado</th>
                   <th class="p-3">Tipo</th>
                   <th class="p-3">Forma de Pagamento</th>
-                  <th class="p-3 text-right">Valor Total</th>
+                  <th class="p-3 text-right">Comissão Barbeiro</th>
+                  <th class="p-3 text-right font-bold text-white">Valor Total</th>
                 </tr>
               </thead>
               <tbody id="table-vendas" class="divide-y divide-white/5">
-                <!-- Renderizado via JS -->
+                <!-- Renderizado via JS com detalhes completos -->
               </tbody>
             </table>
           </div>
@@ -616,12 +608,14 @@
 
           <!-- EXTRATO DE MOVIMENTAÇÃO FINANCEIRA DEV -->
           <div>
-            <h4 class="text-xs font-extrabold text-white uppercase tracking-wider mb-3"><i class="fa-solid fa-list-numeric text-gold mr-1"></i> Extrato de Movimentação & Royalties Calculados</h4>
+            <h4 class="text-xs font-extrabold text-white uppercase tracking-wider mb-3"><i class="fa-solid fa-list-numeric text-gold mr-1"></i> Detalhamento Completo dos Serviços & Royalties Calculados</h4>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs text-neutral-300">
                 <thead class="bg-black/60 text-gold uppercase text-[10px] font-extrabold">
                   <tr>
                     <th class="p-3">Data</th>
+                    <th class="p-3">Cliente</th>
+                    <th class="p-3">Barbeiro</th>
                     <th class="p-3">Item / Serviço</th>
                     <th class="p-3">Tipo</th>
                     <th class="p-3">Pagamento</th>
@@ -642,24 +636,24 @@
     </main>
   </div>
 
-  <!-- MODAL: LOGIN / TROCAR DE CONTA & GOOGLE AUTH -->
+  <!-- MODAL: LOGIN & AUTENTICAÇÃO SEGURA (SEM NENHUM BOTÃO DE TROCA RÁPIDA) -->
   <div id="modal-login" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h3 class="text-lg font-black text-white flex items-center gap-2">🔐 Login & Autenticação</h3>
-          <p class="text-xs text-neutral-400">Selecione qualquer conta do Google ou Perfil de Teste</p>
+          <h3 class="text-lg font-black text-white flex items-center gap-2">🔐 Login & Autenticação Segura</h3>
+          <p class="text-xs text-neutral-400">Entre com a sua Conta do Google para acessar o painel</p>
         </div>
         <button onclick="closeModal('modal-login')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
       <!-- SEÇÃO GOOGLE AUTH OFICIAL -->
-      <div class="mb-5 p-4 rounded-2xl bg-black/50 border border-gold/30 text-center space-y-3">
+      <div class="p-6 rounded-2xl bg-black/50 border border-gold/30 text-center space-y-4">
         <div class="flex items-center justify-center gap-2 text-gold font-extrabold text-xs uppercase tracking-wider">
-          <i class="fa-brands fa-google text-sm"></i> Login com Conta do Google
+          <i class="fa-brands fa-google text-sm"></i> Entre com a sua Conta do Google
         </div>
 
-        <div class="g_id_signin flex justify-center pt-1"
+        <div class="g_id_signin flex justify-center pt-2"
              data-type="standard"
              data-shape="pill"
              data-theme="filled_black"
@@ -667,33 +661,10 @@
              data-size="large"
              data-logo_alignment="left">
         </div>
-      </div>
-
-      <!-- OU DIVISOR -->
-      <div class="relative flex py-2 items-center">
-        <div class="flex-grow border-t border-white/10"></div>
-        <span class="flex-shrink mx-3 text-[10px] text-neutral-500 font-extrabold uppercase">Ou Escolha um Perfil de Teste em 1 Clique</span>
-        <div class="flex-grow border-t border-white/10"></div>
-      </div>
-
-      <!-- TROCA RÁPIDA DE CONTAS DE TESTE -->
-      <div class="grid grid-cols-2 gap-2 mt-3">
-        <button onclick="switchAccount('developer')" class="p-3 rounded-2xl border border-purple-500/40 bg-purple-950/20 text-purple-300 font-bold text-xs hover:bg-purple-900/40 transition text-left flex flex-col justify-between">
-          <span class="text-base">👑</span>
-          <span class="mt-2 block">Desenvolvedor</span>
-        </button>
-        <button onclick="switchAccount('owner')" class="p-3 rounded-2xl border border-gold/40 bg-gold/10 text-gold font-bold text-xs hover:bg-gold/20 transition text-left flex flex-col justify-between">
-          <span class="text-base">💼</span>
-          <span class="mt-2 block">Proprietário (Dono)</span>
-        </button>
-        <button onclick="switchAccount('barber')" class="p-3 rounded-2xl border border-blue-500/40 bg-blue-950/20 text-blue-300 font-bold text-xs hover:bg-blue-900/40 transition text-left flex flex-col justify-between">
-          <span class="text-base">💈</span>
-          <span class="mt-2 block">Barbeiro (Hugo)</span>
-        </button>
-        <button onclick="switchAccount('client')" class="p-3 rounded-2xl border border-white/20 bg-white/5 text-neutral-300 font-bold text-xs hover:bg-white/10 transition text-left flex flex-col justify-between">
-          <span class="text-base">👤</span>
-          <span class="mt-2 block">Cliente Vip</span>
-        </button>
+        
+        <p class="text-[11px] text-neutral-400 mt-2">
+          🔒 Por motivos de segurança, o acesso é autenticado individualmente via Google Auth ou pelo proprietário cadastrado.
+        </p>
       </div>
 
     </div>
@@ -1007,7 +978,7 @@
       }
     }
 
-    // GESTÃO DE CONTA LOGADA & SESSÃO (SEM AUTOPREENCHER NENHUM E-MAIL PADRÃO)
+    // GESTÃO DE CONTA LOGADA & SESSÃO SEGURA
     let currentUser = JSON.parse(localStorage.getItem('marcio_user')) || null;
 
     function updateHeaderUserUI() {
@@ -1027,7 +998,7 @@
       if (!currentUser) {
         nameEl.textContent = 'Escolha sua Conta...';
         roleEl.textContent = '🔑 Clique para Logar';
-        dropEmailEl.textContent = 'Selecione sua conta no Google ou escolha um Perfil de Teste';
+        dropEmailEl.textContent = 'Selecione sua conta no Google para autenticar';
         avatarEl.textContent = '👤';
       } else {
         nameEl.textContent = currentUser.name || 'Usuário Logado';
@@ -1041,7 +1012,7 @@
         }
       }
 
-      // EXIBIR OU OCULTAR GUIA EXCLUSIVA DO DEVELOPER DE ROYALTIES SAAS
+      // EXIBIR OU OCULTAR GUIA EXCLUSIVA DO DEVELOPER DE ROYALTIES SAAS (APENAS PARA ROLE === DEVELOPER)
       const devTabs = document.querySelectorAll('.dev-only-tab');
       devTabs.forEach(el => {
         if (currentUser && currentUser.role === 'developer') {
@@ -1050,24 +1021,6 @@
           el.classList.add('hidden');
         }
       });
-    }
-
-    const testAccounts = {
-      developer: { id: 1, name: 'Márcio Top Barber (HelpUS)', email: 'helpus.ecommerce@gmail.com', role: 'developer', avatar: '/images/marcio.jpg' },
-      owner: { id: 2, name: 'Administrador Proprietário', email: 'marcio@marciotopbarber.com', role: 'owner', avatar: '/images/marcio.jpg' },
-      barber: { id: 3, name: 'Hugo Freitas', email: 'hugo@barber.com', role: 'barber', avatar: '' },
-      client: { id: 4, name: 'Cliente Vip 1', email: 'clientevip1@gmail.com', role: 'client', avatar: '' }
-    };
-
-    function switchAccount(role) {
-      if (testAccounts[role]) {
-        currentUser = testAccounts[role];
-        localStorage.setItem('marcio_user', JSON.stringify(currentUser));
-        updateHeaderUserUI();
-        document.getElementById('dropdown-user-menu').classList.add('hidden');
-        closeModal('modal-login');
-        alert(`Conta alterada com sucesso para: ${currentUser.name} (${currentUser.role.toUpperCase()})`);
-      }
     }
 
     function logoutAccount() {
@@ -1099,7 +1052,7 @@
           localStorage.setItem('marcio_user', JSON.stringify(currentUser));
           updateHeaderUserUI();
           closeModal('modal-login');
-          alert(`✅ Autenticado com sucesso via Google como: ${currentUser.name} (${currentUser.role.toUpperCase()})`);
+          alert(`✅ Autenticado com sucesso como: ${currentUser.name} (${currentUser.role.toUpperCase()})`);
         }
       } catch (err) {
         console.error('Erro no Google Login:', err);
@@ -1124,12 +1077,17 @@
       barbeiros: '💈 Equipe de Barbeiros',
       servicos: '📋 Catálogo de Serviços',
       produtos: '📦 Estoque de Produtos',
-      financeiro: '💰 Vendas & Comissões',
+      financeiro: '💰 Vendas, Serviços Realizados & Comissões',
       galeria: '📸 Fotos da Galeria do Site',
       'royalties-dev': '👑 Royalties & Faturamento do Desenvolvedor (SaaS)'
     };
 
     function switchTab(tabId) {
+      if (tabId === 'royalties-dev' && (!currentUser || currentUser.role !== 'developer')) {
+        alert('🚫 Acesso Negado: Esta área é exclusiva do Desenvolvedor Master da plataforma.');
+        return;
+      }
+
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.nav-item').forEach(el => {
         el.classList.remove('active', 'border-gold', 'bg-gold/10', 'text-gold');
@@ -1166,7 +1124,9 @@
 
         document.getElementById('table-royalties-dev').innerHTML = (res.transacoes || []).map(t => `
           <tr>
-            <td class="p-3 font-mono">${t.data}</td>
+            <td class="p-3 font-mono text-neutral-400">${t.data}</td>
+            <td class="p-3 font-bold text-white">${t.cliente}</td>
+            <td class="p-3 font-bold text-gold">${t.barbeiro}</td>
             <td class="p-3 font-bold text-white">${t.item}</td>
             <td class="p-3 uppercase text-[10px] font-bold text-gold">${t.tipo}</td>
             <td class="p-3">${t.forma_pgto}</td>
@@ -1321,13 +1281,16 @@
           </tr>
         `).join('');
 
-        // FINANCEIRO VENDAS
+        // FINANCEIRO VENDAS DA EMPRESA (DETALHAMENTO DE CADA ATENDIMENTO/SERVIÇO)
         document.getElementById('table-vendas').innerHTML = (finRes.sales || []).map(v => `
           <tr>
-            <td class="p-3">${v.data}</td>
+            <td class="p-3 font-mono text-neutral-400">${v.data}</td>
+            <td class="p-3 font-bold text-white">${v.cliente || 'Cliente Balcão'}</td>
+            <td class="p-3 font-bold text-gold">${v.barbeiro || 'Márcio Top Barber'}</td>
             <td class="p-3 font-bold text-white">${v.item}</td>
             <td class="p-3 uppercase text-[10px] font-bold text-gold">${v.tipo}</td>
             <td class="p-3">${v.forma_pgto}</td>
+            <td class="p-3 text-right font-bold text-yellow-400">R$ ${(v.comissao_barbeiro || 0).toFixed(2)}</td>
             <td class="p-3 text-right font-bold text-green-400">R$ ${(v.valor_total || 0).toFixed(2)}</td>
           </tr>
         `).join('');
