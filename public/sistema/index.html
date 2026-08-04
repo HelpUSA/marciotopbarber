@@ -564,32 +564,30 @@
         <button onclick="closeModal('modal-login')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
-      <!-- BOTÃO OFICIAL GOOGLE SIGN-IN -->
-      <div class="mb-5 p-4 rounded-2xl bg-black/40 border border-white/10 text-center space-y-3">
-        <span class="text-xs font-bold text-neutral-300 block">Entrar com a sua Conta Google</span>
-        
-        <div id="g_id_onload"
-             data-client_id="812202824664-marciotopbarber.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="popup"
-             data-callback="handleGoogleLoginResponse"
-             data-auto_prompt="false">
+      <!-- SEÇÃO GUIA DE CONFIGURAÇÃO GOOGLE OAUTH E BOTÃO -->
+      <div class="mb-5 p-4 rounded-2xl bg-black/50 border border-gold/30 text-center space-y-3">
+        <div class="flex items-center justify-center gap-2 text-gold font-extrabold text-xs uppercase tracking-wider">
+          <i class="fa-brands fa-google text-sm"></i> Login com Conta do Google
         </div>
+        
+        <p class="text-[11px] text-neutral-300 leading-relaxed text-left bg-darkCard p-3 rounded-xl border border-white/10">
+          <strong>💡 Como ativar no seu Google Console:</strong><br>
+          Para o Google aprovar o login no seu domínio, basta adicionar os domínios abaixo no <a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="text-gold underline font-bold">Google Cloud Console</a> como <em>"Origens JavaScript autorizadas"</em>:
+          <span class="block mt-1 font-mono text-[10px] text-gold select-all bg-black/60 p-1.5 rounded">https://marciotopbarber.helpusbr.com</span>
+        </p>
 
-        <div class="g_id_signin flex justify-center"
-             data-type="standard"
-             data-shape="pill"
-             data-theme="filled_black"
-             data-text="signin_with"
-             data-size="large"
-             data-logo_alignment="left">
+        <!-- BOTÃO GOOGLE AUTH -->
+        <div class="flex justify-center pt-1">
+          <button onclick="tryGoogleLoginPrompt()" class="w-full py-2.5 px-4 rounded-xl bg-white text-black font-extrabold text-xs hover:bg-neutral-200 transition shadow flex items-center justify-center gap-2">
+            <i class="fa-brands fa-google text-red-500 text-sm"></i> Entrar com a sua Conta Google
+          </button>
         </div>
       </div>
 
       <!-- OU DIVISOR -->
       <div class="relative flex py-2 items-center">
         <div class="flex-grow border-t border-white/10"></div>
-        <span class="flex-shrink mx-3 text-[10px] text-neutral-500 font-extrabold uppercase">Ou Escolha uma Conta de Teste</span>
+        <span class="flex-shrink mx-3 text-[10px] text-neutral-500 font-extrabold uppercase">Ou Teste Instantaneamente em 1 Clique</span>
         <div class="flex-grow border-t border-white/10"></div>
       </div>
 
@@ -965,6 +963,14 @@
       updateHeaderUserUI();
       document.getElementById('dropdown-user-menu').classList.add('hidden');
       openModal('modal-login');
+    }
+
+    function tryGoogleLoginPrompt() {
+      if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.prompt();
+      } else {
+        alert('O SDK do Google Login está pronto! Adicione a URL https://marciotopbarber.helpusbr.com nas Origens Autorizadas do seu Google Cloud Console.');
+      }
     }
 
     // GOOGLE AUTH CALLBACK HANDLER
