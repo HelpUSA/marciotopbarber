@@ -38,7 +38,7 @@ const memoryStore = {
       tenant_id: 1,
       name: 'Márcio Top Barber (HelpUS)',
       email: 'helpus.ecommerce@gmail.com',
-      google_id: '812202824664',
+      google_id: '812202824664-cnh072h6rkto1je3ouspq08qo73c674n',
       password: '@dmLocal1993',
       role: 'developer',
       phone: '(83) 98739-2265',
@@ -193,14 +193,49 @@ async function runExec(sql, params, tableKey, memoryObj) {
   return memoryObj;
 }
 
+// GARANTIR CONSISTÊNCIA SEM REPETIÇÃO DE E-MAILS E CONCESSÃO DE DEVELOPER PARA HELPUS
+function deduplicateAndFixUsers() {
+  const masterEmail = 'helpus.ecommerce@gmail.com';
+  const masterUser = memoryStore.users.find(u => u.email.toLowerCase() === masterEmail);
+  
+  if (masterUser) {
+    masterUser.role = 'developer';
+    masterUser.name = 'Márcio Top Barber (HelpUS)';
+  }
+
+  // Filtrar duplicatas por e-mail case-insensitive
+  const seenEmails = new Set();
+  const cleanUsers = [];
+  for (const u of memoryStore.users) {
+    const lower = (u.email || '').toLowerCase().trim();
+    if (!seenEmails.has(lower)) {
+      seenEmails.add(lower);
+      if (lower === masterEmail) u.role = 'developer';
+      cleanUsers.push(u);
+    }
+  }
+  memoryStore.users = cleanUsers;
+}
+deduplicateAndFixUsers();
+
 // REST APIS: AUTHENTICATION & LOGIN (GOOGLE SIGN-IN + EMAIL/PASSWORD)
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
+  deduplicateAndFixUsers();
   const users = await queryAll('SELECT * FROM users', [], 'users');
-  const user = users.find(u => u.email === email && (u.password === password || password === '123' || password === '@dmLocal1993'));
+  
+  const user = users.find(u => 
+    (u.email || '').toLowerCase().trim() === (email || '').toLowerCase().trim() && 
+    (u.password === password || password === '123' || password === '@dmLocal1993')
+  );
   
   if (!user) {
     return res.status(401).json({ error: 'E-mail ou senha incorretos' });
+  }
+
+  // Forçar desenvolvedor para helpus
+  if ((user.email || '').toLowerCase().trim() === 'helpus.ecommerce@gmail.com') {
+    user.role = 'developer';
   }
 
   res.json({
@@ -218,19 +253,30 @@ app.post('/api/auth/login', async (req, res) => {
 
 app.post('/api/auth/google', async (req, res) => {
   const { credential, email, name, picture, google_id } = req.body;
+  deduplicateAndFixUsers();
+  const cleanEmail = (email || '').toLowerCase().trim();
+  const isMaster = cleanEmail === 'helpus.ecommerce@gmail.com';
+
   const users = await queryAll('SELECT * FROM users', [], 'users');
-  let user = users.find(u => u.email === email || (google_id && u.google_id === google_id));
+  let user = users.find(u => (u.email || '').toLowerCase().trim() === cleanEmail || (google_id && u.google_id === google_id));
 
   if (!user) {
+    // Se não existir, cria o usuário com papel de 'developer' para master, ou 'client' para outros
     user = await runExec(
-      'INSERT INTO users (tenant_id, name, email, password, role, google_id, avatar, status) VALUES (1, ?, ?, "google_auth", "client", ?, ?, "Ativo")',
-      [name || 'Usuário Google', email, google_id || '812202824664', picture || ''],
+      'INSERT INTO users (tenant_id, name, email, password, role, google_id, avatar, status) VALUES (1, ?, ?, "google_auth", ?, ?, ?, "Ativo")',
+      [name || 'Usuário Google', cleanEmail, isMaster ? 'developer' : 'client', google_id || null, picture || ''],
       'users',
-      { tenant_id: 1, name: name || 'Usuário Google', email, password: 'google_auth', role: 'client', google_id: google_id || '812202824664', avatar: picture || '', status: 'Ativo' }
+      { tenant_id: 1, name: name || 'Usuário Google', email: cleanEmail, password: 'google_auth', role: isMaster ? 'developer' : 'client', google_id: google_id || null, avatar: picture || '', status: 'Ativo' }
     );
-  } else if (!user.google_id && google_id) {
-    user.google_id = google_id;
-    if (sqliteInstance) sqliteInstance.run('UPDATE users SET google_id = ? WHERE id = ?', [google_id, user.id]);
+  } else {
+    // Se já existir, apenas atualiza foto e vincula google_id sem duplicar o usuário!
+    if (google_id) user.google_id = google_id;
+    if (picture) user.avatar = picture;
+    if (isMaster) user.role = 'developer'; // REGRA DE OURO: helpus.ecommerce@gmail.com é sempre Desenvolvedor Master!
+    
+    if (sqliteInstance) {
+      sqliteInstance.run('UPDATE users SET google_id = ?, avatar = ?, role = ? WHERE id = ?', [user.google_id, user.avatar, user.role, user.id]);
+    }
   }
 
   res.json({
@@ -248,6 +294,7 @@ app.post('/api/auth/google', async (req, res) => {
 
 // REST APIS: USERS UNIFICADOS (TODOS OS PAPÉIS NO MESMO BANCO UNIFICADO)
 app.get('/api/users', async (req, res) => {
+  deduplicateAndFixUsers();
   const { role } = req.query;
   const rows = await queryAll('SELECT * FROM users ORDER BY id ASC', [], 'users');
   const list = rows.length ? rows : memoryStore.users;
@@ -259,11 +306,24 @@ app.get('/api/users', async (req, res) => {
 
 app.post('/api/users', async (req, res) => {
   const { name, email, password, role, phone, specialty, pix_key, google_id } = req.body;
+  const cleanEmail = (email || '').toLowerCase().trim();
+  deduplicateAndFixUsers();
+
+  const existing = memoryStore.users.find(u => (u.email || '').toLowerCase().trim() === cleanEmail);
+  if (existing) {
+    // Se o usuário já existir, apenas atualiza seus atributos ao invés de duplicar!
+    existing.name = name || existing.name;
+    existing.role = role || existing.role;
+    existing.phone = phone || existing.phone;
+    if (cleanEmail === 'helpus.ecommerce@gmail.com') existing.role = 'developer';
+    return res.json(existing);
+  }
+
   const created = await runExec(
     'INSERT INTO users (tenant_id, name, email, password, role, phone, avatar, specialty, pix_key, fidelity_cards, status, google_id) VALUES (1, ?, ?, ?, ?, ?, "", ?, ?, 1, "Ativo", ?)',
-    [name, email, password || '123', role || 'client', phone || '', specialty || '', pix_key || '', google_id || null],
+    [name, cleanEmail, password || '123', role || 'client', phone || '', specialty || '', pix_key || '', google_id || null],
     'users',
-    { tenant_id: 1, name, email, password: password || '123', role: role || 'client', phone: phone || '', avatar: '', specialty: specialty || '', pix_key: pix_key || '', fidelity_cards: 1, status: 'Ativo', google_id: google_id || null }
+    { tenant_id: 1, name, email: cleanEmail, password: password || '123', role: role || 'client', phone: phone || '', avatar: '', specialty: specialty || '', pix_key: pix_key || '', fidelity_cards: 1, status: 'Ativo', google_id: google_id || null }
   );
   res.status(201).json(created);
 });
