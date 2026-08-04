@@ -48,12 +48,13 @@
 </head>
 <body class="bg-darkBg text-neutral-100 font-sans min-h-screen flex flex-col md:flex-row selection:bg-gold selection:text-black custom-scrollbar">
 
-  <!-- GOOGLE AUTH CLIENT ID CONFIGURAÇÃO DIRETA -->
+  <!-- GOOGLE AUTH CLIENT ID CONFIGURAÇÃO DIRETA (SEM E-MAIL PADRÃO, SELEÇÃO LIVRE PELO USUÁRIO) -->
   <div id="g_id_onload"
        data-client_id="812202824664-cnh072h6rkto1je3ouspq08qo73c674n.apps.googleusercontent.com"
        data-context="signin"
        data-ux_mode="popup"
        data-callback="handleGoogleLoginResponse"
+       data-auto_select="false"
        data-auto_prompt="false">
   </div>
 
@@ -153,9 +154,15 @@
 
     </nav>
 
-    <!-- FOOTER DA SIDEBAR COM PERFIL & BOTÃO DE SAIR DA CONTA -->
+    <!-- FOOTER DA SIDEBAR COM INDICAÇÃO DE AMBIENTE & BOTÃO DE SAIR DA CONTA -->
     <div class="p-4 border-t border-white/10 space-y-3">
-      <a href="/" target="_blank" class="w-full py-2.5 px-3 rounded-xl border border-gold/40 bg-gold/10 text-gold font-extrabold text-xs hover:bg-gold/20 transition flex items-center justify-center gap-2">
+      <!-- BADGE DE AMBIENTE DE DESENVOLVIMENTO / PRODUÇÃO -->
+      <div id="env-badge-container" class="px-3 py-1.5 rounded-xl bg-gold/10 border border-gold/40 text-gold text-[10px] font-extrabold uppercase text-center tracking-wider flex items-center justify-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+        <span id="env-badge-text">🧪 DEV - AMBIENTE DE TESTES</span>
+      </div>
+
+      <a href="/" target="_blank" class="w-full py-2.5 px-3 rounded-xl border border-white/15 bg-black/40 text-white font-extrabold text-xs hover:border-gold hover:text-gold transition flex items-center justify-center gap-2">
         <i class="fa-solid fa-globe"></i> Ver Site Principal
       </a>
 
@@ -189,11 +196,11 @@
         <div class="relative">
           <button onclick="toggleUserDropdown()" class="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-black/60 border border-white/15 hover:border-gold/50 transition">
             <div id="header-user-avatar" class="w-7 h-7 rounded-full bg-gold/20 flex items-center justify-center text-gold text-xs font-bold border border-gold/40">
-              👑
+              👤
             </div>
             <div class="text-left">
-              <span id="header-user-name" class="text-xs font-extrabold text-white block leading-tight">Márcio Top Barber</span>
-              <span id="header-user-role" class="text-[9px] text-gold font-bold uppercase tracking-wider block">👑 Desenvolvedor</span>
+              <span id="header-user-name" class="text-xs font-extrabold text-white block leading-tight">Escolha sua Conta...</span>
+              <span id="header-user-role" class="text-[9px] text-gold font-bold uppercase tracking-wider block">🔑 Não Autenticado</span>
             </div>
             <i class="fa-solid fa-chevron-down text-[10px] text-neutral-400 ml-1"></i>
           </button>
@@ -201,11 +208,11 @@
           <!-- DROPDOWN PERFIL & REALTERNAÇÃO RÁPIDA DE CONTAS -->
           <div id="dropdown-user-menu" class="hidden absolute right-0 mt-2 w-72 bg-darkCard border border-gold/40 rounded-2xl shadow-2xl p-3 z-50 space-y-2 text-xs">
             <div class="pb-2 border-b border-white/10">
-              <span class="text-[10px] uppercase font-bold text-neutral-400 block">Conta Logada</span>
-              <span id="drop-user-email" class="font-mono text-gold font-bold block truncate">helpus.ecommerce@gmail.com</span>
+              <span class="text-[10px] uppercase font-bold text-neutral-400 block">Conta Ativa</span>
+              <span id="drop-user-email" class="font-mono text-gold font-bold block truncate">Clique abaixo para entrar com Google ou Senha</span>
             </div>
 
-            <span class="text-[10px] uppercase font-bold text-neutral-400 block pt-1">⚡ Troca Rápida de Conta (Testes)</span>
+            <span class="text-[10px] uppercase font-bold text-neutral-400 block pt-1">⚡ Alternar Perfil de Teste (1 Clique)</span>
             <div class="space-y-1">
               <button onclick="switchAccount('developer')" class="w-full text-left p-2 rounded-xl hover:bg-white/5 transition flex items-center gap-2 font-semibold">
                 <span>👑</span> <span>Desenvolvedor Master</span>
@@ -221,9 +228,12 @@
               </button>
             </div>
 
-            <div class="pt-2 border-t border-white/10">
-              <button onclick="logoutAccount()" class="w-full text-left p-2 rounded-xl bg-red-950/60 text-red-400 font-bold hover:bg-red-900 transition flex items-center gap-2">
-                <i class="fa-solid fa-right-from-bracket"></i> 🚪 Sair da Conta (Logout)
+            <div class="pt-2 border-t border-white/10 flex gap-2">
+              <button onclick="openModal('modal-login'); document.getElementById('dropdown-user-menu').classList.add('hidden');" class="flex-1 text-center p-2 rounded-xl bg-gold text-black font-extrabold hover:bg-goldHover transition">
+                🔐 Login / Google
+              </button>
+              <button onclick="logoutAccount()" class="text-center p-2 rounded-xl bg-red-950/60 text-red-400 font-bold hover:bg-red-900 transition">
+                🚪 Sair
               </button>
             </div>
           </div>
@@ -562,18 +572,18 @@
     </main>
   </div>
 
-  <!-- MODAL: LOGIN / TROCAR DE CONTA & GOOGLE AUTH -->
+  <!-- MODAL: LOGIN / TROCAR DE CONTA & GOOGLE AUTH (SEM NENHUM E-MAIL POR PADRÃO, SELEÇÃO LIVRE PELO USUÁRIO) -->
   <div id="modal-login" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h3 class="text-lg font-black text-white flex items-center gap-2">🔐 Login & Acesso ao Sistema</h3>
-          <p class="text-xs text-neutral-400">Escolha como deseja entrar ou testar o painel</p>
+          <h3 class="text-lg font-black text-white flex items-center gap-2">🔐 Login & Autenticação</h3>
+          <p class="text-xs text-neutral-400">Selecione qualquer conta do Google ou Perfil de Teste</p>
         </div>
         <button onclick="closeModal('modal-login')" class="text-neutral-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
-      <!-- SEÇÃO GOOGLE AUTH OFICIAL COM CLIENT ID DO HELPUS -->
+      <!-- SEÇÃO GOOGLE AUTH OFICIAL (QUALQUER CONTA PODE SER ESCOLHIDA) -->
       <div class="mb-5 p-4 rounded-2xl bg-black/50 border border-gold/30 text-center space-y-3">
         <div class="flex items-center justify-center gap-2 text-gold font-extrabold text-xs uppercase tracking-wider">
           <i class="fa-brands fa-google text-sm"></i> Login com Conta do Google
@@ -592,7 +602,7 @@
       <!-- OU DIVISOR -->
       <div class="relative flex py-2 items-center">
         <div class="flex-grow border-t border-white/10"></div>
-        <span class="flex-shrink mx-3 text-[10px] text-neutral-500 font-extrabold uppercase">Ou Teste Instantaneamente em 1 Clique</span>
+        <span class="flex-shrink mx-3 text-[10px] text-neutral-500 font-extrabold uppercase">Ou Escolha um Perfil de Teste em 1 Clique</span>
         <div class="flex-grow border-t border-white/10"></div>
       </div>
 
@@ -619,7 +629,7 @@
     </div>
   </div>
 
-  <!-- DEMIAS MODAIS DA APLICAÇÃO -->
+  <!-- DEMAIS MODAIS DA APLICAÇÃO -->
   <div id="modal-usuario" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-darkCard p-6 rounded-3xl border border-gold/40 shadow-2xl">
       <div class="flex justify-between items-center mb-4">
@@ -915,32 +925,50 @@
       document.getElementById('nav-sections').classList.toggle('hidden');
     }
 
-    // GESTÃO DE CONTA LOGADA & SESSÃO
-    let currentUser = JSON.parse(localStorage.getItem('marcio_user')) || {
-      id: 1,
-      name: 'Márcio Top Barber (HelpUS)',
-      email: 'helpus.ecommerce@gmail.com',
-      role: 'developer',
-      avatar: '/images/marcio.jpg'
-    };
+    // AMBIENTE DE DESENVOLVIMENTO VS PRODUÇÃO
+    const isDevEnv = window.location.hostname.includes('dev') || window.location.hostname.includes('localhost') || window.location.hostname.includes('vercel.app');
+    const envBadgeText = document.getElementById('env-badge-text');
+    if (envBadgeText) {
+      if (isDevEnv) {
+        envBadgeText.textContent = '🧪 DEV - AMBIENTE DE TESTES';
+      } else {
+        envBadgeText.textContent = '🟢 AMBIENTE DE PRODUÇÃO';
+        document.getElementById('env-badge-container').className = 'px-3 py-1.5 rounded-xl bg-green-950/40 border border-green-500/40 text-green-400 text-[10px] font-extrabold uppercase text-center tracking-wider flex items-center justify-center gap-1.5';
+      }
+    }
+
+    // GESTÃO DE CONTA LOGADA & SESSÃO (SEM AUTOPREENCHER NENHUM E-MAIL PADRÃO)
+    let currentUser = JSON.parse(localStorage.getItem('marcio_user')) || null;
 
     function updateHeaderUserUI() {
       const rolesLabels = {
         developer: '👑 Desenvolvedor Master',
         owner: '💼 Dono da Empresa',
         barber: '💈 Barbeiro Specialist',
-        client: '👤 Cliente'
+        client: '👤 Cliente',
+        guest: '🔑 Não Autenticado'
       };
 
-      document.getElementById('header-user-name').textContent = currentUser.name;
-      document.getElementById('header-user-role').textContent = rolesLabels[currentUser.role] || currentUser.role;
-      document.getElementById('drop-user-email').textContent = currentUser.email;
-
+      const nameEl = document.getElementById('header-user-name');
+      const roleEl = document.getElementById('header-user-role');
+      const dropEmailEl = document.getElementById('drop-user-email');
       const avatarEl = document.getElementById('header-user-avatar');
-      if (currentUser.avatar && currentUser.avatar.startsWith('http')) {
-        avatarEl.innerHTML = `<img src="${currentUser.avatar}" class="w-full h-full rounded-full object-cover">`;
+
+      if (!currentUser) {
+        nameEl.textContent = 'Escolha sua Conta...';
+        roleEl.textContent = '🔑 Clique para Logar';
+        dropEmailEl.textContent = 'Selecione sua conta no Google ou escolha um Perfil de Teste';
+        avatarEl.textContent = '👤';
       } else {
-        avatarEl.textContent = (currentUser.name || 'U').charAt(0).toUpperCase();
+        nameEl.textContent = currentUser.name || 'Usuário Logado';
+        roleEl.textContent = rolesLabels[currentUser.role] || currentUser.role;
+        dropEmailEl.textContent = currentUser.email || 'Google Auth';
+
+        if (currentUser.avatar && currentUser.avatar.startsWith('http')) {
+          avatarEl.innerHTML = `<img src="${currentUser.avatar}" class="w-full h-full rounded-full object-cover">`;
+        } else {
+          avatarEl.textContent = (currentUser.name || 'U').charAt(0).toUpperCase();
+        }
       }
     }
 
@@ -964,7 +992,7 @@
 
     function logoutAccount() {
       localStorage.removeItem('marcio_user');
-      currentUser = { name: 'Visitante Deslogado', email: 'Não autenticado', role: 'guest', avatar: '' };
+      currentUser = null;
       updateHeaderUserUI();
       document.getElementById('dropdown-user-menu').classList.add('hidden');
       openModal('modal-login');
@@ -991,7 +1019,7 @@
           localStorage.setItem('marcio_user', JSON.stringify(currentUser));
           updateHeaderUserUI();
           closeModal('modal-login');
-          alert(`✅ Autenticado com sucesso via Google como: ${currentUser.name}`);
+          alert(`✅ Autenticado com sucesso via Google como: ${currentUser.name} (${currentUser.role.toUpperCase()})`);
         }
       } catch (err) {
         console.error('Erro no Google Login:', err);
